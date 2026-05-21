@@ -116,6 +116,16 @@
   .app-footer a:hover { text-decoration: underline; }
 
   /* RESPONSIVE */
+  /* DOC VIEWER (in-app iframe) */
+  .viewer { display: flex; flex-direction: column; flex: 1; min-height: 0; background: var(--white); }
+  .viewer-bar { display: flex; align-items: center; gap: 12px; padding: 10px 20px; background: var(--white); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .viewer-back { background: var(--light); border: 1px solid var(--border); border-radius: 6px; padding: 6px 14px; font-size: 9.5pt; font-weight: 600; color: var(--blue); cursor: pointer; transition: background .12s, border-color .12s; display: flex; align-items: center; gap: 6px; }
+  .viewer-back:hover { background: #e8f2f8; border-color: var(--blue); }
+  .viewer-title { font-size: 11pt; font-weight: 700; color: var(--dark); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .viewer-open-new { background: none; border: none; color: var(--blue); font-size: 9pt; cursor: pointer; padding: 6px 10px; border-radius: 4px; transition: background .12s; font-family: inherit; }
+  .viewer-open-new:hover { background: var(--light); text-decoration: underline; }
+  .viewer-frame { flex: 1; width: 100%; border: none; background: var(--white); min-height: 0; }
+
   @media (max-width: 700px) {
     .app-header { padding: 12px 16px; height: auto; flex-direction: column; align-items: stretch; gap: 12px; }
     .search-wrap { max-width: none; margin-left: 0; }
@@ -527,6 +537,7 @@ function App() {
       return JSON.parse(localStorage.getItem('sta_training_favs') || '[]');
     } catch { return []; }
   });
+  const [viewerDocId, setViewerDocId] = useState(null);
 
   useEffect(() => { localStorage.setItem('sta_training_aud', activeAud); }, [activeAud]);
   useEffect(() => { localStorage.setItem('sta_training_favs', JSON.stringify(favorites)); }, [favorites]);
@@ -534,6 +545,22 @@ function App() {
   const toggleFav = useCallback((docId) => {
     setFavorites(prev => prev.includes(docId) ? prev.filter(id => id !== docId) : [...prev, docId]);
   }, []);
+
+  const openDoc = useCallback((docId) => {
+    const doc = data.docs[docId];
+    if (!doc) return;
+    // Inline-viewable types load in the in-app iframe viewer
+    if (doc.type === 'html' || doc.type === 'md') {
+      setViewerDocId(docId);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    } else {
+      // docx, pptx, etc. browsers cannot iframe-render these - open in new tab so the
+      // browser's download/handler can process them
+      window.open(doc.file, '_blank', 'noopener,noreferrer');
+    }
+  }, [data.docs]);
+
+  const closeViewer = useCallback(() => setViewerDocId(null), []);
 
   // Search across all docs
   const searchResults = useMemo(() => {
@@ -562,30 +589,40 @@ function App() {
         hasFavorites={hasFavorites}
         favoritesCount={favorites.length}
       />
-      <div className="content">
-        {search.trim() ? (
-          <SearchResults
-            results={searchResults}
-            docs={data.docs}
-            favorites={favorites}
-            toggleFav={toggleFav}
-            query={search}
-          />
-        ) : activeAud === 'favorites' ? (
-          <FavoritesView
-            favorites={favorites}
-            docs={data.docs}
-            toggleFav={toggleFav}
-          />
-        ) : (
-          <AudienceView
-            audience={aud}
-            docs={data.docs}
-            favorites={favorites}
-            toggleFav={toggleFav}
-          />
-        )}
-      </div>
+      {viewerDocId ? (
+        <Viewer
+          doc={data.docs[viewerDocId]}
+          onClose={closeViewer}
+        />
+      ) : (
+        <div className="content">
+          {search.trim() ? (
+            <SearchResults
+              results={searchResults}
+              docs={data.docs}
+              favorites={favorites}
+              toggleFav={toggleFav}
+              openDoc={openDoc}
+              query={search}
+            />
+          ) : activeAud === 'favorites' ? (
+            <FavoritesView
+              favorites={favorites}
+              docs={data.docs}
+              toggleFav={toggleFav}
+              openDoc={openDoc}
+            />
+          ) : (
+            <AudienceView
+              audience={aud}
+              docs={data.docs}
+              favorites={favorites}
+              toggleFav={toggleFav}
+              openDoc={openDoc}
+            />
+          )}
+        </div>
+      )}
       <Footer />
     </div>
   );
@@ -639,7 +676,7 @@ function TabBar({ audiences, activeAud, setActiveAud, hasFavorites, favoritesCou
   );
 }
 
-function AudienceView({ audience, docs, favorites, toggleFav }) {
+function AudienceView({ audience, docs, favorites, toggleFav, openDoc }) {
   if (!audience) return null;
   return (
     <div>
@@ -664,6 +701,7 @@ function AudienceView({ audience, docs, favorites, toggleFav }) {
                   doc={doc}
                   isFav={favorites.includes(docId)}
                   toggleFav={toggleFav}
+                  openDoc={openDoc}
                 />
               );
             })}
@@ -674,7 +712,7 @@ function AudienceView({ audience, docs, favorites, toggleFav }) {
   );
 }
 
-function SearchResults({ results, docs, favorites, toggleFav, query }) {
+function SearchResults({ results, docs, favorites, toggleFav, openDoc, query }) {
   return (
     <div>
       <div className="aud-header">
@@ -696,6 +734,7 @@ function SearchResults({ results, docs, favorites, toggleFav, query }) {
               doc={docs[docId]}
               isFav={favorites.includes(docId)}
               toggleFav={toggleFav}
+              openDoc={openDoc}
             />
           ))}
         </div>
@@ -704,7 +743,7 @@ function SearchResults({ results, docs, favorites, toggleFav, query }) {
   );
 }
 
-function FavoritesView({ favorites, docs, toggleFav }) {
+function FavoritesView({ favorites, docs, toggleFav, openDoc }) {
   if (favorites.length === 0) {
     return (
       <div className="empty">
@@ -731,6 +770,7 @@ function FavoritesView({ favorites, docs, toggleFav }) {
               doc={doc}
               isFav={true}
               toggleFav={toggleFav}
+              openDoc={openDoc}
             />
           );
         })}
@@ -739,11 +779,11 @@ function FavoritesView({ favorites, docs, toggleFav }) {
   );
 }
 
-function DocCard({ docId, doc, isFav, toggleFav }) {
+function DocCard({ docId, doc, isFav, toggleFav, openDoc }) {
   const handleClick = (e) => {
     // Don't open doc when clicking the favorite button
     if (e.target.closest('.card-fav')) return;
-    window.open(doc.file, '_blank', 'noopener,noreferrer');
+    openDoc(docId);
   };
   const handleFavClick = (e) => {
     e.stopPropagation();
@@ -779,6 +819,36 @@ function DocCard({ docId, doc, isFav, toggleFav }) {
           <span key={t} className="pill pill-optional">{t}</span>
         ))}
       </div>
+    </div>
+  );
+}
+
+function Viewer({ doc, onClose }) {
+  if (!doc) return null;
+  const isMarkdown = doc.type === 'md';
+  // For markdown files, the browser may render as plain text. That's acceptable -
+  // the file is still readable. For HTML files the iframe renders the page normally.
+  return (
+    <div className="viewer">
+      <div className="viewer-bar">
+        <button className="viewer-back" onClick={onClose} title="Back to all docs">
+          ← Back
+        </button>
+        <div className="viewer-title">{doc.title}</div>
+        <button
+          className="viewer-open-new"
+          onClick={() => window.open(doc.file, '_blank', 'noopener,noreferrer')}
+          title="Open in a new tab"
+        >
+          Open in new tab ↗
+        </button>
+      </div>
+      <iframe
+        className="viewer-frame"
+        src={doc.file}
+        title={doc.title}
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+      />
     </div>
   );
 }
