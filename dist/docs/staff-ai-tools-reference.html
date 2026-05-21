@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI Tools - Staff Reference</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+    --purple: #6c3dbf;
+    --purple-light: #f0eafd;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+
+  .header { background: var(--blue); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--green); }
+  .header-inner { max-width: 940px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.82; margin-top: 6px; max-width: 640px; }
+  .header-meta { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .header-badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 14px; font-size: 12px; }
+
+  .page { max-width: 940px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  .toc { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 36px; }
+  .toc-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); margin-bottom: 12px; }
+  .toc-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .toc-links a { font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; background: #e8f2f8; border: 1px solid #c0d8ea; border-radius: 20px; padding: 3px 12px; }
+  .toc-links a:hover { background: var(--blue); color: white; }
+
+  .section-divider { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 48px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 14px 0; font-size: 13px; line-height: 1.65; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+  .callout.red { background: var(--red-light); border-left: 4px solid var(--red); }
+
+  .tool-block { background: white; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 28px; overflow: hidden; }
+  .tool-block-header { padding: 18px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 16px; }
+  .tool-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .tool-icon.blue { background: #e8f2f8; }
+  .tool-icon.green { background: #edf7e6; }
+  .tool-icon.orange { background: #fef4e0; }
+  .tool-icon.purple { background: var(--purple-light); }
+  .tool-meta { flex: 1; }
+  .tool-name { font-size: 17px; font-weight: 700; }
+  .tool-desc { font-size: 13px; color: #555; margin-top: 4px; line-height: 1.5; }
+  .tool-tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 9px; border-radius: 10px; }
+  .tag.live { background: #edf7e6; color: #2d6e1a; border: 1px solid #bde09e; }
+  .tag.coming { background: var(--purple-light); color: var(--purple); border: 1px solid #c8b4f0; }
+  .tag.web { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
+
+  .tool-body { padding: 20px 24px; }
+
+  .knowledge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .k-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .k-card-title { font-size: 12px; font-weight: 700; color: var(--blue); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .k-card-items { list-style: none; }
+  .k-card-items li { font-size: 12.5px; color: #444; padding: 3px 0; line-height: 1.5; display: flex; gap: 6px; }
+  .k-card-items li::before { content: "•"; color: var(--blue); flex-shrink: 0; }
+
+  .prompt-section { margin-top: 16px; }
+  .prompt-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--green); margin-bottom: 10px; }
+  .prompt-examples { display: flex; flex-direction: column; gap: 8px; }
+  .prompt-ex { background: #f4f8f2; border: 1px solid #d4edcc; border-radius: 8px; padding: 10px 14px; }
+  .prompt-ex-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); margin-bottom: 5px; }
+  .prompt-ex-text { font-size: 13px; font-style: italic; color: #2d4a20; line-height: 1.5; }
+
+  .cannot-do { background: #fafbfc; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 16px; }
+  .cannot-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); margin-bottom: 8px; }
+  .cannot-items { list-style: none; }
+  .cannot-items li { font-size: 12.5px; color: #666; padding: 3px 0; display: flex; gap: 6px; }
+  .cannot-items li::before { content: "✗"; color: var(--red); flex-shrink: 0; font-size: 11px; margin-top: 2px; }
+
+  .access-box { background: var(--blue); color: white; border-radius: 8px; padding: 12px 16px; margin-top: 16px; font-size: 13px; display: flex; align-items: center; gap: 12px; }
+  .access-box strong { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; display: block; margin-bottom: 3px; }
+
+  .rule-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; margin-bottom: 8px; display: flex; gap: 14px; align-items: flex-start; }
+  .rule-icon { font-size: 20px; flex-shrink: 0; }
+  .rule-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .rule-desc { font-size: 12.5px; color: #555; line-height: 1.55; }
+
+  .coming-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .coming-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; border-top: 3px solid var(--purple); }
+  .coming-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .coming-desc { font-size: 12.5px; color: #555; line-height: 1.5; margin-bottom: 8px; }
+  .coming-users { font-size: 11px; color: var(--gray); }
+  .coming-users strong { color: var(--dark); }
+
+  .route-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .route-table th { background: var(--dark); color: white; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; padding: 10px 16px; text-align: left; }
+  .route-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); font-size: 12.5px; vertical-align: top; line-height: 1.5; }
+  .route-table tr:last-child td { border-bottom: none; }
+  .route-table tr:nth-child(even) td { background: #fafbfc; }
+
+  code { background: #eef2f5; border-radius: 3px; padding: 1px 5px; font-size: 11.5px; font-family: 'SF Mono', Monaco, monospace; color: #2d4a5a; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 860px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 28px 16px; }
+    .knowledge-grid { grid-template-columns: 1fr; }
+    .coming-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>School Tech AI Tools - Staff Reference</h1>
+    <div class="sub">Everything available to you: what each tool knows, what you can ask it, and what's coming next.</div>
+    <div class="header-meta">
+      <div class="header-badge">Audience: All STA staff (Phase 1 cohort: Chris, Tyler, Tanya, Joanie, Kelsey)</div>
+      <div class="header-badge">Updated: 2026-05-21</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="toc">
+    <div class="toc-title">In This Guide</div>
+    <div class="toc-links">
+      <a href="#advisor">AI Advisor</a>
+      <a href="#support">STA Support Chat</a>
+      <a href="#cohort">STA Salesforce Cohort</a>
+      <a href="#coming">Coming Tools</a>
+      <a href="#data-rules">Data Rules</a>
+      <a href="#routing">When to Ask Who</a>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <strong>How AI tools work at School Tech:</strong> Every tool here has been built specifically for School Tech - it knows our products, our customers, our processes, and our tone. You don't need to explain context every time. Just ask naturally, like you're talking to a knowledgeable colleague. Each tool has a defined scope; the Routing section at the bottom shows which one to open for which question.
+  </div>
+
+  <!-- ===================== AI ADVISOR ===================== -->
+  <div class="section-divider" id="advisor">Tools Available Right Now</div>
+
+  <div class="tool-block">
+    <div class="tool-block-header">
+      <div class="tool-icon green">&#128161;</div>
+      <div class="tool-meta">
+        <div class="tool-name">AI Advisor</div>
+        <div class="tool-desc">Your starting point for AI at School Tech. Talk through your workflows, find out what AI could help with, and learn what tools exist or are being built. When you have an idea, it helps you frame it clearly to bring to Adam. If you walk through a real workflow step by step, the advisor will encourage you to document it in detail and send it to Adam - that documentation feeds the central AI knowledge base.</div>
+        <div class="tool-tags">
+          <span class="tag live">Live - All Staff</span>
+          <span class="tag web">Claude.ai Project</span>
+        </div>
+      </div>
+    </div>
+    <div class="tool-body">
+
+      <div style="font-size:13px; font-weight:700; margin-bottom:12px;">What the AI Advisor Knows</div>
+      <div class="knowledge-grid">
+        <div class="k-card">
+          <div class="k-card-title">Your Work Context</div>
+          <ul class="k-card-items">
+            <li>Who School Tech is and what we do</li>
+            <li>Our products, customers, and how the company operates</li>
+            <li>Who the team is and what each person's role involves</li>
+          </ul>
+        </div>
+        <div class="k-card">
+          <div class="k-card-title">The AI System</div>
+          <ul class="k-card-items">
+            <li>What tools are live, in development, and planned</li>
+            <li>What each tool does and who it's for</li>
+            <li>How Adam builds new tools and what that process looks like</li>
+          </ul>
+        </div>
+        <div class="k-card">
+          <div class="k-card-title">AI Possibilities</div>
+          <ul class="k-card-items">
+            <li>Where AI typically adds value in business workflows</li>
+            <li>What kinds of tasks AI handles well vs. not</li>
+            <li>Realistic expectations - what to expect and what not to</li>
+          </ul>
+        </div>
+        <div class="k-card">
+          <div class="k-card-title">The Roadmap</div>
+          <ul class="k-card-items">
+            <li>What's coming and who it's for</li>
+            <li>Why the AI program is being built the way it is</li>
+            <li>How to bring an idea to Adam so it can become a real tool</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="prompt-section">
+        <div class="prompt-section-title">Example Questions You Can Ask</div>
+        <div class="prompt-examples">
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Getting started</div>
+            <div class="prompt-ex-text">"I'm not sure where to start with AI. What could actually help with my day-to-day work?"</div>
+          </div>
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Exploring a workflow</div>
+            <div class="prompt-ex-text">"Every Monday I pull a Salesforce report and copy the numbers into a spreadsheet. Could AI help with that?"</div>
+          </div>
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Checking what exists</div>
+            <div class="prompt-ex-text">"Is there anything already built that could help with Salesforce admin work?"</div>
+          </div>
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Understanding the roadmap</div>
+            <div class="prompt-ex-text">"What AI tools are being built for staff? What's coming next?"</div>
+          </div>
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Bringing an idea to Adam</div>
+            <div class="prompt-ex-text">"I have an idea for something AI could help with - can you help me explain it to Adam?"</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cannot-do">
+        <div class="cannot-title">What the AI Advisor does not do</div>
+        <ul class="cannot-items">
+          <li>Build, write, or design AI tools - that is Adam's job</li>
+          <li>Promise that anything will be built or give timelines</li>
+          <li>Replace Adam's judgment on what gets built, in what order, or how</li>
+          <li>Draft customer emails or do support troubleshooting (that's STA Support Chat)</li>
+          <li>Help with Salesforce admin questions (that's STA Salesforce Cohort)</li>
+          <li>Access live systems, files, or real-time data</li>
+        </ul>
+      </div>
+
+      <div class="access-box">
+        <div>
+          <strong>How to Access</strong>
+          Log in at <strong>claude.ai</strong> with your work email &rarr; find "AI Advisor" in your Projects list &rarr; start a new conversation
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== STA SUPPORT CHAT ===================== -->
+  <div class="tool-block">
+    <div class="tool-block-header">
+      <div class="tool-icon blue">&#128221;</div>
+      <div class="tool-meta">
+        <div class="tool-name">STA Support Chat</div>
+        <div class="tool-desc">Shared support-team Claude.ai Project grounded in the STA Help Center across all product lines. Diagnoses product issues, walks through troubleshooting steps, drafts customer-facing replies, and answers product mechanics questions. Hard rule: NEVER FABRICATE - flags what it doesn't know rather than guessing. Source-label taxonomy on every answer (confirmed / inferred / unknown).</div>
+        <div class="tool-tags">
+          <span class="tag live">Live - Support Team</span>
+          <span class="tag web">Claude.ai Project</span>
+        </div>
+      </div>
+    </div>
+    <div class="tool-body">
+
+      <div style="font-size:13px; font-weight:700; margin-bottom:12px;">What STA Support Chat Knows</div>
+      <div class="knowledge-grid">
+        <div class="k-card">
+          <div class="k-card-title">Product Lines (16 context files)</div>
+          <ul class="k-card-items">
+            <li>Time Clocks (TT3, TT7, TT10) - configuration, sync, errors</li>
+            <li>SchoolTRAK, Tardy Kiosk, Positive Attendance</li>
+            <li>Food Service, Visitor Management, ID Badging</li>
+            <li>Transcript Labels, ID printers</li>
+          </ul>
+        </div>
+        <div class="k-card">
+          <div class="k-card-title">Diagnostic &amp; Mechanics</div>
+          <ul class="k-card-items">
+            <li>Help Center articles grounding every troubleshooting path</li>
+            <li>Skyward compatibility specifics</li>
+            <li>Product mechanics, remote access tools, SQL Server ecosystem</li>
+            <li>Coverage and routing rules across products</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="prompt-section">
+        <div class="prompt-section-title">Example Questions You Can Ask</div>
+        <div class="prompt-examples">
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Troubleshooting</div>
+            <div class="prompt-ex-text">"Customer reports TT7 time clocks stopped communicating after they switched internet providers last week. Red network light, no settings changed. What are the most likely causes and what should I have them check first?"</div>
+          </div>
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Customer email draft</div>
+            <div class="prompt-ex-text">"Draft a calm reply to this customer email about sync delays [paste]. They're frustrated; we're still diagnosing. Keep it under 5 sentences."</div>
+          </div>
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Product mechanics lookup</div>
+            <div class="prompt-ex-text">"How does Tardy Kiosk handle bell-schedule overrides on early dismissal days?"</div>
+          </div>
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Routing question</div>
+            <div class="prompt-ex-text">"District is on Skyward Qmlativ and asking about Food Service POS integration - what compatibility checks should I run first?"</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cannot-do">
+        <div class="cannot-title">What STA Support Chat does not do</div>
+        <ul class="cannot-items">
+          <li>Make up answers when it doesn't have grounding - it will say "I can't confirm this without checking [source]" instead</li>
+          <li>Replace your judgment on what to send a customer - drafts are starting points, not final replies</li>
+          <li>Access the live Salesforce case record or Help Center system directly - it works from the indexed context</li>
+          <li>Handle Salesforce admin / Flow questions (route those to STA Salesforce Cohort)</li>
+        </ul>
+      </div>
+
+      <div class="access-box">
+        <div>
+          <strong>Who has access &amp; How to Open</strong>
+          Chris Baker, Tyler Baughman, Adam Baker. Log in at <strong>claude.ai</strong> &rarr; find "STA Support Chat" in Projects &rarr; start a new conversation.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== STA SALESFORCE COHORT ===================== -->
+  <div class="tool-block">
+    <div class="tool-block-header">
+      <div class="tool-icon orange">&#9889;</div>
+      <div class="tool-meta">
+        <div class="tool-name">STA Salesforce Cohort</div>
+        <div class="tool-desc">Shared Salesforce reference and guidance assistant for STA's 4-person SF admin team. Step-by-step admin tasks, formula drafts, multi-approach tradeoffs, ambiguity clarification before answers. Source-label taxonomy on every answer. Heavy Flow design work routes back to Adam's Cowork-based Salesforce Admin Assistant.</div>
+        <div class="tool-tags">
+          <span class="tag live">Live - SF Admins</span>
+          <span class="tag web">Claude.ai Project</span>
+        </div>
+      </div>
+    </div>
+    <div class="tool-body">
+
+      <div style="font-size:13px; font-weight:700; margin-bottom:12px;">What STA Salesforce Cohort Knows</div>
+      <div class="knowledge-grid">
+        <div class="k-card">
+          <div class="k-card-title">SF Admin Domain</div>
+          <ul class="k-card-items">
+            <li>Standard and custom object configuration</li>
+            <li>Formula fields, validation rules, page layouts</li>
+            <li>Field-level security, profiles, permission sets</li>
+            <li>Reports, dashboards, list views</li>
+          </ul>
+        </div>
+        <div class="k-card">
+          <div class="k-card-title">STA-Specific Context</div>
+          <ul class="k-card-items">
+            <li>STA company &amp; team identity</li>
+            <li>STA Salesforce org topology &amp; installed packages</li>
+            <li>Flow ownership boundaries (Adam owns heavy design)</li>
+            <li>CPQ &amp; Spanning awareness (with elevated cautions)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="prompt-section">
+        <div class="prompt-section-title">Example Questions You Can Ask</div>
+        <div class="prompt-examples">
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Step-by-step admin task</div>
+            <div class="prompt-ex-text">"Walk me through adding a new custom field to the Opportunity object and exposing it on the page layout for the Sales profile only."</div>
+          </div>
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Formula draft</div>
+            <div class="prompt-ex-text">"Draft a formula field on Account that returns 'Renewal Year' if the contract end date is within 90 days, 'Active' otherwise."</div>
+          </div>
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Multi-approach tradeoff</div>
+            <div class="prompt-ex-text">"I need to enforce that Opportunity stage can't go to Closed Won without a signed contract attachment. Validation rule vs. Flow vs. required-field tradeoffs?"</div>
+          </div>
+          <div class="prompt-ex">
+            <div class="prompt-ex-label">Flow routing</div>
+            <div class="prompt-ex-text">"I want to build a record-triggered flow that auto-assigns Cases by product. Heavy enough to send to Adam?" (Answer: yes - the Cohort will route you back to Adam.)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cannot-do">
+        <div class="cannot-title">What STA Salesforce Cohort does not do</div>
+        <ul class="cannot-items">
+          <li>Execute changes in the org - reference and guidance only, you build in Salesforce yourself</li>
+          <li>Design heavy Flows from scratch - routes those back to Adam's Salesforce Admin Assistant</li>
+          <li>Confidently answer without org access when the question needs live record inspection - flags "Cannot confirm without org access" instead</li>
+          <li>Handle product support questions (route to STA Support Chat) or general staff questions (route to AI Advisor)</li>
+        </ul>
+      </div>
+
+      <div class="access-box">
+        <div>
+          <strong>Who has access &amp; How to Open</strong>
+          Adam Baker, Kelsey Eberly, Joanie Preston, Tanya Ballard. Log in at <strong>claude.ai</strong> &rarr; find "STA Salesforce Cohort" in Projects &rarr; start a new conversation.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== COMING TOOLS ===================== -->
+  <div class="section-divider" id="coming">Tools Coming Soon</div>
+
+  <p style="font-size:14px; color:#444; margin-bottom:16px; line-height:1.65;">In the build pipeline now. Have a question about timing or priority? Ask the AI Advisor.</p>
+
+  <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:18px 22px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px 32px;">
+      <div style="font-size:13px; color:#333; padding:6px 0; border-bottom:1px solid var(--border);"><strong>STA Main Chat</strong> <span style="color:var(--gray); font-size:12px;">- all staff</span><br><span style="font-size:12px; color:#555;">General School Tech questions, product lookups, org knowledge. The base brain other department-specific tools extend from. Draft status - instructions pending.</span></div>
+      <div style="font-size:13px; color:#333; padding:6px 0;"><strong>Department Workflow Guides</strong> <span style="color:var(--gray); font-size:12px;">- per department</span><br><span style="font-size:12px; color:#555;">One per team, built after the Department Workflow Planner intake is complete. Sequenced by department signup.</span></div>
+    </div>
+  </div>
+
+  <!-- ===================== DATA RULES ===================== -->
+  <div class="section-divider" id="data-rules">Data Rules - What Can and Cannot Go Into AI Tools</div>
+
+  <div class="callout red">
+    <strong>These rules are not optional.</strong> AI tools at School Tech are connected to Anthropic's Claude system. Treat them like a knowledgeable colleague - you wouldn't paste confidential data into a text message; apply the same standard here. The Claude Teams subscription does not train models on our conversations, but data still leaves School Tech's network in transit. Full rules in the AI Acceptable Use Policy and Restricted Data Reference Guide.
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-icon">&#128683;</div>
+    <div>
+      <div class="rule-title">Student data - never</div>
+      <div class="rule-desc">Student names, IDs, photos, attendance records, grades, or any data that came from a Skyward student record must NEVER be pasted into an AI tool. This includes support cases that contain student information - describe the issue in general terms without including the student-level data itself. If a case requires student data to resolve, handle it outside AI tools entirely.</div>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-icon">&#128683;</div>
+    <div>
+      <div class="rule-title">Employee PII - never</div>
+      <div class="rule-desc">School Tech staff Social Security numbers, payroll data, HR records, performance reviews, or personal identifiers (other than name and title) should not go into AI tools. Support cases about HR data from Skyward (payroll, employee records) fall under the same rule - describe the issue without including the actual record content.</div>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-icon">&#9888;&#65039;</div>
+    <div>
+      <div class="rule-title">Customer confidential data - use judgment</div>
+      <div class="rule-desc">Customer contact info (name, email, phone) and general case details are acceptable to use in AI tools for drafting and documentation. Do not paste full database exports, financial records, or anything a district would consider confidential internal data. When in doubt, describe the issue in general terms rather than pasting raw data.</div>
+    </div>
+  </div>
+
+  <div class="rule-card">
+    <div class="rule-icon">&#9989;</div>
+    <div>
+      <div class="rule-title">What's safe to use</div>
+      <div class="rule-desc">Product names, configuration settings, error messages, general case descriptions, customer company names, email drafts (describing an issue, not containing student data), meeting notes from implementation calls (without including student or employee data), internal process documents, and questions about how School Tech tools or products work. If it's the kind of thing you'd write on a whiteboard in a meeting, it's generally fine.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;">
+    <div class="callout orange">
+      <strong>Full policy:</strong> Read the <strong>AI Acceptable Use Policy</strong> (Training - Staff folder) for the complete rules. Read the <strong>Restricted Data Reference Guide</strong> for a full list of data categories that cannot go into AI tools.
+    </div>
+  </div>
+
+  <!-- ===================== ROUTING TABLE ===================== -->
+  <div class="section-divider" id="routing">Where to Go For What - Quick Routing Guide</div>
+
+  <p style="font-size:14px; color:#444; margin-bottom:16px; line-height:1.65;">Use this table when you're not sure which tool or person to go to.</p>
+
+  <table class="route-table">
+    <thead>
+      <tr><th>Situation</th><th>Where to Go</th><th>What to Bring</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>I don't know which AI tool to use</td>
+        <td><strong>AI Advisor</strong></td>
+        <td>Just describe the task you're trying to do</td>
+      </tr>
+      <tr>
+        <td>An AI tool gave me a wrong or strange answer</td>
+        <td>Tell <strong>Adam</strong> - or log it with the Agent Quality Logger if you have Cowork access</td>
+        <td>Screenshot of what the tool said, what you expected instead, which tool</td>
+      </tr>
+      <tr>
+        <td>I need to troubleshoot a product issue (TT clocks, SchoolTRAK, Tardy Kiosk, Food Service, etc.)</td>
+        <td><strong>STA Support Chat</strong></td>
+        <td>The product, the specific symptom, when it started, what's already been tried</td>
+      </tr>
+      <tr>
+        <td>I need to draft a customer email about a product issue</td>
+        <td><strong>STA Support Chat</strong></td>
+        <td>The customer email thread, the tone you want, what you need them to do next</td>
+      </tr>
+      <tr>
+        <td>I have a Salesforce admin question - field, formula, validation rule, layout</td>
+        <td><strong>STA Salesforce Cohort</strong></td>
+        <td>What you're trying to configure, what the goal is, what you've already tried</td>
+      </tr>
+      <tr>
+        <td>I need to build a heavy Salesforce Flow</td>
+        <td>Open <strong>STA Salesforce Cohort</strong> first - it'll route you back to <strong>Adam</strong></td>
+        <td>What the flow should do, what triggers it, what records it touches</td>
+      </tr>
+      <tr>
+        <td>I have a question about how one of our products works (mechanics, configuration, compatibility)</td>
+        <td><strong>STA Support Chat</strong> for product mechanics; <strong>AI Advisor</strong> for general "what is X"</td>
+        <td>Product name, the specific question, what context the question is for</td>
+      </tr>
+      <tr>
+        <td>I'd like to explore whether AI could help with one of my workflows</td>
+        <td><strong>AI Advisor</strong></td>
+        <td>The actual workflow, step by step, including frequency and any pain points</td>
+      </tr>
+      <tr>
+        <td>I want to build a new AI project or tool</td>
+        <td><strong>Adam</strong> - he runs the build pipeline through The Architect</td>
+        <td>Describe what you'd like the tool to do and who would use it</td>
+      </tr>
+      <tr>
+        <td>I think something sensitive was accidentally pasted into an AI tool</td>
+        <td><strong>Adam</strong> immediately</td>
+        <td>What was shared, which tool, when</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout green" style="margin-top:36px;">
+    <strong>One more thing:</strong> The AI system is still growing. New tools will be added over the next several months. When something new launches, Adam will update this guide and send an announcement. If you have an idea for a workflow that AI could help with, tell Adam or work through the AI Advisor to frame it - the pipeline is built to turn good ideas into tools quickly.
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; Staff AI Tools Reference &nbsp;|&nbsp; Updated 2026-05-21 &nbsp;|&nbsp; Questions: Adam Baker
+</div>
+
+</body>
+</html>

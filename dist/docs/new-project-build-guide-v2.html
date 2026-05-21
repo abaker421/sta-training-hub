@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - New Project Build Guide (v2)</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: var(--dark); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--blue); }
+  .header-inner { max-width: 960px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.75; margin-top: 6px; max-width: 620px; }
+  .header .badges { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 3px 12px; font-size: 12px; }
+  .header .badge.blue { background: rgba(0,96,152,0.4); border-color: rgba(0,96,152,0.6); }
+  .header .badge.green { background: rgba(107,192,75,0.35); border-color: rgba(107,192,75,0.6); }
+  .page { max-width: 960px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  /* TOC */
+  .toc { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 40px; }
+  .toc-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.1px; color: var(--gray); margin-bottom: 12px; }
+  .toc-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .toc-links a { font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; background: #e8f2f8; border: 1px solid #c0d8ea; border-radius: 20px; padding: 3px 12px; }
+  .toc-links a:hover { background: var(--blue); color: white; }
+
+  /* SECTION */
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.65; }
+
+  /* CALLOUTS */
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+  .callout.red { background: #fdf0ef; border-left: 4px solid var(--red); }
+
+  /* PIPELINE OVERVIEW */
+  .pipeline { display: flex; gap: 0; margin: 24px 0; overflow-x: auto; }
+  .pipeline-step { flex: 1; min-width: 130px; background: white; border: 1px solid var(--border); border-right: none; padding: 18px 16px; position: relative; }
+  .pipeline-step:first-child { border-radius: 8px 0 0 8px; }
+  .pipeline-step:last-child { border-right: 1px solid var(--border); border-radius: 0 8px 8px 0; }
+  .pipeline-step::after { content: "›"; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); font-size: 20px; color: var(--gray); z-index: 1; }
+  .pipeline-step:last-child::after { display: none; }
+  .pipeline-num { width: 26px; height: 26px; border-radius: 50%; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 8px; }
+  .pipeline-num.blue { background: var(--blue); }
+  .pipeline-num.green { background: var(--green); }
+  .pipeline-num.orange { background: var(--orange); }
+  .pipeline-name { font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .pipeline-tool { font-size: 11px; color: var(--gray); }
+
+  /* BUILD STEPS */
+  .build-step { background: white; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+  .build-step-header { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .build-step-num { width: 36px; height: 36px; border-radius: 50%; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0; }
+  .build-step-num.blue { background: var(--blue); }
+  .build-step-num.green { background: var(--green); }
+  .build-step-num.orange { background: var(--orange); }
+  .build-step-num.gray { background: var(--gray); }
+  .build-step-title { font-size: 15px; font-weight: 700; flex: 1; }
+  .build-step-tool { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 10px; border-radius: 10px; background: #e8f2f8; color: var(--blue); }
+  .build-step-body { padding: 16px 20px; }
+  .build-step-body p { font-size: 13px; color: #444; line-height: 1.6; margin-bottom: 10px; }
+  .build-step-body p:last-child { margin-bottom: 0; }
+  .outputs-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gray); margin-top: 12px; margin-bottom: 6px; }
+  .output-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .output-pill { font-size: 11px; background: #eef2f5; border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-family: 'SF Mono', Monaco, monospace; color: #2d4a5a; }
+  .prompt-block { background: #eef2f5; border-left: 3px solid var(--blue); border-radius: 4px; padding: 10px 12px; font-size: 11px; font-family: 'SF Mono', Monaco, 'Courier New', monospace; color: #2d4a5a; white-space: pre-wrap; line-height: 1.6; margin: 10px 0; }
+  .prompt-label { font-size: 10px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px; margin-bottom: 4px; }
+
+  /* WAVE BLOCK */
+  .wave-block { background: #f7fafd; border: 1px solid #c8dbeb; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 13px; }
+  .wave-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--blue); margin-bottom: 6px; }
+  .wave-block.gate { background: #fef4e0; border-color: #f0c477; }
+  .wave-block.gate .wave-label { color: #a06500; }
+
+  /* FILE MAP TABLE */
+  .file-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); font-size: 13px; margin-bottom: 16px; }
+  .file-table th { background: var(--light); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--gray); padding: 10px 16px; text-align: left; border-bottom: 2px solid var(--border); }
+  .file-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  .file-table tr:last-child td { border-bottom: none; }
+  .file-table code { background: #eef2f5; border-radius: 3px; padding: 1px 5px; font-size: 11px; font-family: 'SF Mono', Monaco, monospace; color: #2d4a5a; }
+
+  /* CRITERIA CARDS */
+  .criteria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .criteria-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .criteria-card.yes { border-top: 3px solid var(--green); }
+  .criteria-card.no { border-top: 3px solid var(--red); }
+  .criteria-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 12px; }
+  .criteria-label.green { color: #3a8a1e; }
+  .criteria-label.red { color: var(--red); }
+  .criteria-items { list-style: none; }
+  .criteria-items li { font-size: 13px; color: #444; padding: 5px 0 5px 20px; border-bottom: 1px solid var(--border); position: relative; line-height: 1.5; }
+  .criteria-items li:last-child { border-bottom: none; }
+  .criteria-card.yes .criteria-items li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  .criteria-card.no .criteria-items li::before { content: "✕"; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+  /* PITFALLS */
+  .pitfall { background: white; border: 1px solid var(--border); border-left: 4px solid var(--orange); border-radius: 0 8px 8px 0; padding: 12px 16px; margin-bottom: 10px; }
+  .pitfall-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .pitfall-desc { font-size: 12px; color: #555; line-height: 1.55; }
+
+  /* TARGET BADGE */
+  .target-badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; margin-left: 8px; vertical-align: middle; }
+  .target-badge.cowork { background: #e8f2f8; color: var(--blue); }
+  .target-badge.claude { background: #edf7e6; color: #3a8a1e; }
+  .target-badge.both { background: #fef4e0; color: #a06500; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 800px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+    .criteria-grid { grid-template-columns: 1fr; }
+    .pipeline { flex-direction: column; }
+    .pipeline-step { border-right: 1px solid var(--border); border-bottom: none; border-radius: 0; }
+    .pipeline-step:first-child { border-radius: 8px 8px 0 0; }
+    .pipeline-step:last-child { border-bottom: 1px solid var(--border); border-radius: 0 0 8px 8px; }
+    .pipeline-step::after { content: "v"; right: auto; left: 50%; top: auto; bottom: -14px; transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>New Project Build Guide</h1>
+    <div class="sub">How to take a workflow idea from concept to a live, tested AI project using The Architect pipeline. Current: The Architect v5.16.</div>
+    <div class="badges">
+      <div class="badge">Admin / Power Users Only</div>
+      <div class="badge blue">Training - Admin</div>
+      <div class="badge green">Build Guide v2.2 (2026-04-29) - revalidated against v5.16 on 2026-05-21</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="toc">
+    <div class="toc-title">In This Guide</div>
+    <div class="toc-links">
+      <a href="#when">When to Build</a>
+      <a href="#corebrain">Core Brain</a>
+      <a href="#overview">Pipeline Overview</a>
+      <a href="#step1">1 - Build</a>
+      <a href="#step2">2 - Deploy</a>
+      <a href="#step3">3 - Test</a>
+      <a href="#step4">4 - Fix Issues</a>
+      <a href="#step5">5 - Lock In</a>
+      <a href="#filemap">File Map</a>
+      <a href="#pitfalls">Common Pitfalls</a>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <strong>What changed in v2.2 (2026-04-29):</strong> Added case study as a standing deliverable. Every project and course gets a case study HTML file after the pipeline is complete. Added to Step 5 (Lock In) and to Training Index.html. Case study format and confirmation gate rules documented in Formatting Standards.md.<br><br>
+    <strong>What changed in v2.1 (2026-04-29):</strong> Added Core Brain section covering the foundational context file structure, the 7 planned context-shared files, and the Deep Research production process. <code>sta-company-profile.md</code> seeded as the first core context file. Manual Tasks Checklist updated with matching Group 4 action steps.<br><br>
+    <strong>What changed in v2 (2026-04-27):</strong> The Architect (formerly "Project Architect") absorbed the deprecated Prompt Maker on 2026-04-27. The build pipeline is now 5 steps instead of 6. The Architect produces full production-ready instructions, test cases, registry entry, and handoff in a single session. Test cases, registry entry, and handoff are only produced after Adam explicitly confirms instructions.md is final (v3.0 timing rule).
+  </div>
+
+  <!-- WHEN TO BUILD -->
+  <div id="when"></div>
+  <div class="section-title">When to Build a New Project</div>
+  <div class="section-intro">Not every request needs a full project build. Use this to decide when the pipeline is the right move and when a simpler approach will do.</div>
+
+  <div class="criteria-grid">
+    <div class="criteria-card yes">
+      <div class="criteria-label green">Build a project when...</div>
+      <ul class="criteria-items">
+        <li>A workflow recurs often enough that multiple people would use it</li>
+        <li>The task requires School Tech-specific context to answer well</li>
+        <li>You want consistent, reliable behavior across users</li>
+        <li>The output quality matters and needs to be validated</li>
+        <li>You want the tool to be maintainable and improvable over time</li>
+        <li>The request is role-specific (support, SF admin, etc.)</li>
+      </ul>
+    </div>
+    <div class="criteria-card no">
+      <div class="criteria-label red">Don't build a project when...</div>
+      <ul class="criteria-items">
+        <li>It is a one-off task that will not be repeated</li>
+        <li>A quick chat with STA Main Chat already handles it</li>
+        <li>The scope is unclear - scope it first, then build</li>
+        <li>Only one person will ever use it and infrequently</li>
+        <li>The workflow is still changing and not stable yet</li>
+        <li>You only need a quick prompt - use The Architect's Quick Prompt mode instead</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout orange" style="margin-top:16px;">
+    <strong>If you are not sure:</strong> Start a conversation in AI Advisor (or STA Main Chat once Active) and try to accomplish the task manually. If you find yourself wishing the tool had specific context or behaved differently on repeated use, that is a signal to build a project.
+  </div>
+
+  <!-- CORE BRAIN -->
+  <div id="corebrain"></div>
+  <div class="section-title">Before You Build: The Core Brain</div>
+  <div class="section-intro">Every project you build draws from a shared pool of foundational company knowledge - the "core brain." These are context files that live in <code>context-files/shared/</code> and get uploaded to any project that needs them. Building the core brain once means every future project starts with accurate, consistent company context instead of rediscovering it from scratch each time.</div>
+
+  <div class="callout orange">
+    <strong>Do this before building your first real project.</strong> Without the core brain files, every agent you build will either lack company context or contain inconsistent one-off descriptions of STA's products, team, and customers. See <strong>Manual Tasks Checklist.html, Group 4 - Core Context Brain</strong> for the action steps and exact prompts to run.
+  </div>
+
+  <div class="section-intro" style="margin-top:16px;">The core brain consists of 7 planned context files. The first is seeded - the rest are produced by running Deep Research and then distilling the output into structured context files via the <code>knowledge-base-context-builder</code> skill.</div>
+
+  <table class="file-table">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>What It Contains</th>
+        <th>Status</th>
+        <th>Info Needed to Produce It</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>sta-company-profile.md</code></td>
+        <td>Who STA is, founding history, headquarters, size, revenue, mission, partnerships, contact info, online presence</td>
+        <td><span style="color:#3a8a1e;font-weight:700;">&#10003; Seeded 2026-04-29</span></td>
+        <td>Web research complete. Deep Research will extend with gaps (Skyward partnership date, total district count, competitive landscape).</td>
+      </tr>
+      <tr>
+        <td><code>sta-brand-identity.md</code></td>
+        <td>Brand voice and tone, writing style, STA brand colors (Blue #006098 / Green #6bc04b / Gray #8a8d8e), logo usage rules, what to avoid in copy</td>
+        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
+        <td>Brand guidelines doc from Rachel Mathwig (Brand Strategist) or Deep Research on STA's public-facing copy + tone patterns.</td>
+      </tr>
+      <tr>
+        <td><code>sta-products-catalog.md</code></td>
+        <td>Full product list with descriptions, target buyer per product, Skyward integration details, hardware specs where relevant, pricing model (quote-based), new product launches</td>
+        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
+        <td>k12sta.com/products/ (covered by Deep Research). Supplement with internal product sheets if available.</td>
+      </tr>
+      <tr>
+        <td><code>sta-team-roster.md</code></td>
+        <td>Complete team with name, title, responsibilities, contact email, role in customer workflows (who handles sales, support, orders, renewals)</td>
+        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
+        <td>11 names and titles confirmed from About Us page. Responsibilities need internal input - ask Adam or Dan to review a draft.</td>
+      </tr>
+      <tr>
+        <td><code>sta-customers-icp.md</code></td>
+        <td>Customer segments, named districts by state and product, ideal customer profile (district size, Skyward version, decision maker), common pain points per segment</td>
+        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
+        <td>6 named districts confirmed from public sources. Full customer list and ICP definition needs internal input from Pat (Sales Director).</td>
+      </tr>
+      <tr>
+        <td><code>sta-tech-stack.md</code></td>
+        <td>All systems STA runs on (Skyward integration, Salesforce for support/help center, WordPress/WooCommerce for web store, Mailchimp, Google Analytics, ISCorp for SchoolTRAK hosting), how they connect</td>
+        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
+        <td>Tech stack partially confirmed from website source (WordPress, WooCommerce, Stripe, Salesforce, Mailchimp). Chris Baker (Senior Tech Admin) or Adam Baker (DevOps) can fill gaps.</td>
+      </tr>
+      <tr>
+        <td><code>sta-partnerships.md</code></td>
+        <td>Skyward exclusive partnership (details, history, what it means operationally), WSIPC, eFunds, Region 19, ISCorp, Attendance Works, and any reseller or referral arrangements</td>
+        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
+        <td>Partnerships confirmed from public sources. Partnership terms, history, and operational details need internal input from Dan or Andy Hoerl.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="build-step" style="margin-top:20px;">
+    <div class="build-step-header">
+      <div class="build-step-num gray">&#9733;</div>
+      <div class="build-step-title">How to produce the core brain files</div>
+      <div class="build-step-tool">Deep Research + KB Context Builder</div>
+    </div>
+    <div class="build-step-body">
+      <p><strong>Step 1 - Run Deep Research.</strong> Use the prompt in Manual Tasks Checklist Group 4 (Task 4-0). Deep Research hits all public-facing sources for STA - website, LinkedIn, industry databases, conference mentions, press - and saves structured modules to <code>knowledge-base/sta/sta-company-profile/</code>. This fills the web-researchable portion of every file above.</p>
+      <p><strong>Step 2 - Fill internal gaps.</strong> For the files marked "needs internal input" in the table above (team responsibilities, full customer list, ICP, partnership terms), gather that information directly from the relevant team member. Add it to the Deep Research modules or capture it as notes for Step 3.</p>
+      <p><strong>Step 3 - Distill into context-shared files.</strong> Open The Architect and run the <code>knowledge-base-context-builder</code> skill, pointing it at the Deep Research output modules. It formats them into clean, upload-ready context files and saves them to <code>context-files/shared/</code>. The 7 files in the table above are the target outputs.</p>
+      <p><strong>Step 4 - Upload to projects.</strong> Any Claude.ai Project that needs company context gets the relevant context-shared file(s) uploaded. Cowork projects read them directly from the workspace - no upload needed. When a file is updated, re-upload it to any Claude.ai Projects that use it.</p>
+      <div class="callout blue" style="margin-top:12px;">
+        <strong>Context-shared vs. project-specific:</strong> Files in <code>context-files/shared/</code> are foundational - used across multiple projects. Files in <code>project-blueprints/[name]/</code> are project-specific (tone references, escalation paths, product-specific rules). When in doubt, put it in context-shared if more than one future project would need it.
+      </div>
+    </div>
+  </div>
+
+  <!-- PIPELINE OVERVIEW -->
+  <div id="overview"></div>
+  <div class="section-title">Pipeline Overview</div>
+  <div class="section-intro">Five steps from idea to live project. Step 1 builds it (everything from discovery to handoff in one Architect session). Steps 2-3 deploy and validate. Step 4 fixes anything that surfaced. Step 5 locks it into the system.</div>
+
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="pipeline-num blue">1</div>
+      <div class="pipeline-name">Build</div>
+      <div class="pipeline-tool">The Architect</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num green">2</div>
+      <div class="pipeline-name">Deploy</div>
+      <div class="pipeline-tool">Cowork or Claude.ai</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num green">3</div>
+      <div class="pipeline-name">Test</div>
+      <div class="pipeline-tool">Project Tester</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num orange">4</div>
+      <div class="pipeline-name">Fix Issues</div>
+      <div class="pipeline-tool">Project Feedback</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num orange">5</div>
+      <div class="pipeline-name">Lock In</div>
+      <div class="pipeline-tool">Registry + Files</div>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <strong>All pipeline tools are in Cowork.</strong> The Architect is a Cowork project. Project Tester and Project Feedback are Cowork skills (auto-loaded by trigger phrases). All admin-only - regular staff do not have access.
+  </div>
+
+  <!-- STEP 1 -->
+  <div id="step1"></div>
+  <div class="section-title">Step 1 - Build with The Architect</div>
+
+  <div class="build-step">
+    <div class="build-step-header">
+      <div class="build-step-num blue">1</div>
+      <div class="build-step-title">Discovery, blueprint, instructions, test cases, registry entry, handoff - all in one session</div>
+      <div class="build-step-tool">The Architect</div>
+    </div>
+    <div class="build-step-body">
+      <p>Open the <strong>The Architect</strong> Cowork project. Describe the workflow you want to automate. The Architect runs through four phases (Discovery, KB Check, Gap Analysis, Blueprint) and produces production-ready files - not scaffolds. Output is split into two waves with a confirmation gate between them.</p>
+      <div class="prompt-label">Starting prompt format:</div>
+      <pre class="prompt-block">I want to build a new project for [role/team]. The workflow is: [describe what the user would ask and what a good response looks like]. Deployment target: [Cowork / Claude.ai Project / Both].</pre>
+
+      <div class="wave-block">
+        <div class="wave-label">Wave 1 - the prompt wave (produced first)</div>
+        The Architect saves <code>blueprint-summary.md</code>, <code>instructions.md</code>, any context files needed, and <code>backlog.md</code> (a lightweight tracker for future enhancement ideas, with Active and Implemented sections). Production-ready, not a draft. While iterating, you can ask The Architect to run the <code>prompt-evaluator</code> skill on instructions.md - it returns a scored HTML eval as a Cowork artifact (id <code>eval_[prompt-name]_v[X_Y]</code>, one per evaluated version) per the v4.0 eval-output rule. Fallback to HTML write under <code>The Architect/Evaluations/[project-name]/</code> only if artifact tools are unavailable.
+      </div>
+
+      <div class="wave-block gate">
+        <div class="wave-label">⏸ Confirmation gate</div>
+        After Wave 1 saves, The Architect asks: "Is the instructions.md final, or do you want changes?" Iterate on the prompt until you explicitly say it is final. Wave 2 is held until that confirmation - this is the v3.0 timing rule, designed to prevent rework when the prompt changes.
+      </div>
+
+      <div class="wave-block">
+        <div class="wave-label">Wave 2 - downstream files (produced after confirmation)</div>
+        The Architect saves <code>test-cases.md</code> (10 full test cases, not a scaffold), <code>registry-entry.md</code> (the row to add to context-agent-registry.md plus scope-overlap notes), <code>project-launch.md</code> (three copy-paste blocks: project instructions ready to paste into project settings, a numbered setup checklist of every manual step, and an initialization prompt to send as the first message to verify setup), and <code>handoff.md</code> (pipeline tracker).
+      </div>
+
+      <div class="outputs-label">All saved to <code>The Architect/project-blueprints/[project-name]/</code></div>
+      <div class="output-pills">
+        <span class="output-pill">blueprint-summary.md</span>
+        <span class="output-pill">instructions.md (production-ready)</span>
+        <span class="output-pill">backlog.md</span>
+        <span class="output-pill">test-cases.md</span>
+        <span class="output-pill">registry-entry.md</span>
+        <span class="output-pill">project-launch.md</span>
+        <span class="output-pill">handoff.md</span>
+      </div>
+
+      <div class="callout blue" style="margin-top:14px;">
+        <strong>The Architect's four modes:</strong>
+        <strong>Full Pipeline</strong> (new project from scratch - default).
+        <strong>Polish Existing</strong> (you provide an existing prompt to bring up to standard; The Architect verifies via filesystem check that no live blueprint folder exists before treating as Polish).
+        <strong>Quick Prompt</strong> (lightweight one-off, no pipeline tracking, no registry).
+        <strong>Test Case Update</strong> (revise test-cases.md after any change to instructions - Project Feedback fix, manual edit, polish revision, eval-driven update).
+        The Architect picks the mode based on your opening message and confirms it back ("I'm reading this as [Mode] because [signal]. Sound right?") before running the workflow. If the opening is ambiguous, it surfaces both candidate modes and asks which applies. Quick Prompt skips the confirmation when triggers are unambiguous.
+      </div>
+      <div class="callout blue" style="margin-top:8px;">
+        <strong>Phase loopback:</strong> Phases run in sequence, but if a later phase reveals a miss in an earlier phase (e.g., Phase 4 needs a constraint that wasn't asked about in Discovery), The Architect returns to that phase rather than barreling forward. Single-sentence pause: "I'm at [phase] and just realized I never asked [question]. Going back to [earlier phase] for one question."
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2"></div>
+  <div class="section-title">Step 2 - Deploy the Project</div>
+
+  <div class="build-step">
+    <div class="build-step-header">
+      <div class="build-step-num green">2</div>
+      <div class="build-step-title">Create the workspace or project and paste the instructions</div>
+      <div class="build-step-tool">Cowork or Claude.ai</div>
+    </div>
+    <div class="build-step-body">
+      <p>Where you deploy depends on who the audience is. Cowork is for internal admin tools and pipeline tools. Claude.ai Projects are for team-facing tools that all staff access.</p>
+
+      <table class="file-table" style="margin-top:12px;">
+        <thead>
+          <tr>
+            <th>Target</th>
+            <th>Use When</th>
+            <th>How to Deploy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="target-badge cowork">Cowork</span></td>
+            <td>Admin-only tool, pipeline tool, work personal assistant</td>
+            <td>Open Cowork - New Project - paste name and instructions. Upload context files if required.</td>
+          </tr>
+          <tr>
+            <td><span class="target-badge claude">Claude.ai</span></td>
+            <td>Team-facing tool, staff-accessible workflow</td>
+            <td>claude.ai - Projects - New Project - paste instructions. Add context files. Share with team members.</td>
+          </tr>
+          <tr>
+            <td><span class="target-badge both">Both</span></td>
+            <td>Tool used by both admins and regular staff</td>
+            <td>The Architect produces two instructions files (<code>instructions-cowork.md</code> and <code>instructions-project.md</code>) plus a single shared changelog. Deploy each to its target. Keep both versions in sync via the changelog.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:12px;">After deploying, <strong>do not</strong> set Status to Active in the registry yet - that happens in Step 5 after Project Tester confirms tests pass.</p>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="step3"></div>
+  <div class="section-title">Step 3 - Test with Project Tester</div>
+
+  <div class="build-step">
+    <div class="build-step-header">
+      <div class="build-step-num green">3</div>
+      <div class="build-step-title">Run the 10 test cases and get a pass/fail report</div>
+      <div class="build-step-tool">Project Tester</div>
+    </div>
+    <div class="build-step-body">
+      <p>Open <strong>The Architect</strong> (or any Cowork session with the project-tester skill enabled) and trigger Project Tester by saying "test my project." Point it at the blueprint folder. It reads <code>instructions.md</code> and <code>test-cases.md</code>, runs all 10 cases (batch or walkthrough mode), and produces a report with pass/fail results and specific failure details.</p>
+      <div class="prompt-label">Exact prompt:</div>
+      <pre class="prompt-block">Test my project. The blueprint is at project-blueprints/[project-name]/. Run all 10 test cases in batch mode and give me a full pass/fail report. Save the report as project-blueprints/[project-name]/test-report-[today's date].md</pre>
+      <p>A pass rate of 8/10 or higher is the target before going live with a team-facing tool. For admin-only tools, 7/10 is acceptable if the failures are edge cases.</p>
+      <p>Project Tester checks the v3.0 timing rule automatically: if test-cases.md and instructions.md were produced against different versions, it flags the mismatch before running.</p>
+      <div class="outputs-label">Saved to <code>project-blueprints/[project-name]/</code></div>
+      <div class="output-pills">
+        <span class="output-pill">test-report-[date].md</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div id="step4"></div>
+  <div class="section-title">Step 4 - Fix Issues with Project Feedback</div>
+
+  <div class="build-step">
+    <div class="build-step-header">
+      <div class="build-step-num orange">4</div>
+      <div class="build-step-title">Turn test failures or live-use bugs into exact-text instruction fixes</div>
+      <div class="build-step-tool">Project Feedback</div>
+    </div>
+    <div class="build-step-body">
+      <p>For each failure in the test report (or each issue spotted in live use), trigger the Project Feedback skill. Describe what went wrong. Project Feedback reads the current instructions, identifies the root cause (Missing instruction / Wrong instruction / Conflicting instructions / Scope gap / Overly broad instruction), and produces the exact text to add, change, or remove.</p>
+      <div class="prompt-label">Prompt format:</div>
+      <pre class="prompt-block">Fix my project. Blueprint at project-blueprints/[project-name]/. Issue: [paste the failure or describe the bad behavior]. The correct behavior should be: [describe what should have happened].</pre>
+      <p>After applying the fix, re-paste the updated instructions into the deployed workspace or project. Increment the version in the instructions.md changelog and in <code>handoff.md</code> (v1.0 - v1.1 - etc.).</p>
+      <p>If the fix changes test coverage, take the updated instructions back to The Architect and ask it to run the Test Case Update workflow. The Architect compares the changelog entry to the existing test cases and produces a revised <code>test-cases.md</code> with [UPDATED] and [NEW] markers. Re-run Project Tester after.</p>
+      <p>Repeat until you hit your target pass rate.</p>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div id="step5"></div>
+  <div class="section-title">Step 5 - Lock It In</div>
+
+  <div class="build-step">
+    <div class="build-step-header">
+      <div class="build-step-num orange">5</div>
+      <div class="build-step-title">Update registry and finalize handoff</div>
+      <div class="build-step-tool">Registry + Files</div>
+    </div>
+    <div class="build-step-body">
+      <p>Once the project passes testing, do the following in order:</p>
+      <p><strong>1. Apply the registry entry.</strong> Open <code>The Architect/context-agent-registry.md</code> and append (or update) the row from <code>project-blueprints/[project-name]/registry-entry.md</code>. Status moves from Draft to Active here.</p>
+      <p><strong>2. Finalize handoff.md.</strong> Confirm Status = Active, Current Version matches the deployed version, Testing row reflects the project-tester report, and all open USER TO PROVIDE markers are resolved.</p>
+      <p><strong>3. Update AI System Reference.md</strong> if the new project changes anything about how the system works or introduces a new tool type.</p>
+      <p><strong>4. If the project has a knowledge base dependency</strong>, confirm the relevant module exists in <code>knowledge-base/index.md</code> and that the context file uploaded to the project is current.</p>
+      <div class="callout blue" style="margin-top:12px;">
+        <strong>Backup note:</strong> The workspace folder is automatically backed up to GitHub every 30 minutes via Obsidian Git. No manual step required - keep Obsidian open while working and changes are committed and pushed automatically. Repo: <a href="https://github.com/abaker421/school-tech-ai-system" target="_blank">github.com/abaker421/school-tech-ai-system</a> (private).
+      </div>
+      <div class="callout green" style="margin-top:12px;">
+        <strong>Standing deliverable: case study.</strong> Every project (and every training course) gets a case study HTML file saved to <code>Training Materials/Training - Admin/[project-slug]-case-study.html</code>. After Step 5, ask The Architect to build the case study. Before it starts, The Architect will ask which specific real session or build to use as the live walkthrough example - it will suggest 1-3 known candidates in the same message. Confirm the case, then it writes the full file. Add the completed case study to <code>Training Index.html</code> under Admin documents.
+      </div>
+    </div>
+  </div>
+
+  <!-- FILE MAP -->
+  <div id="filemap"></div>
+  <div class="section-title">What Gets Saved Where</div>
+  <div class="section-intro">Every project produces a set of files. This table shows where each one lives, what it is for, and when it gets updated.</div>
+
+  <table class="file-table">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Location</th>
+        <th>Purpose</th>
+        <th>Updated When</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>blueprint-summary.md</code></td>
+        <td><code>project-blueprints/[name]/</code></td>
+        <td>Plain-language scope, audience, design decisions, open USER TO PROVIDE markers, tool assessment</td>
+        <td>At project creation - rarely after</td>
+      </tr>
+      <tr>
+        <td><code>instructions.md</code></td>
+        <td><code>project-blueprints/[name]/</code></td>
+        <td>Production-ready system prompt with version changelog. Source of truth for what is pasted into the live workspace.</td>
+        <td>Every time Project Feedback or The Architect produces a change. Always increments version.</td>
+      </tr>
+      <tr>
+        <td><code>test-cases.md</code></td>
+        <td><code>project-blueprints/[name]/</code></td>
+        <td>10 complete test cases (3 normal use, 2 ambiguous, 2 uncertainty, 2 edge case, 1 output format)</td>
+        <td>Produced after instructions.md is confirmed final. Updated by The Architect's Test Case Update mode after fixes.</td>
+      </tr>
+      <tr>
+        <td><code>registry-entry.md</code></td>
+        <td><code>project-blueprints/[name]/</code></td>
+        <td>The canonical row for context-agent-registry.md plus scope-overlap notes</td>
+        <td>At project creation. Updated if registry layout changes.</td>
+      </tr>
+      <tr>
+        <td><code>handoff.md</code></td>
+        <td><code>project-blueprints/[name]/</code></td>
+        <td>Pipeline tracker - which stages are complete, current version, deployment target, notes</td>
+        <td>Every time a stage transitions (testing complete, version increments, etc.)</td>
+      </tr>
+      <tr>
+        <td><code>test-report-[date].md</code></td>
+        <td><code>project-blueprints/[name]/</code></td>
+        <td>Most recent Project Tester run results</td>
+        <td>After each Project Tester run (supersedes prior reports)</td>
+      </tr>
+      <tr>
+        <td><code>context-tone-reference.md</code></td>
+        <td><code>project-blueprints/[name]/</code></td>
+        <td>Tone and style reference for the project (optional)</td>
+        <td>Created if the project has tone-sensitive output. Upload as context to the live project.</td>
+      </tr>
+      <tr>
+        <td><code>context-agent-registry.md</code></td>
+        <td><code>The Architect/</code> (workspace root)</td>
+        <td>Master list of all projects - used by The Architect to check for scope overlap</td>
+        <td>When a project is added, deprecated, or significantly changed</td>
+      </tr>
+      <tr>
+        <td>Cowork artifact <code>eval_[prompt-name]_v[X_Y]</code> (legacy: <code>eval-[date]-v[X.X].html</code>)</td>
+        <td>Cowork artifact list (legacy: <code>The Architect/Evaluations/[name]/</code>)</td>
+        <td>Optional prompt-evaluator score report. v4.0+ creates one Cowork artifact per evaluated version (persistent history). Fallback HTML write only if artifact tools unavailable.</td>
+        <td>Run during Step 1 iteration if useful for grading the prompt before confirming final.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- COMMON PITFALLS -->
+  <div id="pitfalls"></div>
+  <div class="section-title">Common Pitfalls</div>
+
+  <div class="pitfall">
+    <div class="pitfall-title">Producing Wave 2 files before instructions.md is confirmed final</div>
+    <div class="pitfall-desc">If you skip the v3.0 confirmation gate, every prompt change after invalidates the test cases and forces a rewrite. The Architect holds Wave 2 by design - don't push it through prematurely.</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="pitfall-title">Deploying before testing</div>
+    <div class="pitfall-desc">Skipping Project Tester because "it seems fine" is how tools end up with subtle but consistent failures that erode user trust. Always run at least a batch test before going live with a team-facing project.</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="pitfall-title">Not updating instructions.md after a fix</div>
+    <div class="pitfall-desc">When Project Feedback produces a fix and you paste it into the workspace, you must also update <code>instructions.md</code> in the blueprint folder. If you only update the live workspace, the file and the deployed version drift apart. The next maintenance cycle will re-introduce the bug.</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="pitfall-title">Skipping the Test Case Update workflow after a fix</div>
+    <div class="pitfall-desc">When Project Feedback fixes a bug, the existing test cases may not cover the new behavior. Take the updated instructions back to The Architect and run Test Case Update mode - it produces a revised test-cases.md with [UPDATED] and [NEW] markers. Then re-run Project Tester. Don't rely on the old test cases.</div>
+  </div>
+
+  <div class="pitfall">
+    <div class="pitfall-title">Forgetting the registry</div>
+    <div class="pitfall-desc">If a new project is not added to <code>context-agent-registry.md</code>, The Architect cannot check for scope overlap when building the next project. Over time the registry becomes stale and overlap detection stops working.</div>
+  </div>
+
+<div class="callout green" style="margin-top:24px;">
+    <strong>Questions or issues during a build?</strong> Contact Adam Baker. The pipeline tools are admin-only and builds should be coordinated with Adam until Tanya or Kelsey have run at least two full builds independently.
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>New Project Build Guide</strong> &nbsp;&#183;&nbsp; v2.2 (2026-04-29), revalidated against The Architect v5.16 on 2026-05-21 &nbsp;&#183;&nbsp; Admin / Power Users Only &nbsp;&#183;&nbsp; Contact: Adam Baker
+</div>
+
+</body>
+</html>

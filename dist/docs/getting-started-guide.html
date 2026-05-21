@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - Getting Started Guide</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: var(--blue); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--green); }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.82; margin-top: 6px; max-width: 620px; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.65; }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+  .callout.red { background: #fdf0ef; border-left: 4px solid var(--red); }
+
+  /* STEPS */
+  .steps { margin: 0; }
+  .step { display: flex; gap: 20px; margin-bottom: 20px; }
+  .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--blue); color: white; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-body { flex: 1; background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .step-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .step-desc { font-size: 13px; color: #444; line-height: 1.6; }
+  .step-note { font-size: 12px; color: #555; background: var(--light); border-left: 3px solid var(--blue); padding: 8px 12px; margin-top: 12px; border-radius: 0 5px 5px 0; line-height: 1.5; }
+
+  /* TOOL CARDS */
+  .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+  .tool-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .tool-card.live { border-top: 3px solid var(--green); }
+  .tool-card.soon { border-top: 3px solid var(--border); opacity: 0.75; }
+  .tool-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+  .tool-tag.live { color: #2e7010; }
+  .tool-tag.soon { color: var(--gray); }
+  .tool-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .tool-desc { font-size: 12px; color: #555; line-height: 1.55; }
+  .tool-use { font-size: 12px; color: var(--blue); margin-top: 10px; font-weight: 600; }
+
+  /* WHAT IT IS / IS NOT */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+  .two-col-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .two-col-card.good { border-top: 3px solid var(--green); }
+  .two-col-card.caution { border-top: 3px solid var(--orange); }
+  .two-col-head { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 12px; }
+  .two-col-head.good { color: #2e7010; }
+  .two-col-head.caution { color: #9a5800; }
+  .two-col-item { font-size: 13px; color: #333; line-height: 1.55; margin-bottom: 8px; padding-left: 18px; position: relative; }
+  .two-col-item::before { position: absolute; left: 0; font-size: 12px; }
+  .two-col-card.good .two-col-item::before { content: "✓"; color: var(--green); }
+  .two-col-card.caution .two-col-item::before { content: "!"; color: var(--orange); font-weight: 700; }
+
+  /* RESTRICTED DATA */
+  .data-rule-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .data-rule { background: white; border: 1px solid #f5b8aa; border-radius: 10px; padding: 16px 18px; border-top: 3px solid var(--red); }
+  .data-rule-label { font-size: 12px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .data-rule-desc { font-size: 12px; color: #444; line-height: 1.55; }
+
+  /* FAQ */
+  .faq-item { background: white; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 14px 18px; font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--border); }
+  .faq-a { padding: 12px 18px; font-size: 13px; color: #444; line-height: 1.6; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 800px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+    .two-col { grid-template-columns: 1fr; }
+    .tool-grid { grid-template-columns: 1fr; }
+    .data-rule-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Getting Started with AI at School Tech</h1>
+    <div class="sub">Everything you need to go from zero to your first useful conversation — in under five minutes.</div>
+    <div class="badge">For All Staff</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="callout green" style="margin-top: 4px;">
+    <strong>What this is:</strong> A knowledgeable colleague already loaded with School Tech context — our products, customers, processes, and tone. You don't explain the company. You just ask your actual question.
+  </div>
+
+
+  <!-- SECTION 1: HOW TO GET IN -->
+  <div class="section-title">Step 1 — Log In</div>
+  <div class="section-intro">Two steps. Takes under two minutes the first time.</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Go to claude.ai and sign in with your School Tech work email</div>
+        <div class="step-desc">Use your <strong>@k12sta.com</strong> address — not a personal Gmail, not the Google sign-in button. If you haven't received an account invite yet, check your spam folder or contact Adam.</div>
+        <div class="step-note"><strong>Common gotcha:</strong> If you see "Personal" instead of the School Tech workspace after logging in, you're in the wrong account. Log out and sign back in with your work email.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Find the Projects section in the left sidebar</div>
+        <div class="step-desc">AI tools are set up as individual Projects, each pre-configured for a specific job. Click the project name and start typing. No setup required — just open and ask.</div>
+        <div class="step-note"><strong>Tip:</strong> The Projects list is on the left side of the screen. If you don't see it, make sure you're in the School Tech workspace (not a personal account).</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SECTION 2: WHAT'S AVAILABLE -->
+  <div class="section-title">Step 2 — Know What's Available</div>
+  <div class="section-intro">Tools are added and updated over time. Here's what's live right now and what's coming.</div>
+
+  <div class="tool-grid">
+    <div class="tool-card live">
+      <div class="tool-tag live">● Live Now — All Staff</div>
+      <div class="tool-name">AI Advisor</div>
+      <div class="tool-desc">Your starting point. Use it to explore where AI could fit your daily work, find out what tools are built or coming, get plain-language answers about the AI program, or frame an idea to bring to Adam.</div>
+      <div class="tool-use">Open: Projects → AI Advisor</div>
+    </div>
+    <div class="tool-card live">
+      <div class="tool-tag live">● Live Now — Support Team</div>
+      <div class="tool-name">STA Support Chat</div>
+      <div class="tool-desc">Product troubleshooting walkthroughs and customer email drafts grounded in the STA Help Center across all product lines. NEVER FABRICATE rule - flags what it doesn't know rather than guessing.</div>
+      <div class="tool-use">Open: Projects → STA Support Chat (Chris, Tyler, Adam)</div>
+    </div>
+    <div class="tool-card live">
+      <div class="tool-tag live">● Live Now — SF Admins</div>
+      <div class="tool-name">STA Salesforce Cohort</div>
+      <div class="tool-desc">Shared Salesforce reference and guidance for the 4-person admin team. Step-by-step admin tasks, formula drafts, multi-approach tradeoffs. Heavy Flow design routes back to Adam.</div>
+      <div class="tool-use">Open: Projects → STA Salesforce Cohort (Adam, Kelsey, Joanie, Tanya)</div>
+    </div>
+    <div class="tool-card soon">
+      <div class="tool-tag soon">Coming Soon</div>
+      <div class="tool-name">STA Main Chat</div>
+      <div class="tool-desc">General School Tech questions and quick lookups — products, processes, customer context, and more. The base brain that all department-specific tools extend from.</div>
+    </div>
+  </div>
+
+  <div class="callout blue" style="margin-top: 4px;">
+    <strong>Questions about what's built or what's coming?</strong> Ask the AI Advisor directly — it knows the current state of the AI program and can give you a plain-language answer.
+  </div>
+
+
+  <!-- SECTION 3: WHAT IT IS / ISN'T -->
+  <div class="section-title">Step 3 — Understand What You're Working With</div>
+  <div class="section-intro">Knowing what these tools are good at — and where to stay sharp — helps you get useful results faster.</div>
+
+  <div class="two-col">
+    <div class="two-col-card good">
+      <div class="two-col-head good">It's good at</div>
+      <div class="two-col-item">Drafting emails, responses, and customer-facing documents</div>
+      <div class="two-col-item">Troubleshooting step by step</div>
+      <div class="two-col-item">Explaining processes or policies in plain language</div>
+      <div class="two-col-item">Turning rough notes into polished writing</div>
+      <div class="two-col-item">Answering School Tech questions instantly</div>
+    </div>
+    <div class="two-col-card caution">
+      <div class="two-col-head caution">Keep in mind</div>
+      <div class="two-col-item">Verify important facts before using them — especially specific dates, figures, or policy details</div>
+      <div class="two-col-item">It doesn't remember previous conversations — each session starts fresh</div>
+      <div class="two-col-item">Output is a strong first draft, not a final product — review before sending</div>
+      <div class="two-col-item">Push back when it misses the mark — tell it specifically what's wrong and ask again</div>
+    </div>
+  </div>
+
+
+  <!-- SECTION 4: THE ONE RULE -->
+  <div class="section-title">Step 4 — The One Rule That Has No Exceptions</div>
+  <div class="section-intro">Everything else in this guide is a tip. This is a hard requirement. When in doubt about any data, don't paste it — check the Restricted Data Reference Guide or ask Adam first.</div>
+
+  <div class="data-rule-grid">
+    <div class="data-rule">
+      <div class="data-rule-label">Never paste student data</div>
+      <div class="data-rule-desc">Student names, IDs, grades, attendance records, or anything from a Skyward student record. Even in a support case — describe the issue without including the data itself.</div>
+    </div>
+    <div class="data-rule">
+      <div class="data-rule-label">Never paste employee PII</div>
+      <div class="data-rule-desc">Social Security numbers, payroll figures, HR records, performance data, or benefits information tied to a named individual. Anonymize first if you need help.</div>
+    </div>
+    <div class="data-rule">
+      <div class="data-rule-label">Never paste credentials</div>
+      <div class="data-rule-desc">Passwords, API keys, authentication tokens, or login credentials of any kind — for any system, any account. Describe what you need instead.</div>
+    </div>
+  </div>
+
+  <div class="callout red" style="margin-top: 4px;">
+    Full department-by-department guidance is in the <strong>AI Restricted Data Reference Guide</strong>. Review it if you're ever unsure what's safe to include.
+  </div>
+
+
+  <!-- SECTION 5: YOUR FIRST CONVERSATION -->
+  <div class="section-title">Step 5 — Your First Conversation</div>
+  <div class="section-intro">The fastest way to learn is to try something real. Here are a few first prompts that work well — pick one that fits your job.</div>
+
+  <div class="callout blue">
+    <strong>Drafting support:</strong> "I need to respond to a customer who says their time clocks stopped syncing after last week's update. They're frustrated. Draft a calm response that acknowledges the issue and lets them know we're investigating."
+  </div>
+  <div class="callout blue">
+    <strong>Explaining a process:</strong> "Explain the School Tech implementation process in plain language for a district that's just signed and doesn't know what to expect over the next 30 days."
+  </div>
+  <div class="callout blue">
+    <strong>Turning notes into something useful:</strong> "Here are my rough notes from a customer call: [paste notes]. Clean these up into a concise follow-up email I can send."
+  </div>
+  <div class="callout blue">
+    <strong>Exploring the AI program:</strong> "What AI tools are currently available to the support team, and what's coming next?" (Ask this in the AI Advisor project.)
+  </div>
+
+  <div class="callout orange" style="margin-top: 8px;">
+    <strong>If the first response isn't quite right:</strong> Don't start over. Stay in the same conversation and say exactly what's wrong — "too formal," "missing the part about X," "this is for a superintendent, not a teacher." It gets better fast when you're specific.
+  </div>
+
+
+  <!-- FAQ -->
+  <div class="section-title">Common Questions</div>
+
+  <div class="faq-item">
+    <div class="faq-q">Do I need to explain what School Tech does every time I ask something?</div>
+    <div class="faq-a">No. Each project is already loaded with School Tech context — products, customers, processes, and tone. Just ask your actual question. If you're getting generic responses, it usually means the question is missing a specific detail (which customer, which product, what outcome you want), not that it needs more company background.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">It remembered what I said earlier in the conversation but forgot it next time I opened it. Is that normal?</div>
+    <div class="faq-a">Yes. Within a single conversation, it remembers everything. When you close the conversation and start a new one, it starts fresh. This is by design. If you're building on previous work, paste the relevant context into the new conversation to pick up where you left off.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">The response was wrong — what should I do?</div>
+    <div class="faq-a">Stay in the same conversation and tell it specifically what's wrong. "That's not right" is less useful than "the timeline you gave is wrong — this district is 3 months in, not new." The more specific you are about what missed, the better the next response will be. If a tool is consistently giving bad answers on a topic, let Adam know — tool instructions can be updated.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Can I use it for customer-facing writing?</div>
+    <div class="faq-a">Yes — that's one of the strongest use cases. Draft the response, review it, edit it to match your voice, then send. Don't send the raw output without reading it. You're responsible for everything that goes out under your name.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">I have an idea for a tool that doesn't exist yet. Who do I tell?</div>
+    <div class="faq-a">Adam. Describe the workflow, who would use it, and what a useful result looks like. The AI program grows based on what the team actually needs, and new tools get built from those conversations.</div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div style="margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: #555; line-height: 1.6;">
+    <strong style="color: var(--dark);">Questions or issues?</strong> Contact Adam Baker — <a href="mailto:adamb@k12sta.com" style="color: var(--blue);">adamb@k12sta.com</a>.
+    For data questions, see the <em>AI Restricted Data Reference Guide</em>. For prompting tips, see <em>Getting Better Results</em>.
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>School Technology Associates</strong> &nbsp;·&nbsp; AI Tools for Staff &nbsp;·&nbsp; Getting Started Guide
+</div>
+
+</body>
+</html>

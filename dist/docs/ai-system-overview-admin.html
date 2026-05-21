@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam's AI System - Operational Reference</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+    --purple: #6c3dbf;
+    --purple-light: #f0eafd;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: var(--dark); color: white; padding: 36px 56px 30px; border-bottom: 5px solid var(--blue); }
+  .header-inner { max-width: 1100px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.78; margin-top: 6px; max-width: 760px; }
+  .header .badges { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .header .badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 18px; padding: 3px 12px; font-size: 12px; }
+  .header .badge.green { background: rgba(107,192,75,0.32); border-color: rgba(107,192,75,0.55); }
+  .header .badge.blue { background: rgba(0,96,152,0.4); border-color: rgba(0,96,152,0.55); }
+  .page { max-width: 1100px; margin: 0 auto; padding: 32px 56px 72px; }
+
+  .toc { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin-bottom: 32px; }
+  .toc-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.1px; color: var(--gray); margin-bottom: 10px; }
+  .toc-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .toc-links a { font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; background: #e8f2f8; border: 1px solid #c0d8ea; border-radius: 18px; padding: 3px 12px; }
+  .toc-links a:hover { background: var(--blue); color: white; }
+
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 14px; margin-top: 40px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 18px; line-height: 1.65; }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 14px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+
+  .arch-svg { width: 100%; height: auto; max-width: 960px; display: block; margin: 8px auto 24px; }
+
+  .pipeline { display: flex; gap: 0; margin: 22px 0; overflow-x: auto; }
+  .pipeline-step { flex: 1; min-width: 140px; background: white; border: 1px solid var(--border); border-right: none; padding: 18px 16px; position: relative; }
+  .pipeline-step:first-child { border-radius: 8px 0 0 8px; }
+  .pipeline-step:last-child { border-right: 1px solid var(--border); border-radius: 0 8px 8px 0; }
+  .pipeline-step::after { content: "\203A"; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); font-size: 20px; color: var(--gray); z-index: 1; }
+  .pipeline-step:last-child::after { display: none; }
+  .pipeline-num { width: 26px; height: 26px; border-radius: 50%; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 8px; }
+  .pipeline-num.blue { background: var(--blue); }
+  .pipeline-num.green { background: var(--green); }
+  .pipeline-num.orange { background: var(--orange); }
+  .pipeline-name { font-size: 12px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .pipeline-tool { font-size: 11px; color: var(--gray); }
+
+  .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card-grid.three { grid-template-columns: repeat(3, 1fr); }
+  .ws-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .ws-card.green { border-top: 3px solid var(--green); }
+  .ws-card.blue { border-top: 3px solid var(--blue); }
+  .ws-card.orange { border-top: 3px solid var(--orange); }
+  .ws-card.purple { border-top: 3px solid var(--purple); }
+  .ws-card.gray { border-top: 3px solid var(--gray); }
+  .ws-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .ws-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 10px; }
+  .ws-tag.green { background: #edf7e6; color: #3a8a1e; }
+  .ws-tag.blue { background: #e8f2f8; color: var(--blue); }
+  .ws-tag.orange { background: #fef4e0; color: #a06500; }
+  .ws-tag.purple { background: var(--purple-light); color: var(--purple); }
+  .ws-tag.gray { background: var(--light); color: var(--gray); }
+  .ws-card p { font-size: 12.5px; color: #444; margin-bottom: 6px; line-height: 1.55; }
+  .ws-card p:last-of-type { margin-bottom: 0; }
+  .ws-meta { font-size: 11px; color: var(--gray); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .ws-meta strong { color: var(--dark); }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .skill-item { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .skill-name { font-size: 12.5px; font-weight: 700; margin-bottom: 4px; }
+  .skill-desc { font-size: 11px; color: #555; line-height: 1.5; }
+  .skill-trigger { font-size: 10px; color: var(--gray); margin-top: 6px; font-style: italic; }
+
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); font-size: 13px; margin-bottom: 16px; }
+  th { background: var(--light); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--gray); padding: 10px 14px; text-align: left; border-bottom: 2px solid var(--border); }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  tr:last-child td { border-bottom: none; }
+  code { background: #eef2f5; border-radius: 3px; padding: 1px 5px; font-size: 11px; font-family: 'SF Mono', Monaco, monospace; color: #2d4a5a; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 18px; font-size: 12px; margin-top: 50px; }
+  .footer strong { color: rgba(255,255,255,0.85); }
+
+  @media (max-width: 800px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+    .card-grid, .card-grid.three { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .pipeline { flex-direction: column; }
+    .pipeline-step { border-right: 1px solid var(--border); border-bottom: none; border-radius: 0; }
+    .pipeline-step:first-child { border-radius: 8px 8px 0 0; }
+    .pipeline-step:last-child { border-bottom: 1px solid var(--border); border-radius: 0 0 8px 8px; }
+    .pipeline-step::after { content: "v"; right: auto; left: 50%; top: auto; bottom: -14px; transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Adam's AI System - Operational Reference</h1>
+    <div class="sub">Visual and reference guide to every workspace, project, skill, and automation in the live system. Single canonical system map after the consolidation of System Reference.md on 2026-05-21.</div>
+    <div class="badges">
+      <div class="badge">Admin / Power Users Only</div>
+      <div class="badge blue">Training - Admin</div>
+      <div class="badge green">Updated 2026-05-21 (The Architect v5.16)</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="toc">
+    <div class="toc-title">In This Guide</div>
+    <div class="toc-links">
+      <a href="#arch">System Architecture</a>
+      <a href="#sta-projects">STA Claude.ai Projects</a>
+      <a href="#sta-cowork">STA Cowork Workspaces</a>
+      <a href="#personal-cowork">Personal Cowork Workspaces</a>
+      <a href="#pipeline">Build Pipeline</a>
+      <a href="#skills">Cowork Skills</a>
+      <a href="#auto">Automations</a>
+      <a href="#files">Key Files</a>
+      <a href="#deprecated">Deprecated</a>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <strong>This is the single canonical system map.</strong> AI System Reference.md (the flat-text companion) was consolidated into this file on 2026-05-21 and archived to _Archive/. For live Q&amp;A about system state, status, or routing, use System Monitor's Navigator mode (Cowork) - it queries the registry directly and is always current.
+  </div>
+
+  <!-- SYSTEM ARCHITECTURE -->
+  <div id="arch"></div>
+  <div class="section-title">System Architecture</div>
+  <div class="section-intro">Two parallel deployment layers. <strong>Claude.ai Projects</strong> are the staff-facing tools - three are Active (AI Advisor, STA Support Chat, STA Salesforce Cohort) and one is Draft (STA Main Chat). <strong>Cowork workspaces</strong> are the build, ops, and personal layer - primarily Adam's, with one (System Monitor) handling automated health monitoring. The Architect handles all project builds across both deployment types. The shared file system lives in the The Architect workspace folder, auto-backed up to GitHub every 30 min via Obsidian Git.</div>
+
+  <svg class="arch-svg" viewBox="0 0 960 420" xmlns="http://www.w3.org/2000/svg">
+    <!-- STAFF-FACING ROW -->
+    <text x="0" y="20" font-size="11" font-weight="700" fill="#8a8d8e" letter-spacing="1px">STAFF-FACING (CLAUDE.AI PROJECTS)</text>
+
+    <rect x="0" y="32" width="218" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
+    <text x="109" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#1e2a35">AI Advisor</text>
+    <text x="109" y="70" text-anchor="middle" font-size="9.5" fill="#3a8a1e">Active v1.14 (eval 100/100)</text>
+    <text x="109" y="84" text-anchor="middle" font-size="9.5" fill="#3a8a1e">All staff - explore AI fit</text>
+    <text x="109" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">8 CONTEXT FILES</text>
+
+    <rect x="232" y="32" width="218" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
+    <text x="341" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#1e2a35">STA Support Chat</text>
+    <text x="341" y="70" text-anchor="middle" font-size="9.5" fill="#3a8a1e">Active since 2026-05-15</text>
+    <text x="341" y="84" text-anchor="middle" font-size="9.5" fill="#3a8a1e">Support team - product diag</text>
+    <text x="341" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">16 CONTEXT FILES</text>
+
+    <rect x="464" y="32" width="218" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
+    <text x="573" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#1e2a35">STA Salesforce Cohort</text>
+    <text x="573" y="70" text-anchor="middle" font-size="9.5" fill="#3a8a1e">Active (shipping 2026-05-21)</text>
+    <text x="573" y="84" text-anchor="middle" font-size="9.5" fill="#3a8a1e">SF admin team (4 ppl)</text>
+    <text x="573" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">4 CONTEXT FILES</text>
+
+    <rect x="696" y="32" width="218" height="74" rx="8" fill="#f4f6f8" stroke="#8a8d8e" stroke-width="2" stroke-dasharray="4,3"/>
+    <text x="805" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#1e2a35">STA Main Chat</text>
+    <text x="805" y="70" text-anchor="middle" font-size="9.5" fill="#8a8d8e">Draft (context ready)</text>
+    <text x="805" y="84" text-anchor="middle" font-size="9.5" fill="#8a8d8e">All staff - org/product base</text>
+    <text x="805" y="98" text-anchor="middle" font-size="8.5" fill="#8a8d8e" font-weight="700">PENDING INSTRUCTIONS</text>
+
+    <!-- COWORK BUILD/OPS ROW -->
+    <text x="0" y="138" font-size="11" font-weight="700" fill="#8a8d8e" letter-spacing="1px">COWORK - BUILD, OPS, AND ADMIN (ADAM)</text>
+
+    <rect x="0" y="150" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
+    <text x="109" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">The Architect</text>
+    <text x="109" y="184" text-anchor="middle" font-size="9.5" fill="#006098">v5.16 - build pipeline</text>
+    <text x="109" y="198" text-anchor="middle" font-size="9" fill="#006098">Discovery, blueprint, spec</text>
+
+    <rect x="232" y="150" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
+    <text x="341" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">Deep Research</text>
+    <text x="341" y="184" text-anchor="middle" font-size="9.5" fill="#006098">3 modes - knowledge base</text>
+    <text x="341" y="198" text-anchor="middle" font-size="9" fill="#006098">Research, Ingest, both</text>
+
+    <rect x="464" y="150" width="218" height="60" rx="8" fill="#fef4e0" stroke="#F4A300" stroke-width="2"/>
+    <text x="573" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">System Monitor</text>
+    <text x="573" y="184" text-anchor="middle" font-size="9.5" fill="#a06500">Mon 8 AM health + Navigator</text>
+    <text x="573" y="198" text-anchor="middle" font-size="9" fill="#a06500">Slack reports, live AI Q&amp;A</text>
+
+    <rect x="696" y="150" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
+    <text x="805" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">Work Personal Assistant</text>
+    <text x="805" y="184" text-anchor="middle" font-size="9.5" fill="#006098">Email, docs, research</text>
+    <text x="805" y="198" text-anchor="middle" font-size="9" fill="#006098">Adam's day-to-day</text>
+
+    <!-- COWORK STA DOMAIN ROW -->
+    <rect x="0" y="220" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
+    <text x="109" y="240" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">SF Admin Assistant</text>
+    <text x="109" y="254" text-anchor="middle" font-size="9.5" fill="#006098">Adam's heavy SF Flow tool</text>
+    <text x="109" y="268" text-anchor="middle" font-size="9" fill="#006098">Routed-to from Cohort</text>
+
+    <rect x="232" y="220" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
+    <text x="341" y="240" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">STA Support Expert</text>
+    <text x="341" y="254" text-anchor="middle" font-size="9.5" fill="#006098">v2.0 - 20 context files</text>
+    <text x="341" y="268" text-anchor="middle" font-size="9" fill="#006098">Adam's diagnostic tool</text>
+
+    <rect x="464" y="220" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
+    <text x="573" y="240" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">Help Center Advisor</text>
+    <text x="573" y="254" text-anchor="middle" font-size="9.5" fill="#006098">KB structure &amp; gaps</text>
+    <text x="573" y="268" text-anchor="middle" font-size="9" fill="#006098">7 task types, ranked recs</text>
+
+    <rect x="696" y="220" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
+    <text x="805" y="240" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">STA Security Advisor</text>
+    <text x="805" y="254" text-anchor="middle" font-size="9.5" fill="#006098">CIS Controls v8.1 work</text>
+    <text x="805" y="268" text-anchor="middle" font-size="9" fill="#006098">Compliance evidence + logs</text>
+
+    <!-- COWORK PERSONAL ROW -->
+    <text x="0" y="312" font-size="11" font-weight="700" fill="#8a8d8e" letter-spacing="1px">COWORK - PERSONAL (ADAM)</text>
+
+    <rect x="0" y="324" width="218" height="48" rx="8" fill="#f0eafd" stroke="#6c3dbf" stroke-width="2"/>
+    <text x="109" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">The Green Man</text>
+    <text x="109" y="360" text-anchor="middle" font-size="9" fill="#6c3dbf">Plant care, druid voice</text>
+
+    <rect x="232" y="324" width="218" height="48" rx="8" fill="#f0eafd" stroke="#6c3dbf" stroke-width="2"/>
+    <text x="341" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">Garage Sale Monitor</text>
+    <text x="341" y="360" text-anchor="middle" font-size="9" fill="#6c3dbf">Northwoods scan 3x/week</text>
+
+    <rect x="464" y="324" width="218" height="48" rx="8" fill="#f0eafd" stroke="#6c3dbf" stroke-width="2"/>
+    <text x="573" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">Local Discovery</text>
+    <text x="573" y="360" text-anchor="middle" font-size="9" fill="#6c3dbf">Events &amp; planning, NW WI</text>
+
+    <rect x="696" y="324" width="218" height="48" rx="8" fill="#f0eafd" stroke="#6c3dbf" stroke-width="2"/>
+    <text x="805" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">The Chef</text>
+    <text x="805" y="360" text-anchor="middle" font-size="9" fill="#6c3dbf">Recipes, nutrition, live site</text>
+
+    <!-- FILE SYSTEM -->
+    <text x="0" y="394" font-size="11" font-weight="700" fill="#8a8d8e" letter-spacing="1px">SHARED FILE SYSTEM (THE ARCHITECT WORKSPACE)</text>
+    <rect x="0" y="402" width="914" height="14" rx="3" fill="#f4f6f8" stroke="#dde3e8" stroke-width="1"/>
+    <text x="8" y="412" font-size="9" fill="#555">project-blueprints/ · knowledge-base/ · Training Materials/ · context-agent-registry.md · Auto-backed-up to github.com/abaker421/school-tech-ai-system every 30 min</text>
+  </svg>
+
+  <!-- STA CLAUDE.AI PROJECTS -->
+  <div id="sta-projects"></div>
+  <div class="section-title">STA Claude.ai Projects (Staff-Facing)</div>
+  <div class="section-intro">Tools deployed via Claude.ai Project settings. Staff access via claude.ai with their work email; sharing managed through the Claude.ai team admin console.</div>
+
+  <div class="card-grid">
+    <div class="ws-card green">
+      <div class="ws-name">AI Advisor</div>
+      <div class="ws-tag green">Active v1.14 (eval 100/100)</div>
+      <p><strong>For:</strong> all STA staff. The Day 1 tool - explore AI fit, find what's built, frame ideas for the build pipeline. Walks staff through documenting workflows for the central AI knowledge base.</p>
+      <p><strong>Does not:</strong> build or design tools. All implementation routes back to IT.</p>
+      <div class="ws-meta">
+        <strong>8 context files:</strong> <code>context-sta-company-proj.md</code>, <code>context-sta-team-ai-proj.md</code>, <code>context-sta-products-detail.md</code> (3 shared), <code>context-ai-system-overview-proj.md</code>, <code>context-prompting-guide-proj.md</code>, <code>context-getting-started-proj.md</code>, <code>context-tub-framework-proj.md</code>, <code>context-research-topic-index-proj.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/_Projects/ai-advisor-proj/</code>
+      </div>
+    </div>
+
+    <div class="ws-card green">
+      <div class="ws-name">STA Support Chat</div>
+      <div class="ws-tag green">Active since 2026-05-15</div>
+      <p><strong>For:</strong> Chris Baker, Tyler Baughman, Adam Baker. Product troubleshooting and customer email drafts grounded in the STA Help Center across every product line.</p>
+      <p><strong>Hard rule:</strong> NEVER FABRICATE. Source-label taxonomy (Context-confirmed / Training knowledge / Training knowledge - verify carefully / Cannot confirm) on every answer.</p>
+      <div class="ws-meta">
+        <strong>16 context files</strong> covering Time Clocks, SchoolTRAK, Tardy Kiosk, Food Service, Visitor Management, ID Badging, Positive Attendance, Transcript Labels, ID Printers, Skyward compatibility, product mechanics, remote access, SQL Server, coverage routing, plus <code>sta-company-profile.md</code>. <strong>Blueprint:</strong> <code>project-blueprints/_Projects/sta-support-chat-proj/</code>
+      </div>
+    </div>
+
+    <div class="ws-card green">
+      <div class="ws-name">STA Salesforce Cohort</div>
+      <div class="ws-tag green">Active (shipping 2026-05-21, eval 87/100)</div>
+      <p><strong>For:</strong> Adam, Kelsey, Joanie, Tanya. Shared SF admin reference and guidance - step-by-step tasks, formula drafts, multi-approach tradeoffs.</p>
+      <p><strong>Hard rules:</strong> warn before destructive ops; never give a confident answer when unsure; heavy Flow design routes back to Adam's SF Admin Assistant.</p>
+      <div class="ws-meta">
+        <strong>4 context files:</strong> <code>context-sta-company-proj.md</code>, <code>context-sta-cohort.md</code>, <code>context-sta-salesforce-org.md</code>, <code>context-flow-overview.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/_Projects/sta-salesforce-cohort-proj/</code>
+      </div>
+    </div>
+
+    <div class="ws-card gray">
+      <div class="ws-name">STA Main Chat</div>
+      <div class="ws-tag gray">Draft - instructions pending</div>
+      <p><strong>Planned for:</strong> all staff. The base brain for general School Tech questions and org knowledge. Other department-specific brains will extend from it.</p>
+      <p><strong>Status:</strong> context files pre-built (<code>context-sta-company-proj.md</code>, <code>context-sta-products-detail.md</code>, <code>context-sta-team-ai-proj.md</code>); instructions.md still to write.</p>
+      <div class="ws-meta">
+        <strong>Blueprint:</strong> <code>project-blueprints/_Projects/sta-main-chat-proj/</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- STA COWORK WORKSPACES -->
+  <div id="sta-cowork"></div>
+  <div class="section-title">STA Cowork Workspaces (Adam-only Build / Ops / Domain)</div>
+  <div class="section-intro">Cowork projects Adam uses to build, maintain, and operate the AI system, plus the domain-specific Cowork tools that handle heavier-lift STA work than the shared Claude.ai Projects can.</div>
+
+  <div class="card-grid">
+    <div class="ws-card blue">
+      <div class="ws-name">The Architect</div>
+      <div class="ws-tag blue">Active v5.16 - build pipeline</div>
+      <p><strong>Use for:</strong> building new projects, polishing existing prompts, quick one-off prompts, updating test cases after fixes, all system maintenance work (registry updates, training materials, knowledge-base oversight).</p>
+      <p><strong>Four modes:</strong> Full Pipeline &middot; Polish Existing &middot; Quick Prompt &middot; Test Case Update.</p>
+      <div class="ws-meta">
+        <strong>Context files:</strong> <code>context-agent-registry.md</code>, <code>context-path-reference.md</code> &middot; <strong>Workspace folder:</strong> The Architect/ (canonical maintenance workspace)
+      </div>
+    </div>
+
+    <div class="ws-card blue">
+      <div class="ws-name">Deep Research</div>
+      <div class="ws-tag blue">Active - knowledge base</div>
+      <p><strong>Three modes:</strong> Mode 1 (Research from scratch via web search), Mode 2 (Ingest existing material - PDFs, transcripts, courses), Mode 3 (Ingest + supplementary research).</p>
+      <p><strong>Output shapes:</strong> Chat Answer &middot; In-Depth (single file or folder) &middot; Course/Syllabus (multi-module learning path).</p>
+      <div class="ws-meta">
+        <strong>Writes to:</strong> <code>The Architect/knowledge-base/</code> &middot; <strong>Context file:</strong> <code>context-knowledge-base-index.md</code>
+      </div>
+    </div>
+
+    <div class="ws-card orange">
+      <div class="ws-name">System Monitor</div>
+      <div class="ws-tag orange">Active v1.8 - ops + health monitoring</div>
+      <p><strong>Two modes:</strong> Monitor mode posts green/amber/red health report to Slack every Monday 8 AM (12 checks). Navigator mode answers live questions about AI system state.</p>
+      <p><strong>Don't use for:</strong> building projects or writing prompts - those stay in The Architect.</p>
+      <div class="ws-meta">
+        <strong>Context files:</strong> <code>context-health-check-rules.md</code>, <code>context-system-reference.md</code>, <code>context-maintenance-sop.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/system-monitor/</code>
+      </div>
+    </div>
+
+    <div class="ws-card blue">
+      <div class="ws-name">Work Personal Assistant</div>
+      <div class="ws-tag blue">Active - Adam's day-to-day</div>
+      <p><strong>Use for:</strong> email rewrites, web lookups, quick research, document creation, anything outside the build system. Connected to Gmail for drafting.</p>
+      <p><strong>Replication template:</strong> the per-user staff Work Assistant deployments in Phase 3 will be replicated from this template.</p>
+      <div class="ws-meta">
+        <strong>Context files:</strong> <code>style-profile.md</code> (shared), <code>contacts.md</code> (shared), <code>work-standing-context.md</code>, <code>context-org-team.md</code>, <code>context-org-identity.md</code>
+      </div>
+    </div>
+
+    <div class="ws-card blue">
+      <div class="ws-name">Salesforce Admin Assistant</div>
+      <div class="ws-tag blue">Active - Adam's heavy SF Flow tool</div>
+      <p><strong>Use for:</strong> Adam's personal Salesforce reference and guidance - heavy Flow design, CPQ, Spanning across all admin areas. The STA Salesforce Cohort routes heavy Flow questions back to this.</p>
+      <p><strong>V2 with MCP org access:</strong> in backlog, pending Phase 3.</p>
+      <div class="ws-meta">
+        <strong>Context files:</strong> <code>context-salesforce-org.md</code>, <code>sta-company-profile.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/salesforce-admin-assistant/</code>
+      </div>
+    </div>
+
+    <div class="ws-card blue">
+      <div class="ws-name">STA Support Expert</div>
+      <div class="ws-tag blue">Active v2.0 - Adam's diagnostic tool</div>
+      <p><strong>Use for:</strong> Adam-internal diagnostic reference for product troubleshooting and customer email drafts. Heavier-context counterpart to the staff-shared STA Support Chat. Absorbed Skyward Advisor on 2026-05-18.</p>
+      <div class="ws-meta">
+        <strong>20 context files</strong> spanning every product (with how-tos for the four highest-volume), Skyward compatibility, product mechanics, remote access, SQL Server, plus the platform-detection and coverage-routing modules from the former Skyward Advisor. <strong>Blueprint:</strong> <code>project-blueprints/sta-support-expert/</code>
+      </div>
+    </div>
+
+    <div class="ws-card blue">
+      <div class="ws-name">Help Center Advisor</div>
+      <div class="ws-tag blue">Active - KB structure &amp; gaps</div>
+      <p><strong>Use for:</strong> managing structure and content strategy for STA's Salesforce Knowledge help center - audits articles, identifies coverage gaps by product, flags duplicates, delivers ranked recommendations across seven task types.</p>
+      <div class="ws-meta">
+        <strong>Context files:</strong> <code>context-help-center-state.md</code>, <code>sta-company-profile.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/help-center-advisor/</code>
+      </div>
+    </div>
+
+    <div class="ws-card blue">
+      <div class="ws-name">STA Security Advisor</div>
+      <div class="ws-tag blue">Active v1.2 (eval 93/100)</div>
+      <p><strong>Use for:</strong> long-term CIS Controls v8.1 compliance work - tracking evidence, analyzing logs, generating compliance checklists, reviewing Salesforce / Google Workspace for security events.</p>
+      <p><strong>Does not:</strong> take live action on production systems. Analyze and recommend; manual execution stays with Adam.</p>
+      <div class="ws-meta">
+        <strong>Context files:</strong> <code>context-cis81-framework.md</code>, <code>context-sta-security-stack.md</code>, <code>context-compliance-status.md</code>, <code>sta-company-profile.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/sta-security-advisor/</code>
+      </div>
+    </div>
+
+    <div class="ws-card gray">
+      <div class="ws-name">Project Tester (Deep)</div>
+      <div class="ws-tag gray">Draft - QA engineering</div>
+      <p><strong>Planned for:</strong> Adam's QA engineer for Architect-built projects - behavioral compliance testing (LLM-as-judge, temperature=0), adversarial red-team (OWASP LLM Top 10), code artifact execution, regression comparison across versions.</p>
+      <p><strong>Supersedes:</strong> the Project Tester skill for deep structured testing; skill remains for quick simulation checks.</p>
+      <div class="ws-meta">
+        <strong>Context files:</strong> <code>context-behavioral-testing.md</code>, <code>context-adversarial-testing.md</code>, <code>context-qa-engineering.md</code>, <code>context-test-harness.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/project-tester/</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAL COWORK -->
+  <div id="personal-cowork"></div>
+  <div class="section-title">Personal Cowork Workspaces (Adam, off-work)</div>
+  <div class="section-intro">Adam's personal projects, separate from the STA AI system but maintained through the same The Architect pipeline. Listed here for completeness so the system picture is whole.</div>
+
+  <div class="card-grid">
+    <div class="ws-card purple">
+      <div class="ws-name">Adam's Personal Assistant</div>
+      <div class="ws-tag purple">Active v2.0</div>
+      <p>Personal life tasks: personal email, family, home purchase, creative writing, side projects. Org context files available at personal-relevance trigger only.</p>
+    </div>
+    <div class="ws-card purple">
+      <div class="ws-name">The Green Man</div>
+      <div class="ws-tag purple">Active - plant care, druid voice</div>
+      <p>Care guidance, photo ID, per-plant inventory, weekly check-in, Northwoods outdoor knowledge. Hard rule against killing-plant advice.</p>
+    </div>
+    <div class="ws-card purple">
+      <div class="ws-name">Garage Sale Monitor</div>
+      <div class="ws-tag purple">Active v1.4 (11/11 tests pass)</div>
+      <p>Scans ~78 Northwoods sources for garage/estate/moving sales within 50 miles of Ashland WI. 3x/week scheduled digest (Mon/Wed/Fri).</p>
+    </div>
+    <div class="ws-card purple">
+      <div class="ws-name">Local Discovery</div>
+      <div class="ws-tag purple">Active v1.3 Cowork / v1.4 Project</div>
+      <p>Event discovery, planning, regulatory Q&amp;A, source checks for Northwoods / Lake Superior region. Weekly Pine HTML digests. Three-tier active listening for preference capture.</p>
+    </div>
+    <div class="ws-card purple">
+      <div class="ws-name">The Chef</div>
+      <div class="ws-tag purple">Active v1.3</div>
+      <p>Recipe sourcing, generation, nutrition, scaling. Maintains Baker's Recipe List (Word doc) plus live site at azmordis.github.io/bakers-recipe-list.</p>
+    </div>
+    <div class="ws-card gray">
+      <div class="ws-name">Build with Baker</div>
+      <div class="ws-tag gray">Draft v1.0 - brand ops</div>
+      <p>Brand-operations partner for the Build with Baker side-project umbrella. Drafts brand content, critiques drafts, tracks brand state (UniStyle, Ko-fi, X handle), plans content with phase-aware behavior.</p>
+    </div>
+  </div>
+
+  <!-- BUILD PIPELINE -->
+  <div id="pipeline"></div>
+  <div class="section-title">Build Pipeline (5 Steps)</div>
+  <div class="section-intro">From idea to live project. Step 1 builds it (everything in one Architect session). Steps 2-3 deploy and validate. Step 4 fixes anything that surfaced. Step 5 locks it in.</div>
+
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="pipeline-num blue">1</div>
+      <div class="pipeline-name">Build</div>
+      <div class="pipeline-tool">The Architect</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num green">2</div>
+      <div class="pipeline-name">Deploy</div>
+      <div class="pipeline-tool">Cowork or Claude.ai</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num green">3</div>
+      <div class="pipeline-name">Test</div>
+      <div class="pipeline-tool">Project Tester</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num orange">4</div>
+      <div class="pipeline-name">Fix Issues</div>
+      <div class="pipeline-tool">Project Feedback</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-num orange">5</div>
+      <div class="pipeline-name">Lock In</div>
+      <div class="pipeline-tool">Registry + Files</div>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <strong>Wave 1 / Wave 2 confirmation gate.</strong> Inside Step 1, The Architect produces blueprint-summary.md, instructions.md, backlog.md, and any context files (Wave 1) and then pauses for explicit confirmation that instructions.md is final. Only after that confirmation does it produce test-cases.md, registry-entry.md, project-launch.md, and handoff.md (Wave 2). Prevents downstream rework when the prompt changes during iteration.
+  </div>
+
+  <!-- SKILLS -->
+  <div id="skills"></div>
+  <div class="section-title">Cowork Skills (Auto-Load on Trigger)</div>
+  <div class="section-intro">Skills auto-load inside any Cowork workspace when their trigger phrases appear. Listed below: the Adam-built custom skills first, then the standard Anthropic-bundled platform skills.</div>
+
+  <h3 style="font-size:13px; margin: 8px 0; color: var(--gray); text-transform:uppercase; letter-spacing:0.7px;">Custom skills (Adam-built)</h3>
+  <div class="skills-grid">
+    <div class="skill-item"><div class="skill-name">Project Tester</div><div class="skill-desc">Runs 10 test cases against instructions.md. Pass/fail report with exact-text fixes.</div><div class="skill-trigger">"test my project", "run the tests"</div></div>
+    <div class="skill-item"><div class="skill-name">Project Feedback</div><div class="skill-desc">Diagnoses live-project misbehavior; identifies root cause in instructions.md and produces exact-text fix with version bump.</div><div class="skill-trigger">"my project isn't working right"</div></div>
+    <div class="skill-item"><div class="skill-name">Prompt Evaluator</div><div class="skill-desc">Scored HTML quality report saved as a Cowork artifact (one per evaluated version, id <code>eval_[prompt-name]_v[X_Y]</code>). Reference-doc grounded.</div><div class="skill-trigger">"evaluate this prompt", "score my prompt"</div></div>
+    <div class="skill-item"><div class="skill-name">Skill Evaluator</div><div class="skill-desc">Scores a SKILL.md against Anthropic skill-authoring frameworks; HTML artifact output.</div><div class="skill-trigger">"evaluate this skill", "score my skill"</div></div>
+    <div class="skill-item"><div class="skill-name">KB Context Builder</div><div class="skill-desc">Packages KB modules into uploadable context files for a specific project. Versioned with changelogs.</div><div class="skill-trigger">"build context from my research"</div></div>
+    <div class="skill-item"><div class="skill-name">Cowork Context Packager</div><div class="skill-desc">Formats content into on-demand Cowork context file with routing trigger generation and instructions.md edit proposal.</div><div class="skill-trigger">"package this for Cowork"</div></div>
+    <div class="skill-item"><div class="skill-name">Project Context Packager</div><div class="skill-desc">Formats content into always-loads Claude.ai Projects context file with token-economy enforcement and primacy foregrounding.</div><div class="skill-trigger">"package this for a Project"</div></div>
+    <div class="skill-item"><div class="skill-name">Pipeline Audit</div><div class="skill-desc">Full coverage matrix across every Active agent - blueprint folder, instructions, handoff, tests, version alignment. Priority-ranked P1-P5.</div><div class="skill-trigger">"audit the pipeline"</div></div>
+    <div class="skill-item"><div class="skill-name">Training Doc Auditor</div><div class="skill-desc">Cross-checks live system state (registry + handoff files) against training HTML and docx files. Category A/B/C/D discrepancies.</div><div class="skill-trigger">"audit training docs"</div></div>
+    <div class="skill-item"><div class="skill-name">KB Freshness Auditor</div><div class="skill-desc">Audits knowledge-base/index.md for overdue research; Red/Amber/Current classification; generated Deep Research prompts.</div><div class="skill-trigger">"audit the KB"</div></div>
+    <div class="skill-item"><div class="skill-name">Agent Quality Logger</div><div class="skill-desc">Logs bad agent interactions to feedback-log.md with severity (Minor/Major/Critical). Critical entries route to Project Feedback.</div><div class="skill-trigger">"log this feedback", "that was wrong"</div></div>
+    <div class="skill-item"><div class="skill-name">Prompt Override Guard</div><div class="skill-desc">Intercepts jailbreak / override attempts ("ignore your instructions", "act as DAN", etc.). Always armed inside Cowork agents.</div><div class="skill-trigger">Any prompt-injection attempt (auto-fires)</div></div>
+    <div class="skill-item"><div class="skill-name">Help Center Article</div><div class="skill-desc">STA Salesforce Knowledge Base articles in the exact STA HTML format.</div><div class="skill-trigger">"KB article", "format this as a KB article"</div></div>
+    <div class="skill-item"><div class="skill-name">HTML Checklist</div><div class="skill-desc">Process or workflow to single-file interactive HTML checklist with STA branding. In-memory state.</div><div class="skill-trigger">"make this a checklist"</div></div>
+    <div class="skill-item"><div class="skill-name">Time Clock Diagnostics</div><div class="skill-desc">Analyzes STA time clock log files (TT3, TT7, TT10) - app.config, winsvc, emulator.log, errors.txt, settings.xml.</div><div class="skill-trigger">Upload any clock log file</div></div>
+    <div class="skill-item"><div class="skill-name">Cowork Snapshot Exporter</div><div class="skill-desc">Packages a Cowork project into a timestamped ZIP for sharing - system prompt, setup guide, all referenced context files.</div><div class="skill-trigger">"snapshot this project", "export this cowork"</div></div>
+    <div class="skill-item"><div class="skill-name">Research to Slides</div><div class="skill-desc">Converts Deep Research modules into polished PowerPoint decks with STA branding and SVG diagrams.</div><div class="skill-trigger">"turn this into slides"</div></div>
+  </div>
+
+  <h3 style="font-size:13px; margin: 18px 0 8px; color: var(--gray); text-transform:uppercase; letter-spacing:0.7px;">Standard platform skills (Anthropic-bundled with Cowork)</h3>
+  <p style="font-size: 12.5px; color: #555; margin-bottom: 12px; line-height: 1.55;">These ship with Cowork by default and are the same in every Anthropic Cowork workspace. Listed for completeness.</p>
+  <div class="skills-grid">
+    <div class="skill-item"><div class="skill-name">docx / xlsx / pptx / pdf</div><div class="skill-desc">Create, read, edit Word docs, spreadsheets, presentations, PDFs. Auto-selected by file type.</div></div>
+    <div class="skill-item"><div class="skill-name">schedule</div><div class="skill-desc">Create scheduled tasks per-project. Cowork scheduled-tasks system.</div></div>
+    <div class="skill-item"><div class="skill-name">skill-creator</div><div class="skill-desc">Create, modify, eval, and benchmark new Cowork skills. Description-optimization for triggering accuracy.</div></div>
+    <div class="skill-item"><div class="skill-name">setup-cowork</div><div class="skill-desc">Guided Cowork setup flow - role-matched plugin install, MCP connections.</div></div>
+    <div class="skill-item"><div class="skill-name">consolidate-memory</div><div class="skill-desc">Reflective pass over auto-memory files - merge duplicates, fix stale facts, prune the index.</div></div>
+  </div>
+
+  <!-- AUTOMATIONS -->
+  <div id="auto"></div>
+  <div class="section-title">Scheduled Automations</div>
+  <div class="section-intro">Scheduled tasks live per-project (the central Task Scheduler workspace was retired 2026-05-06). Each project that owns a recurring job manages it through Cowork's scheduled-tasks system.</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Automation</th>
+        <th>Schedule</th>
+        <th>Owner</th>
+        <th>What It Does</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>System Monitor Weekly Health Check</strong></td>
+        <td>Mondays 8:00 AM</td>
+        <td>System Monitor</td>
+        <td>12 health checks across all Active projects. Posts green/amber/red status to Slack. Includes Check 11 (GitHub Backup Security) and Check 12 (Backup Coverage parity).</td>
+      </tr>
+      <tr>
+        <td><strong>Knowledge Base Update Checker</strong></td>
+        <td>Mondays 8:09 AM</td>
+        <td>System Monitor</td>
+        <td>Reads knowledge-base/index.md, flags overdue topics (weekly/monthly/quarterly/annually). Reports in chat + email summary.</td>
+      </tr>
+      <tr>
+        <td><strong>Weekly GitHub Backup</strong></td>
+        <td>Sundays evening</td>
+        <td>System Monitor (scheduled task)</td>
+        <td>Backs up workspace to <code>github.com/abaker421/school-tech-ai-system</code>. Verified by System Monitor Check 12 every Monday.</td>
+      </tr>
+      <tr>
+        <td><strong>Garage Sale Northwoods Digest</strong></td>
+        <td>Mon/Wed/Fri</td>
+        <td>Garage Sale Monitor</td>
+        <td>Personal - scans Northwoods sources within 50 miles of Ashland WI.</td>
+      </tr>
+      <tr>
+        <td><strong>Local Discovery Weekly Digest</strong></td>
+        <td>Weekly (Pine HTML)</td>
+        <td>Local Discovery</td>
+        <td>Personal - event discovery and planning for Northwoods / Lake Superior region.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- KEY FILES -->
+  <div id="files"></div>
+  <div class="section-title">Key Files</div>
+  <div class="section-intro">Source-of-truth documents. All under the The Architect workspace folder.</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Owner</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>context-agent-registry.md</code> <em>(workspace root)</em></td>
+        <td>The Architect (writes), all build tools (read)</td>
+        <td>Master list of every project. Status: Draft / Active / Deprecated. Used for scope-overlap checks before new builds.</td>
+      </tr>
+      <tr>
+        <td><code>context-path-reference.md</code> <em>(workspace root)</em></td>
+        <td>The Architect</td>
+        <td>Canonical workspace path conventions. Read by The Architect at session start.</td>
+      </tr>
+      <tr>
+        <td><code>knowledge-base/index.md</code></td>
+        <td>Deep Research (writes), The Architect (reads), KB Freshness Auditor (audits)</td>
+        <td>Index of every research topic with module count, update sensitivity, last-checked date. Two-section layout (sta/ and adam/).</td>
+      </tr>
+      <tr>
+        <td><code>project-blueprints/[project-name]/</code></td>
+        <td>The Architect (writes), per-project owner (maintains)</td>
+        <td>Per-project folder: blueprint-summary, instructions, test-cases, handoff, project-launch, registry-entry, backlog, changelog, context files.</td>
+      </tr>
+      <tr>
+        <td><code>Training Materials/</code></td>
+        <td>The Architect (drift-checks), Adam (writes)</td>
+        <td>Staff and admin training docs. Cross-checked against the registry by the Training Doc Auditor skill.</td>
+      </tr>
+      <tr>
+        <td><code>feedback-log.md</code></td>
+        <td>Agent Quality Logger (writes), System Monitor (reviews Mondays)</td>
+        <td>Bad-agent-interaction log. Critical entries route to Project Feedback immediately; minor entries surface in Monday health report.</td>
+      </tr>
+      <tr>
+        <td><code>changelog.md</code> <em>(workspace root)</em></td>
+        <td>Adam (writes)</td>
+        <td>Workspace-level changelog for the AI system as a whole. Distinct from per-project changelogs which live under each project blueprint folder.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- DEPRECATED -->
+  <div id="deprecated"></div>
+  <div class="section-title">Deprecated (Documented for Continuity)</div>
+  <div class="section-intro">Tools and workspaces that previously existed in the system but have been retired. Documented here so older references in case studies or training material can be understood.</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Tool</th>
+        <th>Deprecated</th>
+        <th>Replacement / Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Prompt Maker</strong></td>
+        <td>2026-04-27</td>
+        <td>Absorbed into The Architect v2.0. The Architect now writes full production prompts, test cases, registry entries, handoffs directly.</td>
+      </tr>
+      <tr>
+        <td><strong>Task Scheduler</strong> (workspace)</td>
+        <td>2026-05-06</td>
+        <td>Retired as a separate workspace. Scheduling now lives per-project via the Cowork scheduled-tasks tool. Each project owns its own recurring jobs.</td>
+      </tr>
+      <tr>
+        <td><strong>Document Maker</strong></td>
+        <td>2026-05-15</td>
+        <td>Removed entirely. Document creation handled by the bundled Cowork docx/pptx/xlsx/pdf skills inside the projects that need them.</td>
+      </tr>
+      <tr>
+        <td><strong>Skyward Advisor</strong></td>
+        <td>2026-05-18</td>
+        <td>Absorbed into STA Support Expert v2.0. Skyward navigation click-path capability now lives in STA Support Expert.</td>
+      </tr>
+      <tr>
+        <td><strong>STA Support Bot</strong> (planned name)</td>
+        <td>n/a (renamed)</td>
+        <td>Renamed to STA Support Chat before launch. Same tool, current naming.</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="footer">
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; Adam's AI System - Operational Reference &nbsp;|&nbsp; Updated 2026-05-21 (The Architect v5.16)
+</div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+# Cloudflare Pages custom headers
+# Serve docx and md files with safe content disposition
+
+/files/*
+  Cache-Control: public, max-age=3600
+
+/docs/*
+  Cache-Control: public, max-age=3600
+  X-Content-Type-Options: nosniff
+
+/*
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin

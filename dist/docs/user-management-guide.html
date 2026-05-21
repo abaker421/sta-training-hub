@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - User Management Guide</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: var(--dark); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--blue); }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.75; margin-top: 6px; max-width: 620px; }
+  .header .badges { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 3px 12px; font-size: 12px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  .toc { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 40px; }
+  .toc-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.1px; color: var(--gray); margin-bottom: 12px; }
+  .toc-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .toc-links a { font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; background: #e8f2f8; border: 1px solid #c0d8ea; border-radius: 20px; padding: 3px 12px; }
+  .toc-links a:hover { background: var(--blue); color: white; }
+
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.65; }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+  .callout.red { background: #fdf0ef; border-left: 4px solid var(--red); }
+
+  /* ROLE TABLE */
+  .role-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); font-size: 13px; margin-bottom: 16px; }
+  .role-table th { background: var(--light); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--gray); padding: 10px 16px; text-align: left; border-bottom: 2px solid var(--border); }
+  .role-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  .role-table tr:last-child td { border-bottom: none; }
+  .role-badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 9px; border-radius: 10px; }
+  .role-badge.staff { background: #edf7e6; color: #3a8a1e; }
+  .role-badge.power { background: #e8f2f8; color: var(--blue); }
+  .role-badge.admin { background: #fef4e0; color: #a06500; }
+
+  /* STEPS */
+  .step { display: flex; gap: 18px; margin-bottom: 16px; }
+  .step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-num.green { background: var(--green); }
+  .step-num.red { background: var(--red); }
+  .step-body { flex: 1; }
+  .step-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .step-desc { font-size: 13px; color: #444; line-height: 1.55; }
+  .step-note { font-size: 12px; background: var(--light); border-left: 3px solid var(--blue); padding: 7px 12px; margin-top: 8px; border-radius: 0 5px 5px 0; }
+
+  /* ONBOARDING CHECKLIST */
+  .onboard-card { background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+  .onboard-card-header { padding: 12px 18px; font-size: 12px; font-weight: 700; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+  .onboard-card-body { padding: 14px 18px; }
+  .onboard-card-body ul { list-style: none; }
+  .onboard-card-body li { font-size: 13px; color: #444; padding: 5px 0 5px 22px; border-bottom: 1px solid var(--border); position: relative; line-height: 1.5; }
+  .onboard-card-body li:last-child { border-bottom: none; }
+  .onboard-card-body li::before { content: ""; width: 13px; height: 13px; border: 2px solid var(--border); border-radius: 3px; position: absolute; left: 0; top: 7px; }
+
+  /* EMAIL TEMPLATE */
+  .email-template { background: #fafbfc; border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; font-size: 13px; line-height: 1.7; }
+  .email-template .email-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gray); margin-bottom: 10px; }
+  .email-field { display: flex; gap: 8px; margin-bottom: 4px; }
+  .email-field-name { font-size: 12px; font-weight: 700; color: var(--gray); width: 50px; flex-shrink: 0; }
+  .email-field-val { font-size: 12px; color: var(--dark); }
+  .email-body-text { font-size: 13px; color: #333; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); line-height: 1.75; }
+
+  /* TROUBLESHOOTING */
+  .trouble-item { background: white; border: 1px solid var(--border); border-left: 4px solid var(--orange); border-radius: 0 8px 8px 0; padding: 12px 16px; margin-bottom: 10px; }
+  .trouble-q { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+  .trouble-a { font-size: 12px; color: #555; line-height: 1.55; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 800px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>User Management Guide</h1>
+    <div class="sub">How to add, onboard, promote, and remove users from the School Tech AI system.</div>
+    <div class="badges">
+      <div class="badge">Admin Only</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="toc">
+    <div class="toc-title">In This Guide</div>
+    <div class="toc-links">
+      <a href="#roles">Access Levels</a>
+      <a href="#add">Adding a User</a>
+      <a href="#onboard">Onboarding Workflow</a>
+      <a href="#email">Welcome Email</a>
+      <a href="#promote">Promoting to Admin</a>
+      <a href="#remove">Removing a User</a>
+      <a href="#trouble">Troubleshooting</a>
+    </div>
+  </div>
+
+  <!-- ROLES -->
+  <div id="roles"></div>
+  <div class="section-title">Access Levels</div>
+  <div class="section-intro">There are three access levels. Most staff will only ever need Regular Staff access. Power Users and Admins require deliberate promotion and a working knowledge of the system.</div>
+
+  <table class="role-table">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>What They Can Access</th>
+        <th>Who Gets This</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="role-badge staff">Regular Staff</span></td>
+        <td>claude.ai team Projects only: AI Advisor (live, all staff), STA Support Chat (live, support team), STA Salesforce Cohort (live, SF admins), STA Main Chat (Draft), and any future team-facing tools as they go live. Cannot access Cowork or pipeline tools.</td>
+        <td>All School Tech staff added to the team plan</td>
+      </tr>
+      <tr>
+        <td><span class="role-badge power">Power User</span></td>
+        <td>Everything Regular Staff has, plus read access to Cowork workspaces for viewing how projects are built. Can trigger some skills but does not manage the pipeline independently.</td>
+        <td>Tanya Ballard, Kelsey Eberly, Joanie Preston. Cowork read access available for deeper system visibility when relevant.</td>
+      </tr>
+      <tr>
+        <td><span class="role-badge admin">Admin</span></td>
+        <td>Full access to everything: Cowork pipeline tools, project build workflow, skill installation, registry management, and all configuration files. Can add and remove users.</td>
+        <td>Adam only (currently). Promote others only after they have completed full pipeline training.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout blue">
+    <strong>Cowork is admin-only by design.</strong> Regular staff never need Cowork access. The pipeline tools, context document skills, and project management workflows all live in Cowork. Keeping it admin-only is the primary access control for the system.
+  </div>
+
+  <!-- ADDING A USER -->
+  <div id="add"></div>
+  <div class="section-title">Adding a New User to the Team Plan</div>
+  <div class="section-intro">All users - regular staff or admins - start by being added to the claude.ai Team plan. This gives them access to the team workspace and any projects shared with the team.</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Go to the claude.ai admin console</div>
+      <div class="step-desc">Log in to claude.ai with your admin account. Navigate to <strong>Settings &rarr; Members</strong> (or the Team admin panel depending on the current UI). You need to be an Owner or Admin on the team plan to invite members.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Send the invite</div>
+      <div class="step-desc">Click <strong>Invite Members</strong> and enter the new user's School Tech email address. Select the appropriate role - use <strong>Member</strong> for all regular staff. Do not use Owner unless you are explicitly delegating admin rights. Send the invitation.</div>
+      <div class="step-note">Always use their School Tech email address, not personal. Invites sent to personal emails create personal accounts, not team workspace access.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Confirm the invite was received</div>
+      <div class="step-desc">The new user will receive an email from Anthropic with a link to accept the invite and set up their login. The invite link expires - follow up with them if they have not accepted within 48 hours. Check Members in the admin console to see pending vs. accepted invites.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num green">4</div>
+    <div class="step-body">
+      <div class="step-title">Verify they are in the team workspace</div>
+      <div class="step-desc">Ask them to log in and confirm they see the School Tech organization name in the top of the left sidebar at claude.ai. If they only see "Personal" they accepted the invite into the wrong account. They will need to log out, use a private browser window, and log in again with their work email directly.</div>
+    </div>
+  </div>
+
+  <!-- ONBOARDING -->
+  <div id="onboard"></div>
+  <div class="section-title">Onboarding a New Regular Staff Member</div>
+  <div class="section-intro">After the invite is accepted and the workspace is confirmed, complete this checklist before sending them the welcome email.</div>
+
+  <div class="onboard-card">
+    <div class="onboard-card-header">
+      <span style="font-size:16px;">&#9989;</span> Admin pre-flight (you do this before contacting them)
+    </div>
+    <div class="onboard-card-body">
+      <ul>
+        <li>Invite sent to their School Tech email and accepted</li>
+        <li>Confirm their account shows the team workspace (not Personal)</li>
+        <li>Verify they can see the School Tech projects in the sidebar</li>
+        <li>Confirm the projects they need access to are shared with the team (not just with you)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="onboard-card">
+    <div class="onboard-card-header">
+      <span style="font-size:16px;">&#128226;</span> What to send them
+    </div>
+    <div class="onboard-card-body">
+      <ul>
+        <li>Welcome email (template below) with access confirmation and next steps</li>
+        <li>Link to or attachment of <strong>Team Onboarding Guide.html</strong> (Training folder)</li>
+        <li>Link to or attachment of <strong>AI QuickStart Guide.html</strong> (Training folder)</li>
+        <li>Remind them to review the Restricted Data Reference Guide before first use</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="onboard-card">
+    <div class="onboard-card-header">
+      <span style="font-size:16px;">&#128337;</span> Follow up at end of week 1
+    </div>
+    <div class="onboard-card-body">
+      <ul>
+        <li>Check in - did they get access, are the tools working?</li>
+        <li>Ask if they have questions after reading the guides</li>
+        <li>Note any issues they report - these may indicate gaps in the tools</li>
+        <li>Confirm they know how to flag bad responses (thumbs down in the interface)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- WELCOME EMAIL -->
+  <div id="email"></div>
+  <div class="section-title">Welcome Email Template</div>
+
+  <div class="email-template">
+    <div class="email-label">Email template - customize as needed</div>
+    <div class="email-field"><span class="email-field-name">To:</span><span class="email-field-val">[New team member]</span></div>
+    <div class="email-field"><span class="email-field-name">Subject:</span><span class="email-field-val">You're set up on the School Tech AI tools</span></div>
+    <div class="email-body-text">
+      Hey [Name],<br><br>
+      You should now have access to the School Tech AI tools on claude.ai. Log in at claude.ai with your School Tech email and look for the School Tech workspace in the left sidebar - the projects should be listed there.<br><br>
+      I've attached two quick-read guides: the Team Guide covers what the tools are and how to access them, and the Quick Start Guide walks you through day-one setup and how to get good results. Worth reading both before your first real use - especially the "what not to do" section re: data.<br><br>
+      Tools are being rolled out in phases - I'll let you know which are active for your role. Once you're in, ask me which projects to open first.<br><br>
+      If anything isn't working or you have questions, reach out to me directly.<br><br>
+      - Adam
+    </div>
+  </div>
+
+  <!-- PROMOTE TO ADMIN -->
+  <div id="promote"></div>
+  <div class="section-title">Promoting a User to Power User or Admin</div>
+  <div class="section-intro">Promotion gives access to Cowork and the pipeline tools. Do not promote anyone until they have used the regular staff tools for at least a few weeks and have a reason to need deeper access.</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Confirm the reason for promotion</div>
+      <div class="step-desc">Power User: they need to understand the system, monitor tools, or contribute to maintenance. Admin: they will be building and managing projects independently. Admin promotion requires completing a full pipeline walkthrough first.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Give them Cowork access</div>
+      <div class="step-desc">Cowork access is managed separately from claude.ai. Share the Cowork workspace URL and provide login instructions. For Power Users, share read access to relevant workspaces. For Admins, share full access to all pipeline workspaces (The Architect, Deep Research, Work Personal Assistant, Task Scheduler) plus the admin-triggered Cowork skills (Project Tester, Project Feedback, prompt-evaluator).</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Walk them through the system</div>
+      <div class="step-desc">For Power Users: share the Training - Admin folder and walk through the system overview (AI System Overview Admin.html) and the system reference doc. For new Admins: walk through all training docs and then do a live build together before they run one independently.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num green">4</div>
+    <div class="step-body">
+      <div class="step-title">Update the system reference</div>
+      <div class="step-desc">Add their name to the access notes in <code>AI System Reference.md</code> so it is clear who has admin or power user access.</div>
+    </div>
+  </div>
+
+  <div class="callout orange">
+    <strong>Admins have write access to everything.</strong> A bad edit to <code>instructions.md</code> or the agent registry can break a live tool. Before promoting anyone to Admin, make sure they have read this guide, the New Project Build Guide, and the Maintenance SOP in full.
+  </div>
+
+  <!-- REMOVING A USER -->
+  <div id="remove"></div>
+  <div class="section-title">Offboarding a User</div>
+  <div class="section-intro">When a staff member leaves or loses AI access, complete the following steps. Regular staff offboarding is straightforward. Admin and Power User offboarding requires additional steps - flag those below apply only if the departing user had elevated access.</div>
+
+  <div class="onboard-card" style="margin-bottom: 16px;">
+    <div class="onboard-card-header">
+      <span style="font-size:16px;">&#128203;</span> Before removing - check these first
+    </div>
+    <div class="onboard-card-body">
+      <ul>
+        <li>Do they own any active project builds or pipeline files? If so, identify who takes over before removing access.</li>
+        <li>Do they have any scheduled tasks set up in Task Scheduler that need to be reassigned or deleted?</li>
+        <li>Are they listed as a stakeholder or primary contact in any blueprint files or handoff docs? Update those references.</li>
+        <li><strong>Admin only:</strong> Do any Cowork workspace settings, skill configurations, or context files reference them by name that need to be updated?</li>
+        <li><strong>Admin only:</strong> Were any shared credentials or API tokens granted to them that need to be rotated after removal?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num red">1</div>
+    <div class="step-body">
+      <div class="step-title">Remove from claude.ai team plan</div>
+      <div class="step-desc">Go to claude.ai &rarr; Settings &rarr; Members. Find the user and select Remove. This immediately revokes access to all team projects. Their personal conversation history within their account is not deleted by Anthropic, but they can no longer access team workspaces, shared projects, or team-level context.</div>
+      <div class="step-note">Removal is immediate. If they try to access a team project after removal they will get an access error. No notice is sent to them by Anthropic - communicate separately as needed.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num red">2</div>
+    <div class="step-body">
+      <div class="step-title">Revoke Cowork access (Power Users and Admins only)</div>
+      <div class="step-desc">If the user had Power User or Admin access to Cowork, revoke their workspace access from Cowork settings. Also check the Task Scheduler workspace - if they created any scheduled tasks, review each one: delete tasks no longer needed, or reassign ownership to a current admin before removing their access. An orphaned scheduled task may continue to run under their identity or silently fail.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num red">3</div>
+    <div class="step-body">
+      <div class="step-title">Transfer or close out their work (if applicable)</div>
+      <div class="step-desc">If they had in-progress project builds, ensure the blueprint files in <code>project-blueprints/</code> are complete enough for another admin to continue. If they were named as the stakeholder or requester for a pipeline project, update the relevant <code>blueprint-summary.md</code> and <code>handoff.md</code> files with the new owner. If any tools or context files reference them by name as a point of contact, update those too.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num red">4</div>
+    <div class="step-body">
+      <div class="step-title">Rotate credentials if they had admin-level access (Admins only)</div>
+      <div class="step-desc">If the departing user was an Admin with access to shared API tokens, Cowork workspace credentials, the GitHub backup repository, or any other shared credential, rotate those credentials after removing their access. Do not wait - shared credentials should be treated as potentially compromised once someone with access leaves.</div>
+      <div class="step-note">If you are unsure what credentials an Admin had access to, check the access notes in <code>AI System Reference.md</code> and the Google Access Security Checklist for any Google-connected tools they may have configured.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num red">5</div>
+    <div class="step-body">
+      <div class="step-title">Update system reference</div>
+      <div class="step-desc">Remove their name from access notes in <code>AI System Reference.md</code>. If they owned any projects or were listed as a stakeholder anywhere in the blueprint files, update those references to reflect the current owner. If they were listed in any training materials as a named contact or access holder, update those as well.</div>
+    </div>
+  </div>
+
+  <div class="callout orange" style="margin-top: 16px;">
+    <strong>Data considerations.</strong> Anthropic retains conversation history in the departing user's account per their standard data retention policies - School Tech does not control this. What School Tech does control is what that user can still access after removal (nothing, once removed) and what was entered into the AI tools during their tenure. Conversations with AI tools are covered under the Claude Teams data privacy agreement. If there is a specific concern about regulated data (FERPA, HIPAA, etc.) that was entered, consult your data governance process separately - this offboarding checklist does not replace that.
+  </div>
+
+  <!-- TROUBLESHOOTING -->
+  <div id="trouble"></div>
+  <div class="section-title">Troubleshooting Access Issues</div>
+
+  <div class="trouble-item">
+    <div class="trouble-q">User accepted the invite but does not see the School Tech projects</div>
+    <div class="trouble-a">They are likely logged into a personal account. Ask them to check the org name at the top of the sidebar. If it says "Personal" or their own name, they need to log out, open a private/incognito browser window, go to claude.ai, and sign in directly with their School Tech email - not via Google.</div>
+  </div>
+
+  <div class="trouble-item">
+    <div class="trouble-q">User says the invite email never arrived</div>
+    <div class="trouble-a">Check their spam folder first. The sender is from @anthropic.com. If it is not there, go to the admin console, find the pending invite, and resend it. Also confirm you sent it to the correct email address.</div>
+  </div>
+
+  <div class="trouble-item">
+    <div class="trouble-q">User can see some projects but not others</div>
+    <div class="trouble-a">Not all projects may be shared with the full team. Check the project settings in claude.ai and confirm the project is shared with the organization or team, not just with specific users. Update sharing settings as needed.</div>
+  </div>
+
+  <div class="trouble-item">
+    <div class="trouble-q">User is seeing an older version of a tool or outdated instructions</div>
+    <div class="trouble-a">Claude.ai may be pulling from a cached version of the project. Ask the user to open the project settings and confirm the instructions match what is in the corresponding <code>instructions.md</code> file. If they differ, re-paste the current instructions from the file.</div>
+  </div>
+
+  <div class="trouble-item">
+    <div class="trouble-q">User was removed but still has access</div>
+    <div class="trouble-a">Removal from the admin console should be immediate. If they still appear to have access, check if they have a personal Claude account that was separately given project access. Check project-level sharing settings and remove their personal account if necessary.</div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>User Management Guide</strong> &nbsp;&#183;&nbsp; Admin Only &nbsp;&#183;&nbsp; School Tech AI System
+</div>
+
+</body>
+</html>

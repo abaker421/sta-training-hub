@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Access Security Checklist - Claude AI Integration</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #fff;
+    --border: #dde3e8;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+    --purple: #6c3dbf;
+    --purple-light: #f0eafd;
+    --yellow: #f9c74f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+
+  .header { background: var(--dark); color: white; padding: 36px 60px 30px; border-bottom: 5px solid var(--orange); }
+  .header-inner { max-width: 960px; margin: 0 auto; }
+  .header h1 { font-size: 24px; font-weight: 700; }
+  .header .sub { font-size: 13px; opacity: 0.75; margin-top: 6px; }
+  .header-meta { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .header-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 3px 14px; font-size: 12px; }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 32px 60px 80px; }
+
+  /* PROGRESS */
+  .progress-wrap { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 28px; }
+  .progress-label-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+  .progress-bar-bg { background: var(--border); border-radius: 10px; height: 8px; overflow: hidden; }
+  .progress-bar-fill { background: var(--green); height: 100%; border-radius: 10px; transition: width 0.3s; width: 0%; }
+
+  /* TOC */
+  .toc { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; }
+  .toc-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); margin-bottom: 10px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .toc-item { display: block; padding: 7px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 11.5px; font-weight: 600; color: var(--blue); text-decoration: none; }
+  .toc-item:hover { background: #e8f2f8; }
+  .toc-num { color: var(--gray); font-weight: 400; margin-right: 4px; }
+
+  /* SECTION */
+  .section { margin-bottom: 40px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+  .section-num { width: 32px; height: 32px; border-radius: 50%; background: var(--dark); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .section-title { font-size: 16px; font-weight: 700; }
+  .section-sub { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .risk-badge { margin-left: auto; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .risk-high { background: var(--red-light); color: var(--red); border: 1px solid #e8b4ad; }
+  .risk-med { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .risk-low { background: #edf7e6; color: #2d6e1a; border: 1px solid #bde09e; }
+
+  /* CHECKLIST */
+  .check-group { margin-bottom: 20px; }
+  .check-group-title { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-bottom: 8px; padding-left: 4px; }
+  .check-item { display: flex; align-items: flex-start; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 6px; cursor: pointer; transition: background 0.1s; }
+  .check-item:hover { background: #fafbfc; }
+  .check-item.done { opacity: 0.5; }
+  .check-item.done .check-title { text-decoration: line-through; }
+  .check-item input[type="checkbox"] { width: 15px; height: 15px; margin-top: 3px; flex-shrink: 0; accent-color: var(--blue); cursor: pointer; }
+  .check-body { flex: 1; }
+  .check-title { font-size: 13px; font-weight: 600; color: var(--dark); }
+  .check-desc { font-size: 12px; color: #555; margin-top: 3px; line-height: 1.55; }
+  .check-warn { font-size: 11.5px; background: var(--red-light); color: var(--red); border-radius: 5px; padding: 5px 9px; margin-top: 6px; }
+  .check-tip { font-size: 11.5px; background: #edf7e6; color: #2d6e1a; border-radius: 5px; padding: 5px 9px; margin-top: 6px; }
+  .check-note { font-size: 11.5px; background: #fef4e0; color: #7a4e00; border-radius: 5px; padding: 5px 9px; margin-top: 6px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 10px; margin-right: 4px; vertical-align: middle; }
+  .b-block { background: var(--red-light); color: var(--red); border: 1px solid #e8b4ad; }
+  .b-decide { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .b-confirm { background: #edf7e6; color: #2d6e1a; border: 1px solid #bde09e; }
+
+  /* CALLOUTS */
+  .callout { border-radius: 8px; padding: 13px 17px; margin: 12px 0 16px; font-size: 13px; line-height: 1.65; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.red { background: var(--red-light); border-left: 4px solid var(--red); }
+
+  /* DATA RISK TABLE */
+  .risk-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 24px; font-size: 12.5px; }
+  .risk-table th { background: var(--dark); color: white; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; padding: 10px 14px; text-align: left; }
+  .risk-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  .risk-table tr:last-child td { border-bottom: none; }
+  .risk-table tr:nth-child(even) td { background: #fafbfc; }
+  .level { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+  .lv-critical { background: #fdf0ee; color: #c0392b; border: 1px solid #e8b4ad; }
+  .lv-high { background: #fff3cd; color: #7a4e00; border: 1px solid #f5cf80; }
+  .lv-med { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
+  .lv-low { background: #edf7e6; color: #2d6e1a; border: 1px solid #bde09e; }
+
+  code { background: #eef2f5; border-radius: 3px; padding: 1px 5px; font-size: 11.5px; font-family: 'SF Mono', Monaco, monospace; color: #2d4a5a; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 900px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+    .toc-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Google Access Security Checklist</h1>
+    <div class="sub">Pre-authorization review for connecting Gmail, Google Drive, and Google Calendar to Claude AI tools at School Tech</div>
+    <div class="header-meta">
+      <div class="header-badge">Owner: Adam Baker</div>
+      <div class="header-badge">Covers: Gmail · Google Drive · Google Calendar</div>
+      <div class="header-badge">Last updated: 2026-04-29</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-label-row">
+      <strong>Checklist Progress</strong>
+      <span id="pct">0%</span>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div style="font-size:11px; color:var(--gray); margin-top:5px; text-align:right;"><span id="done">0</span> of <span id="total">0</span> items complete</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Sections</div>
+    <div class="toc-grid">
+      <a class="toc-item" href="#s1"><span class="toc-num">1.</span> What Claude Can See &amp; Do</a>
+      <a class="toc-item" href="#s2"><span class="toc-num">2.</span> Data Risk Map</a>
+      <a class="toc-item" href="#s3"><span class="toc-num">3.</span> Pre-Connection Decisions</a>
+      <a class="toc-item" href="#s4"><span class="toc-num">4.</span> Gmail Checklist</a>
+      <a class="toc-item" href="#s5"><span class="toc-num">5.</span> Google Drive Checklist</a>
+      <a class="toc-item" href="#s6"><span class="toc-num">6.</span> Google Calendar Checklist</a>
+      <a class="toc-item" href="#s7"><span class="toc-num">7.</span> Staff Rules &amp; Training</a>
+      <a class="toc-item" href="#s8"><span class="toc-num">8.</span> Ongoing Monitoring</a>
+      <a class="toc-item" href="#s9"><span class="toc-num">9.</span> Incident Response</a>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <strong>Read before connecting anything.</strong> Gmail, Google Drive, and Google Calendar are treasure troves of sensitive data at a company like School Tech. Customer emails may reference student data. Drive likely holds contracts, HR files, and financial docs. Calendar contains information about who you're meeting with and why. Connecting them to AI tools is a decision that deserves deliberate review - not just "install the connector and go."
+  </div>
+
+  <!-- ===================== SECTION 1 ===================== -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <div class="section-title">What Claude Can See and Do With Each Google Service</div>
+        <div class="section-sub">Know exactly what you're granting before granting it</div>
+      </div>
+    </div>
+
+    <div class="callout blue">These are the actual capabilities of the MCP connectors as currently implemented. "Can see" means this data enters Claude's context window and is processed by the AI. It is not stored indefinitely, but it IS read and reasoned over during the session.</div>
+
+    <div class="check-group">
+      <div class="check-group-title">Gmail - What Claude Can Do</div>
+
+      <div style="background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:12px;">
+        <table style="width:100%; border-collapse:collapse; font-size:12.5px;">
+          <thead>
+            <tr style="background:#f0f4f8;">
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">Action</th>
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">What it means</th>
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">Risk level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>search_threads</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Search the inbox for threads matching any query. Returns full thread content.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-high">High</span> - can surface any email in the inbox</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;"><code>get_thread</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;">Read a specific email thread in full. All messages, attachments referenced.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;"><span class="level lv-high">High</span> - full email content in Claude's context</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>create_draft</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Create a draft reply or new email. Not sent until user clicks Send.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-med">Medium</span> - draft only; user controls final send</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;"><code>list_drafts</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;">List existing drafts in the account.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;"><span class="level lv-low">Low</span></td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>create_label</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Create a new Gmail label/folder.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-low">Low</span></td></tr>
+            <tr><td style="padding:9px 14px;"><code>list_labels</code></td><td style="padding:9px 14px;">List all labels in the account.</td><td style="padding:9px 14px;"><span class="level lv-low">Low</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout orange">
+        <strong>No send capability by default.</strong> The Gmail MCP creates drafts only. Anthropic's policy requires explicit user confirmation before any send action. Claude cannot automatically send emails without a human clicking Send in Gmail. This is a hard platform constraint - not just a setting you configured.
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Google Drive - What Claude Would Be Able To Do (once connected)</div>
+      <div style="background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:12px;">
+        <table style="width:100%; border-collapse:collapse; font-size:12.5px;">
+          <thead>
+            <tr style="background:#f0f4f8;">
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">Action</th>
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">What it means</th>
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">Risk level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Read file content</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Retrieve and read text from any accessible Drive file. Docs, Sheets, PDFs.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-critical">Critical</span> - Drive may contain contracts, HR files, financial docs</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;">Search files</td><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;">Search all accessible Drive files by keyword. Returns file names and snippets.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;"><span class="level lv-high">High</span> - can surface any file the account can see</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);">List files/folders</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">List contents of Drive folders. Reveals what files exist.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-med">Medium</span></td></tr>
+            <tr><td style="padding:9px 14px;">Create/edit files</td><td style="padding:9px 14px;">Write new content or edit existing Drive files (if enabled).</td><td style="padding:9px 14px;"><span class="level lv-high">High</span> - can modify source documents</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout red"><strong>Drive is the highest-risk Google service.</strong> School Tech's Drive likely contains vendor contracts, financial documents, HR-adjacent files, and potentially district-shared materials. Do not connect Drive broadly without completing the Drive-specific checklist below. Start read-only on specific folders only.</div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Google Calendar - What Claude Would Be Able To Do (once connected)</div>
+      <div style="background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:12px;">
+        <table style="width:100%; border-collapse:collapse; font-size:12.5px;">
+          <thead>
+            <tr style="background:#f0f4f8;">
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">Action</th>
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">What it means</th>
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">Risk level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Read events</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">See event titles, descriptions, attendees, times, meeting links. Full event detail.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-med">Medium</span> - reveals who you meet with and why</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;">Create events</td><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;">Create new calendar events and invite attendees.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;"><span class="level lv-med">Medium</span> - can schedule meetings on your behalf</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Update/delete events</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Modify or remove existing calendar entries.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-high">High</span> - destructive if used incorrectly</td></tr>
+            <tr><td style="padding:9px 14px;">List attendees</td><td style="padding:9px 14px;">See who is invited to any event - including external contacts.</td><td style="padding:9px 14px;"><span class="level lv-med">Medium</span> - business relationship data</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 2 ===================== -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <div class="section-title">Data Risk Map - What's in Your Inboxes and Drives</div>
+        <div class="section-sub">School Tech specific - know what the AI will encounter before you connect</div>
+      </div>
+    </div>
+
+    <table class="risk-table">
+      <thead>
+        <tr><th>Data Type</th><th>Where It Lives</th><th>Risk Level</th><th>What to Do</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Student data from districts</strong><br><span style="font-size:11.5px; color:#666;">Names, IDs, attendance records, photos sent in support emails from districts</span></td>
+          <td>Gmail (support@, adam@), potentially Drive</td>
+          <td><span class="level lv-critical">Critical - FERPA</span></td>
+          <td>AI must be instructed to STOP and flag if student data appears. Do not summarize or draft replies involving student-level data. See instruction requirement below.</td>
+        </tr>
+        <tr>
+          <td><strong>Skyward credentials</strong><br><span style="font-size:11.5px; color:#666;">Admin passwords, API keys, Skyward community logins sent via email</span></td>
+          <td>Gmail (any inbox)</td>
+          <td><span class="level lv-critical">Critical</span></td>
+          <td>AI instructions must explicitly prohibit reading, repeating, or drafting content that includes credentials. If surfaced, stop and flag to Adam.</td>
+        </tr>
+        <tr>
+          <td><strong>Employee HR/payroll</strong><br><span style="font-size:11.5px; color:#666;">Compensation discussions, performance conversations, HR decisions</span></td>
+          <td>Gmail (Tanya, Adam), Drive (HR folder)</td>
+          <td><span class="level lv-critical">Critical</span></td>
+          <td>The AI should never access inboxes or Drive folders containing HR correspondence. Separate HR email from work email where possible. Do not connect Tanya's inbox without explicit HR folder exclusion.</td>
+        </tr>
+        <tr>
+          <td><strong>Vendor contracts and agreements</strong><br><span style="font-size:11.5px; color:#666;">Skyward partnership agreements, supplier contracts, NDAs</span></td>
+          <td>Drive, Gmail</td>
+          <td><span class="level lv-high">High</span></td>
+          <td>Do not include contracts in Drive folders connected to AI. Do not ask AI to summarize or compare contract terms. Legal content is out of scope for the Email Assistant.</td>
+        </tr>
+        <tr>
+          <td><strong>Financial data</strong><br><span style="font-size:11.5px; color:#666;">Bank statements, financial reports, payment information</span></td>
+          <td>Gmail (Tanya), Drive (finance folders)</td>
+          <td><span class="level lv-high">High</span></td>
+          <td>Do not connect Tanya's inbox without review. Finance Drive folders must be excluded from any Drive connector scope. This is CFO/Controller-level data.</td>
+        </tr>
+        <tr>
+          <td><strong>Internal sensitive discussions</strong><br><span style="font-size:11.5px; color:#666;">Staff conflicts, customer complaints about specific staff, legal matters in progress</span></td>
+          <td>Gmail (management inboxes)</td>
+          <td><span class="level lv-high">High</span></td>
+          <td>Management inboxes need more scrutiny before connecting. Adam's and Tanya's inboxes are higher risk than Tyler's. Start with support@ or task-specific inboxes.</td>
+        </tr>
+        <tr>
+          <td><strong>Customer support cases</strong><br><span style="font-size:11.5px; color:#666;">Product issues, implementation questions, general support - no student data</span></td>
+          <td>Gmail (support@, adam@)</td>
+          <td><span class="level lv-med">Medium</span></td>
+          <td>Generally appropriate for the Email Assistant. Must be paired with the student-data stop instruction. This is the primary use case.</td>
+        </tr>
+        <tr>
+          <td><strong>Calendar events - customer meetings</strong><br><span style="font-size:11.5px; color:#666;">Zoom calls, onboarding sessions, discovery meetings with districts</span></td>
+          <td>Google Calendar</td>
+          <td><span class="level lv-med">Medium</span></td>
+          <td>Generally appropriate for the Case Update Assistant use case (post-meeting documentation). Review that event descriptions don't contain student data before connecting.</td>
+        </tr>
+        <tr>
+          <td><strong>Internal meeting notes in calendar</strong><br><span style="font-size:11.5px; color:#666;">1:1s, performance discussions, internal planning with sensitive details in event descriptions</span></td>
+          <td>Google Calendar</td>
+          <td><span class="level lv-med">Medium</span></td>
+          <td>Instruct the AI to only access events with specific tags or titles (e.g., only events marked [CUSTOMER] or matching known district names).</td>
+        </tr>
+        <tr>
+          <td><strong>Implementation and product docs</strong><br><span style="font-size:11.5px; color:#666;">Installation guides, configuration checklists, product specs, KB articles in Drive</span></td>
+          <td>Drive (specific product folders)</td>
+          <td><span class="level lv-low">Low</span></td>
+          <td>Safe to connect. These are the right Drive folders to start with. Scope Drive access to these folders only in V1.</td>
+        </tr>
+        <tr>
+          <td><strong>Routine support correspondence</strong><br><span style="font-size:11.5px; color:#666;">Order confirmations, shipping notices, software update notices - no customer data</span></td>
+          <td>Gmail</td>
+          <td><span class="level lv-low">Low</span></td>
+          <td>No specific risk. Good for testing the Email Assistant before opening access to customer threads.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===================== SECTION 3 ===================== -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <div class="section-title">Pre-Connection Decisions - Decide These Before Connecting Anything</div>
+        <div class="section-sub">These are judgment calls that determine the shape of every other item on this checklist</div>
+      </div>
+      <div class="risk-badge risk-high">Decide First</div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Whose inboxes get connected?</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Specify exactly which email accounts connect to Claude</div>
+          <div class="check-desc">Options from lowest to highest risk: (a) Adam's work email only - for the Email Assistant he controls. (b) Tyler's work email - lower risk inbox, support-focused. (c) Kelsey's work email - if she gets Cowork and the Email Assistant. (d) Tanya's work email - higher risk; CFO/Controller inbox. (e) Shared support@ inbox - all support emails, any staff member's session could access.
+          <br><br>Recommendation: Start with (a) Adam's or (b) Tyler's only. Do not connect Tanya's until you've assessed her inbox for HR/financial content.</div>
+          <div class="check-note">Decision: _________________________ (write which accounts are approved)</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Confirm Gmail MCP is draft-only - no AI-triggered send</div>
+          <div class="check-desc">Verify that the Gmail MCP connector in Cowork is configured as draft-only. Claude should create the draft and the human clicks Send. This is the default Anthropic behavior but verify it is not overridden in any Cowork project's instructions. Look for any instruction language that says "send the email" - that is not acceptable.</div>
+          <div class="check-tip">Check all project instructions.md files for any "send email" language. If found, remove it.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Personal Gmail vs. work Google Workspace - which is the Email Assistant connecting?</div>
+          <div class="check-desc">The Email Assistant should connect to work email (Google Workspace @k12sta.com), not personal Gmail (bakeradm6@gmail.com). Personal Gmail may contain unrelated personal data. If you need to connect personal Gmail for any reason, that is a separate authorization step. Default: work email only.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Which Drive folders are in scope?</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Define the Drive folders Claude is allowed to access - by name</div>
+          <div class="check-desc">Do not connect Drive broadly. Start with a specific allow-list of folders. Recommended V1 scope: product documentation folders, Help Center content, implementation checklists, public-facing reference materials. Explicitly exclude: HR, Finance, Contracts/Legal, Executive correspondence, any folder named after a district (may contain district-specific data).</div>
+          <div class="check-note">Approved folders: _________________________<br>Excluded folders: _________________________</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Drive access level: read-only or read+write?</div>
+          <div class="check-desc">V1 should be read-only. Claude reads from Drive (finds product docs, reference materials) but cannot edit or create files in Drive. Write access adds the risk of the AI overwriting source documents. Upgrade to write only after V1 has run for at least 30 days without issues.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Anthropic data handling - verify before connecting any sensitive source</div>
+
+      <div class="callout orange"><strong>The "trust Claude like Google Drive" framing is not accurate.</strong> Google Drive stores files passively under your access controls. Claude actively reads and reasons over content in real time - it's processed by an external AI model. The risk profile is different. Verify Anthropic's data handling terms before connecting work email or any sensitive data source.</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Confirm Anthropic plan tier and verify training data use is off</div>
+          <div class="check-desc">Anthropic's training data policy is plan-tier dependent. Free and Pro tiers: conversation content may be used to train models unless the user opts out. Team tier: not used for training by default. Enterprise tier: contractual DPA with no training use.
+          <br><br>Before connecting work Gmail, Drive, or any source that contains customer or operational data, confirm which plan School Tech is on. Do not assume training data use is off - verify it explicitly in Anthropic account settings or confirm the plan tier in writing.</div>
+          <div class="check-note">Anthropic plan tier: _________________________ | Training data opt-out confirmed: Yes / No</div>
+          <div class="check-warn">Connecting customer support email to a Free or Pro tier Anthropic account without verifying training data settings is a data handling risk. Customer communications entering model training is not an acceptable outcome.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Verify credential-detection stop instruction covers error log emails</div>
+          <div class="check-desc">Work Gmail at School Tech may receive system alert emails and error notifications that include API keys, tokens, or credentials in the message body (e.g., Skyward API error logs, system monitoring alerts). These will enter Claude's context when the Email Assistant searches or reads threads.
+          <br><br>The credential-detection stop instruction (Section 4) must be in place and tested before connecting work Gmail. Verify it explicitly fires on an email containing a test token before rolling out to any other staff member.</div>
+          <div class="check-tip">Test with a synthetic email containing a fake API key string (e.g., "sk-test-12345abc"). Verify the assistant stops and flags rather than reading it aloud or including it in a draft.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Assess how Claude handles customer environment data in support emails</div>
+          <div class="check-desc">Support emails from school districts may contain district-specific configuration details, system credentials, or implementation information that belongs to the district - not student PII, but sensitive operational data. Claude should not summarize this data beyond the immediate task or retain it across sessions.
+          <br><br>Decision: Add an explicit instruction to the Email Assistant - "Do not summarize, reproduce, or reference specific system credentials, configuration details, or implementation data shared by a customer district. If an email contains this type of data, complete only the immediately requested task (e.g., acknowledging receipt) and do not reference the specific technical details."</div>
+          <div class="check-note">Instruction added to Email Assistant instructions.md: Yes / No / Pending</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Confirm Anthropic compliance posture is acceptable for your use case</div>
+          <div class="check-desc">Google Workspace has SOC 2 Type II, ISO 27001, HIPAA BAA, and broad enterprise certifications. Anthropic's compliance stack is newer and narrower. For School Tech's current use cases (internal support, email drafting, operational tasks with no regulated data) this is acceptable.
+          <br><br>If any planned use case involves HIPAA-adjacent data, FERPA-covered student records, or legally regulated workloads - stop. Do not connect those data sources until Anthropic's compliance posture covers your regulatory requirement. Run a vendor risk assessment on Anthropic the same way you would any new SaaS vendor before expanding scope to regulated data.</div>
+          <div class="check-note">Anthropic vendor risk review completed: Yes / No / Not required for current scope</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Calendar scope</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Calendar: read-only first, no create/delete until tested</div>
+          <div class="check-desc">The primary Calendar use case (post-meeting case documentation) only needs read access - Claude reads the event to see what the meeting was about, then drafts a case comment. Create and delete capabilities are not needed for V1 and add unnecessary risk. Confirm the Calendar MCP is read-only before connecting.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Define which calendar events the AI should access</div>
+          <div class="check-desc">The Case Update Assistant only needs to read customer-facing events (Zoom calls, onboarding sessions, district calls). It does not need access to internal 1:1s, HR-related calendar events, or personal events. Instruct the AI to only access events explicitly connected to customer districts or tagged with a specific label (e.g., [CUSTOMER] or [IMPLEMENTATION]).</div>
+          <div class="check-note">Approved calendar scope: _________________________</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 4 ===================== -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <div class="section-title">Gmail Connection Checklist</div>
+        <div class="section-sub">Complete before connecting Gmail to any Cowork workspace</div>
+      </div>
+      <div class="risk-badge risk-high">High Risk</div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Instructions - what the AI MUST do when it encounters sensitive data</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Add student-data stop instruction to the Email Assistant's instructions.md</div>
+          <div class="check-desc">The Email Assistant instructions.md MUST include this exact behavior rule: "If you encounter any email that contains student names, student IDs, attendance records, disciplinary information, or any data that appears to be about an individual student, STOP. Do not summarize, draft a reply, or reference the student data in any way. Inform the user: 'This email appears to contain student data. I cannot process it per School Tech's data policy. Please handle this email outside AI tools.' Then stop."</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Add credential-detection stop instruction</div>
+          <div class="check-desc">Add: "If you encounter an email containing what appears to be a password, API key, login credential, or authentication token, do not read it aloud, repeat it, or include it in any draft. Flag to the user: 'This email appears to contain credentials. I've stopped reading it. Please handle this separately.' Then stop."</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Limit scope in instructions: "Only access emails relevant to [specific task]"</div>
+          <div class="check-desc">The Email Assistant should not be given open-ended inbox access with no guardrail. Its instructions should specify: "Only search for and access emails related to [product support, implementation inquiries, customer questions about School Tech products]. Do not access internal HR emails, financial discussions, emails marked CONFIDENTIAL, or any email thread that appears to be about staffing or personnel matters."</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Verify the Gmail MCP in Cowork creates drafts only - not auto-send</div>
+          <div class="check-desc">Open the Email Assistant workspace. Ask it to "draft a test reply to the most recent email." Verify it creates a draft in Gmail (visible in your Drafts folder) and does NOT send. If it sends, you have a configuration error that must be resolved before using the tool with real customers.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Access control</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Gmail connector is connected per-user, not shared</div>
+          <div class="check-desc">Each Cowork workspace connects Gmail via OAuth for a specific Google account. If Tyler connects his Gmail to his Cowork Email Assistant workspace, it sees his inbox only. Kelsey's connects to hers. This is correct. What is NOT correct: a shared Cowork workspace where multiple users authenticate under one Gmail account (e.g., support@). That gives every session access to all of support@'s email. Avoid shared inbox connections in V1.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Revoke scope: check what OAuth permissions were granted</div>
+          <div class="check-desc">When you install the Gmail MCP, it requests OAuth scopes from Google. Go to <strong>myaccount.google.com → Security → Third-party apps with account access</strong>. Find the Claude/Cowork app. Check which scopes are listed. If you see "Read, compose, send, and permanently delete all your email" that is broader than needed. You ideally want "Read all resources and their metadata without any write operations" (read-only) or at minimum a restricted compose scope.</div>
+          <div class="check-tip">If the OAuth scope is too broad, revoke and reconnect with more limited permissions if the connector supports it.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Each person who uses the Email Assistant connects their own Gmail - document who is connected</div>
+          <div class="check-desc">Keep a record of which Gmail accounts have been connected to Claude/Cowork. This is your audit baseline. When someone leaves the company, you revoke their connection immediately. When you run a security review, you check this list.</div>
+          <div class="check-note">Connected accounts: Adam Baker (_____________), Tyler Baughman (_____________), Kelsey Eberly (_____________)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Testing before rollout</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Test with a real student-data email - verify the stop instruction fires</div>
+          <div class="check-desc">Find an email in your inbox that contains student-adjacent data (a support case from a district that references a student ID or name). Ask the Email Assistant to "summarize the most recent case from [district]." Verify it stops and displays the data policy message rather than summarizing the student information. If it summarizes student data, the stop instruction is not working - do not roll out until fixed.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Test the draft creation flow end to end</div>
+          <div class="check-desc">Pick a real (non-sensitive) support email. Ask the Email Assistant to "draft a professional reply to this customer." Review the draft: (1) it exists in Gmail Drafts, (2) it has not been sent, (3) the content is appropriate and does not repeat any sensitive content from the thread, (4) the tone matches School Tech's voice. Only after passing this test should any other staff member use the tool.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 5 ===================== -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div>
+        <div class="section-title">Google Drive Connection Checklist</div>
+        <div class="section-sub">Higher risk than Gmail - more deliberate rollout required</div>
+      </div>
+      <div class="risk-badge risk-high">Highest Risk</div>
+    </div>
+
+    <div class="callout red">
+      <strong>Do not connect Drive broadly.</strong> Drive contains School Tech's most sensitive internal files. A broad connection means Claude can potentially read contracts, financial documents, and HR files. The V1 approach must be folder-scoped and read-only.
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Before connecting</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Conduct a Drive folder audit - categorize what's in there before connecting</div>
+          <div class="check-desc">Open Google Drive. Walk every top-level folder. Categorize each as: (a) Safe - product docs, implementation materials, public-facing content; (b) Restricted - HR, contracts, financial, confidential; (c) Unknown - needs review. Do not connect until every folder is categorized. This is a one-time audit that takes 30-60 minutes.</div>
+          <div class="check-note">Audit completion date: _________________________</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Move sensitive folders to a restricted shared drive before connecting</div>
+          <div class="check-desc">If HR, financial, contract, and legal files are in folders that the Claude connector's OAuth account can reach, move them to a Google Workspace Shared Drive with restricted access BEFORE connecting. This creates a permission boundary the OAuth token cannot cross. Do not rely on instructions alone to restrict Drive access - the permission boundary is the real control.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> V1 Drive connection is read-only to specific product documentation folders only</div>
+          <div class="check-desc">The first Drive integration should be: read-only access, scoped to 2-3 named folders containing product documentation, implementation guides, and Help Center source material. No write access. No access to root Drive or unscoped folder access. Expand from there after 30 days of clean operation.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Add Drive access instruction to any Cowork project using it</div>
+          <div class="check-desc">Any project that has Drive connected must have in its instructions: "You have read-only access to the following Drive folders: [list them by name]. Do not attempt to access files outside these folders. If asked to access a file you cannot reach, say 'That file is outside my authorized scope' and stop. Never write to, overwrite, or delete Drive files."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 6 ===================== -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div>
+        <div class="section-title">Google Calendar Connection Checklist</div>
+        <div class="section-sub">Lower risk than Drive - scoped for post-meeting automation</div>
+      </div>
+      <div class="risk-badge risk-med">Medium Risk</div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Before connecting</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Calendar connection is read-only - no create, no delete in V1</div>
+          <div class="check-desc">The post-meeting Case Update flow only needs to read events (who was in the meeting, what the meeting was about) and then draft a Salesforce case comment. It does not need to create or delete events. Verify the Calendar MCP is read-only before connecting. If the MCP supports create/delete, disable it in V1 and re-enable only if a specific use case requires it.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Review a week's calendar events for sensitive content before connecting</div>
+          <div class="check-desc">Scroll through one week of your calendar. Are there event descriptions that contain sensitive information - HR meeting notes, financial review details, legal consultation references? If yes, either clean up the event descriptions or add a scope instruction that excludes those event types by title or attendee pattern.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Add calendar access instruction scoping to customer events only</div>
+          <div class="check-desc">In the Case Update Assistant instructions.md, include: "When accessing Google Calendar, only look at events that involve external customers or are specifically tagged for follow-up. Do not access internal-only events, 1:1 meetings without an external attendee, or any event whose title or description suggests it is an HR or financial matter."</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Add student-data stop instruction for calendar event descriptions</div>
+          <div class="check-desc">A district contact might put student-related context in a meeting description ("Zoom re: attendance issue for John D."). Add the same student-data stop rule to the Calendar-connected instructions that applies to Gmail: stop and flag rather than processing student-adjacent calendar content.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 7 ===================== -->
+  <div class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div>
+        <div class="section-title">Staff Rules and Training Requirements</div>
+        <div class="section-sub">What every person using a Google-connected tool needs to know before their first session</div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">For each person connecting their Gmail</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Each user reads and signs off on the Gmail-connected AI use rules before first use</div>
+          <div class="check-desc">Minimum rules every connected user must understand: (1) Do not use the Email Assistant on emails that contain student names or IDs. (2) Do not use it for HR or compensation conversations. (3) Always review the draft before sending - you are responsible for what gets sent, not the AI. (4) If the AI generates something incorrect or inappropriate, do not send it - report to Adam via the Agent Quality Logger. (5) Do not copy and paste email content into any other AI tool that is not connected to the same data policy.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Adam demonstrates the Email Assistant to each new user before they use it independently</div>
+          <div class="check-desc">Do not give people access and assume they'll figure it out. Walk each person through: (1) how to start a session, (2) how to ask for a draft, (3) what to do if the AI stops and flags student data, (4) how to review and edit the draft before sending. One 15-minute walkthrough prevents most misuse.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Update the Staff AI Tools Reference with Gmail-connected Email Assistant rules</div>
+          <div class="check-desc">The Staff AI Tools Reference.html must be updated to reflect that the Email Assistant is Gmail-connected - what that means, what it can see, and the specific rules for using it. Staff should not encounter this capability without having read the relevant guidance first.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 8 ===================== -->
+  <div class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <div>
+        <div class="section-title">Ongoing Monitoring and Audit</div>
+        <div class="section-sub">After connection - what to check and when</div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Periodic checks</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Monthly: Review Google account Third-Party Apps access</div>
+          <div class="check-desc">Go to <strong>myaccount.google.com → Security → Third-party apps with account access</strong> for each connected account. Verify only expected apps are listed. If you see Cowork or Claude listed and a staff member has left, revoke immediately. If you see unexpected apps, investigate. Do this monthly for all connected accounts.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Quarterly: Review which accounts are still connected and whether each still needs access</div>
+          <div class="check-desc">Review your connected-accounts list. Has anyone changed roles? Does their new role still justify Gmail access to Claude? Have any accounts been compromised or flagged? Revoke access for anyone who no longer needs it. Add new users through the standard onboarding process, not ad hoc.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Any time a staff member leaves: revoke Gmail (and Drive/Calendar) OAuth connections immediately</div>
+          <div class="check-desc">Departing staff with connected Google accounts could, in theory, still have active OAuth tokens granting access. Revoke them the same day as offboarding. Add this step to your offboarding checklist. It takes 30 seconds: myaccount.google.com → Security → Third-party apps → find Claude/Cowork → Remove Access.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Add Google connection audit to the System Monitor health check rules</div>
+          <div class="check-desc">Once Google integrations are live, update context-health-check-rules.md to include a check: "Verify connected Google accounts list matches current active staff roster. Flag any accounts that belong to former staff." This surfaces offboarding gaps automatically each Monday.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 9 ===================== -->
+  <div class="section" id="s9">
+    <div class="section-header">
+      <div class="section-num">9</div>
+      <div>
+        <div class="section-title">Incident Response - If Something Goes Wrong</div>
+        <div class="section-sub">What to do if the AI accesses, processes, or sends something it shouldn't have</div>
+      </div>
+      <div class="risk-badge risk-high">Know Before It Happens</div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)" style="margin-bottom:8px;">
+      <input type="checkbox">
+      <div class="check-body">
+        <div class="check-title">AI sent or almost sent an email with student data → immediately revoke Gmail access for that workspace</div>
+        <div class="check-desc">Step 1: Screenshot the draft or sent email. Step 2: If it was only a draft, delete it. If it was sent, assess whether the recipient has the data already - if they do, no further email action; if they don't and the email is still in transit, contact the recipient to disregard. Step 3: Revoke the Gmail connection for that workspace. Step 4: Report to Adam with the screenshot. Step 5: Update the instructions.md to fix the gap that allowed it. Step 6: Do not reconnect until the fix is in place and tested.</div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)" style="margin-bottom:8px;">
+      <input type="checkbox">
+      <div class="check-body">
+        <div class="check-title">AI read or summarized an email it shouldn't have → log it and review the instructions</div>
+        <div class="check-desc">If the AI processed an email containing student data, credentials, or HR content and summarized it without stopping: Step 1: Log it in the Agent Quality Logger (severity: Critical for student data or credentials, Major for HR/financial). Step 2: Bring it to Adam. Step 3: Adam reviews whether the data was retained in Anthropic's system (check Anthropic's data retention policy). Step 4: Update instructions.md with a clearer stop rule. Step 5: Re-test before resuming use.</div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)" style="margin-bottom:8px;">
+      <input type="checkbox">
+      <div class="check-body">
+        <div class="check-title">Drive file containing sensitive data was read by Claude → immediately restrict Drive scope</div>
+        <div class="check-desc">If Claude accessed a Drive file it should not have (HR doc, contract, financial file): Step 1: Log it. Step 2: Revoke Drive access for that workspace. Step 3: Move the file to a restricted Shared Drive with access controls. Step 4: Review the Drive audit (Section 5) - you may have miscategorized more folders. Step 5: Re-run the Drive audit fully before reconnecting.</div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)">
+      <input type="checkbox">
+      <div class="check-body">
+        <div class="check-title">Contact Adam and use the Agent Quality Logger for any incident</div>
+        <div class="check-desc">Every incident involving Google-connected tools - regardless of severity - goes through the Agent Quality Logger (available in any Cowork workspace: "log this feedback, the Email Assistant read a student data email"). Adam reviews the log weekly and routes Critical items to Project Feedback immediately. The log creates a paper trail and prevents the same incident from recurring.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; Google Access Security Checklist &nbsp;|&nbsp; Created 2026-04-28 &nbsp;|&nbsp; Owner: Adam Baker
+</div>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('done');
+    const cb = el.querySelector('input[type="checkbox"]');
+    cb.checked = el.classList.contains('done');
+    updateProgress();
+  }
+  function updateProgress() {
+    const all = document.querySelectorAll('.check-item');
+    const done = document.querySelectorAll('.check-item.done');
+    const pct = all.length ? Math.round((done.length / all.length) * 100) : 0;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('pct').textContent = pct + '%';
+    document.getElementById('done').textContent = done.length;
+    document.getElementById('total').textContent = all.length;
+  }
+  updateProgress();
+</script>
+</body>
+</html>

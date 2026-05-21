@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - Getting Better Results</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: var(--blue); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--green); }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.82; margin-top: 6px; max-width: 620px; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.65; }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+  .callout.red { background: #fdf0ef; border-left: 4px solid var(--red); }
+
+  /* FORMULA */
+  .formula { display: flex; gap: 0; margin: 20px 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .formula-part { flex: 1; padding: 20px 18px; background: white; }
+  .formula-part + .formula-part { border-left: 1px solid var(--border); }
+  .formula-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+  .formula-label.what { color: var(--blue); }
+  .formula-label.context { color: var(--green); }
+  .formula-label.format { color: var(--orange); }
+  .formula-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .formula-desc { font-size: 12px; color: #555; line-height: 1.55; }
+  .formula-example { font-size: 11px; color: var(--gray); margin-top: 8px; font-style: italic; border-top: 1px solid var(--border); padding-top: 8px; }
+
+  /* BEFORE / AFTER */
+  .example-block { margin-bottom: 20px; }
+  .example-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gray); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .example-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+  .ba-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; }
+  .ba-card { border-radius: 8px; padding: 14px 16px; font-size: 13px; line-height: 1.55; }
+  .ba-card.before { background: #fdf0ef; border: 1px solid #f5b8aa; }
+  .ba-card.after { background: #edf7e6; border: 1px solid #b8e0a0; }
+  .ba-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: block; }
+  .ba-tag.before { color: var(--red); }
+  .ba-tag.after { color: #2e7010; }
+  .ba-text { color: #333; }
+  .ba-note { font-size: 12px; color: var(--gray); font-style: italic; margin-top: 6px; }
+  .ba-why { font-size: 12px; background: #f4f6f8; border-left: 3px solid var(--green); padding: 8px 12px; margin-top: 10px; border-radius: 0 5px 5px 0; color: #444; }
+
+  /* TASK TYPE CARDS */
+  .task-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .task-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; border-top: 3px solid var(--blue); }
+  .task-card.green { border-top-color: var(--green); }
+  .task-card.orange { border-top-color: var(--orange); }
+  .task-card.red { border-top-color: var(--red); }
+  .task-card-name { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .task-tip { font-size: 12px; color: #444; line-height: 1.55; margin-bottom: 6px; padding-left: 14px; position: relative; }
+  .task-tip::before { content: "→"; position: absolute; left: 0; color: var(--blue); font-size: 11px; }
+  .task-card.green .task-tip::before { color: var(--green); }
+  .task-card.orange .task-tip::before { color: var(--orange); }
+  .task-card.red .task-tip::before { color: var(--red); }
+  .task-example { font-size: 11px; background: var(--light); border-radius: 6px; padding: 8px 10px; margin-top: 10px; color: #555; font-style: italic; line-height: 1.5; }
+  .task-example strong { font-style: normal; color: var(--dark); font-size: 10px; display: block; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; font-weight: 700; }
+
+  /* ITERATE */
+  .iterate-steps { }
+  .iterate-step { display: flex; gap: 18px; margin-bottom: 14px; }
+  .iterate-num { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .iterate-body { flex: 1; }
+  .iterate-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .iterate-desc { font-size: 13px; color: #444; line-height: 1.55; }
+  .iterate-example { font-size: 12px; background: var(--light); border-left: 3px solid var(--blue); padding: 7px 12px; margin-top: 8px; border-radius: 0 5px 5px 0; color: #444; font-style: italic; }
+
+  /* MISTAKES */
+  .mistake-item { background: white; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+  .mistake-header { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; }
+  .mistake-icon { font-size: 18px; flex-shrink: 0; }
+  .mistake-label { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .mistake-desc { font-size: 12px; color: #555; line-height: 1.5; }
+  .mistake-fix { padding: 12px 18px; background: #edf7e6; font-size: 12px; color: #2e5c14; line-height: 1.55; }
+  .mistake-fix strong { color: #1e4a0e; }
+
+  /* QUICK REF */
+  .qr-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); font-size: 13px; margin-bottom: 16px; }
+  .qr-table th { background: var(--dark); color: white; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; padding: 10px 16px; text-align: left; }
+  .qr-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  .qr-table tr:last-child td { border-bottom: none; }
+  .qr-table tr:nth-child(even) td { background: #fafbfc; }
+  .situation { font-weight: 600; }
+  .prompt-text { font-family: 'SF Mono', Monaco, monospace; font-size: 11px; color: #2d4a5a; background: #eef2f5; border-radius: 3px; padding: 2px 6px; display: inline; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 800px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+    .formula { flex-direction: column; }
+    .formula-part + .formula-part { border-left: none; border-top: 1px solid var(--border); }
+    .ba-pair { grid-template-columns: 1fr; }
+    .task-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Getting Better Results</h1>
+    <div class="sub">How to write requests that get useful, specific, School Tech-relevant answers - not generic ones.</div>
+    <div class="badge">For Team Members</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="callout green" style="margin-top: 4px;">
+    <strong>The core idea:</strong> These tools are already loaded with School Tech context. Your job is not to explain the company - it is to give enough information about your specific situation that the tool can be precise. The more specific your request, the less you have to fix in the response.
+  </div>
+
+  <!-- THE FORMULA -->
+  <div class="section-title">The Three-Ingredient Formula</div>
+  <div class="section-intro">Most weak prompts are missing one of these three things. A request that includes all three almost always gets a useful first response.</div>
+
+  <div class="formula">
+    <div class="formula-part">
+      <div class="formula-label what">1 &mdash; What</div>
+      <div class="formula-title">What you need</div>
+      <div class="formula-desc">The actual task or question. Be direct - don't build up to it.</div>
+      <div class="formula-example">"Draft a response to this customer email" not "I'm wondering if you could maybe help me with something a customer sent"</div>
+    </div>
+    <div class="formula-part">
+      <div class="formula-label context">2 &mdash; Context</div>
+      <div class="formula-title">The relevant situation</div>
+      <div class="formula-desc">What the tool needs to know to be specific. Paste the actual content when you have it.</div>
+      <div class="formula-example">"Here is the email they sent: [paste]" or "This is for a district using our HR module, mid-year renewal"</div>
+    </div>
+    <div class="formula-part">
+      <div class="formula-label format">3 &mdash; Format</div>
+      <div class="formula-title">What you want back</div>
+      <div class="formula-desc">Length, tone, structure. Optional, but saves back-and-forth when you have a specific need.</div>
+      <div class="formula-example">"Keep it under 3 sentences" or "Use bullet points" or "Formal tone - this is for a superintendent"</div>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <strong>You don't always need all three.</strong> A clear question with good context often doesn't need a format instruction. But if your first response is too long, too generic, or the wrong tone - that is almost always a missing Format or missing Context problem. Add one and ask again.
+  </div>
+
+  <!-- BEFORE / AFTER EXAMPLES -->
+  <div class="section-title">Before and After - School Tech Examples</div>
+  <div class="section-intro">These examples show the same request written two ways. The "after" version adds context and gets a more useful response without much more effort.</div>
+
+  <!-- Example 1 -->
+  <div class="example-block">
+    <div class="example-label">Example 1 - Customer response</div>
+    <div class="ba-pair">
+      <div class="ba-card before">
+        <span class="ba-tag before">&#10008; Before</span>
+        <div class="ba-text">Help me write a response to a customer complaint.</div>
+        <div class="ba-note">The tool has to guess: What did they complain about? What product? What outcome do you want?</div>
+      </div>
+      <div class="ba-card after">
+        <span class="ba-tag after">&#10003; After</span>
+        <div class="ba-text">A customer emailed saying their time clock stopped syncing punches after last Tuesday's update. They sound frustrated - this is their second time reporting it. Draft a response that acknowledges the issue, gives them a realistic timeline (we're still diagnosing), and keeps the tone calm and professional. Here's their email: [paste]</div>
+        <div class="ba-note">Tool knows: the issue, the history, the tone goal, and the actual content to work from.</div>
+      </div>
+    </div>
+    <div class="ba-why">The "after" version takes 20 extra seconds to write and saves several rounds of back-and-forth. You will almost always get a usable first draft instead of a generic template.</div>
+  </div>
+
+  <!-- Example 2 -->
+  <div class="example-block">
+    <div class="example-label">Example 2 - Policy or process question</div>
+    <div class="ba-pair">
+      <div class="ba-card before">
+        <span class="ba-tag before">&#10008; Before</span>
+        <div class="ba-text">What's our renewal process?</div>
+        <div class="ba-note">Renewal for what? Which product? What stage are they at? Which district type?</div>
+      </div>
+      <div class="ba-card after">
+        <span class="ba-tag after">&#10003; After</span>
+        <div class="ba-text">Walk me through the renewal process for a Skyward Qmlativ district that is 60 days out from contract end. They've been a customer for 4 years and always renew - I just need to know the standard steps and who owns each one.</div>
+        <div class="ba-note">The tool can give you the actual steps instead of a generic overview.</div>
+      </div>
+    </div>
+    <div class="ba-why">Product, timing, and customer situation are the three details that turn a generic process explanation into an actionable answer.</div>
+  </div>
+
+  <!-- Example 3 -->
+  <div class="example-block">
+    <div class="example-label">Example 3 - Troubleshooting or diagnosis</div>
+    <div class="ba-pair">
+      <div class="ba-card before">
+        <span class="ba-tag before">&#10008; Before</span>
+        <div class="ba-text">A customer is having issues with their time clock.</div>
+        <div class="ba-note">Issues how? Which clock model? Since when? What error are they seeing?</div>
+      </div>
+      <div class="ba-card after">
+        <span class="ba-tag after">&#10003; After</span>
+        <div class="ba-text">A customer is reporting that their TT7 time clocks stopped communicating after they switched internet providers last week. The clocks show a red network light. They haven't changed any settings. What are the most likely causes and what should I ask them to check first?</div>
+        <div class="ba-note">Clock model, timeline, symptom, and what's already ruled out gives the tool something to work with.</div>
+      </div>
+    </div>
+    <div class="ba-why">For troubleshooting, the specific symptom and timeline are the most important context. A vague description gets a checklist. A specific symptom gets a diagnosis.</div>
+  </div>
+
+  <!-- ITERATING -->
+  <div class="section-title">How to Improve a Response That Misses</div>
+  <div class="section-intro">The first response is a starting point, not a final product. Correcting in the same conversation is faster than starting over - the tool remembers everything said earlier in the thread.</div>
+
+  <div class="iterate-steps">
+
+    <div class="iterate-step">
+      <div class="iterate-num">1</div>
+      <div class="iterate-body">
+        <div class="iterate-title">Name exactly what's wrong</div>
+        <div class="iterate-desc">Don't say "that's not quite right" - say what specifically missed. The tool can fix a specific thing; it can't fix "not quite right."</div>
+        <div class="iterate-example">"That's too formal for this customer - they're casual in their emails. Rewrite it in a friendlier tone."</div>
+      </div>
+    </div>
+
+    <div class="iterate-step">
+      <div class="iterate-num">2</div>
+      <div class="iterate-body">
+        <div class="iterate-title">Add the context you left out</div>
+        <div class="iterate-desc">If the response is generic, you probably left out a key detail. Add it and ask again.</div>
+        <div class="iterate-example">"I should have mentioned - this district is a new customer, only 3 months in. The response shouldn't assume they know our process. Try again with that in mind."</div>
+      </div>
+    </div>
+
+    <div class="iterate-step">
+      <div class="iterate-num">3</div>
+      <div class="iterate-body">
+        <div class="iterate-title">Tell it to keep what's working</div>
+        <div class="iterate-desc">If most of a response is good but one part needs changing, say so. You don't have to throw out the whole thing.</div>
+        <div class="iterate-example">"The first two paragraphs are good. Just rewrite the last paragraph - it sounds like we're making excuses. I want it to end on a confident, forward-looking note."</div>
+      </div>
+    </div>
+
+    <div class="iterate-step">
+      <div class="iterate-num">4</div>
+      <div class="iterate-body">
+        <div class="iterate-title">Ask it to show options</div>
+        <div class="iterate-desc">If you're not sure what tone or structure you want, ask for two or three versions. Pick and edit from there.</div>
+        <div class="iterate-example">"Give me two versions of this - one short and direct, one that walks through the resolution in more detail. I'll pick which fits better."</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout orange">
+    <strong>Start a new conversation for a new topic.</strong> Within one conversation, the tool remembers everything. But if you start a new conversation, it starts fresh - it does not carry context from a previous session. For anything multi-step, stay in the same thread.
+  </div>
+
+  <!-- TASK TYPE TIPS -->
+  <div class="section-title">Tips by Task Type</div>
+  <div class="section-intro">Different kinds of requests need different context. Here is what to include for the most common use cases.</div>
+
+  <div class="task-grid">
+
+    <div class="task-card">
+      <div class="task-card-name">&#9997; Drafting communications</div>
+      <div class="task-tip">State the recipient and your relationship with them (new customer, frustrated customer, long-term partner, etc.)</div>
+      <div class="task-tip">Paste the email or message you're responding to when there is one</div>
+      <div class="task-tip">Say the tone goal: formal, friendly, firm, apologetic, reassuring</div>
+      <div class="task-tip">Say the outcome you want: schedule a call, close the ticket, set expectations, de-escalate</div>
+      <div class="task-example"><strong>Try this structure:</strong> "Draft a reply to this email [paste]. The customer is [description]. I want to [outcome]. Tone: [tone]. Keep it under [length]."</div>
+    </div>
+
+    <div class="task-card green">
+      <div class="task-card-name">&#128269; Looking something up</div>
+      <div class="task-tip">Say what you already know - it saves the tool from repeating things you do not need</div>
+      <div class="task-tip">Say what decision you're trying to make - "I need this to decide whether to escalate" gets a different answer than "I'm just curious"</div>
+      <div class="task-tip">Name the specific product, module, or workflow you're asking about</div>
+      <div class="task-tip">If you are not finding what you need, ask "What else should I know about X that's relevant here?"</div>
+      <div class="task-example"><strong>Try this structure:</strong> "I need to know [specific thing] about [product/process]. This is for [situation]. I already know [what you know]. What should I do?"</div>
+    </div>
+
+    <div class="task-card orange">
+      <div class="task-card-name">&#128300; Troubleshooting</div>
+      <div class="task-tip">Give the specific symptom, not just "it's broken" - what exactly is happening?</div>
+      <div class="task-tip">Give the timeline - when did it start? What changed around that time?</div>
+      <div class="task-tip">Say what's already been ruled out or tried</div>
+      <div class="task-tip">Include the error message or exact wording if there is one - paste it in</div>
+      <div class="task-example"><strong>Try this structure:</strong> "Customer reports [exact symptom] on [product/model] since [when]. [What changed or what they tried]. Error message: [paste if applicable]. What should we check first?"</div>
+    </div>
+
+    <div class="task-card red">
+      <div class="task-card-name">&#128196; Summarizing or analyzing</div>
+      <div class="task-tip">Paste the full content you want summarized - do not describe it, give it</div>
+      <div class="task-tip">Say what you need from the summary: key decisions, action items, questions to follow up on, highlights for leadership, etc.</div>
+      <div class="task-tip">Say the audience for the summary - internal use vs. sharing externally vs. your own reference notes</div>
+      <div class="task-tip">If analyzing multiple things, give them clearly labeled (Document A / Document B, or paste with a separator)</div>
+      <div class="task-example"><strong>Try this structure:</strong> "Here is [content]: [paste]. Summarize the [key points / action items / decisions] for [audience]. I need this to [purpose]."</div>
+    </div>
+
+  </div>
+
+  <!-- COMMON MISTAKES -->
+  <div class="section-title">Common Mistakes and How to Fix Them</div>
+
+  <div class="mistake-item">
+    <div class="mistake-header">
+      <div class="mistake-icon">&#128269;</div>
+      <div>
+        <div class="mistake-label">Being too vague</div>
+        <div class="mistake-desc">"Help me with this customer" or "Tell me about the renewal process" - no product, no situation, no goal.</div>
+      </div>
+    </div>
+    <div class="mistake-fix"><strong>Fix:</strong> Add the product, the customer situation, and what outcome you're working toward. Specifics cost you 10 seconds and save you 3 rounds of back-and-forth.</div>
+  </div>
+
+  <div class="mistake-item">
+    <div class="mistake-header">
+      <div class="mistake-icon">&#128463;</div>
+      <div>
+        <div class="mistake-label">Describing the content instead of pasting it</div>
+        <div class="mistake-desc">"A customer sent an email complaining about billing" - the tool can do a lot more with the actual email than with your description of it.</div>
+      </div>
+    </div>
+    <div class="mistake-fix"><strong>Fix:</strong> Paste it in. Email, error message, document excerpt, log entry - paste the actual text. You can remove restricted data first (names, account numbers) and describe them with placeholders like [customer name] or [district name].</div>
+  </div>
+
+  <div class="mistake-item">
+    <div class="mistake-header">
+      <div class="mistake-icon">&#128533;</div>
+      <div>
+        <div class="mistake-label">Accepting a generic answer when you needed a specific one</div>
+        <div class="mistake-desc">Getting a five-step general process when you needed to know specifically what to do in your situation - and not pushing back.</div>
+      </div>
+    </div>
+    <div class="mistake-fix"><strong>Fix:</strong> Follow up with your specific situation: "That's the general process - in my case the customer is 60 days out and has a history of paying late. What specifically applies here?" The tool will narrow in.</div>
+  </div>
+
+  <div class="mistake-item">
+    <div class="mistake-header">
+      <div class="mistake-icon">&#128203;</div>
+      <div>
+        <div class="mistake-label">Using a response without reviewing it</div>
+        <div class="mistake-desc">Sending an AI-drafted email or process answer to a customer or colleague without checking the details first.</div>
+      </div>
+    </div>
+    <div class="mistake-fix"><strong>Fix:</strong> Treat every response as a first draft. Read it before using it. Check names, dates, product details, and any policy claims against what you know to be true. The tool is very good at structure and tone - the specific facts need your verification.</div>
+  </div>
+
+  <div class="mistake-item">
+    <div class="mistake-header">
+      <div class="mistake-icon">&#128683;</div>
+      <div>
+        <div class="mistake-label">Pasting restricted data</div>
+        <div class="mistake-desc">Including customer PII, student records, employee data, or credentials when asking for help with a task.</div>
+      </div>
+    </div>
+    <div class="mistake-fix"><strong>Fix:</strong> Anonymize before pasting. Replace a customer name with "a customer" or "[customer name]". Replace a specific figure with a rounded number. You can describe the situation accurately without including the identifiable details. See the Restricted Data Reference Guide for the full list of what to leave out.</div>
+  </div>
+
+  <div class="mistake-item">
+    <div class="mistake-header">
+      <div class="mistake-icon">&#128257;</div>
+      <div>
+        <div class="mistake-label">Starting over instead of iterating</div>
+        <div class="mistake-desc">Getting a response that's 80% right, abandoning it, and starting a new conversation from scratch.</div>
+      </div>
+    </div>
+    <div class="mistake-fix"><strong>Fix:</strong> Stay in the same conversation and tell it what to fix. "The structure is good but the tone is too formal - rewrite just the opening and closing paragraphs" is faster than starting over and gets a better result because the tool still has the full context.</div>
+  </div>
+
+  <!-- QUICK REFERENCE -->
+  <div class="section-title">Quick Reference - What to Say When</div>
+
+  <table class="qr-table">
+    <thead>
+      <tr>
+        <th style="width: 35%">Situation</th>
+        <th>What to add to your request</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="situation">Response is too long</td>
+        <td><span class="prompt-text">Shorten this to 3 sentences or fewer. Keep the key point about [X].</span></td>
+      </tr>
+      <tr>
+        <td class="situation">Response is too generic</td>
+        <td><span class="prompt-text">That's too general. In my specific case, [situation details]. What applies here?</span></td>
+      </tr>
+      <tr>
+        <td class="situation">Tone is wrong</td>
+        <td><span class="prompt-text">Rewrite this in a [friendlier / more formal / more direct] tone. The recipient is [description].</span></td>
+      </tr>
+      <tr>
+        <td class="situation">Missed the point</td>
+        <td><span class="prompt-text">You misunderstood - the issue is not [X], it's [Y]. Try again with that in mind.</span></td>
+      </tr>
+      <tr>
+        <td class="situation">Want options to choose from</td>
+        <td><span class="prompt-text">Give me two versions: one [short/formal/direct] and one [longer/friendlier/detailed]. I'll pick.</span></td>
+      </tr>
+      <tr>
+        <td class="situation">Need to verify something</td>
+        <td><span class="prompt-text">How confident are you about [specific claim]? Is there anything I should double-check?</span></td>
+      </tr>
+      <tr>
+        <td class="situation">Not sure if the answer is complete</td>
+        <td><span class="prompt-text">Is there anything else relevant to this situation that I haven't asked about?</span></td>
+      </tr>
+      <tr>
+        <td class="situation">Want to improve something you wrote</td>
+        <td><span class="prompt-text">Here's my draft: [paste]. Improve the [clarity / tone / structure] without changing the core message.</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout blue" style="margin-top: 24px;">
+    <strong>Questions or issues?</strong> Contact Adam Baker. If a tool is consistently giving you wrong answers on a specific topic, that is feedback worth logging - it means the tool's knowledge needs updating, not that you are using it wrong.
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Getting Better Results</strong> &nbsp;&#183;&nbsp; For internal use &nbsp;&#183;&nbsp; Contact Adam Baker with questions
+</div>
+
+</body>
+</html>

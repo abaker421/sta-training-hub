@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - Maintenance SOP</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: var(--dark); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--orange); }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.75; margin-top: 6px; max-width: 620px; }
+  .header .badges { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 3px 12px; font-size: 12px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  .toc { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 40px; }
+  .toc-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.1px; color: var(--gray); margin-bottom: 12px; }
+  .toc-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .toc-links a { font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; background: #e8f2f8; border: 1px solid #c0d8ea; border-radius: 20px; padding: 3px 12px; }
+  .toc-links a:hover { background: var(--blue); color: white; }
+
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.65; }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+  .callout.red { background: #fdf0ef; border-left: 4px solid var(--red); }
+
+  /* SCHEDULE TABLE */
+  .sched-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); font-size: 13px; margin-bottom: 20px; }
+  .sched-table th { background: var(--light); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; color: var(--gray); padding: 10px 16px; text-align: left; border-bottom: 2px solid var(--border); }
+  .sched-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  .sched-table tr:last-child td { border-bottom: none; }
+  .sched-table .freq-badge { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; }
+  .sched-table .freq-badge.weekly { background: #edf7e6; color: #3a8a1e; }
+  .sched-table .freq-badge.monthly { background: #e8f2f8; color: var(--blue); }
+  .sched-table .freq-badge.quarterly { background: #fef4e0; color: #a06500; }
+  .sched-table .freq-badge.adhoc { background: #fdf0ef; color: var(--red); }
+  .sched-table .freq-badge.auto { background: var(--light); color: var(--gray); }
+
+  /* STEPS */
+  .step { display: flex; gap: 18px; margin-bottom: 14px; }
+  .step-num { width: 30px; height: 30px; border-radius: 50%; background: var(--blue); color: white; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-num.orange { background: var(--orange); }
+  .step-num.green { background: var(--green); }
+  .step-body { flex: 1; }
+  .step-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .step-desc { font-size: 13px; color: #444; line-height: 1.55; }
+  .step-note { font-size: 12px; background: var(--light); border-left: 3px solid var(--blue); padding: 7px 12px; margin-top: 8px; border-radius: 0 5px 5px 0; }
+
+  /* DRIFT SIGNALS */
+  .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .signal-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .signal-card.red { border-top: 3px solid var(--red); }
+  .signal-card.orange { border-top: 3px solid var(--orange); }
+  .signal-icon { font-size: 18px; margin-bottom: 6px; }
+  .signal-title { font-size: 12px; font-weight: 700; margin-bottom: 5px; }
+  .signal-desc { font-size: 12px; color: #555; line-height: 1.5; }
+
+  /* CODE BLOCK */
+  .cmd-block { background: var(--dark); color: #a8d8a8; border-radius: 6px; padding: 12px 16px; font-size: 12px; font-family: 'SF Mono', Monaco, 'Courier New', monospace; line-height: 1.7; margin: 10px 0; overflow-x: auto; }
+  .cmd-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gray); margin-top: 10px; margin-bottom: 4px; }
+  .prompt-block { background: #eef2f5; border-left: 3px solid var(--blue); border-radius: 4px; padding: 10px 12px; font-size: 11px; font-family: 'SF Mono', Monaco, 'Courier New', monospace; color: #2d4a5a; white-space: pre-wrap; line-height: 1.6; margin: 10px 0; }
+  .prompt-label { font-size: 10px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px; margin-bottom: 4px; }
+
+  /* PROCESS CARD */
+  .proc-card { background: white; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+  .proc-card-header { padding: 12px 18px; font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--border); background: var(--light); display: flex; align-items: center; gap: 10px; }
+  .proc-card-body { padding: 16px 18px; font-size: 13px; color: #444; line-height: 1.6; }
+  .proc-card-body p { margin-bottom: 10px; }
+  .proc-card-body p:last-child { margin-bottom: 0; }
+
+  /* WARNING SIGNS */
+  .warning-item { background: white; border: 1px solid var(--border); border-left: 4px solid var(--red); border-radius: 0 8px 8px 0; padding: 12px 16px; margin-bottom: 10px; }
+  .warning-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; color: var(--red); }
+  .warning-desc { font-size: 12px; color: #555; line-height: 1.55; }
+  .warning-action { font-size: 12px; color: var(--blue); font-weight: 600; margin-top: 5px; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 800px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+    .signal-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Maintenance SOP</h1>
+    <div class="sub">Ongoing maintenance schedule, how to handle tool drift, context updates, pipeline re-runs, and the knowledge base update cycle.</div>
+    <div class="badges">
+      <div class="badge">Admin / Power Users Only</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="toc">
+    <div class="toc-title">In This Guide</div>
+    <div class="toc-links">
+      <a href="#schedule">Maintenance Schedule</a>
+      <a href="#drift">Handling Tool Drift</a>
+      <a href="#context">Updating Context</a>
+      <a href="#pipeline">Re-running the Pipeline</a>
+      <a href="#kb">Knowledge Base Updates</a>
+      <a href="#signals">Warning Signs</a>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <strong>Most of this system is low-maintenance by design.</strong> The automated tasks run on their own. The tools only need attention when something changes (new knowledge, a broken behavior, a new project) or on the quarterly review cycle. You are not babysitting this daily.
+  </div>
+
+  <!-- SCHEDULE -->
+  <div id="schedule"></div>
+  <div class="section-title">Maintenance Schedule</div>
+  <div class="section-intro">A reference for what needs to happen and how often. Most tasks are triggered by an event, not a calendar date.</div>
+
+  <table class="sched-table">
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Frequency</th>
+        <th>Trigger / When</th>
+        <th>Time Est.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>System Monitor Health Report</strong> - review Slack report</td>
+        <td><span class="freq-badge auto">Automated</span></td>
+        <td>Runs automatically every Monday at 8:00 AM. Posts a green/amber/red status report to Adam's Slack. Review flags and take action on any red or amber items - open System Monitor Navigator to get specifics.</td>
+        <td>5 min review; variable if action needed</td>
+      </tr>
+      <tr>
+        <td><strong>Skyward Friday Digest</strong> - review output</td>
+        <td><span class="freq-badge auto">Automated</span></td>
+        <td>Runs automatically every Friday at 8:09 AM. Review the email - no action unless content is wrong.</td>
+        <td>2 min</td>
+      </tr>
+      <tr>
+        <td><strong>Knowledge Base Update Check</strong></td>
+        <td><span class="freq-badge auto">Automated</span></td>
+        <td>Runs automatically every Monday at 8:09 AM. Flags if the KB may be stale. Review the output and update if flagged.</td>
+        <td>5-30 min if update needed</td>
+      </tr>
+      <tr>
+        <td><strong>Tool drift check</strong> - review feedback log</td>
+        <td><span class="freq-badge auto">Automated</span></td>
+        <td>System Monitor Check 9 surfaces open entries from <code>feedback-log.md</code> every Monday automatically. Any open item older than 7 days flags Red. Log issues using the Agent Quality Logger skill: "log this feedback" or "that was wrong." Route open items to Project Feedback.</td>
+        <td>2 min review; variable if action needed</td>
+      </tr>
+      <tr>
+        <td><strong>AI Advisor context refresh</strong> - re-upload updated files to Claude.ai Project</td>
+        <td><span class="freq-badge monthly">As needed</span></td>
+        <td>Triggered by: (1) new agent goes live or a Draft agent's status changes, (2) roadmap priorities shift, (3) team roster changes, (4) STA product line, hardware spec, or Skyward platform compatibility changes, (5) TUB framework vocabulary updates. AI Advisor v1.14 has eight context files. Open the AI Advisor project in claude.ai → Project Settings → update the relevant file. Files to check: <code>context-ai-system-overview-proj.md</code> (changes when AI tools go live or roadmap shifts), <code>context-sta-team-ai-proj.md</code> (changes when team changes), <code>context-sta-company-proj.md</code> (rarely), <code>context-sta-products-detail.md</code> (changes on product/hardware/platform updates), <code>context-prompting-guide-proj.md</code> (changes when STA-specific examples are added), <code>context-getting-started-proj.md</code> (rarely - first-session orientation), <code>context-tub-framework-proj.md</code> (changes when TUB framework vocabulary expands), <code>context-research-topic-index-proj.md</code> (changes when KB topics are added/expanded). Source files live in <code>project-blueprints/_Projects/ai-advisor-proj/</code> or <code>project-blueprints/_Projects/sta-main-chat-proj/</code> (the three shared files) - edit the file first, then re-upload.</td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td><strong>Active project review</strong> - scan handoff.md files</td>
+        <td><span class="freq-badge monthly">Monthly</span></td>
+        <td>First Monday of the month. Quickly scan all <code>handoff.md</code> files for stale status, outdated context notes, or unresolved issues.</td>
+        <td>15 min</td>
+      </tr>
+      <tr>
+        <td><strong>Pipeline re-run</strong> on existing projects</td>
+        <td><span class="freq-badge quarterly">Quarterly</span></td>
+        <td>Re-run Project Tester on all active team-facing projects. Catch any drift from KB updates or instruction decay.</td>
+        <td>1-2 hrs total</td>
+      </tr>
+      <tr>
+        <td><strong>Training material review</strong></td>
+        <td><span class="freq-badge quarterly">Quarterly</span></td>
+        <td>Review Training and Training - Admin folders for anything outdated. Update guides when workflows change significantly.</td>
+        <td>30-60 min</td>
+      </tr>
+      <tr>
+        <td><strong>Agent registry audit</strong></td>
+        <td><span class="freq-badge quarterly">Quarterly</span></td>
+        <td>Verify all entries in <code>context-agent-registry.md</code> are still accurate. Remove deprecated projects, update statuses.</td>
+        <td>15 min</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TOOL DRIFT -->
+  <div id="drift"></div>
+  <div class="section-title">Handling Tool Drift</div>
+  <div class="section-intro">Tool drift happens when a project's behavior starts diverging from what it was designed to do - either because the instructions have gaps that real-world use exposed, or because supporting context (like the knowledge base) changed. Here is how to identify and fix it.</div>
+
+  <div class="signal-grid">
+    <div class="signal-card red">
+      <div class="signal-icon">&#128683;</div>
+      <div class="signal-title">Hard drift - act immediately</div>
+      <div class="signal-desc">The tool consistently gives wrong answers on a specific type of question. Multiple people report the same issue. The tool is missing a behavior that it had before. A critical workflow is broken.</div>
+    </div>
+    <div class="signal-card orange">
+      <div class="signal-icon">&#9888;&#65039;</div>
+      <div class="signal-title">Soft drift - address this week</div>
+      <div class="signal-desc">One or two users mention the tool "seems off." Responses are still in the right direction but less precise than they used to be. The tool handles the core case well but struggles on edge cases.</div>
+    </div>
+  </div>
+
+  <div class="proc-card">
+    <div class="proc-card-header">&#128295; How to fix drift</div>
+    <div class="proc-card-body">
+      <p><strong>0. Log it first.</strong> As soon as you notice bad behavior, trigger the Agent Quality Logger skill: "log this feedback" or "that was wrong." It takes 60 seconds and captures the issue in <code>feedback-log.md</code> before you forget the details. Critical-severity issues prompt immediate routing. Others are surfaced in Monday's System Monitor report.</p>
+      <p><strong>1. Reproduce it.</strong> Open the tool and ask it the exact question or do the exact task that is failing. Copy the bad response.</p>
+      <p><strong>2. Open The Architect and trigger Project Feedback.</strong> Describe exactly what went wrong, what the tool said, and what the correct behavior should be. Project Feedback will read the current instructions and produce an exact-text fix - not a vague suggestion.</p>
+      <div class="prompt-label">Prompt format:</div>
+      <pre class="prompt-block">Fix my project. Blueprint at project-blueprints/[project-name]/. Issue: [describe what the tool did wrong]. The correct behavior should be: [describe what it should have done]. Here is the actual bad response: [paste it].</pre>
+      <p><strong>3. Apply the fix.</strong> Project Feedback will give you the exact text to add, remove, or replace in <code>instructions.md</code>. Make the change in the file AND re-paste the updated instructions into the live workspace/project.</p>
+      <p><strong>4. Increment the version.</strong> Update the version number in <code>handoff.md</code> (v1.0 - v1.1 - etc.) and note what changed.</p>
+      <p><strong>5. Re-run Project Tester.</strong> Confirm the fix worked and did not break anything that was previously passing.</p>
+      <p><strong>6. Training doc drift is handled automatically.</strong> When The Architect's own instructions.md is updated, or another flagship project's instructions.md changes, The Architect runs a training doc drift check as part of the standard process - scanning Training Materials for affected references and auto-applying clear-drift fixes (rename passes, path corrections, callout updates). It surfaces only judgment-call drift to Adam (structural rewrites, contested changes). No manual maintenance pass is required for routine drift.</p>
+    </div>
+  </div>
+
+  <!-- UPDATING CONTEXT -->
+  <div id="context"></div>
+  <div class="section-title">Updating Project Context</div>
+  <div class="section-intro">Context files are the documents uploaded to a project that give it School Tech-specific knowledge. They need to be updated when the information they contain changes.</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Identify which context files need updating</div>
+      <div class="step-desc">Check <code>context-shared/context-registry.md</code> for a list of all context files, which projects use them, and when they were last updated. The Knowledge Base Update Checker runs weekly and flags files that may be stale.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Update the file content</div>
+      <div class="step-desc">Open the context file and update the relevant sections. Use the Work Personal Assistant to help draft new sections if needed - paste in the source material and ask it to format it consistently with the existing file.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Re-upload to all affected projects</div>
+      <div class="step-desc">For each project listed in the context registry for that file, go to the project settings and replace the old version of the context file with the updated one. Claude.ai and Cowork do not auto-sync context files - you have to do this manually.</div>
+      <div class="step-note">Check <code>context-registry.md</code> for the full list of which projects use which files. Do not miss one - a project with stale context will answer incorrectly even if its instructions are fine.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num green">4</div>
+    <div class="step-body">
+      <div class="step-title">Update the registry</div>
+      <div class="step-desc">Update the "Last Updated" date in <code>context-registry.md</code> for the file you changed.</div>
+    </div>
+  </div>
+
+  <!-- RE-RUNNING THE PIPELINE -->
+  <div id="pipeline"></div>
+  <div class="section-title">Re-running the Pipeline on Existing Projects</div>
+  <div class="section-intro">Quarterly, run Project Tester against all active team-facing projects. This catches instruction decay - where behaviors that once passed start failing due to accumulated small changes or context updates.</div>
+
+  <div class="proc-card">
+    <div class="proc-card-header">&#128300; Quarterly pipeline re-run process</div>
+    <div class="proc-card-body">
+      <p><strong>1. List active projects.</strong> Open <code>context-agent-registry.md</code> (workspace root) and identify all projects with Status = Active that are deployed to Claude.ai or Both (team-facing).</p>
+      <p><strong>2. Run Project Tester on each one.</strong> Open The Architect (or any Cowork session with the project-tester skill enabled) and run a batch test for each project. Save the new report - it supersedes the previous one.</p>
+      <div class="prompt-label">Prompt:</div>
+      <pre class="prompt-block">Test my project. The blueprint is at project-blueprints/[project-name]/. Run all 10 test cases in batch mode and give me a full pass/fail report. Save the report as project-blueprints/[project-name]/test-report-[today's date].md</pre>
+      <p><strong>3. Fix any failures.</strong> For any project scoring below 8/10, run Project Feedback on the failures. Apply fixes, increment versions, re-test to confirm.</p>
+    </div>
+  </div>
+
+  <div class="callout orange">
+    <strong>Prioritize team-facing projects.</strong> Failures in AI Advisor, STA Support Chat, STA Salesforce Cohort, or STA Main Chat (once Active) affect the cohort directly. Adam-only Cowork projects (Salesforce Admin Assistant, STA Support Expert, etc.) only affect Adam and can wait for the next available window.
+  </div>
+
+  <div class="callout blue">
+    <strong>Backup and version history:</strong> The workspace folder is automatically backed up to GitHub via Obsidian Git every 30 minutes. The repository is at <a href="https://github.com/abaker421/school-tech-ai-system" target="_blank">github.com/abaker421/school-tech-ai-system</a> (private). Obsidian must be open and running for the backup interval to fire. To recover a lost file, clone the repo or browse the commit history on GitHub. To roll back a specific file, find the last good commit on GitHub and copy the file contents.
+  </div>
+
+  <!-- KB UPDATES -->
+  <div id="kb"></div>
+  <div class="section-title">Knowledge Base Update Cycle</div>
+  <div class="section-intro">The knowledge base underpins the content that AI tools reference when answering School Tech-specific questions. Keeping it current is what keeps the tools accurate over time.</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Monday morning - check the automated update alert</div>
+      <div class="step-desc">The Knowledge Base Update Checker runs every Monday at 8:09 AM and sends an email if anything may be stale. Review the output. If no update is flagged, no action needed.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num orange">2</div>
+    <div class="step-body">
+      <div class="step-title">If an update is flagged - determine scope</div>
+      <div class="step-desc">Open Deep Research and ask it to investigate what changed. Feed it the source material (Skyward release notes, updated policies, product changes) and ask it to identify what in the knowledge base is now outdated.</div>
+      <div class="step-note">Deep Research has access to the knowledge base index and can identify which modules need updating without you having to review the whole thing.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num orange">3</div>
+    <div class="step-body">
+      <div class="step-title">Update the affected knowledge modules</div>
+      <div class="step-desc">Use the knowledge-base-context-builder skill (via any Cowork session with the skill enabled - typically The Architect) to reformat updated content into the correct module structure. Save the updated modules to the knowledge base folder.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num green">4</div>
+    <div class="step-body">
+      <div class="step-title">Re-upload context files to affected projects</div>
+      <div class="step-desc">Replace the outdated context files in any project that uses them. Update <code>knowledge-base/index.md</code> with the new last-updated dates.</div>
+    </div>
+  </div>
+
+  <!-- WARNING SIGNS -->
+  <div id="signals"></div>
+  <div class="section-title">Warning Signs That Something Needs Attention</div>
+  <div class="section-intro">These are the signals that should prompt immediate action, not a wait-for-the-next-review response.</div>
+
+  <div class="warning-item">
+    <div class="warning-title">Multiple users report the same wrong behavior from the same tool</div>
+    <div class="warning-desc">One report might be user error. Two or more with the same failure pattern means the tool has a real issue.</div>
+    <div class="warning-action">Action: run Project Feedback, apply fix, re-test, redeploy same day.</div>
+  </div>
+
+  <div class="warning-item">
+    <div class="warning-title">A tool starts confidently giving outdated School Tech information</div>
+    <div class="warning-desc">Usually means a knowledge base module is stale after a product update or policy change. The tool does not know the info changed - it answers from what it has.</div>
+    <div class="warning-action">Action: identify the stale module, update it, re-upload context files to affected projects.</div>
+  </div>
+
+  <div class="warning-item">
+    <div class="warning-title">A project's instructions.md and the live workspace instructions do not match</div>
+    <div class="warning-desc">Means a fix was applied to the workspace but not saved back to the file, or vice versa. The file and the live tool have diverged - next time the file is used as a reference, the fix will be lost.</div>
+    <div class="warning-action">Action: decide which version is correct, update the other to match.</div>
+  </div>
+
+<div class="warning-item">
+    <div class="warning-title">A project in the registry has no test-report file or a test report older than 6 months</div>
+    <div class="warning-desc">The project may never have been formally validated, or it has not been tested since significant changes were made.</div>
+    <div class="warning-action">Action: add to the next quarterly pipeline re-run queue, or run Project Tester on it this week if it is a team-facing tool.</div>
+  </div>
+
+  <div class="callout green" style="margin-top:24px;">
+    <strong>Low-maintenance is a feature, not an accident.</strong> This system was built to need minimal daily oversight. If you find yourself doing constant manual correction on a tool's output, that's a signal to fix the underlying instructions or context - not to keep correcting. Run Project Feedback on the tool and apply the root-cause fix. Repeated manual correction is the most common indicator that real maintenance work is overdue.
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Maintenance SOP</strong> &nbsp;&#183;&nbsp; Admin / Power Users Only &nbsp;&#183;&nbsp; Originally 2026-05-03; revalidated 2026-05-21 against The Architect v5.16 &nbsp;&#183;&nbsp; Contact: Adam Baker
+</div>
+
+</body>
+</html>

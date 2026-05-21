@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STA AI Training Hub</title>
+<meta name="description" content="School Technology Associates AI Training Materials - centralized hub for all training docs, organized by audience.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f4f6f8;
+    --white: #fff;
+    --dark: #1A1A2E;
+    --blue: #006098;
+    --blue-dark: #004d7a;
+    --green: #6bc04b;
+    --green-dark: #3a8a1e;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --border: #dde3e8;
+  }
+  body { font-family: 'Roboto', Arial, sans-serif; font-size: 10pt; color: #222; background: var(--bg); min-height: 100vh; }
+  .app { display: flex; flex-direction: column; min-height: 100vh; }
+
+  /* HEADER */
+  .app-header { display: flex; align-items: center; gap: 18px; background: var(--dark); color: #fff; padding: 0 28px; height: 64px; flex-shrink: 0; border-bottom: 3px solid var(--blue); }
+  .hdr-brand { display: flex; flex-direction: column; flex-shrink: 0; }
+  .hdr-title { font-size: 14pt; font-weight: 700; color: #e8eaf0; letter-spacing: 0.3px; }
+  .hdr-sub { font-size: 8.5pt; color: rgba(255,255,255,0.55); margin-top: 1px; }
+  .search-wrap { flex: 1; max-width: 360px; margin-left: auto; position: relative; }
+  .search-input { width: 100%; padding: 7px 14px 7px 34px; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.1); color: #fff; font-family: inherit; font-size: 9pt; outline: none; transition: border-color .15s, background .15s; }
+  .search-input::placeholder { color: rgba(255,255,255,0.45); }
+  .search-input:focus { border-color: rgba(107,192,75,0.7); background: rgba(255,255,255,0.15); }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.4); font-size: 11pt; pointer-events: none; }
+
+  /* AUDIENCE TABS */
+  .tab-bar { display: flex; align-items: stretch; background: var(--blue); border-bottom: 3px solid var(--blue-dark); overflow-x: auto; flex-shrink: 0; scrollbar-width: none; }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab { flex-shrink: 0; padding: 11px 22px; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: 9.5pt; font-weight: 600; color: rgba(255,255,255,0.78); white-space: nowrap; border-bottom: 3px solid transparent; margin-bottom: -3px; transition: color .15s, border-color .15s, background .15s; display: flex; align-items: center; gap: 8px; }
+  .tab:hover { color: #fff; background: rgba(255,255,255,0.12); }
+  .tab-active { color: #fff; border-bottom-color: var(--green); background: rgba(255,255,255,0.1); }
+  .tab-saved { color: #f5d76e !important; }
+  .tab-saved.tab-active { border-bottom-color: #f5d76e !important; }
+  .tab-icon { font-size: 12pt; line-height: 1; }
+  .tab-badge { display: inline-flex; align-items: center; justify-content: center; background: #f0b429; color: var(--dark); border-radius: 10px; font-size: 7pt; font-weight: 700; min-width: 18px; height: 16px; padding: 0 4px; margin-left: 4px; }
+
+  /* CONTENT */
+  .content { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 28px 32px 60px; }
+
+  /* AUDIENCE HEADER */
+  .aud-header { margin-bottom: 28px; }
+  .aud-title { font-size: 22pt; font-weight: 700; color: var(--dark); margin-bottom: 6px; line-height: 1.15; }
+  .aud-sub { font-size: 10pt; color: var(--gray); line-height: 1.55; max-width: 720px; }
+  .search-info { font-size: 9pt; color: var(--gray); font-style: italic; margin-top: 8px; }
+
+  /* SECTION */
+  .section { margin-bottom: 36px; }
+  .section-title { font-size: 9pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.1px; color: var(--gray); padding-bottom: 8px; border-bottom: 2px solid var(--border); margin-bottom: 16px; display: flex; align-items: baseline; gap: 10px; }
+  .section-count { font-size: 8pt; font-weight: 400; color: #aaa; background: #f0f0f0; border-radius: 10px; padding: 1px 8px; }
+
+  /* CARD GRID */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; transition: border-color .12s, box-shadow .12s, transform .12s; cursor: pointer; position: relative; min-height: 152px; }
+  .card:hover { border-color: var(--blue); box-shadow: 0 2px 8px rgba(0,96,152,0.1); transform: translateY(-1px); }
+  .card-required { border-top: 3px solid var(--blue); }
+  .card-recommended { border-top: 3px solid var(--green); }
+  .card-optional { border-top: 3px solid var(--gray); }
+  .card-admin { border-top: 3px solid var(--orange); }
+
+  .card-head { display: flex; align-items: flex-start; gap: 10px; }
+  .card-icon { font-size: 18pt; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+  .card-titleblock { flex: 1; min-width: 0; }
+  .card-title { font-size: 11pt; font-weight: 700; color: var(--dark); line-height: 1.3; }
+  .card-filename { font-size: 8pt; color: var(--gray); margin-top: 3px; font-family: 'SF Mono', Monaco, monospace; word-break: break-all; }
+  .card-fav { background: none; border: none; cursor: pointer; padding: 2px 4px; border-radius: 3px; font-size: 14px; line-height: 1; color: #ccc; transition: color .12s, background .12s; flex-shrink: 0; }
+  .card-fav:hover { color: #f0b429; background: rgba(240,180,41,0.1); }
+  .card-fav.active { color: #f0b429; }
+
+  .card-desc { font-size: 9pt; color: #555; line-height: 1.55; flex: 1; }
+
+  .card-meta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); }
+  .pill { font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+  .pill-required { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
+  .pill-recommended { background: #edf7e6; color: var(--green-dark); border: 1px solid #b8e0a0; }
+  .pill-optional { background: var(--light); color: var(--gray); border: 1px solid var(--border); }
+  .pill-live { background: #edf7e6; color: var(--green-dark); border: 1px solid #b8e0a0; }
+  .pill-coming { background: #f0eafd; color: #6c3dbf; border: 1px solid #d0b8f0; }
+  .pill-html { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
+  .pill-docx { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .pill-md { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .pill-pptx { background: #fdf0ef; color: var(--red); border: 1px solid #f5b8aa; }
+
+  /* CALLOUT */
+  .callout { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 24px; font-size: 9.5pt; color: #444; line-height: 1.6; }
+  .callout.green { border-left-color: var(--green); }
+  .callout.orange { border-left-color: var(--orange); }
+  .callout strong { color: var(--dark); }
+
+  /* EMPTY STATE */
+  .empty { padding: 80px 40px; text-align: center; }
+  .empty-icon { font-size: 44px; opacity: 0.35; margin-bottom: 16px; }
+  .empty-title { font-size: 12pt; font-weight: 700; color: #888; margin-bottom: 8px; }
+  .empty-sub { font-size: 9.5pt; color: #bbb; line-height: 1.5; max-width: 420px; margin: 0 auto; }
+
+  /* FOOTER */
+  .app-footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 18px 28px; font-size: 9pt; }
+  .app-footer strong { color: rgba(255,255,255,0.85); }
+  .app-footer a { color: rgba(107,192,75,0.85); text-decoration: none; }
+  .app-footer a:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .app-header { padding: 12px 16px; height: auto; flex-direction: column; align-items: stretch; gap: 12px; }
+    .search-wrap { max-width: none; margin-left: 0; }
+    .content { padding: 20px 16px 60px; }
+    .aud-title { font-size: 18pt; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useMemo, useCallback } = React;
+
+// =============================================================
+// DATA: Edit this section to add, remove, or update training docs
+// =============================================================
+window.TRAINING_DATA = {
+  audiences: [
+    {
+      id: 'start',
+      title: 'Start Here',
+      icon: '\u{1F44B}',
+      sub: 'Everyone reads these first. Day 1 onboarding for the AI program, no matter your role.',
+      sections: [
+        {
+          heading: 'Required before first use',
+          docs: ['aup', 'restricted-data', 'getting-started']
+        },
+        {
+          heading: 'Recommended Day 1',
+          docs: ['quick-ref', 'better-results']
+        }
+      ]
+    },
+    {
+      id: 'support',
+      title: 'Support Team',
+      icon: '\u{1F3A7}',
+      sub: 'For Chris Baker and Tyler Baughman. Tools, briefs, and the rollout email for STA Support Chat.',
+      sections: [
+        {
+          heading: 'Required before first use',
+          docs: ['aup', 'restricted-data', 'getting-started']
+        },
+        {
+          heading: 'Tool brief',
+          docs: ['support-chat-brief']
+        },
+        {
+          heading: 'Recommended Day 1',
+          docs: ['quick-ref', 'better-results', 'tools-reference']
+        },
+        {
+          heading: 'For Adam (rollout)',
+          docs: ['support-welcome-email']
+        }
+      ]
+    },
+    {
+      id: 'sf-admins',
+      title: 'SF Admins',
+      icon: '\u{1F4CA}',
+      sub: 'For Tanya Ballard, Joanie Preston, Kelsey Eberly, Adam Baker. STA Salesforce Cohort kit + the intake doc you fill out together.',
+      sections: [
+        {
+          heading: 'Required before first use',
+          docs: ['aup', 'restricted-data', 'getting-started']
+        },
+        {
+          heading: 'Cohort kit',
+          docs: ['cohort-getting-started', 'sf-org-intake']
+        },
+        {
+          heading: 'Recommended Day 1',
+          docs: ['quick-ref', 'better-results', 'tools-reference']
+        }
+      ]
+    },
+    {
+      id: 'tanya',
+      title: 'Tanya',
+      icon: '\u{1F3AF}',
+      sub: 'Tanya Ballard - Controller, AI tone & quality authority. Everything in SF Admins plus the brand-tone capture artifact.',
+      sections: [
+        {
+          heading: 'Required before first use',
+          docs: ['aup', 'restricted-data', 'getting-started']
+        },
+        {
+          heading: 'Cohort kit',
+          docs: ['cohort-getting-started']
+        },
+        {
+          heading: 'Quality / tone authority',
+          docs: ['brand-tone-intake']
+        },
+        {
+          heading: 'Recommended Day 1',
+          docs: ['quick-ref', 'better-results', 'tools-reference']
+        }
+      ]
+    },
+    {
+      id: 'admin',
+      title: 'Admin (Adam)',
+      icon: '\u{1F527}',
+      sub: 'Full admin kit: rollout planning, system map, user management, maintenance procedures, ship-readiness audit. Not for general staff distribution.',
+      sections: [
+        {
+          heading: 'Rollout planning',
+          docs: ['rollout-plan', 'ship-readiness', 'onboarding-deck']
+        },
+        {
+          heading: 'System reference',
+          docs: ['system-overview', 'user-management', 'maintenance-sop', 'manual-tasks']
+        },
+        {
+          heading: 'Build pipeline',
+          docs: ['build-guide', 'architect-case-study', 'dept-workflow-planner', 'brand-tone-intake']
+        },
+        {
+          heading: 'Security checklists',
+          docs: ['google-security', 'sf-security']
+        },
+        {
+          heading: 'Operational procedures',
+          docs: ['drift-check', 'formatting-standards', 'write-verification']
+        },
+        {
+          heading: 'Welcome email templates',
+          docs: ['support-welcome-email']
+        },
+        {
+          heading: 'Special cases',
+          docs: ['migration-personal-to-teams']
+        }
+      ]
+    }
+  ],
+  docs: {
+    // ===== Policies =====
+    'aup': {
+      title: 'AI Acceptable Use Policy',
+      icon: '\u{1F4DC}',
+      desc: 'Official STA policy governing how AI tools may and may not be used. Required reading and acknowledgment before account activation.',
+      file: 'files/ai-acceptable-use-policy.docx',
+      type: 'docx',
+      priority: 'required',
+      tags: ['Policy']
+    },
+    'restricted-data': {
+      title: 'AI Restricted Data Reference Guide',
+      icon: '\u{1F6E1}\u{FE0F}',
+      desc: 'Practical reference for what data cannot be pasted into AI tools - student PII, HR data, financial info, credentials. Required reading.',
+      file: 'files/ai-restricted-data-reference-guide.docx',
+      type: 'docx',
+      priority: 'required',
+      tags: ['Policy']
+    },
+
+    // ===== Staff core =====
+    'getting-started': {
+      title: 'Getting Started Guide',
+      icon: '\u{1F4D6}',
+      desc: 'Primary onboarding doc for all staff. Five-step walkthrough covering login, what tools are live, what to expect, the one data rule, suggested first conversations, FAQ.',
+      file: 'docs/getting-started-guide.html',
+      type: 'html',
+      priority: 'required',
+      tags: ['Onboarding']
+    },
+    'quick-ref': {
+      title: 'Quick Reference Card',
+      icon: '\u{26A1}',
+      desc: 'Single-page cheat sheet: login steps, what is live and coming, the three-ingredient formula, data rules, fix-it phrases. Designed for printing or keeping in a browser tab.',
+      file: 'docs/quick-reference-card.html',
+      type: 'html',
+      priority: 'recommended',
+      tags: ['Cheat Sheet']
+    },
+    'better-results': {
+      title: 'Getting Better Results',
+      icon: '\u{1F3AF}',
+      desc: 'Prompting technique guide with STA-flavored examples (TT7 clocks, Skyward renewal, customer email rewrites). Six common mistakes and quick-reference table for what to say when.',
+      file: 'docs/getting-better-results.html',
+      type: 'html',
+      priority: 'recommended',
+      tags: ['Prompting']
+    },
+    'tools-reference': {
+      title: 'Staff AI Tools Reference',
+      icon: '\u{1F527}',
+      desc: 'Full reference for the three live tools (AI Advisor, STA Support Chat, STA Salesforce Cohort) plus the Coming Soon roadmap, complete data rules, and the routing table.',
+      file: 'docs/staff-ai-tools-reference.html',
+      type: 'html',
+      priority: 'recommended',
+      tags: ['Reference']
+    },
+
+    // ===== Per-tool briefs =====
+    'support-chat-brief': {
+      title: 'STA Support Chat - Getting Started',
+      icon: '\u{1F4DD}',
+      desc: 'Per-tool brief for the Support team. NEVER FABRICATE hard rule, source-label taxonomy (Context-confirmed / Training / Verify / Cannot confirm), 16 product context files, access steps, five starter prompts, escalation table.',
+      file: 'docs/sta-support-chat-getting-started.html',
+      type: 'html',
+      priority: 'required',
+      tags: ['Tool Brief']
+    },
+    'cohort-getting-started': {
+      title: 'STA Salesforce Cohort - Getting Started',
+      icon: '\u{1F4CA}',
+      desc: 'Per-tool brief for the SF Cohort. How the shared assistant works, the source-label taxonomy, when to route heavy Flows back to Adam, who the cohort tiles are for.',
+      file: 'docs/cohort-getting-started.html',
+      type: 'html',
+      priority: 'required',
+      tags: ['Tool Brief']
+    },
+    'sf-org-intake': {
+      title: 'STA Salesforce Org Intake',
+      icon: '\u{1F4DD}',
+      desc: 'Intake docx for Kelsey and Joanie to fill out together - custom objects, field API names, active flows, validation rules, reports, dashboards, integrations, CPQ catalog. Drives Cohort v1.1.',
+      file: 'files/sta-salesforce-org-intake.docx',
+      type: 'docx',
+      priority: 'recommended',
+      tags: ['Intake']
+    },
+
+    // ===== Rollout & admin =====
+    'rollout-plan': {
+      title: 'AI Rollout Plan v2.0',
+      icon: '\u{1F680}',
+      desc: 'Phased rollout strategy reflecting actual May 2026 state. Phase 0 complete, Phase 1 active for the 5-person cohort, Phase 2 use case discovery, Phase 3 integrations conditional. Tools table, security risk table, roles and responsibilities.',
+      file: 'files/ai-rollout-plan.docx',
+      type: 'docx',
+      priority: 'admin',
+      tags: ['Planning', 'Admin']
+    },
+    'ship-readiness': {
+      title: 'Ship Readiness Brief',
+      icon: '\u{1F4CB}',
+      desc: 'Audit of all training docs against the live agent registry. Doc-by-doc status, gaps and redundancies, sequencing plan for Phase 1 activation. Produced 2026-05-21.',
+      file: 'docs/ship-readiness-brief.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Audit', 'Admin']
+    },
+    'system-overview': {
+      title: 'AI System Overview',
+      icon: '\u{1F30D}',
+      desc: 'Single canonical system map. Claude.ai Projects, Cowork workspaces, personal projects, build pipeline, skills, automations, key files, deprecated tools. Updated to The Architect v5.16.',
+      file: 'docs/ai-system-overview-admin.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['System Reference', 'Admin']
+    },
+    'user-management': {
+      title: 'User Management Guide',
+      icon: '\u{1F465}',
+      desc: 'How to add, onboard, promote, and offboard users from the AI system. Three access levels, invite workflow, onboarding checklist, ready-to-send welcome email template, promotion path, offboarding checklist, troubleshooting.',
+      file: 'docs/user-management-guide.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Admin Guide', 'Admin']
+    },
+    'maintenance-sop': {
+      title: 'Maintenance SOP',
+      icon: '\u{1F551}',
+      desc: 'Ongoing maintenance schedule and procedures. Automated tasks, drift detection, context file updates, quarterly pipeline re-run, KB update cycle, warning signs.',
+      file: 'docs/maintenance-sop.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['SOP', 'Admin']
+    },
+    'manual-tasks': {
+      title: 'Manual Tasks Checklist',
+      icon: '\u{2705}',
+      desc: 'Tracked checklist of remaining manual setup tasks that cannot be automated. Source of truth for what still needs to be done.',
+      file: 'docs/manual-tasks-checklist.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Checklist', 'Admin']
+    },
+    'build-guide': {
+      title: 'New Project Build Guide',
+      icon: '\u{1F3D7}\u{FE0F}',
+      desc: 'Step-by-step guide for building a new AI project from scratch using The Architect pipeline. All five steps with exact prompts, Wave 1/Wave 2 gate, file map, deployment decision table.',
+      file: 'docs/new-project-build-guide-v2.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Build Guide', 'Admin']
+    },
+    'architect-case-study': {
+      title: 'The Architect Case Study',
+      icon: '\u{1F4DA}',
+      desc: 'Deep-dive case study on The Architect pipeline. What the tool is, why it exists, how the pipeline is structured, modes, quality gates, live walkthrough of a real build.',
+      file: 'docs/the-architect-case-study.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Case Study', 'Admin']
+    },
+    'dept-workflow-planner': {
+      title: 'Department Workflow Planner',
+      icon: '\u{1F4CD}',
+      desc: 'Intake questionnaire for planning department-specific AI workflow guides. Fill out one per department before asking The Architect to build the guide.',
+      file: 'docs/department-workflow-planner.md',
+      type: 'md',
+      priority: 'admin',
+      tags: ['Planning', 'Admin']
+    },
+    'brand-tone-intake': {
+      title: 'Brand Tone Intake',
+      icon: '\u{1F3A8}',
+      desc: 'Intake doc for capturing STA brand voice and tone for AI projects that produce customer-facing or staff-facing output. Tanya-led when formalized.',
+      file: 'files/brand-tone-intake.docx',
+      type: 'docx',
+      priority: 'recommended',
+      tags: ['Intake', 'Tone']
+    },
+    'google-security': {
+      title: 'Google Access Security Checklist',
+      icon: '\u{1F510}',
+      desc: 'Interactive pre-authorization checklist before connecting Gmail, Drive, or Calendar to any AI tool. Required before Phase 3 Gmail integration.',
+      file: 'docs/google-access-security-checklist.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Security', 'Admin']
+    },
+    'sf-security': {
+      title: 'Salesforce Access Security Checklist',
+      icon: '\u{1F510}',
+      desc: 'Interactive pre-authorization checklist for connecting Claude to STA Salesforce. Required before Phase 3 SF MCP integration.',
+      file: 'docs/salesforce-access-security-checklist.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Security', 'Admin']
+    },
+    'drift-check': {
+      title: 'Drift Check Procedure',
+      icon: '\u{1F50D}',
+      desc: 'Procedure The Architect runs when its own instructions, a flagship project, or the registry changes - scans training materials for affected references and applies fixes.',
+      file: 'docs/drift-check-procedure.md',
+      type: 'md',
+      priority: 'admin',
+      tags: ['Procedure', 'Admin']
+    },
+    'formatting-standards': {
+      title: 'Formatting Standards',
+      icon: '\u{1F4DD}',
+      desc: 'Internal style reference for HTML and markdown deliverables - typography, color tokens, layout rules. Reference when producing new training materials or case studies.',
+      file: 'docs/formatting-standards.md',
+      type: 'md',
+      priority: 'admin',
+      tags: ['Standards', 'Admin']
+    },
+    'write-verification': {
+      title: 'Write Verification Protocol',
+      icon: '\u{1F6E1}\u{FE0F}',
+      desc: 'Diagnostic and protocol doc from the 2026-05-02 truncation incident. Documents the post-write verification gate (Read tool only, never bash) used by The Architect.',
+      file: 'docs/write-verification-protocol.md',
+      type: 'md',
+      priority: 'admin',
+      tags: ['Protocol', 'Admin']
+    },
+    'support-welcome-email': {
+      title: 'Support Team Welcome Email Draft',
+      icon: '\u{2709}\u{FE0F}',
+      desc: 'Paste-ready welcome email for Chris and Tyler when STA Support Chat rolls out. Subject, body, attachment list, notes on timing.',
+      file: 'docs/support-team-welcome-email-draft.md',
+      type: 'md',
+      priority: 'recommended',
+      tags: ['Email Template']
+    },
+    'migration-personal-to-teams': {
+      title: 'Migration Guide - Personal to Teams',
+      icon: '\u{1F504}',
+      desc: 'Workflow guide for staff who already have a personal Claude account and need to migrate to the team workspace. Sequence, gotchas, what carries over.',
+      file: 'docs/migration-guide-personal-to-teams.html',
+      type: 'html',
+      priority: 'optional',
+      tags: ['Migration', 'Admin']
+    },
+    'onboarding-deck': {
+      title: 'AI Tools Getting Started - PowerPoint',
+      icon: '\u{1F39E}\u{FE0F}',
+      desc: '12-slide onboarding deck designed for a live 40-minute walkthrough with the team. Problem-first opening, login walkthrough, the three-ingredient formula, weak vs strong prompt comparison, the one data rule, cohort-tool note on Slide 6. Use for kickoff sessions with Phase 1 or Phase 2 staff.',
+      file: 'files/ai-tools-getting-started.pptx',
+      type: 'pptx',
+      priority: 'recommended',
+      tags: ['Presentation', 'Onboarding']
+    }
+  }
+};
+
+// =============================================================
+// COMPONENTS
+// =============================================================
+
+function App() {
+  const data = window.TRAINING_DATA;
+  const [activeAud, setActiveAud] = useState(() => {
+    const saved = localStorage.getItem('sta_training_aud');
+    return saved && data.audiences.find(a => a.id === saved) ? saved : 'start';
+  });
+  const [search, setSearch] = useState('');
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('sta_training_favs') || '[]');
+    } catch { return []; }
+  });
+
+  useEffect(() => { localStorage.setItem('sta_training_aud', activeAud); }, [activeAud]);
+  useEffect(() => { localStorage.setItem('sta_training_favs', JSON.stringify(favorites)); }, [favorites]);
+
+  const toggleFav = useCallback((docId) => {
+    setFavorites(prev => prev.includes(docId) ? prev.filter(id => id !== docId) : [...prev, docId]);
+  }, []);
+
+  // Search across all docs
+  const searchResults = useMemo(() => {
+    if (!search.trim()) return null;
+    const q = search.trim().toLowerCase();
+    const matches = Object.entries(data.docs)
+      .filter(([id, doc]) =>
+        doc.title.toLowerCase().includes(q) ||
+        doc.desc.toLowerCase().includes(q) ||
+        (doc.tags || []).some(t => t.toLowerCase().includes(q))
+      )
+      .map(([id]) => id);
+    return matches;
+  }, [search, data.docs]);
+
+  const aud = data.audiences.find(a => a.id === activeAud);
+  const hasFavorites = favorites.length > 0;
+
+  return (
+    <div className="app">
+      <Header search={search} setSearch={setSearch} />
+      <TabBar
+        audiences={data.audiences}
+        activeAud={activeAud}
+        setActiveAud={setActiveAud}
+        hasFavorites={hasFavorites}
+        favoritesCount={favorites.length}
+      />
+      <div className="content">
+        {search.trim() ? (
+          <SearchResults
+            results={searchResults}
+            docs={data.docs}
+            favorites={favorites}
+            toggleFav={toggleFav}
+            query={search}
+          />
+        ) : activeAud === 'favorites' ? (
+          <FavoritesView
+            favorites={favorites}
+            docs={data.docs}
+            toggleFav={toggleFav}
+          />
+        ) : (
+          <AudienceView
+            audience={aud}
+            docs={data.docs}
+            favorites={favorites}
+            toggleFav={toggleFav}
+          />
+        )}
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+function Header({ search, setSearch }) {
+  return (
+    <header className="app-header">
+      <div className="hdr-brand">
+        <div className="hdr-title">STA AI Training Hub</div>
+        <div className="hdr-sub">School Technology Associates &middot; Internal</div>
+      </div>
+      <div className="search-wrap">
+        <span className="search-icon">\u{1F50D}</span>
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search all docs..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+      </div>
+    </header>
+  );
+}
+
+function TabBar({ audiences, activeAud, setActiveAud, hasFavorites, favoritesCount }) {
+  return (
+    <nav className="tab-bar">
+      {audiences.map(aud => (
+        <button
+          key={aud.id}
+          className={`tab ${activeAud === aud.id ? 'tab-active' : ''}`}
+          onClick={() => setActiveAud(aud.id)}
+        >
+          <span className="tab-icon">{aud.icon}</span>
+          {aud.title}
+        </button>
+      ))}
+      {hasFavorites && (
+        <button
+          className={`tab tab-saved ${activeAud === 'favorites' ? 'tab-active' : ''}`}
+          onClick={() => setActiveAud('favorites')}
+        >
+          <span className="tab-icon">\u{2B50}</span>
+          Saved
+          <span className="tab-badge">{favoritesCount}</span>
+        </button>
+      )}
+    </nav>
+  );
+}
+
+function AudienceView({ audience, docs, favorites, toggleFav }) {
+  if (!audience) return null;
+  return (
+    <div>
+      <div className="aud-header">
+        <div className="aud-title">{audience.title}</div>
+        <div className="aud-sub">{audience.sub}</div>
+      </div>
+      {audience.sections.map((sec, i) => (
+        <div className="section" key={i}>
+          <div className="section-title">
+            {sec.heading}
+            <span className="section-count">{sec.docs.length} {sec.docs.length === 1 ? 'doc' : 'docs'}</span>
+          </div>
+          <div className="card-grid">
+            {sec.docs.map(docId => {
+              const doc = docs[docId];
+              if (!doc) return null;
+              return (
+                <DocCard
+                  key={docId}
+                  docId={docId}
+                  doc={doc}
+                  isFav={favorites.includes(docId)}
+                  toggleFav={toggleFav}
+                />
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function SearchResults({ results, docs, favorites, toggleFav, query }) {
+  return (
+    <div>
+      <div className="aud-header">
+        <div className="aud-title">Search</div>
+        <div className="aud-sub">{results.length} {results.length === 1 ? 'doc matches' : 'docs match'} <em>"{query}"</em></div>
+      </div>
+      {results.length === 0 ? (
+        <div className="empty">
+          <div className="empty-icon">\u{1F50D}</div>
+          <div className="empty-title">No matches</div>
+          <div className="empty-sub">Try a shorter query or check the audience tabs above.</div>
+        </div>
+      ) : (
+        <div className="card-grid">
+          {results.map(docId => (
+            <DocCard
+              key={docId}
+              docId={docId}
+              doc={docs[docId]}
+              isFav={favorites.includes(docId)}
+              toggleFav={toggleFav}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FavoritesView({ favorites, docs, toggleFav }) {
+  if (favorites.length === 0) {
+    return (
+      <div className="empty">
+        <div className="empty-icon">\u{2B50}</div>
+        <div className="empty-title">No saved docs yet</div>
+        <div className="empty-sub">Click the star on any card to save it here for quick access.</div>
+      </div>
+    );
+  }
+  return (
+    <div>
+      <div className="aud-header">
+        <div className="aud-title">Saved</div>
+        <div className="aud-sub">Your starred docs. Click the star again to remove.</div>
+      </div>
+      <div className="card-grid">
+        {favorites.map(docId => {
+          const doc = docs[docId];
+          if (!doc) return null;
+          return (
+            <DocCard
+              key={docId}
+              docId={docId}
+              doc={doc}
+              isFav={true}
+              toggleFav={toggleFav}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function DocCard({ docId, doc, isFav, toggleFav }) {
+  const handleClick = (e) => {
+    // Don't open doc when clicking the favorite button
+    if (e.target.closest('.card-fav')) return;
+    window.open(doc.file, '_blank', 'noopener,noreferrer');
+  };
+  const handleFavClick = (e) => {
+    e.stopPropagation();
+    toggleFav(docId);
+  };
+  const priorityClass = `card-${doc.priority || 'optional'}`;
+  return (
+    <div className={`card ${priorityClass}`} onClick={handleClick} title={`Open ${doc.title}`}>
+      <div className="card-head">
+        <div className="card-icon">{doc.icon || '\u{1F4C4}'}</div>
+        <div className="card-titleblock">
+          <div className="card-title">{doc.title}</div>
+          <div className="card-filename">{doc.file}</div>
+        </div>
+        <button
+          className={`card-fav ${isFav ? 'active' : ''}`}
+          onClick={handleFavClick}
+          title={isFav ? 'Remove from saved' : 'Save for quick access'}
+          aria-label={isFav ? 'Remove from saved' : 'Save for quick access'}
+        >
+          {isFav ? '\u{2605}' : '\u{2606}'}
+        </button>
+      </div>
+      <div className="card-desc">{doc.desc}</div>
+      <div className="card-meta">
+        {doc.priority && (
+          <span className={`pill pill-${doc.priority}`}>{doc.priority}</span>
+        )}
+        {doc.type && (
+          <span className={`pill pill-${doc.type}`}>{doc.type.toUpperCase()}</span>
+        )}
+        {(doc.tags || []).slice(0, 2).map(t => (
+          <span key={t} className="pill pill-optional">{t}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="app-footer">
+      <strong>STA AI Training Hub</strong> &middot; Maintained by Adam Baker &middot; Updated 2026-05-21 &middot; <a href="mailto:adamb@k12sta.com">adamb@k12sta.com</a>
+    </footer>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - Quick Reference Card</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--white); color: var(--dark); line-height: 1.5; }
+
+  /* PRINT-FIRST LAYOUT */
+  .card { max-width: 900px; margin: 0 auto; padding: 28px 36px 32px; }
+
+  .card-header { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 14px; border-bottom: 3px solid var(--blue); margin-bottom: 20px; }
+  .card-header-left h1 { font-size: 20px; font-weight: 700; color: var(--dark); }
+  .card-header-left .sub { font-size: 12px; color: var(--gray); margin-top: 3px; }
+  .card-header-right { text-align: right; font-size: 11px; color: var(--gray); }
+  .card-header-right strong { color: var(--blue); display: block; font-size: 13px; margin-bottom: 2px; }
+
+  /* SECTION LAYOUT */
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .grid-full { margin-bottom: 14px; }
+
+  .block { background: var(--light); border-radius: 8px; padding: 14px 16px; border: 1px solid var(--border); }
+  .block.blue-top { border-top: 3px solid var(--blue); }
+  .block.green-top { border-top: 3px solid var(--green); }
+  .block.orange-top { border-top: 3px solid var(--orange); }
+  .block.red-top { border-top: 3px solid var(--red); }
+
+  .block-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gray); margin-bottom: 9px; }
+  .block-label.blue { color: var(--blue); }
+  .block-label.green { color: #2e7010; }
+  .block-label.orange { color: #9a5800; }
+  .block-label.red { color: var(--red); }
+
+  /* ITEMS */
+  .item { font-size: 12px; color: #333; line-height: 1.5; margin-bottom: 6px; padding-left: 14px; position: relative; }
+  .item:last-child { margin-bottom: 0; }
+  .item::before { position: absolute; left: 0; color: var(--blue); font-size: 11px; font-weight: 700; }
+  .item.check::before { content: "✓"; color: var(--green); }
+  .item.bang::before { content: "!"; color: var(--orange); }
+  .item.dash::before { content: "–"; color: var(--gray); }
+  .item.arrow::before { content: "→"; }
+  .item.never::before { content: "✗"; color: var(--red); }
+
+  .item strong { font-weight: 700; color: var(--dark); }
+  .item em { font-style: italic; color: #555; }
+
+  /* FORMULA BLOCKS */
+  .formula-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 14px; }
+  .formula-part { padding: 12px 14px; background: white; border-right: 1px solid var(--border); }
+  .formula-part:last-child { border-right: none; }
+  .formula-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .formula-num.what { color: var(--blue); }
+  .formula-num.ctx { color: #2e7010; }
+  .formula-num.fmt { color: #9a5800; }
+  .formula-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .formula-eg { font-size: 11px; color: var(--gray); font-style: italic; line-height: 1.45; }
+
+  /* FIX-IT PHRASES */
+  .phrase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .phrase { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-size: 12px; font-style: italic; color: #333; line-height: 1.45; }
+  .phrase-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: var(--blue); margin-bottom: 4px; font-style: normal; display: block; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+  /* FOOTER */
+  .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 2px solid var(--border); margin-top: 6px; font-size: 11px; color: var(--gray); }
+  .card-footer a { color: var(--blue); }
+
+  @media print {
+    body { background: white; }
+    .card { padding: 18px 24px; }
+    .block { break-inside: avoid; }
+  }
+  @media (max-width: 700px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .formula-row { grid-template-columns: 1fr; }
+    .phrase-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="card-header">
+    <div class="card-header-left">
+      <h1>AI Tools at School Tech — Quick Reference</h1>
+      <div class="sub">What to do, what to say, what to never paste</div>
+    </div>
+    <div class="card-header-right">
+      <strong>School Technology Associates</strong>
+      Questions? adamb@k12sta.com
+    </div>
+  </div>
+
+
+  <!-- ROW 1: LOGIN + TOOLS LIVE + DATA RULES -->
+  <div class="grid-3">
+
+    <div class="block blue-top">
+      <div class="block-label blue">How to Get In</div>
+      <div class="item arrow">Go to <strong>claude.ai</strong></div>
+      <div class="item arrow">Sign in with your <strong>@k12sta.com</strong> email — not Gmail, not Google sign-in</div>
+      <div class="item arrow">Open <strong>Projects</strong> in the left sidebar</div>
+      <div class="item arrow">Click a project name and start typing</div>
+      <hr class="divider">
+      <div class="item bang">If you see "Personal" you're in the wrong account — log out and use your work email</div>
+    </div>
+
+    <div class="block green-top">
+      <div class="block-label green">What's Live Now</div>
+      <div class="item check"><strong>AI Advisor</strong> — all staff; explore AI fit, find what's built, frame ideas for Adam</div>
+      <div class="item check"><strong>STA Support Chat</strong> — Chris, Tyler, Adam; product troubleshooting + customer email drafts</div>
+      <div class="item check"><strong>STA Salesforce Cohort</strong> — Adam, Kelsey, Joanie, Tanya; SF admin tasks, formulas, guidance</div>
+      <hr class="divider">
+      <div class="block-label" style="margin-bottom: 6px;">Coming Soon</div>
+      <div class="item dash">STA Main Chat — general org / product lookups for all staff</div>
+    </div>
+
+    <div class="block red-top">
+      <div class="block-label red">Never Paste These</div>
+      <div class="item never"><strong>Student data</strong> — names, IDs, grades, attendance, anything from Skyward</div>
+      <div class="item never"><strong>Employee PII</strong> — SSNs, payroll, HR records, performance data</div>
+      <div class="item never"><strong>Credentials</strong> — passwords, API keys, tokens, login info for any system</div>
+      <hr class="divider">
+      <div class="item bang" style="font-size: 11px;">When in doubt — don't paste it. See the <em>Restricted Data Reference Guide</em> or ask Adam.</div>
+    </div>
+
+  </div>
+
+
+  <!-- ROW 2: FORMULA -->
+  <div class="block-label" style="margin-bottom: 8px; margin-top: 4px;">The Three-Ingredient Formula — hit all three for a useful first draft</div>
+  <div class="formula-row">
+    <div class="formula-part">
+      <div class="formula-num what">1 — What</div>
+      <div class="formula-title">The actual task</div>
+      <div class="formula-eg">"Draft a response to this customer complaint." Not "I was wondering if maybe you could help me..."</div>
+    </div>
+    <div class="formula-part">
+      <div class="formula-num ctx">2 — Context</div>
+      <div class="formula-title">The relevant situation</div>
+      <div class="formula-eg">Paste the actual email, error message, or case note. The real thing beats a description of it every time.</div>
+    </div>
+    <div class="formula-part">
+      <div class="formula-num fmt">3 — Format (optional)</div>
+      <div class="formula-title">What you want back</div>
+      <div class="formula-eg">"Keep it under 3 sentences." "Formal — this is for a superintendent." "Use bullet points."</div>
+    </div>
+  </div>
+
+
+  <!-- ROW 3: FIX-IT PHRASES + WHAT IT IS / ISN'T -->
+  <div class="grid-2">
+
+    <div class="block orange-top">
+      <div class="block-label orange">When the Response Isn't Right — Stay in the Conversation</div>
+      <div class="phrase-grid">
+        <div class="phrase">
+          <span class="phrase-tag">Name what's wrong</span>
+          "Too formal — this customer is casual. Rewrite just the opening."
+        </div>
+        <div class="phrase">
+          <span class="phrase-tag">Add what you left out</span>
+          "Should have mentioned — this district is 3 months in, not new."
+        </div>
+        <div class="phrase">
+          <span class="phrase-tag">Keep what's working</span>
+          "First two paragraphs are good. Just rewrite the closing."
+        </div>
+        <div class="phrase">
+          <span class="phrase-tag">Ask for options</span>
+          "Give me two versions: one short and direct, one more detailed."
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="block" style="margin-bottom: 14px; border-top: 3px solid var(--green);">
+        <div class="block-label green">It's good at</div>
+        <div class="item check">Drafting emails, responses, and documents</div>
+        <div class="item check">Troubleshooting step by step</div>
+        <div class="item check">Explaining processes in plain language</div>
+        <div class="item check">Turning rough notes into polished writing</div>
+      </div>
+      <div class="block" style="border-top: 3px solid var(--orange);">
+        <div class="block-label orange">Keep in mind</div>
+        <div class="item bang">Verify facts before using them</div>
+        <div class="item bang">Doesn't remember previous conversations</div>
+        <div class="item bang">Review output before sending — you're responsible for it</div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="card-footer">
+    <div>Full guides: <em>Getting Started Guide</em> · <em>Getting Better Results</em> · <em>AI Restricted Data Reference Guide</em></div>
+    <div>Contact Adam — <a href="mailto:adamb@k12sta.com">adamb@k12sta.com</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>

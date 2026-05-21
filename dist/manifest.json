@@ -1,0 +1,9 @@
+{
+  "name": "STA AI Training Hub",
+  "short_name": "STA Training",
+  "description": "School Technology Associates AI Training Materials - centralized hub for all training docs, organized by audience.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1A1A2E",
+  "theme_color": "#006098"
+}

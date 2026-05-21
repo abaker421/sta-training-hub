@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STA Salesforce Cohort - Getting Started</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+    --amber: #f4a300;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.55; }
+
+  .page { max-width: 880px; margin: 0 auto; padding: 28px 40px 40px; background: var(--white); }
+
+  .header { border-bottom: 4px solid var(--blue); padding-bottom: 14px; margin-bottom: 20px; }
+  .header h1 { font-size: 22px; font-weight: 700; color: var(--dark); }
+  .header .sub { font-size: 13px; color: var(--gray); margin-top: 4px; }
+  .header .pill { display: inline-block; background: var(--green); color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px; margin-left: 8px; vertical-align: middle; }
+
+  h2 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-top: 22px; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 13px; font-weight: 700; color: var(--dark); margin-top: 12px; margin-bottom: 4px; }
+  p { font-size: 13px; color: var(--dark); margin-bottom: 8px; }
+  ul { margin-left: 18px; margin-bottom: 8px; }
+  li { font-size: 13px; color: var(--dark); margin-bottom: 4px; }
+  strong { color: var(--blue); }
+
+  .tile-row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tile { flex: 1; min-width: 180px; background: var(--light); border-left: 3px solid var(--blue); padding: 10px 14px; border-radius: 0 4px 4px 0; }
+  .tile h4 { font-size: 12px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
+  .tile p { font-size: 12px; margin: 0; }
+
+  .label-row { background: var(--light); padding: 10px 14px; margin: 6px 0; border-radius: 4px; border-left: 3px solid var(--green); }
+  .label-row .label { font-weight: 700; font-size: 12px; color: var(--blue); }
+  .label-row .desc { font-size: 12px; color: var(--dark); margin-top: 2px; }
+
+  .callout { background: #fffbf0; border-left: 3px solid var(--amber); padding: 10px 14px; border-radius: 0 4px 4px 0; margin: 12px 0; }
+  .callout .title { font-size: 11px; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
+  .callout p { font-size: 12px; margin: 0; }
+
+  .footer { margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 11px; color: var(--gray); text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="header">
+    <h1>STA Salesforce Cohort <span class="pill">v1.1</span></h1>
+    <div class="sub">A shared Claude.ai Project for Adam, Kelsey, Joanie, and Tanya - Salesforce admin reference and guidance, on demand.</div>
+  </div>
+
+  <h2>What it is</h2>
+  <p>A shared Claude.ai Project the four of you can use to answer Salesforce admin questions across the areas we work in - validation rules, page layouts, fields, reports, dashboards, user management, permission sets, approval processes, data management, CPQ, Spanning, and Flow at awareness depth. It works like asking a Salesforce admin peer who has the patience to walk through anything, label what it knows versus what it is guessing, and never pretends to be sure when it is not.</p>
+
+  <p>It has no direct access to STA's Salesforce org. It cannot make changes for you. Everything it produces is reference and guidance - you stay the one who clicks Save.</p>
+
+  <h2>Who it is for</h2>
+  <div class="tile-row">
+    <div class="tile"><h4>Tanya</h4><p>Financial reports, dashboards, business-outcome questions. It leads with the outcome and only goes technical when you ask.</p></div>
+    <div class="tile"><h4>Kelsey</h4><p>Day-to-day admin work. Permission sets, page layouts, reports, user management. It defines admin terms inline when needed.</p></div>
+    <div class="tile"><h4>Joanie</h4><p>BA work on orders and finance integration. It translates business requirements into Salesforce capabilities before giving steps.</p></div>
+  </div>
+
+  <h2>How to use it well</h2>
+
+  <h3>Ask specific questions</h3>
+  <p>"How do I add a permission set that gives the Support team read-only access to Opportunities?" works better than "How do permission sets work?" The more specific the question, the more useful the answer.</p>
+
+  <h3>Watch for the source label</h3>
+  <p>Every answer opens with a label so you know how much to trust it before you act on it:</p>
+
+  <div class="label-row">
+    <span class="label">Context-confirmed</span>
+    <div class="desc">Sourced from STA-specific context files uploaded to the Project. Highest trust.</div>
+  </div>
+  <div class="label-row">
+    <span class="label">Training knowledge</span>
+    <div class="desc">General Salesforce knowledge. Likely right; verify in your org or current Salesforce docs before deploying.</div>
+  </div>
+  <div class="label-row">
+    <span class="label">Training knowledge - verify carefully</span>
+    <div class="desc">CPQ, Spanning, or recent-release features. Treat as a starting point; check the official Salesforce docs before making the change.</div>
+  </div>
+  <div class="label-row">
+    <span class="label">Cannot confirm without org access</span>
+    <div class="desc">Field API names, custom object schemas, picklist values, or other org-specific configuration. Verify in Setup &gt; Object Manager or the relevant Setup path.</div>
+  </div>
+
+  <h3>Test in a sandbox before Production</h3>
+  <p>Every procedural answer ends with a sandbox testing note. Follow it. Production changes that worked correctly in sandbox first are also the changes that do not require Spanning restores later.</p>
+
+  <h3>For heavy Flow design, loop Adam in</h3>
+  <p>The cohort assistant covers Flow at awareness depth - which type, when to use, anti-pattern recognition. For architecture, Apex integration, performance work, CI/CD, or debugging a flow that is misbehaving, the assistant will route you to Adam. He maintains a separate Cowork-based assistant with the full 27-module Flow knowledge base for that work.</p>
+
+  <div class="callout">
+    <div class="title">Do not paste sensitive data</div>
+    <p>No customer phone numbers, addresses, payment data, login credentials, student data, or full financial records. Field API names, object structures, formula logic, and report design are all fine - the actual data values stay in Salesforce.</p>
+  </div>
+
+  <h2>One thing to do this week</h2>
+  <p>Fill out the <strong>STA Salesforce Org Intake</strong> document (attached to the welcome email). The cohort assistant currently knows STA's structure but does not know your custom objects, field API names, active flows, or report inventory. Until that is filled out, it will mark a lot of org-specific questions as "Cannot confirm without org access." Filled answers feed v1.1 of the assistant's context - making it significantly more useful for STA-specific work.</p>
+
+  <p>Expected time: 30 to 45 minutes per person. Return to Adam.</p>
+
+  <h2>Feedback and bug reports</h2>
+  <p>If the assistant gives a wrong answer, uses the wrong voice, or misses something it should have caught, message Adam directly with the question you asked and what was off. Concrete examples drive faster fixes than "it seemed weird."</p>
+
+  <div class="footer">STA Salesforce Cohort getting-started - v1.0 - 2026-05-20 - Adam Baker</div>
+
+</div>
+
+</body>
+</html>

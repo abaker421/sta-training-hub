@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salesforce Access Security Checklist - Claude AI Integration</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #fff;
+    --border: #dde3e8;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+    --purple: #6c3dbf;
+    --purple-light: #f0eafd;
+    --sf-blue: #00a1e0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+
+  .header { background: var(--dark); color: white; padding: 36px 60px 30px; border-bottom: 5px solid var(--sf-blue); }
+  .header-inner { max-width: 960px; margin: 0 auto; }
+  .header h1 { font-size: 24px; font-weight: 700; }
+  .header .sub { font-size: 13px; opacity: 0.75; margin-top: 6px; }
+  .header-meta { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .header-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 3px 14px; font-size: 12px; }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 32px 60px 80px; }
+
+  /* PROGRESS */
+  .progress-wrap { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 28px; }
+  .progress-label-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+  .progress-bar-bg { background: var(--border); border-radius: 10px; height: 8px; overflow: hidden; }
+  .progress-bar-fill { background: var(--green); height: 100%; border-radius: 10px; transition: width 0.3s; width: 0%; }
+
+  /* TOC */
+  .toc { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; }
+  .toc-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); margin-bottom: 10px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .toc-item { display: block; padding: 7px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 11.5px; font-weight: 600; color: var(--blue); text-decoration: none; }
+  .toc-item:hover { background: #e8f2f8; }
+  .toc-num { color: var(--gray); font-weight: 400; margin-right: 4px; }
+
+  /* SECTION */
+  .section { margin-bottom: 40px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+  .section-num { width: 32px; height: 32px; border-radius: 50%; background: var(--dark); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .section-title { font-size: 16px; font-weight: 700; }
+  .section-sub { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .risk-badge { margin-left: auto; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; flex-shrink: 0; }
+  .risk-high { background: var(--red-light); color: var(--red); border: 1px solid #e8b4ad; }
+  .risk-med { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .risk-low { background: #edf7e6; color: #2d6e1a; border: 1px solid #bde09e; }
+  .risk-critical { background: #f5e0f5; color: #6c3dbf; border: 1px solid #d0a0d0; }
+
+  /* CHECKLIST */
+  .check-group { margin-bottom: 20px; }
+  .check-group-title { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-bottom: 8px; padding-left: 4px; }
+  .check-item { display: flex; align-items: flex-start; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 6px; cursor: pointer; transition: background 0.1s; }
+  .check-item:hover { background: #fafbfc; }
+  .check-item.done { opacity: 0.5; }
+  .check-item.done .check-title { text-decoration: line-through; }
+  .check-item input[type="checkbox"] { width: 15px; height: 15px; margin-top: 3px; flex-shrink: 0; accent-color: var(--blue); cursor: pointer; }
+  .check-body { flex: 1; }
+  .check-title { font-size: 13px; font-weight: 600; color: var(--dark); }
+  .check-desc { font-size: 12px; color: #555; margin-top: 3px; line-height: 1.55; }
+  .check-warn { font-size: 11.5px; background: var(--red-light); color: var(--red); border-radius: 5px; padding: 5px 9px; margin-top: 6px; }
+  .check-tip { font-size: 11.5px; background: #edf7e6; color: #2d6e1a; border-radius: 5px; padding: 5px 9px; margin-top: 6px; }
+  .check-note { font-size: 11.5px; background: #fef4e0; color: #7a4e00; border-radius: 5px; padding: 5px 9px; margin-top: 6px; }
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 10px; margin-right: 4px; vertical-align: middle; }
+  .b-block { background: var(--red-light); color: var(--red); border: 1px solid #e8b4ad; }
+  .b-decide { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .b-confirm { background: #edf7e6; color: #2d6e1a; border: 1px solid #bde09e; }
+  .b-admin { background: var(--purple-light); color: var(--purple); border: 1px solid #c0a0e0; }
+
+  /* CALLOUTS */
+  .callout { border-radius: 8px; padding: 13px 17px; margin: 12px 0 16px; font-size: 13px; line-height: 1.65; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.red { background: var(--red-light); border-left: 4px solid var(--red); }
+  .callout.purple { background: var(--purple-light); border-left: 4px solid var(--purple); }
+
+  /* RISK TABLE */
+  .risk-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 24px; font-size: 12.5px; }
+  .risk-table th { background: var(--dark); color: white; font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; padding: 10px 14px; text-align: left; }
+  .risk-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+  .risk-table tr:last-child td { border-bottom: none; }
+  .risk-table tr:nth-child(even) td { background: #fafbfc; }
+  .level { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+  .lv-critical { background: #fdf0ee; color: #c0392b; border: 1px solid #e8b4ad; }
+  .lv-high { background: #fff3cd; color: #7a4e00; border: 1px solid #f5cf80; }
+  .lv-med { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
+  .lv-low { background: #edf7e6; color: #2d6e1a; border: 1px solid #bde09e; }
+
+  /* DECISION CARD */
+  .decision-card { background: white; border: 2px solid var(--orange); border-radius: 10px; padding: 20px 22px; margin-bottom: 16px; }
+  .decision-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #a06500; margin-bottom: 6px; }
+  .decision-title { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+  .decision-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .opt { border-radius: 8px; padding: 12px 14px; font-size: 12px; line-height: 1.55; }
+  .opt-a { background: #edf7e6; border: 1px solid #bde09e; }
+  .opt-b { background: var(--red-light); border: 1px solid #e8b4ad; }
+  .opt-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 5px; }
+  .opt-label.safer { color: #2d6e1a; }
+  .opt-label.riskier { color: var(--red); }
+
+  code { background: #eef2f5; border-radius: 3px; padding: 1px 5px; font-size: 11.5px; font-family: 'SF Mono', Monaco, monospace; color: #2d4a5a; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 900px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+    .toc-grid { grid-template-columns: repeat(2, 1fr); }
+    .decision-options { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Salesforce Access Security Checklist</h1>
+    <div class="sub">Pre-authorization review for connecting Claude AI tools to the School Tech Salesforce org</div>
+    <div class="header-meta">
+      <div class="header-badge">Owner: Adam Baker</div>
+      <div class="header-badge">Covers: Cases &middot; Accounts &middot; Contacts &middot; Opportunities &middot; Knowledge &middot; Flows &middot; Security</div>
+      <div class="header-badge">Last updated: 2026-04-29</div>
+      <div class="header-badge" style="background: rgba(244,163,0,0.2); border-color: rgba(244,163,0,0.4);">Status: Pre-connection - no connector built yet</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-label-row">
+      <strong>Checklist Progress</strong>
+      <span id="pct">0%</span>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div style="font-size:11px; color:var(--gray); margin-top:5px; text-align:right;"><span id="done">0</span> of <span id="total">0</span> items complete</div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Sections</div>
+    <div class="toc-grid">
+      <a class="toc-item" href="#s1"><span class="toc-num">1.</span> What Claude Can See &amp; Do</a>
+      <a class="toc-item" href="#s2"><span class="toc-num">2.</span> Data Risk Map</a>
+      <a class="toc-item" href="#s3"><span class="toc-num">3.</span> The Critical Decision</a>
+      <a class="toc-item" href="#s4"><span class="toc-num">4.</span> Pre-Connection Decisions</a>
+      <a class="toc-item" href="#s5"><span class="toc-num">5.</span> Connected App Configuration</a>
+      <a class="toc-item" href="#s6"><span class="toc-num">6.</span> Object-Level Access</a>
+      <a class="toc-item" href="#s7"><span class="toc-num">7.</span> Staff Rules by Role</a>
+      <a class="toc-item" href="#s8"><span class="toc-num">8.</span> Ongoing Monitoring</a>
+      <a class="toc-item" href="#s9"><span class="toc-num">9.</span> Incident Response</a>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <strong>Important context: no connector exists yet.</strong> Unlike the Gmail integration (which uses a pre-built connector), Salesforce access requires building or sourcing a Salesforce MCP connector. This checklist is designed to drive the decisions that shape what the connector does before it is built - not to evaluate something already installed. Complete Sections 3 and 4 first. The answers define the connector's scope.
+  </div>
+
+  <!-- ===================== SECTION 1 ===================== -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <div class="section-title">What Claude Can See and Do in Salesforce</div>
+        <div class="section-sub">Typical Salesforce MCP connector capabilities - applies to any connector built or sourced</div>
+      </div>
+    </div>
+
+    <div class="callout blue">A Salesforce connector operates via the Salesforce REST API using OAuth credentials. Whatever the authenticated user (or integration user) can do in Salesforce, Claude can do. The table below covers the standard operation types any Salesforce connector exposes. The decisions in Section 4 determine which of these are enabled for School Tech.</div>
+
+    <div class="check-group">
+      <div class="check-group-title">Standard Salesforce Connector Capabilities</div>
+
+      <div style="background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:12px;">
+        <table style="width:100%; border-collapse:collapse; font-size:12.5px;">
+          <thead>
+            <tr style="background:#f0f4f8;">
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">Operation</th>
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">What it means</th>
+              <th style="padding:9px 14px; text-align:left; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); border-bottom:1px solid var(--border);">Risk level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>search / SOQL query</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Run structured queries across any object: Cases, Accounts, Contacts, Opps, KA, custom objects. Returns full field data.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-high">High</span> - can surface any record the auth user can see</td></tr>
+            <tr style="background:#fafbfc;"><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>get_record</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Read a specific record in full - all fields the authenticated user can see. Case details, Account fields, Opp amounts, etc.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-high">High</span> - financial data, pipeline data, customer PII all visible</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>update_record</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Modify field values on existing records. Can update Cases, Accounts, Opportunities, Contacts, KA, and any custom object.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-critical">Critical</span> - direct writes to production records; no undo</td></tr>
+            <tr style="background:#fafbfc;"><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>create_record</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Create new records: new Cases, new KA drafts, new Contacts, new Tasks, new log entries.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-high">High</span> - creates persistent records in production org</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>delete_record</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Permanently delete a record from Salesforce (goes to Recycle Bin, then purged).</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-critical">Critical</span> - destructive; do not enable in V1</td></tr>
+            <tr style="background:#fafbfc;"><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>describe_object</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Read the schema of a Salesforce object - field names, types, relationships. Used for admin help and audit tasks.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-low">Low</span> - metadata only, no record data</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>run_report</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Execute a saved Salesforce report and return results. Used for auditing, pipeline review, support metrics.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-med">Medium</span> - read-only but returns aggregated sensitive data</td></tr>
+            <tr style="background:#fafbfc;"><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>get_flow / read flow metadata</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Read the definition and logic of a Salesforce Flow. Used for admin help, debugging, and flow documentation.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-med">Medium</span> - exposes business logic; read-only is acceptable</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>deploy / update flow</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Modify or deploy a Salesforce Flow directly in the org. Changes automation logic in production.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-critical">Critical</span> - broken flows can break business processes; do not enable</td></tr>
+            <tr style="background:#fafbfc;"><td style="padding:9px 14px;"><code>read security / permission sets</code></td><td style="padding:9px 14px;">Read user permission sets, profiles, sharing rules, and field-level security settings. Used for security audits.</td><td style="padding:9px 14px;"><span class="level lv-high">High</span> - reveals your entire security model; read-only is acceptable for audit use</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout orange">
+        <strong>The most important difference from Gmail.</strong> Gmail's connector is draft-only by Anthropic policy - Claude cannot send email without human action. Salesforce has no equivalent platform constraint. If you give Claude write access and allow direct execution, it will update records immediately with no review step. You must build the "propose before execute" model into the connector or the instructions - it does not happen automatically.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 2 ===================== -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <div class="section-title">Data Risk Map - What's in Your Salesforce Org</div>
+        <div class="section-sub">School Tech specific - know what the AI will encounter before you connect</div>
+      </div>
+    </div>
+
+    <table class="risk-table">
+      <thead>
+        <tr><th>Object / Data Type</th><th>What it contains</th><th>Risk Level</th><th>V1 Access Decision</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Opportunities</strong><br><span style="font-size:11.5px; color:#666;">Pipeline, deal values, close dates, sales stage, ARR</span></td>
+          <td>Revenue forecasts, contract values, competitive deal details</td>
+          <td><span class="level lv-critical">Critical</span></td>
+          <td>Read-only. No write access in V1. Pipeline data is the most confidential business data in the org. Claude can read it to answer questions but should never update amounts, stages, or close dates without explicit confirmation.</td>
+        </tr>
+        <tr>
+          <td><strong>Invoices / Subscription records</strong><br><span style="font-size:11.5px; color:#666;">Invoice numbers, subscription terms, billing amounts</span></td>
+          <td>Contract financial terms, renewal amounts, billing history</td>
+          <td><span class="level lv-critical">Critical</span></td>
+          <td>Read-only. Financial record updates must never be AI-executed without human review. Claude can look up an invoice number or subscription status; it should not modify billing records.</td>
+        </tr>
+        <tr>
+          <td><strong>Security configuration</strong><br><span style="font-size:11.5px; color:#666;">Permission sets, profiles, sharing rules, FLS settings</span></td>
+          <td>Your entire org security model - who can see what</td>
+          <td><span class="level lv-critical">Critical</span></td>
+          <td>Read-only for audit assistance. Claude can read your security config to help diagnose permission issues. It must never modify permission sets, profiles, or sharing rules directly.</td>
+        </tr>
+        <tr>
+          <td><strong>Cases</strong><br><span style="font-size:11.5px; color:#666;">Support case records, case comments, status, priority, resolution notes</span></td>
+          <td>Customer issues, internal notes, resolution history. No student data confirmed.</td>
+          <td><span class="level lv-high">High</span></td>
+          <td>Read + propose updates. Claude can read cases and draft updates, but updates should be confirmed by the user before executing. Case comments can be created directly (lower risk than field updates).</td>
+        </tr>
+        <tr>
+          <td><strong>Accounts (Districts)</strong><br><span style="font-size:11.5px; color:#666;">District name, address, account type, products, contract status, owner</span></td>
+          <td>Customer business profile. Core org record. No student data.</td>
+          <td><span class="level lv-high">High</span></td>
+          <td>Read freely. Write with confirmation only. Account records are load-bearing - a bad field update (wrong account type, wrong owner, wrong status) can cascade through cases, reports, and automations.</td>
+        </tr>
+        <tr>
+          <td><strong>Flows</strong><br><span style="font-size:11.5px; color:#666;">Flow logic, triggers, actions, decision trees</span></td>
+          <td>Business process automation - how records change, what emails fire, what happens on create/update</td>
+          <td><span class="level lv-high">High</span></td>
+          <td>Read-only for help and audit. Claude can read flow logic to explain it, identify bugs, and suggest fixes. Never allow Claude to deploy or modify a flow directly. Propose-only: Claude writes the fix, a human deploys it.</td>
+        </tr>
+        <tr>
+          <td><strong>Knowledge Articles</strong><br><span style="font-size:11.5px; color:#666;">Published KA content, draft KAs, categories, review status</span></td>
+          <td>Product help content, troubleshooting guides, internal reference articles</td>
+          <td><span class="level lv-med">Medium</span></td>
+          <td>Read + create drafts. Claude can draft new KA content and update draft articles. Publishing a KA to live must require human review and manual publish action - never AI-published directly.</td>
+        </tr>
+        <tr>
+          <td><strong>Contacts</strong><br><span style="font-size:11.5px; color:#666;">District staff names, emails, phone numbers, titles, roles</span></td>
+          <td>Customer PII - names, emails, direct phone numbers. Business contacts only, no students.</td>
+          <td><span class="level lv-med">Medium</span></td>
+          <td>Read freely. Create and update with caution - duplicate contacts and bad data are common Salesforce problems. Claude should check for existing records before creating new Contacts.</td>
+        </tr>
+        <tr>
+          <td><strong>Tasks / Activity log</strong><br><span style="font-size:11.5px; color:#666;">Logged calls, emails, meeting notes attached to records</span></td>
+          <td>History of customer interactions - what was said, when, by whom</td>
+          <td><span class="level lv-med">Medium</span></td>
+          <td>Read freely. Creating tasks (logging activity) is safe and a good use case. Task creation does not require confirmation - it is additive and does not modify existing records.</td>
+        </tr>
+        <tr>
+          <td><strong>Reports and Dashboards</strong><br><span style="font-size:11.5px; color:#666;">Saved reports on pipeline, support volume, renewal tracking</span></td>
+          <td>Aggregated business data - KPIs, counts, summaries. May include revenue figures.</td>
+          <td><span class="level lv-med">Medium</span></td>
+          <td>Read-only. Running reports for auditing and admin help is a good use case. Claude should not modify or delete reports and dashboards.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout green">
+      <strong>No student data in Salesforce.</strong> Unlike Gmail (where district support emails may contain student records), School Tech's Salesforce org contains no student-level data. This removes the FERPA/Critical risk tier that applies to the Gmail integration and lowers the overall risk ceiling for this integration. The primary data risks here are financial (Opp/Invoice data) and business-confidential (pipeline, security config).
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 3 ===================== -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <div class="section-title">The Critical Decision: Propose vs. Execute</div>
+        <div class="section-sub">This single decision shapes the risk profile of the entire integration</div>
+      </div>
+      <div class="risk-badge risk-critical">Decide First</div>
+    </div>
+
+    <div class="callout orange">
+      <strong>This is the Salesforce equivalent of Gmail's "draft-only" rule</strong> - except it is not enforced by the platform. You have to build it in. The decision you make here applies to every write operation Claude performs in Salesforce.
+    </div>
+
+    <div class="decision-card">
+      <div class="decision-label">Core Decision</div>
+      <div class="decision-title">When Claude wants to update a Salesforce record, does it execute immediately - or propose the change for you to confirm first?</div>
+      <div class="decision-options">
+        <div class="opt opt-a">
+          <div class="opt-label safer">Option A - Safer: Propose and Confirm</div>
+          Claude drafts the update and shows it to you: "I want to update Case #12345 - set Status to Closed, add this comment. Confirm?" You say yes, then it executes. Analogous to Gmail draft-only. Adds one step but gives you a review gate for every write. Recommended for V1.
+        </div>
+        <div class="opt opt-b">
+          <div class="opt-label riskier">Option B - Riskier: Direct Execute</div>
+          Claude runs the update immediately when asked. Faster for high-volume support work. Risk: a misunderstanding or hallucinated field value goes directly into your production org with no review. No undo for most field updates. Not recommended until V1 has proven reliable.
+        </div>
+      </div>
+      <div style="margin-top: 14px; font-size: 12px; color: #555; line-height: 1.6;"><strong>Recommendation:</strong> Start with Option A (Propose and Confirm) for all object field updates and Knowledge Article changes. Option B is appropriate only for Task creation and Case comment creation - additive actions that do not overwrite existing data. Upgrade specific operations to Option B after 60 days of clean operation if the volume warrants it.</div>
+      <div class="check-note" style="margin-top: 10px;">Decision recorded: _________________________ (write your choice, date, and which operations are Option A vs. Option B)</div>
+    </div>
+
+    <div class="decision-card">
+      <div class="decision-label">Secondary Decision</div>
+      <div class="decision-title">For Flow and Security work: Claude proposes, human deploys. Always.</div>
+      <div style="font-size: 13px; color: #444; line-height: 1.6; margin-top: 6px;">Flow deployments and security configuration changes must never be AI-executed regardless of which option you chose above. The risk is too high: a broken flow can fire incorrectly on thousands of records, and a wrong permission set change can grant or revoke access org-wide. Claude's role for flows and security is: read, explain, diagnose, write the fix. A human reviews and deploys in Setup or Workbench. This is not a setting - it is a hard rule to include in the Salesforce Admin Assistant's instructions.md.</div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 4 ===================== -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <div class="section-title">Pre-Connection Decisions</div>
+        <div class="section-sub">Answer these before the connector is built - they define its shape</div>
+      </div>
+      <div class="risk-badge risk-high">Decide Before Building</div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Authentication model</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Per-user OAuth vs. integration user (service account)</div>
+          <div class="check-desc"><strong>Per-user OAuth:</strong> Each staff member authenticates with their own Salesforce credentials. Claude operates within that person's existing Salesforce permission set. A support rep using Claude sees only what a support rep can see. Adam using Claude sees what an admin sees. This is the most secure model - least-privilege applies per session automatically.<br><br><strong>Integration user / service account:</strong> One Salesforce user is created specifically for Claude. All sessions use it. Simpler to set up, but the integration user must be granted enough permissions to cover all use cases - which tends to mean broad access. If misconfigured, everyone's Claude session has admin-level visibility.<br><br><strong>Recommendation:</strong> Per-user OAuth. More setup, correct security model. Use a Named Credential or OAuth Connected App in Salesforce configured per-user.</div>
+          <div class="check-note">Decision: _________________________ (per-user OAuth / integration user + reason)</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Create a dedicated Salesforce Connected App for Claude access - do not reuse existing app</div>
+          <div class="check-desc">Build a new Connected App in Salesforce specifically for Claude/Cowork integration. Do not reuse an existing Connected App (e.g., the one used for a reporting tool or another integration). A dedicated app means: you can revoke Claude's access independently of other integrations, you can see Claude-specific OAuth activity in Salesforce logs, and you can tune its scopes without affecting other tools.</div>
+          <div class="check-tip">In Salesforce Setup: App Manager &rarr; New Connected App. Name it clearly: "Claude AI - Cowork Integration." Configure OAuth scopes, IP restrictions, and refresh token policy before giving it to anyone.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">OAuth scope - what permissions does the Connected App request?</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Scope the Connected App to the minimum permissions needed</div>
+          <div class="check-desc">Do not use "Full access" (full) OAuth scope. Use the minimum scopes required for the use cases:<br><br>
+          <strong>Recommended V1 scopes:</strong><br>
+          &bull; <code>api</code> - access the REST API (required for all operations)<br>
+          &bull; <code>refresh_token, offline_access</code> - keep the session alive<br>
+          &bull; <code>chatter_api</code> - only if using Chatter for case comments<br><br>
+          <strong>Do NOT include:</strong><br>
+          &bull; <code>full</code> - too broad, grants everything<br>
+          &bull; <code>web</code> - unnecessary browser access<br>
+          &bull; <code>visualforce</code> - no VF pages needed<br>
+          &bull; <code>custom_permissions</code> - only if specifically needed</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Define which Salesforce objects the connector can access - and list them explicitly</div>
+          <div class="check-desc">The connector's instructions.md must include an explicit allow-list of objects Claude can query and update. Objects not on the list are out of scope. V1 allow-list recommendation:<br><br>
+          <strong>Read + write (with confirmation):</strong> Case, CaseComment, Knowledge Article (draft only), Task, Contact, Account<br>
+          <strong>Read only:</strong> Opportunity, Invoice/Subscription custom objects, Report, Dashboard, Flow (metadata), PermissionSet, Profile<br>
+          <strong>Prohibited:</strong> Delete on any object, deploy Flow, modify PermissionSet or Profile</div>
+          <div class="check-note">Approved object list recorded: _________________________</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Who connects and when</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Which staff members connect their Salesforce in V1 - and in what order</div>
+          <div class="check-desc">Not everyone should connect at once. Recommended rollout: (1) Adam connects first - tests all use cases, validates the propose-before-execute model is working, confirms the object allow-list is correct. (2) After 2 weeks of clean operation, Tyler connects for support case use cases. (3) Kelsey and remaining staff connect after Tyler's use has been validated. Do not give everyone access on day one.</div>
+          <div class="check-note">V1 rollout plan: _________________________ (who, in what order, with what timeline)</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Maintain a connected-user log - who has authenticated and when</div>
+          <div class="check-desc">Keep a record of which Salesforce users have connected their credentials to Claude. Include: name, Salesforce username, date connected, Salesforce permission set/profile. This is your audit baseline. When someone leaves, you revoke the specific Connected App authorization for their account in Salesforce (Setup &rarr; Connected Apps OAuth Usage &rarr; revoke for that user).</div>
+          <div class="check-note">Connected users: Adam Baker (____), Tyler Baughman (____), Kelsey Eberly (____)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 5 ===================== -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div>
+        <div class="section-title">Connected App Configuration in Salesforce</div>
+        <div class="section-sub">The Salesforce-side settings that control how Claude can connect</div>
+      </div>
+      <div class="risk-badge risk-high">Admin Required</div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Connected App settings in Salesforce Setup</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Set IP restrictions on the Connected App</div>
+          <div class="check-desc">In the Connected App settings, restrict which IP addresses can authenticate. Ideally, restrict to IP ranges used by Anthropic's Cowork infrastructure (check Anthropic documentation for egress IPs, or set to your office/VPN IP range as a minimum). This prevents the Connected App from being used by unauthorized parties even if credentials are compromised.</div>
+          <div class="check-tip">If Anthropic does not publish static egress IPs, use a VPN-based IP restriction so connections can only come from School Tech network locations.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Set token expiry and refresh policy</div>
+          <div class="check-desc">Configure the Connected App's refresh token policy: <strong>Refresh token expires after X hours of inactivity</strong> - do not set to "Refresh token is valid until revoked" (too long-lived). Recommended: 24-hour refresh token with 2-hour session token. This limits the window of exposure if a token is compromised without requiring frequent re-authentication for active users.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Restrict Connected App access to an approved user group or Permission Set</div>
+          <div class="check-desc">In the Connected App settings, set "Permitted Users" to "Admin approved users are pre-authorized." Create a Permission Set called "Claude AI Access" and assign it only to staff who are approved to use the Salesforce connector. Staff without this Permission Set cannot authenticate to the Connected App even if they know the credentials. This is your primary access gate.</div>
+          <div class="check-tip">Setup &rarr; App Manager &rarr; [Claude Connected App] &rarr; Manage &rarr; Edit Policies &rarr; Permitted Users: Admin approved. Then assign the Permission Set to approved users.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Enable and review Salesforce Event Monitoring for Connected App activity</div>
+          <div class="check-desc">If your Salesforce edition includes Event Monitoring (available in Enterprise and above), enable it for the Claude Connected App. This gives you a log of every API call Claude makes: which records were queried, which were updated, by which user, at what time. This is your audit trail. Even without full Event Monitoring, check Setup &rarr; Connected Apps OAuth Usage regularly to see active sessions.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Verify the audit trail - LastModifiedBy will show Claude's actions</div>
+          <div class="check-desc">When Claude updates a Salesforce record via a per-user OAuth connection, the record's LastModifiedBy will show the authenticated user's name (e.g., Tyler Baughman) - not "Claude" or a generic API user. This is correct behavior and means updates are attributable to specific people. Confirm this is true in your org by running a test update and checking the record history. Document it so support staff know their SF username is on record updates made via Claude.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 6 ===================== -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div>
+        <div class="section-title">Object-Level Access Checklist</div>
+        <div class="section-sub">Per-object guardrails to include in the Salesforce Admin Assistant's instructions.md</div>
+      </div>
+      <div class="risk-badge risk-high">Highest Detail</div>
+    </div>
+
+    <div class="callout blue">The items below are instruction-level rules - what the Salesforce Admin Assistant's instructions.md must say about each object. These are not Salesforce permission settings; they are behavioral rules Claude follows during a session. Both layers are needed: Salesforce permissions set the ceiling, instructions set the actual behavior.</div>
+
+    <div class="check-group">
+      <div class="check-group-title">Cases and Case Comments</div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Field updates to Cases: propose before executing</div>
+          <div class="check-desc">Instructions must include: "Before updating any Case field (Status, Priority, Owner, Resolution), show the user the proposed change and ask for explicit confirmation: 'I want to update Case [number] - [field] from [current value] to [new value]. Confirm?' Do not execute the update until confirmed."</div>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Case comments can be created directly (no confirmation required)</div>
+          <div class="check-desc">Adding a case comment is additive - it does not overwrite existing data. Claude can create case comments directly when asked without a confirmation step. This is the one Case write operation that does not need propose-before-execute. Verify this is acceptable for your workflow before enabling.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Opportunities and Financial Records</div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Opportunities: read-only in V1, no field updates</div>
+          <div class="check-desc">Instructions must include: "You have read access to Opportunity records. You may not update any Opportunity fields - including Amount, Close Date, Stage, or Probability. If asked to update an Opportunity, decline and explain that Opportunity updates require direct Salesforce access: 'I can read this Opportunity and help you think through the update, but I cannot modify Opportunity records directly.'"</div>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Invoice and subscription data: read-only, never modify</div>
+          <div class="check-desc">Financial records (invoices, subscription terms, billing amounts) are read-only for Claude. Instructions must prohibit any update to financial fields. Include: "You may look up invoice numbers, subscription status, and billing terms to answer questions. You may not modify, create, or delete invoice or subscription records under any circumstances."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Knowledge Articles</div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Knowledge Articles: draft and update drafts only - no direct publishing</div>
+          <div class="check-desc">Instructions must include: "You may create and edit Knowledge Article drafts. You may not publish a Knowledge Article to live - publishing requires human review and must be done manually in Salesforce by the user. When a KA is ready to publish, tell the user: 'This draft is ready. To publish, open it in Salesforce Knowledge and click Publish.'"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Flows and Automation</div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Flows: read and propose fixes only - never deploy</div>
+          <div class="check-desc">Instructions must include: "You can read Flow definitions, explain their logic, identify likely errors, and write corrected Flow XML or outline the changes needed. You may not deploy, activate, or deactivate a Flow directly. For any Flow change, provide the fix as text and instruct the user to apply it in Setup or Workbench after reviewing. Never attempt to deploy a Flow via API."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Security and Permissions</div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Security config: read for audit only - never modify permission sets or profiles</div>
+          <div class="check-desc">Instructions must include: "You can read and describe Permission Sets, Profiles, Field-Level Security settings, Sharing Rules, and Organization-Wide Defaults for audit and diagnostic purposes. You may not modify, create, or delete any security configuration. For any security fix, describe what change is needed and where to make it in Setup - do not attempt the change via API."</div>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-admin">ADMIN ONLY</span> Security and flow work is restricted to Adam's sessions</div>
+          <div class="check-desc">Flow debugging, security auditing, and admin configuration assistance are use cases for Adam only. The Salesforce Admin Assistant instructions.md should include a role-detection rule: "If the user asks for help with Flows, Permission Sets, Profiles, Sharing Rules, or other admin configuration topics and they are not the system administrator (Adam Baker), respond: 'Admin configuration questions are routed to Adam. Please contact him directly with this request.'"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Delete operations</div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Delete is prohibited for all objects in all sessions</div>
+          <div class="check-desc">Instructions must include: "You may not delete any Salesforce record under any circumstances, for any user, for any stated reason. If asked to delete a record, decline: 'Record deletion is not something I can do. If a record needs to be deleted, that must be done directly in Salesforce by an admin after confirming it is appropriate.' This rule has no exceptions."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 7 ===================== -->
+  <div class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div>
+        <div class="section-title">Staff Rules by Role</div>
+        <div class="section-sub">Different staff use Salesforce differently - rules and training vary accordingly</div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Support team (Tyler, Kelsey) - primary use: cases, case comments, KA lookup</div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Support staff understand what Claude can and cannot update in Cases</div>
+          <div class="check-desc">Before first use: walk each support team member through the propose-before-execute flow for Case field updates. They need to know: (1) Claude will show them a proposed update and ask for confirmation before executing it. (2) Case comments can be added directly. (3) They should never ask Claude to close, reassign, or reprioritize a case without reviewing Claude's proposed change first. (4) If Claude's proposed update looks wrong, say so - do not confirm an update that doesn't match what you intended.</div>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Support staff know Claude cannot access Opportunities or financial records with write access</div>
+          <div class="check-desc">Support staff occasionally look up contract status or subscription details for context. They should know: Claude can tell them what's in an Opportunity or Invoice record (read), but cannot update those records. If they need to modify contract terms or financial records, they do that directly in Salesforce.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Adam (admin) - primary use: flows, security, admin questions, all objects</div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-admin">ADMIN ONLY</span> Adam reviews all Claude-proposed Flow and security changes before applying them</div>
+          <div class="check-desc">Even for Adam, the rule is propose-then-deploy for Flow and security work. Claude provides the fix in text; Adam reads it, agrees with it, and applies it in Setup or Workbench. This extra review step is justified: a wrong flow change or security misconfiguration can affect all org users and data. Claude's role is to be the expert diagnostician and drafter - not the one who pulls the trigger.</div>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title"><span class="badge b-admin">ADMIN ONLY</span> Adam does not share Claude's Salesforce output with external parties without review</div>
+          <div class="check-desc">Security audit output (e.g., "here are all users with Modify All Data permission") or flow logic extracted by Claude is sensitive internal information. Do not paste Claude's Salesforce security analysis into external communications, shared docs, or ticket threads visible to customers or vendors without reviewing and redacting first.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">All staff - shared rules</div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Every staff member using Claude+Salesforce knows: their SF username is on every update Claude makes</div>
+          <div class="check-desc">Because Claude uses per-user OAuth, every record update appears in Salesforce as modified by that person. Staff need to understand this means they are accountable for updates Claude makes in their session. Reviewing Claude's proposed changes before confirming is not optional - it is their sign-off on that change appearing under their name in the audit trail.</div>
+        </div>
+      </div>
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Staff know what to do if Claude proposes an incorrect Salesforce update</div>
+          <div class="check-desc">If Claude proposes an update that looks wrong: (1) Do not confirm it. (2) Correct Claude in the conversation: "That's wrong - the status should be [X] not [Y]." (3) Claude will show a revised proposal. (4) If Claude keeps getting it wrong on a specific type of update, log it via the Agent Quality Logger and notify Adam. This is the feedback loop that improves the tool.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 8 ===================== -->
+  <div class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <div>
+        <div class="section-title">Ongoing Monitoring and Audit</div>
+        <div class="section-sub">After the connector is live - what to check and when</div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Periodic checks</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Weekly (first month): Review Salesforce record history for unexpected Claude-assisted changes</div>
+          <div class="check-desc">For the first four weeks after go-live, run a weekly check: in Salesforce, pull a report of all records modified in the past 7 days by any of the Claude-connected users. Spot-check 5-10 records. Look for unexpected field changes, fields set to blank, or records in an unusual state. This catches systematic errors early before they compound.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Monthly: Review Connected App OAuth Usage in Salesforce Setup</div>
+          <div class="check-desc">Setup &rarr; Connected Apps OAuth Usage. Review: (1) Which users have active tokens for the Claude Connected App. (2) Are all of them current staff? If a former staff member shows an active token, revoke immediately. (3) Are any unexpected users listed? Investigate. (4) Token count per user - if one user has an unusually high number of active tokens, that may indicate a misconfiguration.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Quarterly: Re-evaluate object access permissions - is the allow-list still appropriate?</div>
+          <div class="check-desc">As the Salesforce Admin Assistant matures, the object allow-list may need to expand (e.g., adding Opportunity write access after 60 days) or contract (if an object is causing problems). Review quarterly: what is Claude actually being used for in Salesforce? Does the current allow-list match real usage? Is there anything on the allow-list that has never been used and could be trimmed?</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">When any staff member leaves: revoke their Connected App authorization immediately</div>
+          <div class="check-desc">Offboarding step (add to User Management Guide): Setup &rarr; Connected Apps OAuth Usage &rarr; find the departing user &rarr; Revoke. Also remove them from the "Claude AI Access" Permission Set. Do this the same day as their departure - do not wait for a quarterly audit. An active token for a former employee is a live security exposure.</div>
+          <div class="check-tip">This step is already in the User Management Guide's offboarding checklist - confirm it references the SF Connected App specifically.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 9 ===================== -->
+  <div class="section" id="s9">
+    <div class="section-header">
+      <div class="section-num">9</div>
+      <div>
+        <div class="section-title">Incident Response</div>
+        <div class="section-sub">What to do if Claude updates something it shouldn't have</div>
+      </div>
+      <div class="risk-badge risk-high">Know Before It Happens</div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)" style="margin-bottom:8px;">
+      <input type="checkbox">
+      <div class="check-body">
+        <div class="check-title">Claude updated a Salesforce record incorrectly (wrong field value, wrong record)</div>
+        <div class="check-desc">Step 1: Check the record's Field History or Audit Trail to confirm exactly what changed and when. Step 2: Manually correct the field in Salesforce. Step 3: If the incorrect value triggered any automation (flow, workflow rule, process builder), check whether downstream records were also affected. Step 4: Log the incident via the Agent Quality Logger - describe what was asked, what Claude did, and what the correct action should have been. Step 5: Adam reviews and updates the Salesforce Admin Assistant instructions to prevent the same error.</div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)" style="margin-bottom:8px;">
+      <input type="checkbox">
+      <div class="check-body">
+        <div class="check-title">Claude queried or returned data from an object it should not have accessed</div>
+        <div class="check-desc">Step 1: Identify which record(s) were returned and whether the data is sensitive. Step 2: Check the Salesforce Admin Assistant instructions.md - is the object on the allow-list? If yes, the instruction is wrong. If no, the connector may be ignoring the instruction. Step 3: If data was displayed to the user and retained in a conversation log, note this. Step 4: Log via Agent Quality Logger. Step 5: Adam tightens the instructions and/or revises the Connected App's permission scope to add a platform-level restriction for that object.</div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)" style="margin-bottom:8px;">
+      <input type="checkbox">
+      <div class="check-body">
+        <div class="check-title">Claude executed a change without the confirm step (bypassed propose-before-execute)</div>
+        <div class="check-desc">This is a critical instructions failure. Step 1: Check what changed and reverse it if possible. Step 2: Immediately suspend the Salesforce Admin Assistant for all users until the instructions are fixed. Step 3: Review the full conversation to understand how the confirm step was bypassed - was the user inadvertently phrasing a request as a direct command? Did Claude misinterpret? Step 4: Rewrite the relevant instruction with a stronger, more explicit confirm requirement. Step 5: Test the fix with a controlled update before resuming use.</div>
+        <div class="check-warn">Do not resume until you can demonstrate the propose-before-execute rule is reliably enforced across 3 consecutive test sessions.</div>
+      </div>
+    </div>
+
+    <div class="check-item" onclick="toggle(this)">
+      <input type="checkbox">
+      <div class="check-body">
+        <div class="check-title">Suspected unauthorized access - Connected App token may be compromised</div>
+        <div class="check-desc">Step 1: Immediately revoke all active tokens for the Claude Connected App (Setup &rarr; Connected Apps OAuth Usage &rarr; Revoke All). Step 2: Review Salesforce Login History and Event Monitoring for any unusual API activity in the last 30 days. Step 3: Reset the Connected App's OAuth credentials (Consumer Key and Secret). Step 4: Re-issue access to approved staff only after confirming the source of the compromise. Step 5: Review whether the compromised token was used to access any sensitive objects (Opportunities, financial records, security config) and assess whether further action is needed.</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; Salesforce Access Security Checklist &nbsp;|&nbsp; Created 2026-04-29 &nbsp;|&nbsp; Owner: Adam Baker
+</div>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle('done');
+    const cb = el.querySelector('input[type="checkbox"]');
+    cb.checked = el.classList.contains('done');
+    updateProgress();
+  }
+  function updateProgress() {
+    const all = document.querySelectorAll('.check-item');
+    const done = document.querySelectorAll('.check-item.done');
+    const pct = all.length ? Math.round((done.length / all.length) * 100) : 0;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('pct').textContent = pct + '%';
+    document.getElementById('done').textContent = done.length;
+    document.getElementById('total').textContent = all.length;
+  }
+  updateProgress();
+</script>
+
+</body>
+</html>

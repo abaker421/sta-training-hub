@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Account Migration Guide - Personal to Teams</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.5; }
+  .header { background: var(--blue); color: white; padding: 36px 60px 32px; border-bottom: 5px solid var(--orange); }
+  .header-inner { max-width: 960px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.82; margin-top: 6px; }
+  .accounts { display: flex; gap: 16px; margin-top: 16px; }
+  .account-badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 8px 16px; font-size: 12px; }
+  .account-badge .label { opacity: 0.7; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; }
+  .account-badge .value { font-weight: 700; margin-top: 2px; }
+  .arrow-badge { display: flex; align-items: center; font-size: 20px; opacity: 0.6; }
+  .page { max-width: 960px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  .summary-box { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 24px 28px; margin-bottom: 36px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .summary-stat { text-align: center; }
+  .summary-num { font-size: 28px; font-weight: 700; color: var(--blue); }
+  .summary-label { font-size: 11px; color: var(--gray); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.6px; }
+
+  .phase { margin-bottom: 44px; }
+  .phase-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+  .phase-num { width: 32px; height: 32px; border-radius: 50%; background: var(--blue); color: white; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .phase-title { font-size: 16px; font-weight: 700; }
+  .phase-subtitle { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .phase-note { margin-left: auto; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+  .phase-note.before { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .phase-note.during { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
+  .phase-note.after { background: #edf7e6; color: #3a8a1e; border: 1px solid #bde09e; }
+
+  .checklist { }
+  .check-group { margin-bottom: 20px; }
+  .check-group-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-bottom: 10px; }
+  .check-item { display: flex; align-items: flex-start; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 6px; cursor: pointer; transition: background 0.1s; }
+  .check-item:hover { background: #fafbfc; }
+  .check-item input[type="checkbox"] { width: 16px; height: 16px; margin-top: 2px; flex-shrink: 0; accent-color: var(--blue); cursor: pointer; }
+  .check-item.checked { opacity: 0.55; }
+  .check-item.checked .check-body { text-decoration: line-through; }
+  .check-body { flex: 1; }
+  .check-title { font-size: 13px; font-weight: 600; color: var(--dark); line-height: 1.4; }
+  .check-desc { font-size: 12px; color: #555; margin-top: 3px; line-height: 1.5; }
+  .check-warn { font-size: 11.5px; background: var(--red-light); color: var(--red); border-radius: 5px; padding: 5px 9px; margin-top: 6px; }
+  .check-note { font-size: 11.5px; background: #fef4e0; color: #7a4e00; border-radius: 5px; padding: 5px 9px; margin-top: 6px; }
+  .check-tip { font-size: 11.5px; background: #edf7e6; color: #2d6e1a; border-radius: 5px; padding: 5px 9px; margin-top: 6px; }
+  code { background: #eef2f5; border-radius: 3px; padding: 1px 5px; font-size: 11.5px; font-family: 'SF Mono', Monaco, monospace; color: #2d4a5a; }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.red { background: var(--red-light); border-left: 4px solid var(--red); }
+
+  .inventory-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 28px; }
+  .inventory-table th { background: var(--dark); color: white; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; padding: 10px 14px; text-align: left; }
+  .inventory-table td { padding: 10px 14px; font-size: 12.5px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .inventory-table tr:last-child td { border-bottom: none; }
+  .inventory-table tr:nth-child(even) td { background: #fafbfc; }
+  .status-pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+  .status-pill.auto { background: #edf7e6; color: #2d6e1a; border: 1px solid #bde09e; }
+  .status-pill.manual { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .status-pill.recreate { background: #fdf0ee; color: var(--red); border: 1px solid #e8b4ad; }
+
+  .progress-bar-wrap { background: var(--border); border-radius: 10px; height: 8px; margin-bottom: 4px; overflow: hidden; }
+  .progress-bar { background: var(--green); height: 100%; border-radius: 10px; width: 0%; transition: width 0.3s; }
+  .progress-label { font-size: 11px; color: var(--gray); text-align: right; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+  @media (max-width: 900px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+    .summary-box { grid-template-columns: repeat(2, 1fr); }
+    .accounts { flex-direction: column; gap: 8px; }
+    .arrow-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Claude Account Migration Guide</h1>
+    <div class="sub">Moving all AI tools, workspaces, skills, and automations from personal Gmail to School Tech Teams account</div>
+    <div class="accounts">
+      <div class="account-badge">
+        <div class="label">From (Personal)</div>
+        <div class="value">bakeradm6@gmail.com</div>
+      </div>
+      <div class="arrow-badge">&#8594;</div>
+      <div class="account-badge">
+        <div class="label">To (Work / Teams)</div>
+        <div class="value">Work email - School Tech Teams</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- PROGRESS -->
+  <div style="background:white; border:1px solid var(--border); border-radius:10px; padding:20px 24px; margin-bottom:32px;">
+    <div style="font-size:13px; font-weight:700; margin-bottom:10px;">Migration Progress</div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-label"><span id="progressCount">0</span> of <span id="progressTotal">0</span> items complete</div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-box">
+    <div class="summary-stat">
+      <div class="summary-num" style="color:var(--green)">6</div>
+      <div class="summary-label">Cowork Workspaces to Recreate</div>
+    </div>
+    <div class="summary-stat">
+      <div class="summary-num" style="color:var(--blue)">1</div>
+      <div class="summary-label">Skills Plugin to Install</div>
+    </div>
+    <div class="summary-stat">
+      <div class="summary-num" style="color:var(--orange)">2</div>
+      <div class="summary-label">Scheduled Tasks to Recreate</div>
+    </div>
+    <div class="summary-stat">
+      <div class="summary-num" style="color:var(--gray)">1</div>
+      <div class="summary-label">Connector to Reconnect</div>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <strong>Good news:</strong> Your workspace folder (The Architect) is stored locally on your computer - it is not tied to your email account. All your files, blueprints, knowledge base, and instructions survive the migration automatically. You just mount the same folder in your new Cowork session. Nothing in that folder needs to be copied or transferred.
+  </div>
+
+  <!-- WHAT MIGRATES HOW -->
+  <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:var(--gray); margin-bottom:12px; margin-top:32px; padding-bottom:8px; border-bottom:2px solid var(--border);">What Migrates How - Full Inventory</div>
+
+  <table class="inventory-table">
+    <thead>
+      <tr><th>Item</th><th>Type</th><th>Migration Method</th><th>Effort</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Workspace folder files</strong> (all .md files, blueprints, context, setup)</td>
+        <td>Local files</td>
+        <td><span class="status-pill auto">Automatic</span> Already on your PC - just mount the same folder in the new session</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><strong>Adam's Personal Assistant</strong> (personal life)</td>
+        <td>Cowork project</td>
+        <td><span class="status-pill recreate">Recreate</span> Paste from <code>project-blueprints/personal-assistant/instructions.md</code> + re-upload context files (style-profile.md, contacts.md, standing-context.md, keep-writing-projects.md, projects-personal.md, plus org files at personal-relevance triggers)</td>
+        <td>10 min</td>
+      </tr>
+      <tr>
+        <td><strong>Adam's Work Personal Assistant</strong> (work tasks)</td>
+        <td>Cowork project</td>
+        <td><span class="status-pill recreate">Recreate</span> Paste from <code>project-blueprints/work-personal-assistant/instructions.md</code> + re-upload context files (style-profile.md and contacts.md shared from Personal Assistant, work-standing-context.md, context-org-team.md, context-org-identity.md)</td>
+        <td>10 min</td>
+      </tr>
+      <tr>
+        <td><strong>The Architect workspace</strong></td>
+        <td>Cowork project</td>
+        <td><span class="status-pill recreate">Recreate</span> Paste from <code>project-blueprints/the-architect/instructions.md</code> + re-upload context files (context-agent-registry.md, context-path-reference.md)</td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td><strong>Deep Research workspace</strong></td>
+        <td>Cowork project</td>
+        <td><span class="status-pill recreate">Recreate</span> Paste from <code>project-blueprints/deep-research/instructions.md</code> + re-upload <code>knowledge-base/index.md</code></td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td><strong>Task Scheduler workspace</strong></td>
+        <td>Cowork project</td>
+        <td><span class="status-pill recreate">Recreate</span> Paste from <code>project-blueprints/task-scheduler/instructions.md</code>. Used exclusively for creating and managing scheduled automations.</td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td><strong>System Monitor workspace</strong> (Adam-only Cowork version)</td>
+        <td>Cowork project</td>
+        <td><span class="status-pill recreate">Recreate</span> Paste from <code>project-blueprints/system-monitor/instructions.md</code> (the Cowork version, not <code>instructions-project.md</code>) + re-upload context-health-check-rules.md, context-system-reference.md, context-maintenance-sop.md. Note: the Claude.ai Project version of System Monitor was superseded 2026-04-30 by AI Advisor - do not recreate the Project version.</td>
+        <td>10 min</td>
+      </tr>
+      <tr>
+        <td><strong>Custom skills</strong> (project-tester, project-feedback, prompt-evaluator, knowledge-base-context-builder, agent-quality-logger, kb-freshness-auditor, training-doc-auditor, pipeline-audit, prompt-override-guard, research-to-slides, html-checklist, help-center-article, time-clock-diagnostics)</td>
+        <td>Anthropic Skills plugin</td>
+        <td><span class="status-pill manual">Reinstall</span> Install the Anthropic Skills plugin from Cowork Settings &rarr; Plugins in the new account. All 13 user-built skills come bundled - one install, not 13 separate installs. See <code>context-agent-registry.md</code> for the full skill list and current Active status.</td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td><strong>Pre-installed document skills</strong> (PPTX, DOCX, XLSX, PDF, Schedule)</td>
+        <td>Cowork built-ins</td>
+        <td><span class="status-pill manual">Reinstall</span> These come with Cowork - may be pre-installed, otherwise install from Cowork skill library</td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td><strong>Knowledge Base Update Checker</strong> (scheduled task)</td>
+        <td>Scheduled automation</td>
+        <td><span class="status-pill recreate">Recreate</span> Scheduled tasks are account-tied - recreate via Schedule skill in new account. Update email target to work address.</td>
+        <td>10 min</td>
+      </tr>
+      <tr>
+        <td><strong>Skyward Friday Digest</strong> (scheduled task)</td>
+        <td>Scheduled automation</td>
+        <td><span class="status-pill recreate">Recreate</span> Recreate via Schedule skill. Verify distribution list uses work addresses.</td>
+        <td>10 min</td>
+      </tr>
+      <tr>
+        <td><strong>Gmail connector</strong></td>
+        <td>MCP connector</td>
+        <td><span class="status-pill recreate">Reconnect</span> Reconnect Gmail in new account. If work email is Google Workspace, reconnect with work email instead of Gmail personal.</td>
+        <td>5 min</td>
+      </tr>
+      <tr>
+        <td><strong>Auto-memory files</strong> (.auto-memory/)</td>
+        <td>Local files</td>
+        <td><span class="status-pill auto">Automatic</span> Stored in workspace folder on disk - available immediately in new session</td>
+        <td>None</td>
+      </tr>
+      <tr>
+        <td><strong>Claude.ai Projects</strong> (if any exist on personal account)</td>
+        <td>Claude.ai web</td>
+        <td><span class="status-pill recreate">Recreate</span> Cannot be transferred. Recreate in Teams account using instructions.md files from disk.</td>
+        <td>5 min each</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PHASE 1 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">1</div>
+      <div>
+        <div class="phase-title">Before You Start - Prep on Your Personal Account</div>
+        <div class="phase-subtitle">Do these while still logged in to bakeradm6@gmail.com</div>
+      </div>
+      <div class="phase-note before">Before migration</div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Capture current scheduled task configs</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Record Knowledge Base Update Checker settings</div>
+          <div class="check-desc">Open Cowork, find the scheduled task, and note: the exact prompt text, the schedule (Monday 8:09 AM), and the email address it sends to. Screenshot or paste into a note - you'll need this to recreate it.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Record Skyward Friday Digest settings</div>
+          <div class="check-desc">Same process - note the prompt text, schedule (Friday 8:09 AM), and the full distribution email list. The distribution list likely needs to be updated to use work addresses only.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Verify workspace folder is complete</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Note which skills are active in your current account</div>
+          <div class="check-desc">Skills are now installed via the <strong>Anthropic Skills plugin</strong>, not individual .skill files. In Phase 3, you'll reinstall the plugin in the new account. Before switching, confirm which skills are currently active so you can verify they all come back: project-tester, project-feedback, prompt-evaluator, projects-context-document-create, cowork-context-document-create, knowledge-base-context-builder, help-center-article, time-clock-diagnostics.</div>
+          <div class="check-tip">No files to copy - plugin reinstall handles everything. Just note what was working so you can verify it in Phase 3.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Confirm instructions files are on disk for all 4 workspaces</div>
+          <div class="check-desc">Check that these files exist: <code>The Architect/instructions.md</code>, <code>project-blueprints/deep-research/instructions.md</code>. The Personal Assistant instructions are in that project's settings - copy them out to a note or file if they aren't already on disk. (Prompt Maker was deprecated 2026-04-27 - absorbed into The Architect, no separate workspace to recreate.)</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Note the context files each workspace needs</div>
+          <div class="check-desc">The Architect needs: <code>context-agent-registry.md</code> and <code>context-path-reference.md</code>. Deep Research needs: <code>knowledge-base/index.md</code>. These are in the workspace folder. No action needed - just confirm they exist.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Teams account setup</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Confirm your work email has access to the School Tech Teams plan</div>
+          <div class="check-desc">Log in to claude.ai with your work email and verify it lands in the Teams workspace, not a personal free or Pro account. If the Teams plan is not yet set up, coordinate with whoever manages the account - you'll need to be added as a member.</div>
+          <div class="check-warn">Do not proceed until this is confirmed. Recreating workspaces in a personal account on your work email is not the same as a Teams account.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Download and install Cowork with your work email</div>
+          <div class="check-desc">Install the Cowork desktop app (or sign into the existing install with your work email). Cowork is a separate auth from claude.ai - make sure both are on the work account before continuing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">2</div>
+      <div>
+        <div class="phase-title">Mount the Workspace Folder</div>
+        <div class="phase-subtitle">Connect your existing files to the new Cowork session</div>
+      </div>
+      <div class="phase-note during">Day of migration</div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Open Cowork (work account) and mount The Architect folder</div>
+          <div class="check-desc">In Cowork, select your workspace folder - point it at the same "The Architect" folder on your PC that the personal account was using. All your files will be immediately available. No copying needed.</div>
+          <div class="check-tip">This is the main advantage of the folder-based system - the files live on your computer, not in Claude's cloud. Switching accounts is just remounting the same folder.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Verify the folder contents are visible</div>
+          <div class="check-desc">In the new session, ask Claude to list the workspace folder contents or read a known file like <code>The Architect/instructions.md</code>. Confirms the mount worked correctly before you proceed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">3</div>
+      <div>
+        <div class="phase-title">Install Skills</div>
+        <div class="phase-subtitle">Reinstall all custom skills from the workspace folder .skill files</div>
+      </div>
+      <div class="phase-note during">Day of migration</div>
+    </div>
+
+    <div class="callout blue">
+      Skills are installed per Cowork instance - they don't carry over with the account. All your .skill installer files are already in the workspace folder, so this is just a reinstall from the same files.
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Custom skills (from workspace folder)</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Install project-tester-updated.skill</div>
+          <div class="check-desc">Cowork Settings &rarr; Skills/Plugins &rarr; Install from file &rarr; select <code>project-tester-updated.skill</code> from the workspace folder.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Install project-feedback-updated.skill</div>
+          <div class="check-desc">Same process. This replaces the old <code>project-feedback.skill</code> - do not install the non-updated version.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Install projects-context-document-create.skill</div>
+          <div class="check-desc">For creating Claude.ai Projects context documents. Install from workspace folder.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Install cowork-context-document-create.skill</div>
+          <div class="check-desc">For creating Cowork project memory files and instruction blocks. Install from workspace folder.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Install knowledge-base-context-builder.skill</div>
+          <div class="check-desc">Install from workspace folder.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">School Tech custom skills</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Install help-center-article skill</div>
+          <div class="check-desc">Check workspace folder for this .skill file, or check if it was already installed in Cowork's plugin library. If not present in the folder, run Skill Creator to repackage it.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Install time-clock-diagnostics skill</div>
+          <div class="check-desc">Same - check workspace folder or repackage via Skill Creator if needed.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Pre-installed document skills (may already be available)</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Verify PPTX, DOCX, XLSX, PDF, and Schedule skills are available</div>
+          <div class="check-desc">These come with Cowork and may be pre-installed. Open any workspace and say "create a Word doc" - if the DOCX skill triggers, they're already there. If not, install from Cowork's built-in skill library.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Pipeline skills (from Anthropic Skills plugin)</div>
+
+      <div class="callout blue" style="margin-bottom:12px;">
+        Skills are now managed through the <strong>Anthropic Skills plugin</strong>, not individual .skill files. In the new Cowork account, install the plugin from Settings &rarr; Plugins &rarr; Anthropic Skills. This gives you access to all pipeline and School Tech-specific skills without manual file installs.
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Install the Anthropic Skills plugin</div>
+          <div class="check-desc">Cowork Settings &rarr; Plugins &rarr; browse or search for "Anthropic Skills" &rarr; Install. This single install provides: project-tester, project-feedback, projects-context-document-create, cowork-context-document-create, knowledge-base-context-builder, <strong>prompt-evaluator</strong>, help-center-article, time-clock-diagnostics, and more.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Verify all expected skills are available after plugin install</div>
+          <div class="check-desc">Confirm these are listed and active: <code>project-tester</code>, <code>project-feedback</code>, <code>knowledge-base-context-builder</code>, <code>projects-context-document-create</code>, <code>cowork-context-document-create</code>, <code>prompt-evaluator</code>, <code>help-center-article</code>, <code>time-clock-diagnostics</code>. If any are missing, check for a separate plugin package or contact Adam.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">4</div>
+      <div>
+        <div class="phase-title">Recreate Cowork Workspaces</div>
+        <div class="phase-subtitle">Set up each workspace in the new account using instructions from disk</div>
+      </div>
+      <div class="phase-note during">Day of migration</div>
+    </div>
+
+    <div class="callout orange">
+      For each workspace: create a new Cowork project, paste the instructions from the file on disk into the Instructions field, then upload any context files. The instructions files are already current - you're not rewriting anything.
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Adam's Personal Assistant (personal life)</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Create Adam's Personal Assistant workspace in new Cowork account</div>
+          <div class="check-desc">Read <code>project-blueprints/personal-assistant/instructions.md</code> and paste into a new Cowork project Instructions field. Name it "Adam's Personal Assistant" or "Personal Assistant".</div>
+          <div class="check-note">The auto-memory files (.auto-memory/) are in the workspace folder and will be readable in the new session automatically.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Upload context files to Personal Assistant</div>
+          <div class="check-desc">Upload from <code>project-blueprints/personal-assistant/</code>: <code>style-profile.md</code>, <code>contacts.md</code>, <code>standing-context.md</code>, <code>keep-writing-projects.md</code>, <code>projects-personal.md</code>. Also upload <code>context-org-team.md</code> and <code>context-org-identity.md</code> for personal-relevance org context (e.g., when someone from work shows up in a personal context).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Adam's Work Personal Assistant (work tasks)</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Create Adam's Work Personal Assistant workspace</div>
+          <div class="check-desc">Read <code>project-blueprints/work-personal-assistant/instructions.md</code> and paste into a new Cowork project Instructions field. Name it "Adam's Work Personal Assistant".</div>
+          <div class="check-note">Per the v2.0 split (2026-04-30), the original combined Personal Assistant was refactored into two focused projects - personal life and work tasks. The Work version is the replication-ready template for staff deployments per the staff-assistant-playbook.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Upload context files to Work Personal Assistant</div>
+          <div class="check-desc">Upload from <code>project-blueprints/work-personal-assistant/</code>: <code>work-standing-context.md</code>, <code>context-org-team.md</code>, <code>context-org-identity.md</code>. Also upload <code>style-profile.md</code> and <code>contacts.md</code> from the Personal Assistant folder - these are shared between the two assistants by design.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">The Architect</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Create The Architect workspace</div>
+          <div class="check-desc">Read <code>The Architect/instructions.md</code> and paste into new Cowork project Instructions field. Name the project "The Architect".</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Upload context files to The Architect</div>
+          <div class="check-desc">Upload <code>The Architect/context-agent-registry.md</code> and <code>The Architect/context-path-reference.md</code> via the Upload button in the workspace.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Deep Research</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Create Deep Research workspace</div>
+          <div class="check-desc">Read <code>project-blueprints/deep-research/instructions.md</code> and paste into new Cowork project Instructions field.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Upload context file to Deep Research</div>
+          <div class="check-desc">Upload <code>knowledge-base/index.md</code> via the Upload button.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Task Scheduler</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Create Task Scheduler workspace</div>
+          <div class="check-desc">Read <code>project-blueprints/task-scheduler/instructions.md</code> and paste into a new Cowork project Instructions field. Name it "Task Scheduler". This workspace is used exclusively for creating and managing scheduled automations - all task creation goes through here.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Verify the Schedule skill is active in the Task Scheduler workspace</div>
+          <div class="check-desc">Ask the workspace to list available scheduled tasks. If the Schedule skill isn't triggering, confirm it was installed in Phase 3 and re-trigger from the workspace.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">System Monitor (Adam-only Cowork version)</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Create System Monitor workspace</div>
+          <div class="check-desc">Read <code>project-blueprints/system-monitor/instructions.md</code> (the Cowork version) and paste into a new Cowork project Instructions field. Name it "System Monitor". Two-mode tool: automated weekly health report posted to Slack, and live Navigator for AI system Q&amp;A.</div>
+          <div class="check-warn">Use the Cowork <code>instructions.md</code>, NOT <code>instructions-project.md</code>. The Claude.ai Project version was superseded 2026-04-30 by AI Advisor and is not part of this migration.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Upload context files to System Monitor</div>
+          <div class="check-desc">Upload from <code>project-blueprints/system-monitor/</code>: <code>context-health-check-rules.md</code>, <code>context-system-reference.md</code>, <code>context-maintenance-sop.md</code>.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">5</div>
+      <div>
+        <div class="phase-title">Reconnect Gmail and Recreate Scheduled Tasks</div>
+        <div class="phase-subtitle">Restore connectors and background automations</div>
+      </div>
+      <div class="phase-note during">Day of migration</div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Gmail connector</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Reconnect Gmail in the new Cowork account</div>
+          <div class="check-desc">In Cowork connectors/plugins settings, reconnect Gmail. If your work email is Google Workspace (Gmail-based), connect with the work address instead of bakeradm6@gmail.com. If work email is not Google, this connector may not apply - check what email platform School Tech uses.</div>
+          <div class="check-warn">If you reconnect with your personal Gmail instead of work Gmail, the Personal Assistant will still be reading your personal inbox, not your work inbox. Confirm which account to connect.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Knowledge Base Update Checker</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Recreate KB Update Checker scheduled task</div>
+          <div class="check-desc">Open Personal Assistant in the new account, use the Schedule skill, and recreate the task using the prompt and settings you recorded in Phase 1. Schedule: every Monday at 8:09 AM.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Update email target to work address</div>
+          <div class="check-desc">When recreating the task, set the email delivery target to your work email address, not bakeradm6@gmail.com.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Skyward Friday Digest</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Recreate Skyward Friday Digest scheduled task</div>
+          <div class="check-desc">Use the Schedule skill with the prompt and settings from Phase 1. Schedule: every Friday at 8:09 AM.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Update the distribution list to use work email addresses</div>
+          <div class="check-desc">If the digest was being sent to any @gmail.com or personal addresses, update them to work addresses. The entire distribution should be on School Tech email.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Pause the old scheduled tasks on the personal account</div>
+          <div class="check-desc">Once the new tasks are running, disable or delete the tasks on bakeradm6@gmail.com to avoid duplicate digests being sent.</div>
+          <div class="check-warn">If you don't do this, both the personal and work accounts will run the same tasks and send duplicate emails.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 6 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">6</div>
+      <div>
+        <div class="phase-title">Set Up Team Projects in Claude.ai</div>
+        <div class="phase-subtitle">Create shareable Projects for team members on the Teams account</div>
+      </div>
+      <div class="phase-note during">After Cowork is set up</div>
+    </div>
+
+    <div class="callout blue">
+      Claude.ai Projects (shareable with team) are separate from Cowork workspaces. You create them at claude.ai, not in the Cowork app. Team members access them at claude.ai with their own accounts - they don't need Cowork. These are the projects you'll deploy to the broader School Tech team.
+    </div>
+
+    <div class="callout green">
+      <strong>Current Claude.ai Project state (per <code>context-agent-registry.md</code>, 2026-05-01):</strong>
+      <ul style="margin:8px 0 0 22px;font-size:12.5px;">
+        <li><strong>AI Advisor</strong> - Active. Live for all staff. Recreate first.</li>
+        <li><strong>STA Main Chat</strong> - Draft. Build via The Architect Full Pipeline (foundation - dependency for STA Support Chat).</li>
+        <li><strong>STA Support Chat</strong> - Draft. Build after STA Main Chat is live (extends it).</li>
+        <li><strong>Salesforce Admin Assistant</strong> - Draft. Build via Full Pipeline. Primary users: Kelsey (Salesforce Admin / Ops Analyst), Joanie, Tanya.</li>
+        <li><strong>Document Maker</strong> - Draft. Build via Full Pipeline. Independent - no dependencies.</li>
+      </ul>
+      Build order recommended in <code>Future Enhancements/agent-rollout-sow-2026-04-28.html</code>: STA Main Chat -> Salesforce Admin Assistant -> STA Support Chat -> Document Maker.
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">For each project you want to share with the team</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Decide: Cowork-only, Claude.ai Project only, or both</div>
+          <div class="check-desc">Use the deployment decision framework: personal build tools (The Architect, Deep Research, Task Scheduler) stay Cowork-only. Team-facing tools (STA Main Chat, Support Chat, Salesforce) go to Claude.ai Projects. Hybrid tools (Help Center Article workflows) may need both.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">For team-facing projects: run through the build pipeline with "Claude.ai Projects" as the target</div>
+          <div class="check-desc">Before deploying STA Main Chat, Support Chat, etc. to the team, build them properly through The Architect &rarr; Project Tester. The Architect handles discovery, blueprint, instructions, test cases, registry entry, and handoff in one pass. Make sure the deployment target is set to "Claude.ai Project" so the instructions are self-contained with no skill references.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Create each shared Project in claude.ai (Teams account)</div>
+          <div class="check-desc">Go to claude.ai &rarr; Projects &rarr; New Project. Paste instructions into the Instructions field. Upload context files via the Upload button. Name the project clearly for team members.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Share each Project with team members</div>
+          <div class="check-desc">In the Project settings, use the sharing/invite option to add team members by their work email. They'll be able to access the Project from their own claude.ai logins.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 7 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">7</div>
+      <div>
+        <div class="phase-title">Verify Everything Works</div>
+        <div class="phase-subtitle">Test each component before relying on the new account</div>
+      </div>
+      <div class="phase-note after">After setup</div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Workspace smoke tests</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Personal Assistant: ask it to rewrite a short email</div>
+          <div class="check-desc">Confirm it responds in the right tone. Also ask it to read a file from the workspace folder - confirms the folder is mounted and readable.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">The Architect: ask it what projects are in the registry</div>
+          <div class="check-desc">It should read the registry context file and list existing projects. Confirms context files were uploaded correctly.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Skills: trigger one custom skill and one document skill</div>
+          <div class="check-desc">Say "write a KB article about X" to test Help Center Article skill. Say "make a Word doc" to test DOCX skill. Both should activate.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Scheduled tasks: verify they appear in the scheduled tasks list</div>
+          <div class="check-desc">Ask Claude to list scheduled tasks. Both automations should appear with correct schedules. If possible, trigger a manual run of one to confirm it executes and sends email to the right address.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="check-group-title">Cleanup on personal account</div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Disable both scheduled tasks on bakeradm6@gmail.com account</div>
+          <div class="check-desc">Once verified running on work account. Prevents duplicate automation runs.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Stop using personal account Cowork workspaces</div>
+          <div class="check-desc">Once the new account is verified, use only the work account going forward. Changes made to the workspace folder from the new session will be visible to both accounts since it's the same local folder - but only one should be the primary.</div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <input type="checkbox">
+        <div class="check-body">
+          <div class="check-title">Delete stale files from workspace folder (if not done yet)</div>
+          <div class="check-desc">While you're doing migration housekeeping: delete <code>AI-Project-System-Overview.html</code>, <code>project-architect.skill</code>, <code>project-tester.skill</code>, <code>project-feedback.skill</code>, and <code>test_write</code> from the workspace folder.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Claude Account Migration Guide</strong> &nbsp;&#183;&nbsp; bakeradm6@gmail.com &rarr; School Tech Teams &nbsp;&#183;&nbsp; April 2026
+</div>
+
+<script>
+  function toggle(item) {
+    const cb = item.querySelector("input[type='checkbox']");
+    cb.checked = !cb.checked;
+    if (cb.checked) {
+      item.classList.add("checked");
+    } else {
+      item.classList.remove("checked");
+    }
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll(".check-item input[type='checkbox']");
+    const done = document.querySelectorAll(".check-item input[type='checkbox']:checked");
+    const total = all.length;
+    const count = done.length;
+    document.getElementById("progressCount").textContent = count;
+    document.getElementById("progressTotal").textContent = total;
+    const pct = total > 0 ? (count / total * 100) : 0;
+    document.getElementById("progressBar").style.width = pct + "%";
+  }
+
+  updateProgress();
+</script>
+
+</body>
+</html>
