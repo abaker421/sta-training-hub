@@ -640,6 +640,12 @@ function App() {
 
   const closeViewer = useCallback(() => setViewerDocId(null), []);
 
+  // Tab switch also closes any open doc so users don't have to click Back first.
+  const selectAud = useCallback((audId) => {
+    setActiveAud(audId);
+    setViewerDocId(null);
+  }, []);
+
   // Search across all docs
   const searchResults = useMemo(() => {
     if (!search.trim()) return null;
@@ -663,7 +669,7 @@ function App() {
       <TabBar
         audiences={data.audiences}
         activeAud={activeAud}
-        setActiveAud={setActiveAud}
+        setActiveAud={selectAud}
         hasFavorites={hasFavorites}
         favoritesCount={favorites.length}
       />
