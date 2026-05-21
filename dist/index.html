@@ -599,7 +599,7 @@ function Header({ search, setSearch }) {
         <div className="hdr-sub">School Technology Associates &middot; Internal</div>
       </div>
       <div className="search-wrap">
-        <span className="search-icon">\u{1F50D}</span>
+        <span className="search-icon">🔍</span>
         <input
           type="text"
           className="search-input"
@@ -630,7 +630,7 @@ function TabBar({ audiences, activeAud, setActiveAud, hasFavorites, favoritesCou
           className={`tab tab-saved ${activeAud === 'favorites' ? 'tab-active' : ''}`}
           onClick={() => setActiveAud('favorites')}
         >
-          <span className="tab-icon">\u{2B50}</span>
+          <span className="tab-icon">⭐</span>
           Saved
           <span className="tab-badge">{favoritesCount}</span>
         </button>
@@ -683,7 +683,7 @@ function SearchResults({ results, docs, favorites, toggleFav, query }) {
       </div>
       {results.length === 0 ? (
         <div className="empty">
-          <div className="empty-icon">\u{1F50D}</div>
+          <div className="empty-icon">🔍</div>
           <div className="empty-title">No matches</div>
           <div className="empty-sub">Try a shorter query or check the audience tabs above.</div>
         </div>
@@ -708,7 +708,7 @@ function FavoritesView({ favorites, docs, toggleFav }) {
   if (favorites.length === 0) {
     return (
       <div className="empty">
-        <div className="empty-icon">\u{2B50}</div>
+        <div className="empty-icon">⭐</div>
         <div className="empty-title">No saved docs yet</div>
         <div className="empty-sub">Click the star on any card to save it here for quick access.</div>
       </div>
