@@ -10,10 +10,11 @@ Pattern modeled on the HC Index App (`Claude/Projects/Help Center Assistant/arti
 |---|---|
 | `STA-Training-Hub.html` | **Source of truth - edit this file** |
 | `dist/index.html` | Deployed/hosted version - must be synced after every edit |
-| `dist/docs/` | All training HTML and markdown files referenced by cards |
-| `dist/files/` | All training docx and binary files referenced by cards |
+| `dist/docs/` | All training HTML and markdown files referenced by cards. Includes styled HTML versions auto-generated from `dist/files/*.docx`. |
+| `dist/files/` | Source `.docx` and `.pptx` files. The .docx files are converted to styled HTML in `dist/docs/` by `convert-docx-to-html.py` and served from there. |
 | `dist/_headers` | Cloudflare Pages HTTP headers (cache control, security) |
 | `dist/manifest.json` | PWA manifest for "Add to Home Screen" support |
+| `convert-docx-to-html.py` | Utility to (re)build `dist/docs/*.html` from `dist/files/*.docx`. Run after any source docx edit. |
 | `MAINTENANCE.md` | This file |
 | `DEPLOY.md` | Cloudflare Pages + Cloudflare Access setup steps |
 
@@ -40,6 +41,42 @@ cp "../Training - Staff/Getting Started Guide.html" "dist/docs/Getting Started G
 # Full re-sync
 # (see the deploy guide for the full one-liner)
 ```
+
+---
+
+## Re-converting .docx Files After Source Edits
+
+The hub does NOT render `.docx` files directly - they are pre-converted to styled HTML at `dist/docs/[slug].html` so the app can display them inline with full STA branding, preserved colors, and inlined images. The original `.docx` files stay in `dist/files/` only as editable downloads (for intake forms that need filling out).
+
+**Whenever a source `.docx` is updated, the matching `dist/docs/*.html` must be regenerated.** Run the conversion utility:
+
+```bash
+# Convert all .docx files in dist/files/
+python3 convert-docx-to-html.py
+
+# Convert a single file
+python3 convert-docx-to-html.py ai-acceptable-use-policy.docx
+```
+
+The script uses LibreOffice headless mode (preserves colors and tables) and inlines all images as base64 so each output HTML is fully self-contained. Output lands in `dist/docs/` with the same kebab-case slug as the source.
+
+**Standard update workflow:**
+
+1. Edit the source `.docx` in Word / LibreOffice / Google Docs.
+2. Save the edited file as `dist/files/[slug].docx` (overwrite the existing one).
+3. Run `python3 convert-docx-to-html.py [slug].docx` (or run with no arg to rebuild all).
+4. The matching `dist/docs/[slug].html` is regenerated with the latest content.
+5. Commit and push (or drag-and-drop the updated `dist/` to Cloudflare Pages).
+
+**Requirements:** LibreOffice must be installed and on PATH. On the sandboxed workspace shell it is preinstalled (`/usr/bin/libreoffice`). On a fresh local machine, install it from libreoffice.org or via package manager (`apt install libreoffice` / `brew install --cask libreoffice`).
+
+**If you ADD a new .docx file to the hub:**
+
+1. Drop the `.docx` into `dist/files/` using a kebab-case slug (no spaces).
+2. Run `python3 convert-docx-to-html.py new-file-name.docx`.
+3. Add an entry to `window.TRAINING_DATA.docs` in `STA-Training-Hub.html` pointing at `'docs/new-file-name.html'` with `type: 'html'`.
+4. Add the doc id to the relevant `audiences[].sections[].docs` arrays.
+5. Sync source to `dist/index.html` and deploy.
 
 ---
 

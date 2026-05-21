@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sta Salesforce Org Intake</title>
+
+<style>
+  :root {
+    --sta-navy: #1A1A2E;
+    --sta-blue: #004b8d;
+    --sta-light-blue: #006098;
+    --sta-green: #6bc04b;
+    --sta-text: #1f2d3d;
+    --sta-muted: #5c6b7a;
+    --sta-bg: #f6f7f9;
+    --sta-border: #e0e6ed;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--sta-bg);
+    color: var(--sta-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .doc-shell {
+    max-width: 900px;
+    margin: 24px auto;
+    background: #fff;
+    padding: 48px 56px;
+    box-shadow: 0 2px 12px rgba(26,26,46,0.08);
+    border-radius: 8px;
+  }
+  .doc-shell h1, .doc-shell h2, .doc-shell h3, .doc-shell h4 {
+    color: var(--sta-blue);
+    font-family: Arial, sans-serif;
+  }
+  .doc-shell h1 { font-size: 22px; margin-top: 28px; margin-bottom: 12px; }
+  .doc-shell h2 { font-size: 17px; margin-top: 22px; margin-bottom: 10px; }
+  .doc-shell h3 { font-size: 15px; margin-top: 18px; margin-bottom: 8px; }
+  .doc-shell p { margin: 8px 0; }
+  .doc-shell a { color: var(--sta-light-blue); }
+  .doc-shell table { border-collapse: collapse; margin: 12px 0; max-width: 100%; }
+  .doc-shell table td, .doc-shell table th { border: 1px solid #cccccc; padding: 8px 10px; vertical-align: top; }
+  .doc-shell img { max-width: 100%; height: auto; }
+  .doc-shell ul, .doc-shell ol { margin: 8px 0 8px 24px; padding-left: 0; }
+  .doc-shell li { margin: 4px 0; }
+  /* preserve LibreOffice color attributes on td */
+  .doc-shell td[bgcolor] { color: inherit; }
+  .doc-shell font[color="#ffffff"] { color: #fff !important; }
+  /* hide LibreOffice page header divs cleanly */
+  .doc-shell div[title="header"], .doc-shell div[title="footer"] {
+    margin: 0;
+    padding: 0;
+  }
+  @media (max-width: 700px) {
+    .doc-shell { margin: 0; padding: 20px 18px; border-radius: 0; box-shadow: none; }
+  }
+</style>
+
+<style>
+/* preserved from source */
+
+		@page { size: 8.5in 11in; margin-left: 1.25in; margin-right: 1.25in; margin-top: 1in; margin-bottom: 1in }
+		p { direction: ltr; margin-bottom: 0.08in; widows: 2; orphans: 2; text-align: left; line-height: 125%; background: transparent }
+		p.western { font-family: "Calibri", serif; font-size: 11pt }
+		p.cjk { font-size: 11pt }
+		h1 { direction: ltr; margin-top: 0.25in; margin-bottom: 0.11in; widows: 2; orphans: 2; color: #006098; page-break-inside: avoid; text-align: left; line-height: 125%; background: transparent; page-break-after: avoid }
+		h1.western { font-family: "Calibri", serif; font-weight: bold; font-size: 18pt }
+		h1.cjk { font-weight: bold; font-size: 18pt; font-family: "ＭＳ ゴシック" }
+		h1.ctl { font-weight: bold; font-family: ; font-size: 14pt }
+		h2 { direction: ltr; margin-bottom: 0.08in; widows: 2; orphans: 2; color: #006098; page-break-inside: avoid; text-align: left; line-height: 125%; background: transparent; page-break-after: avoid }
+		h2.western { font-family: "Calibri", serif; font-weight: bold; font-size: 14pt }
+		h2.cjk { font-weight: bold; font-size: 14pt; font-family: "ＭＳ ゴシック" }
+		h2.ctl { font-weight: bold; font-family: ; font-size: 13pt }
+		h3 { direction: ltr; margin-top: 0.11in; margin-bottom: 0.06in; widows: 2; orphans: 2; color: #1a1a2e; text-align: left; page-break-inside: avoid; line-height: 125%; background: transparent; page-break-after: avoid }
+		h3.western { font-size: 12pt; font-family: "Calibri", serif; font-weight: bold }
+		h3.cjk { font-weight: bold; font-size: 12pt; font-family: "ＭＳ ゴシック" }
+		h3.ctl { font-weight: bold; font-family:  }
+	
+</style>
+</head>
+<body>
+<div class="doc-shell">
+<p class="western" style="margin-bottom: 0.06in">
+<font color="#006098"><font size="6" style="font-size: 22pt"><b>STA
+Salesforce Org Intake</b></font></font></p>
+<p class="western" style="margin-bottom: 0.25in"><font color="#5a5f72"><font size="2" style="font-size: 11pt"><i>For
+the STA Salesforce Cohort Claude.ai Project (v1.2) - fills the
+org-context gap in v1.0</i></font></font></p>
+<h2 class="western">How to Use This</h2>
+<p class="western">Fill out the sections below to give the STA
+Salesforce Cohort assistant the org-specific Salesforce configuration
+it needs. This intake is intentionally narrow - it catches
+Salesforce-specific structural details only. Broader workflow,
+decision-making, and tool questions are covered in the separate
+Department AI Workflow Planner; this doc deliberately avoids
+duplicating those questions. If you have not yet filled out the
+Department AI Workflow Planner, that one is also useful but not
+required first - either can be completed in either order.</p>
+<p class="western">Answer what you can; mark anything you do not know
+with 'not sure' and Adam will follow up. Concrete and honest beats
+thorough and polished. If a section does not apply to your work in
+Salesforce, write 'N/A.' Expected time: 20 to 30 minutes per person
+(trimmed from the prior version since the daily-tasks section was
+removed - that question lives in the Department AI Workflow Planner).</p>
+<p class="western">When you are done, return this file to Adam. He
+will package the answers into context-sta-salesforce-org.md v1.1 and
+re-upload the updated context file to the Project.</p>
+<h1 class="western">Section 1: Your Salesforce Access</h1>
+<p class="western">Your name:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Which orgs do you have access to (Production,
+Developer Sandbox, Partial Data Sandbox)? List any access
+constraints:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Which managed packages do you regularly use
+(Salesforce CPQ, Spanning Backup, others)? Note any you have access
+to but do not actively use:</p>
+<p class="western">&gt; 
+</p>
+<p class="western"><i>Note: 'What you primarily do in your day-to-day
+work' is covered in the Department AI Workflow Planner Section 2
+(most common tasks) - not duplicated here.</i></p>
+<h1 class="western">Section 2: Custom Objects</h1>
+<p class="western">List the custom objects you work with in
+Salesforce. For each, give the object name (label and API name if you
+know it) and one sentence on what it stores. If you do not work with
+custom objects, write N/A and skip to Section 3.</p>
+<h3 class="western">Custom Object 1</h3>
+<p class="western">Object label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object API name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores (one sentence):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Who created/owns it (Adam, you, someone else):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Custom Object 2</h3>
+<p class="western">Object label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object API name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores (one sentence):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Who created/owns it (Adam, you, someone else):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Custom Object 3</h3>
+<p class="western">Object label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object API name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores (one sentence):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Who created/owns it (Adam, you, someone else):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Custom Object 4</h3>
+<p class="western">Object label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object API name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores (one sentence):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Who created/owns it (Adam, you, someone else):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Custom Object 5</h3>
+<p class="western">Object label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object API name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores (one sentence):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Who created/owns it (Adam, you, someone else):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Custom Object 6</h3>
+<p class="western">Object label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object API name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores (one sentence):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Who created/owns it (Adam, you, someone else):</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 3: Custom Fields You Rely On</h1>
+<p class="western">List the custom fields you reference most often in
+your work - on any object. For each, give the field label, the object
+it lives on, and what it stores. Focus on fields you use in reports,
+filters, or validation rules, not every custom field that exists.</p>
+<p class="western">Example: Field label: Renewal Date. Object:
+Account. What it stores: The date the customer's contract is up for
+renewal; used in renewal pipeline reports.</p>
+<h3 class="western">Field 1</h3>
+<p class="western">Field label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores and where you use it:</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Field 2</h3>
+<p class="western">Field label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores and where you use it:</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Field 3</h3>
+<p class="western">Field label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores and where you use it:</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Field 4</h3>
+<p class="western">Field label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores and where you use it:</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Field 5</h3>
+<p class="western">Field label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores and where you use it:</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Field 6</h3>
+<p class="western">Field label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores and where you use it:</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Field 7</h3>
+<p class="western">Field label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores and where you use it:</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Field 8</h3>
+<p class="western">Field label:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it stores and where you use it:</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 4: Active Flows You Know About</h1>
+<p class="western">Adam owns all Flows at STA, but you may interact
+with the results of specific Flows in your work (records auto-update,
+emails fire, approvals route, etc.). List any Flows you know exist -
+by name if you remember it, or by what it does if you do not. If you
+do not interact with any specific Flow, write N/A.</p>
+<h3 class="western">Flow 1</h3>
+<p class="western">Flow name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it does (what you observe):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object/trigger (e.g., 'fires when an Order is
+saved'):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Flow 2</h3>
+<p class="western">Flow name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it does (what you observe):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object/trigger (e.g., 'fires when an Order is
+saved'):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Flow 3</h3>
+<p class="western">Flow name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it does (what you observe):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object/trigger (e.g., 'fires when an Order is
+saved'):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Flow 4</h3>
+<p class="western">Flow name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it does (what you observe):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object/trigger (e.g., 'fires when an Order is
+saved'):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Flow 5</h3>
+<p class="western">Flow name (if known):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What it does (what you observe):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object/trigger (e.g., 'fires when an Order is
+saved'):</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 5: Validation Rules You Know About</h1>
+<p class="western">Validation rules block saves when certain
+conditions are met (e.g., 'cannot close a Case without a
+Description'). List rules you know exist - especially any that have
+blocked you or your team at some point.</p>
+<h3 class="western">Validation Rule 1</h3>
+<p class="western">Rule name or what it does:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">When it fires (the condition):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Validation Rule 2</h3>
+<p class="western">Rule name or what it does:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">When it fires (the condition):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Validation Rule 3</h3>
+<p class="western">Rule name or what it does:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">When it fires (the condition):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Validation Rule 4</h3>
+<p class="western">Rule name or what it does:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">When it fires (the condition):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Validation Rule 5</h3>
+<p class="western">Rule name or what it does:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">When it fires (the condition):</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 6: Reports and Dashboards You Use</h1>
+<p class="western">List the reports and dashboards you use regularly.
+Group by function (finance, renewals, orders, support, marketing,
+etc.). Include the report or dashboard name and one sentence on what
+it shows.</p>
+<p class="western">Reports you use regularly:</p>
+<p class="western">1. Report name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">2. Report name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">3. Report name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">4. Report name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">5. Report name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">6. Report name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">7. Report name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Dashboards you use regularly:</p>
+<p class="western">1. Dashboard name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">2. Dashboard name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">3. Dashboard name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">4. Dashboard name and what it shows:</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 7: Permission Sets and Profiles</h1>
+<p class="western">List any permission sets you use, manage, or have
+noticed cause friction (users locked out, surprising access patterns,
+etc.). Skip if you do not work with permission sets.</p>
+<p class="western">Permission sets you assign or manage:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Profiles in active use at STA (e.g., System
+Administrator, Standard User, custom profiles):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Any non-standard access patterns worth flagging
+(e.g., 'only Adam and Kelsey have Spanning access', 'Tanya is on a
+custom profile with extra report folder access'):</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 8: Approval Processes</h1>
+<p class="western">Approval processes route records to an approver
+who must click Approve or Reject before the record moves forward.
+List any approval processes active at STA - by name or by what they
+do.</p>
+<h3 class="western">Approval Process 1</h3>
+<p class="western">Process name or what it approves:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Who is the approver (specific user, role, or
+queue):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">When it fires (the trigger condition):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Approval Process 2</h3>
+<p class="western">Process name or what it approves:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Who is the approver (specific user, role, or
+queue):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">When it fires (the trigger condition):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Approval Process 3</h3>
+<p class="western">Process name or what it approves:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Who is the approver (specific user, role, or
+queue):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">When it fires (the trigger condition):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Approval Process 4</h3>
+<p class="western">Process name or what it approves:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Object it lives on:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Who is the approver (specific user, role, or
+queue):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">When it fires (the trigger condition):</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 9: CPQ Configuration (Joanie + Adam
+mainly)</h1>
+<p class="western">Salesforce CPQ handles product configuration,
+pricing rules, quotes, and approvals on the sales side. Fill out what
+you know; skip if you do not work with CPQ.</p>
+<p class="western">Products in the CPQ catalog you work with most
+often:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Price books in active use (e.g., 'Standard',
+'WSIPC', 'Discounted'):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Discount schedules in active use:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Quote template(s) you use:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Approval rules tied to CPQ (e.g., discount-over-X
+requires manager approval):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Document templates for generated quotes/proposals:</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 10: Spanning Backup</h1>
+<p class="western">Spanning is the backup product for Salesforce data
+and metadata. Most cohort members will not have Spanning access; that
+is fine. Fill out only what applies.</p>
+<p class="western">Do you have Spanning access?</p>
+<p class="western">&gt; 
+</p>
+<p class="western">If yes, what does the backup schedule look like
+(daily, hourly, etc.)?</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Have you ever needed to restore from Spanning?
+Briefly describe what happened and how it went:</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 11: Integrations</h1>
+<p class="western">STA's Salesforce integrates with several other
+systems. List which integrations touch your work and what they sync.
+Examples: Skyward, WooCommerce, Stripe, Mailchimp, eFunds, custom
+APIs.</p>
+<h3 class="western">Integration 1</h3>
+<p class="western">System name:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What data flows in or out of Salesforce:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">How often (real-time, nightly, on-demand):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Integration 2</h3>
+<p class="western">System name:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What data flows in or out of Salesforce:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">How often (real-time, nightly, on-demand):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Integration 3</h3>
+<p class="western">System name:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What data flows in or out of Salesforce:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">How often (real-time, nightly, on-demand):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Integration 4</h3>
+<p class="western">System name:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What data flows in or out of Salesforce:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">How often (real-time, nightly, on-demand):</p>
+<p class="western">&gt; 
+</p>
+<h3 class="western">Integration 5</h3>
+<p class="western">System name:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">What data flows in or out of Salesforce:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">How often (real-time, nightly, on-demand):</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 12: Email Templates and Letterheads</h1>
+<p class="western">List any email templates or letterheads in
+Salesforce that you use to send customer communications - quote
+follow-ups, renewal notices, support replies, marketing emails, etc.</p>
+<p class="western">Templates you use regularly:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Letterhead(s) currently active:</p>
+<p class="western">&gt; 
+</p>
+<h1 class="western">Section 13: Salesforce-Specific Friction Points</h1>
+<p class="western">Anything Salesforce-specific the cohort assistant
+should know? This section deliberately scopes to Salesforce
+structural quirks, not general work pain points (those live in the
+Department AI Workflow Planner).</p>
+<p class="western">Things in the Salesforce org that are non-obvious
+or counter-intuitive (e.g., 'we use the standard Lead Source field
+for something other than lead source', 'the Opportunity object stores
+renewals via a custom record type'):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Salesforce automations that have edge-case
+behavior you have to remember (e.g., 'this validation rule fires on
+every save not just create'):</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Salesforce features or packages we have but you
+wish were configured differently:</p>
+<p class="western">&gt; 
+</p>
+<p class="western">Anything else Salesforce-structural:</p>
+<p class="western">&gt; 
+</p>
+<p class="western" style="margin-top: 0.25in"><font color="#5a5f72"><font size="2" style="font-size: 10pt"><i>Return
+this file to Adam when complete. Filled answers feed v1.1 of the
+cohort assistant's STA Salesforce org context file. Broader workflow
+questions live in the separate Department AI Workflow Planner.</i></font></font></p>
+
+</div>
+</body>
+</html>
