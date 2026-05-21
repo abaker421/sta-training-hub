@@ -162,6 +162,22 @@ Done. Takes about 10 seconds.
 
 ---
 
+## Known deploy gotcha: `_redirects` file
+
+**Do not add a `_redirects` file to `dist/`.** The 2026-05-21 deploy failed with `[code: 10021] Infinite loop detected` because Cloudflare Workers Assets (the architecture CF Pages currently deploys under) interprets the Netlify-style SPA fallback `/* → /index.html 200` as a potential infinite redirect loop and rejects the deploy entirely.
+
+The hub does NOT need SPA fallback - it has no client-side routing. Every doc card link opens a real static file (`/docs/[slug].html` or `/files/[slug].docx`) and the root `/` naturally serves `index.html`. Just leave `_redirects` out of `dist/`.
+
+If you need redirect rules in the future (e.g., to rename a URL while preserving inbound links), use exact-match patterns rather than wildcards:
+
+```
+# OK - exact source, different target
+/old-path.html  /docs/new-path.html  301
+
+# NOT OK - wildcard that includes the target
+/*  /index.html  200
+```
+
 ## Troubleshooting
 
 **Users see a 404 when clicking a card.** The asset file isn't in `dist/docs/` or `dist/files/`. Check the path in `window.TRAINING_DATA.docs[id].file` matches what's actually in dist.

@@ -12,7 +12,6 @@ Pattern modeled on the HC Index App (`Claude/Projects/Help Center Assistant/arti
 | `dist/index.html` | Deployed/hosted version - must be synced after every edit |
 | `dist/docs/` | All training HTML and markdown files referenced by cards |
 | `dist/files/` | All training docx and binary files referenced by cards |
-| `dist/_redirects` | Cloudflare Pages SPA-routing fallback to `index.html` |
 | `dist/_headers` | Cloudflare Pages HTTP headers (cache control, security) |
 | `dist/manifest.json` | PWA manifest for "Add to Home Screen" support |
 | `MAINTENANCE.md` | This file |
