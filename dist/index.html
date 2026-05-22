@@ -1071,4 +1071,33 @@ function Viewer({ doc, onClose }) {
   return (
     <div className="viewer">
       <div className="viewer-bar">
-        <button class
+        <button className="viewer-back" onClick={onClose} title="Back to all docs">
+          ← Back
+        </button>
+        <div className="viewer-title">{doc.title}</div>
+        <button
+          className="viewer-open-new"
+          onClick={() => window.open(doc.file, '_blank', 'noopener,noreferrer')}
+          title="Open in a new tab"
+        >
+          Open in new tab ↗
+        </button>
+      </div>
+      {renderBody()}
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="app-footer">
+      <strong>STA AI Training Hub</strong> &middot; Maintained by Adam Baker &middot; Updated 2026-05-21 &middot; <a href="mailto:adamb@k12sta.com">adamb@k12sta.com</a>
+    </footer>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
