@@ -180,6 +180,22 @@
 
 <div class="page">
 
+  <div style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 24px; margin-top: 20px; margin-bottom: 4px;">
+    <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 12px;">Contents</div>
+    <ol style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 2;">
+    <li><a href="#01-the-big-picture-what-the-architect-actually-is" style="color: var(--blue); text-decoration: none;">01 — The Big Picture · What The Architect actually is</a></li>
+    <li><a href="#02-system-architecture-how-the-pipeline-is-structured" style="color: var(--blue); text-decoration: none;">02 — System Architecture · How the pipeline is structured</a></li>
+    <li><a href="#03-mode-detection-four-build-modes-each-with-different-rules" style="color: var(--blue); text-decoration: none;">03 — Mode Detection · Four build modes, each with different rules</a></li>
+    <li><a href="#04-quality-gates-what-the-pipeline-refuses-to-ship-and-how-it-enforces-that" style="color: var(--blue); text-decoration: none;">04 — Quality Gates · What the pipeline refuses to ship — and how it enforces that</a></li>
+    <li><a href="#05-live-case-study-the-deep-research-build-step-by-step" style="color: var(--blue); text-decoration: none;">05 — Live Case Study · The Deep Research build, step by step</a></li>
+    <li><a href="#06-the-output-what-the-deep-research-build-produced" style="color: var(--blue); text-decoration: none;">06 — The Output · What the Deep Research build produced</a></li>
+    <li><a href="#07-the-file-format-why-every-instructions-md-looks-exactly-the-same" style="color: var(--blue); text-decoration: none;">07 — The File Format · Why every instructions.md looks exactly the same</a></li>
+    <li><a href="#08-what-happens-next-how-the-architect-connects-to-the-rest-of-the-system" style="color: var(--blue); text-decoration: none;">08 — What Happens Next · How The Architect connects to the rest of the system</a></li>
+    <li><a href="#09-the-gravity-of-it-why-this-setup-is-harder-to-build-than-it-looks" style="color: var(--blue); text-decoration: none;">09 — The Gravity of It · Why this setup is harder to build than it looks</a></li>
+    </ol>
+  </div>
+
+
   <!-- VERDICT BAR -->
   <div class="verdict-bar">
     <div class="verdict-score">6</div>
@@ -192,7 +208,7 @@
 
 
   <!-- SECTION 01: WHAT IS IT -->
-  <div class="section-title">01 — The Big Picture · What The Architect actually is</div>
+  <div class="section-title" id="01-the-big-picture-what-the-architect-actually-is">01 — The Big Picture · What The Architect actually is</div>
 
   <div class="callout blue">Every build follows the same four-phase workflow. The Architect operates under mode detection, confirmation gates, quality gates, and anti-scaffold rules. Output files land in a versioned folder structure that the testing and feedback tools can find automatically.</div>
 
@@ -237,7 +253,7 @@
 
 
   <!-- SECTION 02: ARCHITECTURE -->
-  <div class="section-title">02 — System Architecture · How the pipeline is structured</div>
+  <div class="section-title" id="02-system-architecture-how-the-pipeline-is-structured">02 — System Architecture · How the pipeline is structured</div>
 
   <div class="item blue-top">
     <div class="item-header">
@@ -282,7 +298,7 @@
 
 
   <!-- SECTION 03: MODE DETECTION -->
-  <div class="section-title">03 — Mode Detection · Four build modes, each with different rules</div>
+  <div class="section-title" id="03-mode-detection-four-build-modes-each-with-different-rules">03 — Mode Detection · Four build modes, each with different rules</div>
 
   <div class="callout blue">Before any work begins, The Architect identifies which of four modes applies. Getting this wrong means running the wrong workflow for an entire session — so mode confirmation is a required gate before anything else starts.</div>
 
@@ -338,7 +354,7 @@
 
 
   <!-- SECTION 04: QUALITY GATES -->
-  <div class="section-title">04 — Quality Gates · What the pipeline refuses to ship — and how it enforces that</div>
+  <div class="section-title" id="04-quality-gates-what-the-pipeline-refuses-to-ship-and-how-it-enforces-that">04 — Quality Gates · What the pipeline refuses to ship — and how it enforces that</div>
 
   <div class="item red-top">
     <div class="item-header">
@@ -435,7 +451,7 @@
 
 
   <!-- SECTION 05: CASE STUDY -->
-  <div class="section-title">05 — Live Case Study · The Deep Research build, step by step</div>
+  <div class="section-title" id="05-live-case-study-the-deep-research-build-step-by-step">05 — Live Case Study · The Deep Research build, step by step</div>
 
   <div class="callout blue">This is exactly what ran across multiple sessions in April 2026 to take the Deep Research spec from Adam's informal v1.0 to the tested v1.9 currently in production. Polish Existing mode — phases 1–3 skipped.</div>
 
@@ -500,7 +516,7 @@
 
 
   <!-- SECTION 06: OUTPUT -->
-  <div class="section-title">06 — The Output · What the Deep Research build produced</div>
+  <div class="section-title" id="06-the-output-what-the-deep-research-build-produced">06 — The Output · What the Deep Research build produced</div>
 
   <div class="score-grid" style="grid-template-columns: repeat(5,1fr); margin-bottom: 24px;">
     <div class="score-card"><div class="score-num blue">9</div><div class="score-label">versions (v1.1 → v1.9)</div></div>
@@ -586,7 +602,7 @@
 
 
   <!-- SECTION 07: FILE FORMAT -->
-  <div class="section-title">07 — The File Format · Why every instructions.md looks exactly the same</div>
+  <div class="section-title" id="07-the-file-format-why-every-instructions-md-looks-exactly-the-same">07 — The File Format · Why every instructions.md looks exactly the same</div>
 
   <div class="callout blue">The format isn't cosmetic. Downstream tools (project-tester, training-doc-auditor, prompt-evaluator) know where to find every section. The version comment at the top is parsed to determine the current version. Every section is required or the pre-save check fails.</div>
 
@@ -628,7 +644,7 @@
 
 
   <!-- SECTION 08: WHAT'S NEXT -->
-  <div class="section-title">08 — What Happens Next · How The Architect connects to the rest of the system</div>
+  <div class="section-title" id="08-what-happens-next-how-the-architect-connects-to-the-rest-of-the-system">08 — What Happens Next · How The Architect connects to the rest of the system</div>
 
   <div class="item-grid">
     <div class="item blue-top">
@@ -685,7 +701,7 @@
 
 
   <!-- SECTION 09: THE GRAVITY -->
-  <div class="section-title">09 — The Gravity of It · Why this setup is harder to build than it looks</div>
+  <div class="section-title" id="09-the-gravity-of-it-why-this-setup-is-harder-to-build-than-it-looks">09 — The Gravity of It · Why this setup is harder to build than it looks</div>
 
   <div class="callout blue">Nothing about a single Architect session looks complex. A formatted markdown file. A list of test cases. A handoff document. The weight is in what's behind it — and what happens if it isn't there.</div>
 
