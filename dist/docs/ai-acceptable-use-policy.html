@@ -47,14 +47,9 @@
   .doc-shell img { max-width: 100%; height: auto; }
   .doc-shell ul, .doc-shell ol { margin: 8px 0 8px 24px; padding-left: 0; }
   .doc-shell li { margin: 4px 0; }
-  /* preserve LibreOffice color attributes on td */
   .doc-shell td[bgcolor] { color: inherit; }
   .doc-shell font[color="#ffffff"] { color: #fff !important; }
-  /* hide LibreOffice page header divs cleanly */
-  .doc-shell div[title="header"], .doc-shell div[title="footer"] {
-    margin: 0;
-    padding: 0;
-  }
+  .doc-shell div[title="header"], .doc-shell div[title="footer"] { margin: 0; padding: 0; }
   @media (max-width: 700px) {
     .doc-shell { margin: 0; padding: 20px 18px; border-radius: 0; box-shadow: none; }
   }
@@ -64,15 +59,15 @@
 /* preserved from source */
 
 		@page { size: 8.5in 11in; margin-left: 1in; margin-right: 1in; margin-top: 0.49in; margin-bottom: 0.49in }
-		p { direction: ltr; margin-bottom: 0.1in; widows: 2; orphans: 2; text-align: left; line-height: 115%; background: transparent }
-		h1 { direction: ltr; margin-top: 0.25in; margin-bottom: 0.1in; widows: 2; color: #004b8d; orphans: 2; text-align: left; background: transparent; page-break-after: avoid }
+		p { direction: ltr; line-height: 115%; text-align: left; orphans: 2; margin-bottom: 0.1in; widows: 2; background: transparent }
+		h1 { orphans: 2; color: #004b8d; text-align: left; widows: 2; margin-top: 0.25in; margin-bottom: 0.1in; direction: ltr; background: transparent; page-break-after: avoid }
 		h1.western { font-family: "Arial", sans-serif; font-weight: bold; font-size: 15pt }
-		h1.cjk { font-weight: bold; font-size: 15pt; font-family: "Arial" }
-		h1.ctl { font-weight: bold; font-family: "Arial"; font-size: 15pt }
-		h2 { direction: ltr; margin-bottom: 0.07in; widows: 2; color: #004b8d; orphans: 2; text-align: left; background: transparent; page-break-after: avoid }
+		h1.cjk { font-size: 15pt; font-family: "Arial"; font-weight: bold }
+		h1.ctl { font-family: "Arial"; font-size: 15pt; font-weight: bold }
+		h2 { orphans: 2; color: #004b8d; text-align: left; widows: 2; margin-bottom: 0.07in; direction: ltr; background: transparent; page-break-after: avoid }
 		h2.western { font-family: "Arial", sans-serif; font-weight: bold; font-size: 12pt }
-		h2.cjk { font-weight: bold; font-size: 12pt; font-family: "Arial" }
-		h2.ctl { font-weight: bold; font-family: "Arial"; font-size: 12pt }
+		h2.cjk { font-size: 12pt; font-family: "Arial"; font-weight: bold }
+		h2.ctl { font-family: "Arial"; font-size: 12pt; font-weight: bold }
 		a:link { color: #0563c1; text-decoration: underline }
 	
 </style>
@@ -368,8 +363,8 @@ Approved Purpose-Built Tools</b></font></font></font></h2>
 <p style="margin-top: 0.06in; margin-bottom: 0.06in; line-height: 100%">
 <font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 11pt">The
 following tools have been built specifically for School Technology
-workflows and are available within Cowork. These are the recommended
-starting point for common tasks:</font></font></font></p>
+workflows and are available as Claude.ai Projects within claude.ai.
+These are the recommended starting point for common tasks:</font></font></font></p>
 <p style="margin-top: 0.06in; margin-bottom: 0in; line-height: 100%"><br/>
 
 </p>
@@ -393,13 +388,15 @@ starting point for common tasks:</font></font></font></p>
 	<tbody>
 		<tr valign="top">
 			<td width="136" style="border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
-				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">Document
-				Maker</font></font></font></p>
+				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">AI
+				Advisor</font></font></font></p>
 			</td>
 			<td width="294" style="border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
-				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">Creates
-				School Technology-branded documents: Word, PDF, PowerPoint,
-				Excel, and Help Center articles</font></font></font></p>
+				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">Your
+				starting point for the AI program. Explore where AI could help
+				your work, find out what tools are built or coming, get
+				plain-language answers about the AI program, or frame an idea to
+				bring to Adam.</font></font></font></p>
 			</td>
 			<td width="162" style="border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
 				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">All
@@ -413,7 +410,9 @@ starting point for common tasks:</font></font></font></p>
 			</td>
 			<td width="294" bgcolor="#f0f6fc" style="background: #f0f6fc; border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
 				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">Troubleshooting
-				guidance for School Technology products</font></font></font></p>
+				guidance and step-by-step walkthroughs for School Technology
+				products, plus customer email drafts grounded in the STA Help
+				Center. Flags what it does not know rather than guessing.</font></font></font></p>
 			</td>
 			<td width="162" bgcolor="#f0f6fc" style="background: #f0f6fc; border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
 				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">Support
@@ -422,48 +421,17 @@ starting point for common tasks:</font></font></font></p>
 		</tr>
 		<tr valign="top">
 			<td width="136" style="border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
-				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">SF
-				Admin Assistant</font></font></font></p>
+				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">STA
+				Salesforce Cohort</font></font></font></p>
 			</td>
 			<td width="294" style="border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
 				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">Salesforce
-				admin guidance, report building, SOQL help</font></font></font></p>
+				admin guidance, step-by-step admin tasks, formula drafts, and
+				multi-approach tradeoffs.</font></font></font></p>
 			</td>
 			<td width="162" style="border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
 				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">SF
-				admins / IT</font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="136" bgcolor="#f0f6fc" style="background: #f0f6fc; border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
-				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">Skyward
-				Update Monitor</font></font></font></p>
-			</td>
-			<td width="294" bgcolor="#f0f6fc" style="background: #f0f6fc; border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
-				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">Monitors
-				web and email sources for Skyward product updates relevant to
-				existing lines and new feature opportunities</font></font></font></p>
-			</td>
-			<td width="162" bgcolor="#f0f6fc" style="background: #f0f6fc; border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
-				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">IT
-				/ Product</font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="136" style="border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
-				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">The
-				Architect</font></font></font></p>
-			</td>
-			<td width="294" style="border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
-				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">Designing,
-				building, and maintaining AI tools - production-ready
-				instructions, test cases, registry, and pipeline handoff in one
-				session. Absorbed Botmaker and Skillmaker capabilities
-				(2026-04-27).</font></font></font></p>
-			</td>
-			<td width="162" style="border: 1px solid #cccccc; padding: 0.06in 0.08in"><p>
-				<font color="#1f2d3d"><font face="Arial, serif"><font size="2" style="font-size: 10pt">IT
-				/ power users only</font></font></font></p>
+				admins</font></font></font></p>
 			</td>
 		</tr>
 	</tbody>
@@ -900,7 +868,7 @@ depending on the significance of the changes.</font></font></font></p>
 <p style="margin-bottom: 0in; line-height: 100%"><br/>
 
 </p>
-<p align="center" style="border-top: none; border-bottom: 1px solid #5ca832; border-left: none; border-right: none; padding-top: 0in; padding-bottom: 0.06in; padding-left: 0in; padding-right: 0in; margin-bottom: 0.17in; line-height: 100%; page-break-before: always">
+<p align="center" style="margin-bottom: 0.17in; line-height: 100%; border-top: none; border-bottom: 1px solid #5ca832; border-left: none; border-right: none; padding-top: 0in; padding-bottom: 0.06in; padding-left: 0in; padding-right: 0in; page-break-before: always">
 <font color="#004b8d"><font face="Arial, serif"><font size="4" style="font-size: 14pt"><b>AI
 Acceptable Use Policy - Staff Acknowledgment</b></font></font></font></p>
 <p style="margin-top: 0.11in; margin-bottom: 0in; line-height: 100%"><br/>
