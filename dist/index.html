@@ -420,7 +420,7 @@ window.TRAINING_DATA = {
     'system-overview': {
       title: 'AI System Overview',
       icon: '\u{1F30D}',
-      desc: 'Single canonical system map. Claude.ai Projects, Cowork workspaces, personal projects, build pipeline, skills, automations, key files, deprecated tools. Updated to The Architect v5.16.',
+      desc: 'Single canonical system map. Claude.ai Projects, Cowork workspaces, personal projects, build pipeline, skills, automations, key files, deprecated tools. Updated to The Architect v6.0.',
       file: 'docs/ai-system-overview-admin.html',
       type: 'html',
       priority: 'admin',
@@ -1074,4 +1074,13 @@ function Viewer({ doc, onClose }) {
 function Footer() {
   return (
     <footer className="app-footer">
-      <strong>STA AI Training Hub</strong> &middot; Maintained by Adam Baker &middot; Updated 2026-05-21 &middot; <a hre
+      <strong>STA AI Training Hub</strong> &middot; Maintained by Adam Baker &middot; Updated 2026-05-21 &middot; <a href="mailto:adamb@k12sta.com">adamb@k12sta.com</a>
+    </footer>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>

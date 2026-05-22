@@ -1,7 +1,7 @@
 # Write Verification Protocol
 
 **Origin:** 2026-05-02 truncation crisis - three production `instructions.md` files were found mid-word truncated with no backups available.
-**Encoded in:** The Architect v4.17 BEHAVIOR GUIDELINES > "At save time and confirmation gates" > "Post-write verification gate."
+**Encoded in:** The Architect v4.17 introduced the rule in BEHAVIOR GUIDELINES > "At save time and confirmation gates" > "Post-write verification gate." Since The Architect v6.0 (2026-05-21), the rule lives in `project-blueprints/the-architect/behavior-patterns.md` > "At save time and confirmation gates" - the inline BEHAVIOR GUIDELINES section is now a quick-reference table + Pattern A pointer to the patterns file. v6.0 also split the rule into two distinct named rules: "Post-write verification gate" (the standard verification flow) and "Shortening Edit null-byte check" (the binary null-byte sweep for shortening Edits).
 **Audience:** Adam, and any agent operator working in this workspace.
 
 This document is the diagnostic record and the operational reference for preventing silent file truncation in agent-driven file edits. The Architect's instructions.md encodes the protocol as a behavioral rule; this document explains the why.
@@ -19,6 +19,7 @@ This document is the diagnostic record and the operational reference for prevent
 | Mitigation Strategies | Chunked Edit-append for large files, surgical Edits for revisions, output-budget awareness |
 | Recovery Procedures | What to do when truncation IS detected - reconstruction sources, changelog framing, Adam review |
 | Bash Mount Staleness | Why bash cannot be used for write verification - empirical observation |
+| Edit Tool Null-Byte Padding | Why shortening Edits silently corrupt files - 2026-05-21 empirical finding |
 | References | Related rules in The Architect, related skills, related documents |
 
 ---
@@ -146,11 +147,53 @@ Files that were NOT modified during the session (e.g., previously-fixed training
 
 ---
 
+## Edit Tool Null-Byte Padding
+
+Empirical observation from 2026-05-21: when the Edit tool's `new_string` is shorter than the `old_string`, the freed bytes at the tail of the file are filled with `\x00` (null) characters rather than the file being truncated to the new length. The Read tool's text-based output silently strips or skips the null bytes, and the standard ends-with-`</html>` verification check passes because the closing tag is still present immediately before the null padding. The file is silently corrupt - downstream parsers, deploy tools, and content-management systems will either reject it, render garbage at the end, or fail in subtle ways depending on how they tolerate null bytes.
+
+This was discovered during the STA training kit Phase 0 fix session. Three files (Manual Tasks Checklist.html, New Project Build Guide V2.html, The Architect Case Study.html) had safe closing-tag content appended via Edit on the first verification pass. A subsequent Edit then replaced a longer truncation-notice block with the proper completed footer content, which was shorter than the block it replaced. The byte-level inspection at the FINAL verification gate revealed 663–972 null bytes between the closing `</html>` tag and the actual end-of-file in each affected file. The bytes did not exist in either the `old_string` or the `new_string` of the Edit operation - they appeared as padding. Maintenance SOP.html was unaffected only because its repair had used a direct python `open(path, 'wb')` write, not Edit.
+
+**Why this matters more than bash staleness:** bash staleness causes a verification check to give the wrong answer for a brief window, then self-corrects. Null-byte padding corrupts the file persistently and silently passes every standard verification check (ends-with-marker, structural-element counts, line count). The only reliable detection is grep on `\x00` against the actual file bytes.
+
+**Detection:** after any Edit where `len(new_string) < len(old_string)` (a "shortening Edit"), read the file with `open(path, 'rb').read()` (binary mode) and check `b'\x00' in data`. If present, the file was null-padded by the Edit tool and needs cleanup.
+
+**Remediation:** never use Edit to clean up null padding (a follow-up Edit on the null region will inherit the same issue). Instead, use python:
+```python
+with open(path, 'rb') as f:
+    data = f.read()
+# Find last legitimate content end (e.g., the last </html> tag plus its newline)
+cut = data.rfind(b'</html>') + len(b'</html>')
+if cut < len(data) and data[cut:cut+1] == b'\n':
+    cut += 1
+# Write back with binary-mode write, which truncates the file to the new length
+with open(path, 'wb') as f:
+    f.write(data[:cut])
+```
+The `'wb'` open mode atomically truncates the file at write time. After the write, re-verify with `b'\x00' in data` and the file is clean.
+
+**Prevention:** for any trailing-content fix (removing a footer block, stripping appended notices, shortening the end of a file), do not use Edit. Read the file as bytes, compute the desired final state, write it back with `open(path, 'wb')`. The python approach is verifiable at every step and does not exhibit the null-padding behavior.
+
+**Scope:** the null-padding behavior is a property of the Edit tool implementation, not the file format or filesystem. It applies to any text-or-binary file edited via Edit: HTML, markdown, JSON, JavaScript, CSS, Python source. It applies whether the Edit succeeds or "succeeds with warnings." The verification protocol must add a byte-level null check after every shortening Edit, in addition to the existing structural checks.
+
+**Rule update for the post-write verification gate:**
+- Step 1 remains: Read the last 30-50 lines via Read tool.
+- Step 2 remains: check the expected closer.
+- **Step 2.5 (new):** for any Edit where `new_string` was shorter than `old_string`, also read the file as bytes via python and check `b'\x00' in data`. If null bytes are present, the file is corrupt regardless of what step 2 said.
+- Step 3-6 remain unchanged.
+
+**Reference:** this finding extends the original verification protocol. The grader-checkable trigger now includes shortening-Edit detection: any session that performed a shortening Edit without the null-byte check is a violation, even if all other structural checks passed.
+
+---
+
 ## References
 
 **Encoded in:**
-- The Architect `instructions.md` v4.17 - BEHAVIOR GUIDELINES > "At save time and confirmation gates" > "Post-write verification gate" rule
-- The Architect `changelog.md` v4.17 row documents the protocol's introduction
+- The Architect `instructions.md` v4.17 - BEHAVIOR GUIDELINES > "At save time and confirmation gates" > "Post-write verification gate" rule (rule introduction; inline until v6.0)
+- The Architect `instructions.md` v5.18 - BEHAVIOR GUIDELINES > "At save time and confirmation gates" - extended with the shortening-Edit null-byte check (2026-05-21)
+- The Architect `instructions.md` v6.0 (2026-05-21) - BEHAVIOR GUIDELINES section restructured: inline content replaced with 6-row quick-reference table + Pattern A pointer to `project-blueprints/the-architect/behavior-patterns.md`. The post-write verification gate and the shortening-Edit null-byte check are now two distinct named rules in the patterns file (previously a single compound rule). The quick-reference table's "At save time" row preserves the split in its required-action column.
+- The Architect `behavior-patterns.md` (since v6.0) - canonical source-of-truth for both rules, including the full procedural detail, exact phrasings, and grader checks
+- The Architect `changelog.md` - v4.17 row documents the protocol's introduction; v5.18 row documents the null-byte extension; v6.0 row documents the BEHAVIOR GUIDELINES extraction and rule split
+- Auto-memory file `feedback_edit_null_byte_padding.md` carries the rule across all conversations (not just Architect sessions)
 
 **Related rules in The Architect:**
 - "Don't produce scaffolded files" - the NEVER SHIP SCAFFOLD rule, complementary save-time discipline

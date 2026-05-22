@@ -44,6 +44,36 @@ cp "../Training - Staff/Getting Started Guide.html" "dist/docs/Getting Started G
 
 ---
 
+## Push to Deploy (mandatory after every sync)
+
+**Cloudflare Pages deploys from the GitHub remote `origin/main`, not from the local filesystem.** Local dist syncs alone do NOT update the hosted hub - the changes must be pushed to GitHub before Cloudflare picks them up. Every sync must be followed by a commit + push, or the hub silently serves stale content even though dist/ on disk is up to date.
+
+**The Architect provides a paste-ready prompt at the end of every hub-modifying session** per RESTATED HARD RULES rule 13. Paste it into Claude Code to execute. The prompt template:
+
+```bash
+cd "C:\Users\Adam\Documents\Claude\Projects\The Architect\Training Materials\training-kit-hub"
+git status
+git add -A
+git commit -m "[concrete descriptive message of what changed]"
+git push origin main
+```
+
+If running manually (no Architect session):
+
+1. `cd` to the hub folder above.
+2. `git status` to confirm what changed.
+3. `git add -A` to stage everything (source + dist).
+4. `git commit -m "..."` with a concrete commit message (name the files or behaviors that changed, not "updates").
+5. `git push origin main`.
+
+Cloudflare Pages auto-deploys within ~60 seconds of the push completing. Confirm by loading the hosted hub URL in a new private window (to bypass browser cache).
+
+**No push = no deploy.** Edits to source files alone, without a push, will silently fail to reach users. This is the dominant operational failure mode for the hub - the dist sync rule (immediate, within-session) catches the local mirror issue; this push rule (immediate, before declaring complete) catches the remote deploy issue.
+
+Origin: 2026-05-21, The Architect's RESTATED HARD RULES rule 13 added after Adam observed the push step was being missed at the end of hub-modifying sessions.
+
+---
+
 ## Re-converting .docx Files After Source Edits
 
 The hub does NOT render `.docx` files directly - they are pre-converted to styled HTML at `dist/docs/[slug].html` so the app can display them inline with full STA branding, preserved colors, and inlined images. The original `.docx` files stay in `dist/files/` only as editable downloads (for intake forms that need filling out).
