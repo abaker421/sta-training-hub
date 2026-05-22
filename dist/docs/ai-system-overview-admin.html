@@ -107,7 +107,7 @@
   }
 </style>
 </head>
-<body>
+<body id="top">
 
 <div class="header">
   <div class="header-inner">
@@ -129,7 +129,6 @@
       <a href="#arch">System Architecture</a>
       <a href="#sta-projects">STA Claude.ai Projects</a>
       <a href="#sta-cowork">STA Cowork Workspaces</a>
-      <a href="#personal-cowork">Personal Cowork Workspaces</a>
       <a href="#pipeline">Build Pipeline</a>
       <a href="#skills">Cowork Skills</a>
       <a href="#auto">Automations</a>
@@ -218,25 +217,6 @@
     <text x="805" y="240" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">STA Security Advisor</text>
     <text x="805" y="254" text-anchor="middle" font-size="9.5" fill="#006098">CIS Controls v8.1 work</text>
     <text x="805" y="268" text-anchor="middle" font-size="9" fill="#006098">Compliance evidence + logs</text>
-
-    <!-- COWORK PERSONAL ROW -->
-    <text x="0" y="312" font-size="11" font-weight="700" fill="#8a8d8e" letter-spacing="1px">COWORK - PERSONAL (ADAM)</text>
-
-    <rect x="0" y="324" width="218" height="48" rx="8" fill="#f0eafd" stroke="#6c3dbf" stroke-width="2"/>
-    <text x="109" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">The Green Man</text>
-    <text x="109" y="360" text-anchor="middle" font-size="9" fill="#6c3dbf">Plant care, druid voice</text>
-
-    <rect x="232" y="324" width="218" height="48" rx="8" fill="#f0eafd" stroke="#6c3dbf" stroke-width="2"/>
-    <text x="341" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">Garage Sale Monitor</text>
-    <text x="341" y="360" text-anchor="middle" font-size="9" fill="#6c3dbf">Northwoods scan 3x/week</text>
-
-    <rect x="464" y="324" width="218" height="48" rx="8" fill="#f0eafd" stroke="#6c3dbf" stroke-width="2"/>
-    <text x="573" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">Local Discovery</text>
-    <text x="573" y="360" text-anchor="middle" font-size="9" fill="#6c3dbf">Events &amp; planning, NW WI</text>
-
-    <rect x="696" y="324" width="218" height="48" rx="8" fill="#f0eafd" stroke="#6c3dbf" stroke-width="2"/>
-    <text x="805" y="344" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">The Chef</text>
-    <text x="805" y="360" text-anchor="middle" font-size="9" fill="#6c3dbf">Recipes, nutrition, live site</text>
 
     <!-- FILE SYSTEM -->
     <text x="0" y="394" font-size="11" font-weight="700" fill="#8a8d8e" letter-spacing="1px">SHARED FILE SYSTEM (THE ARCHITECT WORKSPACE)</text>
@@ -386,44 +366,6 @@
     </div>
   </div>
 
-  <!-- PERSONAL COWORK -->
-  <div id="personal-cowork"></div>
-  <div class="section-title">Personal Cowork Workspaces (Adam, off-work)</div>
-  <div class="section-intro">Adam's personal projects, separate from the STA AI system but maintained through the same The Architect pipeline. Listed here for completeness so the system picture is whole.</div>
-
-  <div class="card-grid">
-    <div class="ws-card purple">
-      <div class="ws-name">Adam's Personal Assistant</div>
-      <div class="ws-tag purple">Active v2.0</div>
-      <p>Personal life tasks: personal email, family, home purchase, creative writing, side projects. Org context files available at personal-relevance trigger only.</p>
-    </div>
-    <div class="ws-card purple">
-      <div class="ws-name">The Green Man</div>
-      <div class="ws-tag purple">Active - plant care, druid voice</div>
-      <p>Care guidance, photo ID, per-plant inventory, weekly check-in, Northwoods outdoor knowledge. Hard rule against killing-plant advice.</p>
-    </div>
-    <div class="ws-card purple">
-      <div class="ws-name">Garage Sale Monitor</div>
-      <div class="ws-tag purple">Active v1.4 (11/11 tests pass)</div>
-      <p>Scans ~78 Northwoods sources for garage/estate/moving sales within 50 miles of Ashland WI. 3x/week scheduled digest (Mon/Wed/Fri).</p>
-    </div>
-    <div class="ws-card purple">
-      <div class="ws-name">Local Discovery</div>
-      <div class="ws-tag purple">Active v1.3 Cowork / v1.4 Project</div>
-      <p>Event discovery, planning, regulatory Q&amp;A, source checks for Northwoods / Lake Superior region. Weekly Pine HTML digests. Three-tier active listening for preference capture.</p>
-    </div>
-    <div class="ws-card purple">
-      <div class="ws-name">The Chef</div>
-      <div class="ws-tag purple">Active v1.3</div>
-      <p>Recipe sourcing, generation, nutrition, scaling. Maintains Baker's Recipe List (Word doc) plus live site at azmordis.github.io/bakers-recipe-list.</p>
-    </div>
-    <div class="ws-card gray">
-      <div class="ws-name">Build with Baker</div>
-      <div class="ws-tag gray">Draft v1.0 - brand ops</div>
-      <p>Brand-operations partner for the Build with Baker side-project umbrella. Drafts brand content, critiques drafts, tracks brand state (UniStyle, Ko-fi, X handle), plans content with phase-aware behavior.</p>
-    </div>
-  </div>
-
   <!-- BUILD PIPELINE -->
   <div id="pipeline"></div>
   <div class="section-title">Build Pipeline (5 Steps)</div>
@@ -531,17 +473,7 @@
         <td>Backs up workspace to <code>github.com/abaker421/school-tech-ai-system</code>. Verified by System Monitor Check 12 every Monday.</td>
       </tr>
       <tr>
-        <td><strong>Garage Sale Northwoods Digest</strong></td>
-        <td>Mon/Wed/Fri</td>
-        <td>Garage Sale Monitor</td>
-        <td>Personal - scans Northwoods sources within 50 miles of Ashland WI.</td>
-      </tr>
-      <tr>
-        <td><strong>Local Discovery Weekly Digest</strong></td>
-        <td>Weekly (Pine HTML)</td>
-        <td>Local Discovery</td>
-        <td>Personal - event discovery and planning for Northwoods / Lake Superior region.</td>
-      </tr>
+
     </tbody>
   </table>
 
@@ -645,5 +577,11 @@
   <strong>School Technology Associates</strong> &nbsp;|&nbsp; Adam's AI System - Operational Reference &nbsp;|&nbsp; Updated 2026-05-21 (The Architect v6.0)
 </div>
 
+<div style="margin: 60px 0 20px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">
+  <a href="#top" style="display: inline-flex; align-items: center; gap: 6px; color: #1f3a5f; text-decoration: none; font-size: 13px; font-weight: 600; padding: 8px 18px; border: 1px solid #1f3a5f; border-radius: 20px; transition: background 0.15s;" onmouseover="this.style.background='#f0f5fb'" onmouseout="this.style.background='transparent'">
+    <span>&uarr;</span>
+    <span>Back to top</span>
+  </a>
+</div>
 </body>
 </html>
