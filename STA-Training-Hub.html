@@ -160,14 +160,18 @@
   .links-section { margin-top: 56px; padding-top: 28px; border-top: 2px solid var(--border); }
   .links-title { font-size: 11pt; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
   .links-sub { font-size: 9pt; color: var(--gray); margin-bottom: 20px; }
-  .links-group { margin-bottom: 22px; }
-  .links-group-label { font-size: 9pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--blue); margin-bottom: 10px; }
-  .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
-  .link-card { display: block; background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; text-decoration: none; color: var(--dark); transition: border-color .12s, background .12s; }
-  .link-card:hover { border-color: var(--blue); background: #fafbfc; }
-  .link-card-label { font-size: 10pt; font-weight: 700; color: var(--blue); margin-bottom: 3px; display: flex; align-items: center; gap: 6px; }
-  .link-card-desc { font-size: 9pt; color: #555; line-height: 1.5; }
-  .link-arrow { font-size: 9pt; opacity: 0.6; }
+  .links-groups-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+  .link-group-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .link-group-header { padding: 13px 16px; display: flex; align-items: center; gap: 10px; }
+  .link-group-header-label { font-size: 10pt; font-weight: 700; color: #fff; letter-spacing: 0.2px; }
+  .link-group-header-icon { font-size: 15pt; line-height: 1; }
+  .link-group-items { padding: 4px 0; }
+  .link-group-item { display: flex; flex-direction: column; padding: 9px 16px; text-decoration: none; color: var(--dark); border-bottom: 1px solid var(--border); transition: background .1s; }
+  .link-group-item:last-child { border-bottom: none; }
+  .link-group-item:hover { background: #f0f5fb; }
+  .link-group-item-name { font-size: 10pt; font-weight: 600; color: var(--blue); display: flex; align-items: center; gap: 5px; margin-bottom: 2px; }
+  .link-group-item-desc { font-size: 8.5pt; color: #666; line-height: 1.45; }
+  .link-arrow { font-size: 9pt; opacity: 0.65; }
 
   @media (max-width: 700px) {
     .app-header { padding: 12px 16px; height: auto; flex-direction: column; align-items: stretch; gap: 12px; }
@@ -575,6 +579,8 @@ window.TRAINING_DATA = {
 window.HELPFUL_LINKS = [
   {
     label: 'Daily Access',
+    icon: '🔗',
+    headerBg: '#006098',
     items: [
       { name: 'Sign in to Claude', url: 'https://claude.ai', desc: 'The entry point for AI Advisor, STA Support Chat, STA Salesforce Cohort - use your @k12sta.com email.' },
       { name: 'Download Claude Desktop', url: 'https://claude.ai/download', desc: 'Native app: faster, better notifications, runs without a browser tab open.' },
@@ -583,6 +589,8 @@ window.HELPFUL_LINKS = [
   },
   {
     label: 'Learn how to use Claude well',
+    icon: '📖',
+    headerBg: '#3a8a1e',
     items: [
       { name: 'Anthropic Academy', url: 'https://anthropic.skilljar.com/', desc: 'Official free courses on prompt engineering and Claude usage.' },
       { name: 'Prompt Engineering Guide', url: 'https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview', desc: 'Anthropic\'s reference for prompt patterns - companion to our Getting Better Results doc.' },
@@ -591,6 +599,8 @@ window.HELPFUL_LINKS = [
   },
   {
     label: 'Stay informed',
+    icon: '📡',
+    headerBg: '#004d7a',
     items: [
       { name: 'Anthropic News', url: 'https://www.anthropic.com/news', desc: 'Product updates, research, what Anthropic is building.' },
       { name: 'Claude Status', url: 'https://status.anthropic.com', desc: 'Check here first if Claude seems broken or slow.' },
@@ -598,6 +608,8 @@ window.HELPFUL_LINKS = [
   },
   {
     label: 'STA tools we have built',
+    icon: '🛠️',
+    headerBg: '#1A1A2E',
     items: [
       { name: 'STA Help Center Index', url: 'https://serene-kulfi-7acc0e.netlify.app/', desc: 'Quick lookup for KB articles by product - the React app this hub was modeled on.' },
       { name: 'STA Help Center (Salesforce)', url: 'https://schooltechnology.my.site.com/s/', desc: 'Official customer-facing knowledge base.' },
@@ -915,27 +927,32 @@ function HelpfulLinks() {
     <div className="links-section">
       <div className="links-title">Helpful Links</div>
       <div className="links-sub">Claude resources, Anthropic learning materials, and STA tools we have built.</div>
-      {groups.map((group, gi) => (
-        <div className="links-group" key={gi}>
-          <div className="links-group-label">{group.label}</div>
-          <div className="links-grid">
-            {group.items.map((item, ii) => (
-              <a
-                key={ii}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-card"
-              >
-                <div className="link-card-label">
-                  {item.name} <span className="link-arrow">↗</span>
-                </div>
-                <div className="link-card-desc">{item.desc}</div>
-              </a>
-            ))}
+      <div className="links-groups-grid">
+        {groups.map((group, gi) => (
+          <div className="link-group-card" key={gi}>
+            <div className="link-group-header" style={{background: group.headerBg || '#006098'}}>
+              {group.icon && <span className="link-group-header-icon">{group.icon}</span>}
+              <span className="link-group-header-label">{group.label}</span>
+            </div>
+            <div className="link-group-items">
+              {group.items.map((item, ii) => (
+                <a
+                  key={ii}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-group-item"
+                >
+                  <div className="link-group-item-name">
+                    {item.name} <span className="link-arrow">↗</span>
+                  </div>
+                  <div className="link-group-item-desc">{item.desc}</div>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
