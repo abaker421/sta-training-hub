@@ -32,7 +32,7 @@ Cloudflare Access free tier covers up to 50 users via the Zero Trust dashboard. 
 
 1. In the Cloudflare dashboard, go to **Workers & Pages** → **Create** → **Pages** → **Upload assets**.
 2. Project name: `sta-training-hub` (this becomes part of the URL: `sta-training-hub.pages.dev`).
-3. Drag the entire `dist/` folder from `Training Materials/training-kit-hub/dist/` into the upload area.
+3. Drag the entire `dist/` folder from `C:\Users\Adam\source\repos\training-kit-hub\dist\` into the upload area.
 4. Click **Deploy site**.
 5. Wait ~30 seconds. You'll get a URL like `https://sta-training-hub.pages.dev`.
 
@@ -42,7 +42,7 @@ Cloudflare Access free tier covers up to 50 users via the Zero Trust dashboard. 
 2. In Cloudflare Pages → **Connect to Git** → select the repo.
 3. Build settings:
    - Build command: (leave empty - no build needed)
-   - Build output directory: `Training Materials/training-kit-hub/dist`
+   - Build output directory: `C:\Users\Adam\source\repos\training-kit-hub\dist`
    - Root directory: `/`
 4. Save and deploy. Future pushes auto-deploy.
 
