@@ -185,7 +185,7 @@
       <tr>
         <td><strong>Pipeline re-run</strong> on existing projects</td>
         <td><span class="freq-badge quarterly">Quarterly</span></td>
-        <td>Re-run Project Tester on all active team-facing projects. Catch any drift from KB updates or instruction decay.</td>
+        <td>Re-run Run Test Cases on all active team-facing projects. Catch any drift from KB updates or instruction decay.</td>
         <td>1-2 hrs total</td>
       </tr>
       <tr>
@@ -231,7 +231,7 @@
       <pre class="prompt-block">Fix my project. Blueprint at project-blueprints/[project-name]/. Issue: [describe what the tool did wrong]. The correct behavior should be: [describe what it should have done]. Here is the actual bad response: [paste it].</pre>
       <p><strong>3. Apply the fix.</strong> Project Feedback will give you the exact text to add, remove, or replace in <code>instructions.md</code>. Make the change in the file AND re-paste the updated instructions into the live workspace/project.</p>
       <p><strong>4. Increment the version.</strong> Update the version number in <code>handoff.md</code> (v1.0 - v1.1 - etc.) and note what changed.</p>
-      <p><strong>5. Re-run Project Tester.</strong> Confirm the fix worked and did not break anything that was previously passing.</p>
+      <p><strong>5. Re-run Run Test Cases.</strong> Confirm the fix worked and did not break anything that was previously passing.</p>
       <p><strong>6. Training doc drift is handled automatically.</strong> When The Architect's own instructions.md is updated, or another flagship project's instructions.md changes, The Architect runs a training doc drift check as part of the standard process - scanning Training Materials for affected references and auto-applying clear-drift fixes (rename passes, path corrections, callout updates). It surfaces only judgment-call drift to Adam (structural rewrites, contested changes). No manual maintenance pass is required for routine drift.</p>
     </div>
   </div>
@@ -277,13 +277,13 @@
   <!-- RE-RUNNING THE PIPELINE -->
   <div id="pipeline"></div>
   <div class="section-title">Re-running the Pipeline on Existing Projects</div>
-  <div class="section-intro">Quarterly, run Project Tester against all active team-facing projects. This catches instruction decay - where behaviors that once passed start failing due to accumulated small changes or context updates.</div>
+  <div class="section-intro">Quarterly, run Run Test Cases against all active team-facing projects. This catches instruction decay - where behaviors that once passed start failing due to accumulated small changes or context updates.</div>
 
   <div class="proc-card">
     <div class="proc-card-header">&#128300; Quarterly pipeline re-run process</div>
     <div class="proc-card-body">
       <p><strong>1. List active projects.</strong> Open <code>context-agent-registry.md</code> (workspace root) and identify all projects with Status = Active that are deployed to Claude.ai or Both (team-facing).</p>
-      <p><strong>2. Run Project Tester on each one.</strong> Open The Architect (or any Cowork session with the project-tester skill enabled) and run a batch test for each project. Save the new report - it supersedes the previous one.</p>
+      <p><strong>2. Run Run Test Cases on each one.</strong> Open The Architect (or any Cowork session with the run-test-cases skill enabled) and run a batch test for each project. Save the new report - it supersedes the previous one.</p>
       <div class="prompt-label">Prompt:</div>
       <pre class="prompt-block">Test my project. The blueprint is at project-blueprints/[project-name]/. Run all 10 test cases in batch mode and give me a full pass/fail report. Save the report as project-blueprints/[project-name]/test-report-[today's date].md</pre>
       <p><strong>3. Fix any failures.</strong> For any project scoring below 8/10, run Project Feedback on the failures. Apply fixes, increment versions, re-test to confirm.</p>
@@ -362,7 +362,7 @@
 <div class="warning-item">
     <div class="warning-title">A project in the registry has no test-report file or a test report older than 6 months</div>
     <div class="warning-desc">The project may never have been formally validated, or it has not been tested since significant changes were made.</div>
-    <div class="warning-action">Action: add to the next quarterly pipeline re-run queue, or run Project Tester on it this week if it is a team-facing tool.</div>
+    <div class="warning-action">Action: add to the next quarterly pipeline re-run queue, or run Run Test Cases on it this week if it is a team-facing tool.</div>
   </div>
 
   <div class="callout green" style="margin-top:24px;">

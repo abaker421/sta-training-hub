@@ -306,7 +306,7 @@
     <div class="pipeline-step">
       <div class="pipeline-num green">3</div>
       <div class="pipeline-name">Test</div>
-      <div class="pipeline-tool">Project Tester</div>
+      <div class="pipeline-tool">Run Test Cases</div>
     </div>
     <div class="pipeline-step">
       <div class="pipeline-num orange">4</div>
@@ -321,7 +321,7 @@
   </div>
 
   <div class="callout blue">
-    <strong>All pipeline tools are in Cowork.</strong> The Architect is a Cowork project. Project Tester and Project Feedback are Cowork skills (auto-loaded by trigger phrases). All admin-only - regular staff do not have access.
+    <strong>All pipeline tools are in Cowork.</strong> The Architect is a Cowork project. Run Test Cases and Project Feedback are Cowork skills (auto-loaded by trigger phrases). All admin-only - regular staff do not have access.
   </div>
 
   <!-- STEP 1 -->
@@ -419,26 +419,26 @@
         </tbody>
       </table>
 
-      <p style="margin-top:12px;">After deploying, <strong>do not</strong> set Status to Active in the registry yet - that happens in Step 5 after Project Tester confirms tests pass.</p>
+      <p style="margin-top:12px;">After deploying, <strong>do not</strong> set Status to Active in the registry yet - that happens in Step 5 after Run Test Cases confirms tests pass.</p>
     </div>
   </div>
 
   <!-- STEP 3 -->
   <div id="step3"></div>
-  <div class="section-title">Step 3 - Test with Project Tester</div>
+  <div class="section-title">Step 3 - Test with Run Test Cases</div>
 
   <div class="build-step">
     <div class="build-step-header">
       <div class="build-step-num green">3</div>
       <div class="build-step-title">Run the 10 test cases and get a pass/fail report</div>
-      <div class="build-step-tool">Project Tester</div>
+      <div class="build-step-tool">Run Test Cases</div>
     </div>
     <div class="build-step-body">
-      <p>Open <strong>The Architect</strong> (or any Cowork session with the project-tester skill enabled) and trigger Project Tester by saying "test my project." Point it at the blueprint folder. It reads <code>instructions.md</code> and <code>test-cases.md</code>, runs all 10 cases (batch or walkthrough mode), and produces a report with pass/fail results and specific failure details.</p>
+      <p>Open <strong>The Architect</strong> (or any Cowork session with the run-test-cases skill enabled) and trigger Run Test Cases by saying "test my project." Point it at the blueprint folder. It reads <code>instructions.md</code> and <code>test-cases.md</code>, runs all 10 cases (batch or walkthrough mode), and produces a report with pass/fail results and specific failure details.</p>
       <div class="prompt-label">Exact prompt:</div>
       <pre class="prompt-block">Test my project. The blueprint is at project-blueprints/[project-name]/. Run all 10 test cases in batch mode and give me a full pass/fail report. Save the report as project-blueprints/[project-name]/test-report-[today's date].md</pre>
       <p>A pass rate of 8/10 or higher is the target before going live with a team-facing tool. For admin-only tools, 7/10 is acceptable if the failures are edge cases.</p>
-      <p>Project Tester checks the v3.0 timing rule automatically: if test-cases.md and instructions.md were produced against different versions, it flags the mismatch before running.</p>
+      <p>Run Test Cases checks the v3.0 timing rule automatically: if test-cases.md and instructions.md were produced against different versions, it flags the mismatch before running.</p>
       <div class="outputs-label">Saved to <code>project-blueprints/[project-name]/</code></div>
       <div class="output-pills">
         <span class="output-pill">test-report-[date].md</span>
@@ -461,7 +461,7 @@
       <div class="prompt-label">Prompt format:</div>
       <pre class="prompt-block">Fix my project. Blueprint at project-blueprints/[project-name]/. Issue: [paste the failure or describe the bad behavior]. The correct behavior should be: [describe what should have happened].</pre>
       <p>After applying the fix, re-paste the updated instructions into the deployed workspace or project. Increment the version in the instructions.md changelog and in <code>handoff.md</code> (v1.0 - v1.1 - etc.).</p>
-      <p>If the fix changes test coverage, take the updated instructions back to The Architect and ask it to run the Test Case Update workflow. The Architect compares the changelog entry to the existing test cases and produces a revised <code>test-cases.md</code> with [UPDATED] and [NEW] markers. Re-run Project Tester after.</p>
+      <p>If the fix changes test coverage, take the updated instructions back to The Architect and ask it to run the Test Case Update workflow. The Architect compares the changelog entry to the existing test cases and produces a revised <code>test-cases.md</code> with [UPDATED] and [NEW] markers. Re-run Run Test Cases after.</p>
       <p>Repeat until you hit your target pass rate.</p>
     </div>
   </div>
@@ -479,7 +479,7 @@
     <div class="build-step-body">
       <p>Once the project passes testing, do the following in order:</p>
       <p><strong>1. Apply the registry entry.</strong> Open <code>The Architect/context-agent-registry.md</code> and append (or update) the row from <code>project-blueprints/[project-name]/registry-entry.md</code>. Status moves from Draft to Active here.</p>
-      <p><strong>2. Finalize handoff.md.</strong> Confirm Status = Active, Current Version matches the deployed version, Testing row reflects the project-tester report, and all open USER TO PROVIDE markers are resolved.</p>
+      <p><strong>2. Finalize handoff.md.</strong> Confirm Status = Active, Current Version matches the deployed version, Testing row reflects the run-test-cases report, and all open USER TO PROVIDE markers are resolved.</p>
       <p><strong>3. Update AI System Reference.md</strong> if the new project changes anything about how the system works or introduces a new tool type.</p>
       <p><strong>4. If the project has a knowledge base dependency</strong>, confirm the relevant module exists in <code>knowledge-base/index.md</code> and that the context file uploaded to the project is current.</p>
       <div class="callout blue" style="margin-top:12px;">
@@ -539,8 +539,8 @@
       <tr>
         <td><code>test-report-[date].md</code></td>
         <td><code>project-blueprints/[name]/</code></td>
-        <td>Most recent Project Tester run results</td>
-        <td>After each Project Tester run (supersedes prior reports)</td>
+        <td>Most recent Run Test Cases run results</td>
+        <td>After each Run Test Cases run (supersedes prior reports)</td>
       </tr>
       <tr>
         <td><code>context-tone-reference.md</code></td>
@@ -574,7 +574,7 @@
 
   <div class="pitfall">
     <div class="pitfall-title">Deploying before testing</div>
-    <div class="pitfall-desc">Skipping Project Tester because "it seems fine" is how tools end up with subtle but consistent failures that erode user trust. Always run at least a batch test before going live with a team-facing project.</div>
+    <div class="pitfall-desc">Skipping Run Test Cases because "it seems fine" is how tools end up with subtle but consistent failures that erode user trust. Always run at least a batch test before going live with a team-facing project.</div>
   </div>
 
   <div class="pitfall">
@@ -584,7 +584,7 @@
 
   <div class="pitfall">
     <div class="pitfall-title">Skipping the Test Case Update workflow after a fix</div>
-    <div class="pitfall-desc">When Project Feedback fixes a bug, the existing test cases may not cover the new behavior. Take the updated instructions back to The Architect and run Test Case Update mode - it produces a revised test-cases.md with [UPDATED] and [NEW] markers. Then re-run Project Tester. Don't rely on the old test cases.</div>
+    <div class="pitfall-desc">When Project Feedback fixes a bug, the existing test cases may not cover the new behavior. Take the updated instructions back to The Architect and run Test Case Update mode - it produces a revised test-cases.md with [UPDATED] and [NEW] markers. Then re-run Run Test Cases. Don't rely on the old test cases.</div>
   </div>
 
   <div class="pitfall">

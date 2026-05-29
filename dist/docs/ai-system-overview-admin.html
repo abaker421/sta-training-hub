@@ -359,7 +359,7 @@
       <div class="ws-name">Project Tester (Deep)</div>
       <div class="ws-tag gray">Draft - QA engineering</div>
       <p><strong>Planned for:</strong> Adam's QA engineer for Architect-built projects - behavioral compliance testing (LLM-as-judge, temperature=0), adversarial red-team (OWASP LLM Top 10), code artifact execution, regression comparison across versions.</p>
-      <p><strong>Supersedes:</strong> the Project Tester skill for deep structured testing; skill remains for quick simulation checks.</p>
+      <p><strong>Supersedes:</strong> the Run Test Cases skill for deep structured testing; skill remains for quick simulation checks.</p>
       <div class="ws-meta">
         <strong>Context files:</strong> <code>context-behavioral-testing.md</code>, <code>context-adversarial-testing.md</code>, <code>context-qa-engineering.md</code>, <code>context-test-harness.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/project-tester/</code>
       </div>
@@ -385,7 +385,7 @@
     <div class="pipeline-step">
       <div class="pipeline-num green">3</div>
       <div class="pipeline-name">Test</div>
-      <div class="pipeline-tool">Project Tester</div>
+      <div class="pipeline-tool">Run Test Cases</div>
     </div>
     <div class="pipeline-step">
       <div class="pipeline-num orange">4</div>
@@ -410,7 +410,7 @@
 
   <h3 style="font-size:13px; margin: 8px 0; color: var(--gray); text-transform:uppercase; letter-spacing:0.7px;">Custom skills (Adam-built)</h3>
   <div class="skills-grid">
-    <div class="skill-item"><div class="skill-name">Project Tester</div><div class="skill-desc">Runs 10 test cases against instructions.md. Pass/fail report with exact-text fixes.</div><div class="skill-trigger">"test my project", "run the tests"</div></div>
+    <div class="skill-item"><div class="skill-name">Run Test Cases</div><div class="skill-desc">Runs 10 test cases against instructions.md. Pass/fail report with exact-text fixes.</div><div class="skill-trigger">"test my project", "run the tests"</div></div>
     <div class="skill-item"><div class="skill-name">Project Feedback</div><div class="skill-desc">Diagnoses live-project misbehavior; identifies root cause in instructions.md and produces exact-text fix with version bump.</div><div class="skill-trigger">"my project isn't working right"</div></div>
     <div class="skill-item"><div class="skill-name">Prompt Evaluator</div><div class="skill-desc">Scored HTML quality report saved as a Cowork artifact (one per evaluated version, id <code>eval_[prompt-name]_v[X_Y]</code>). Reference-doc grounded.</div><div class="skill-trigger">"evaluate this prompt", "score my prompt"</div></div>
     <div class="skill-item"><div class="skill-name">Skill Evaluator</div><div class="skill-desc">Scores a SKILL.md against Anthropic skill-authoring frameworks; HTML artifact output.</div><div class="skill-trigger">"evaluate this skill", "score my skill"</div></div>
