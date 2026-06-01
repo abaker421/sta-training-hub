@@ -79,6 +79,15 @@
   .faq-q { padding: 14px 18px; font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--border); }
   .faq-a { padding: 12px 18px; font-size: 13px; color: #444; line-height: 1.6; }
 
+  /* ===== AI Basics ===== */
+  .basics-grid { display: flex; flex-direction: column; gap: 14px; max-width: 640px; }
+  .basics-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.08); padding: 20px 22px; }
+  .basics-card h4 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 700; color: var(--blue); }
+  .basics-card p { margin: 0; color: var(--dark); line-height: 1.6; }
+  .basics-eg { margin-top: 10px !important; font-size: .9rem; color: var(--gray); }
+  .basics-eg strong { color: var(--blue); font-weight: 600; }
+
   .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
   .footer strong { color: rgba(255,255,255,0.8); }
 
@@ -253,6 +262,43 @@
 
   <div class="callout orange" style="margin-top: 8px;">
     <strong>If the first response isn't quite right:</strong> Don't start over. Stay in the same conversation and say exactly what's wrong — "too formal," "missing the part about X," "this is for a superintendent, not a teacher." It gets better fast when you're specific.
+  </div>
+
+
+  <!-- AI BASICS -->
+  <div class="section-title">AI basics</div>
+  <p class="section-intro">New to working with AI? Start here. Ten quick concepts that make everything else make sense.</p>
+  <div class="basics-grid">
+    <div class="basics-card"><h4>1. How to actually use AI chat</h4>
+      <p>It's a conversation, not a search box. Don't type keywords, talk to it in full sentences: give it the task and the material, then refine with follow-ups like "make it shorter" or "you missed X."</p>
+      <p class="basics-eg"><strong>STA example:</strong> instead of "customer refund angry," say "Draft a reply to this upset customer asking for a refund" and paste the actual email.</p></div>
+    <div class="basics-card"><h4>2. What an AI can and can't do</h4>
+      <p>Strong at drafting, rewriting, summarizing, explaining, and brainstorming. Weak at exact facts, math, dates, and anything current, and it can sound confident while being wrong. Use it for the first draft, then you check the facts.</p>
+      <p class="basics-eg"><strong>STA example:</strong> great for drafting a KB article; double-check any version numbers or specs it states.</p></div>
+    <div class="basics-card"><h4>3. What a prompt is</h4>
+      <p>A prompt is just what you type to the AI, your request plus whatever it needs to do the job. Better prompts get better answers, which is what the Three-Ingredient Formula (what + context + format) is for.</p>
+      <p class="basics-eg"><strong>STA example:</strong> "what" = draft a reply; "context" = the pasted email; "format" = under five sentences.</p></div>
+    <div class="basics-card"><h4>4. What is context</h4>
+      <p>Context is everything the AI can see right now: your messages, anything you've pasted, and the project's setup files. It knows nothing outside that window. If it didn't see it, it doesn't know it.</p>
+      <p class="basics-eg"><strong>STA example:</strong> pasting the actual time-clock error gets a far better answer than describing it from memory.</p></div>
+    <div class="basics-card"><h4>5. How AI memory works</h4>
+      <p>A plain chat doesn't remember past conversations, each new chat starts blank. A Project keeps its setup files loaded every time, so the tool always knows STA basics, but it still won't recall what you typed yesterday unless it's saved in the project. That's why you re-paste the email or case each time.</p>
+      <p class="basics-eg"><strong>STA example:</strong> Support Expert always knows the never-fabricate rule, but won't remember last week's ticket.</p></div>
+    <div class="basics-card"><h4>6. When to start a new chat vs keep going</h4>
+      <p>Keep going while you're on the same task, the AI uses the whole conversation as context. Start a fresh chat when you switch topics, or when it gets confused and keeps repeating a mistake. A clean chat clears the clutter.</p>
+      <p class="basics-eg"><strong>STA example:</strong> finished a customer reply and moving to a time-clock issue? Start a new chat.</p></div>
+    <div class="basics-card"><h4>7. Why it sometimes makes things up</h4>
+      <p>When an AI doesn't know something, it can fill the gap with a confident-sounding guess, this is called a "hallucination." It's why every STA tool has the NEVER FABRICATE rule, and why you verify facts before sending.</p>
+      <p class="basics-eg"><strong>STA example:</strong> if it cites a setting or price you can't confirm, treat it as a guess until you check.</p></div>
+    <div class="basics-card"><h4>8. How to give feedback or fix a bad answer</h4>
+      <p>If an answer misses, just tell it what's wrong and it'll redo it: "that's too formal" or "wrong product name, it's X." You can also thumbs-down a response. Don't start over from scratch, correcting in place is faster and usually works.</p>
+      <p class="basics-eg"><strong>STA example:</strong> "Good, but cut the apology paragraph and make it friendlier."</p></div>
+    <div class="basics-card"><h4>9. Project vs chat vs Cowork</h4>
+      <p>A plain chat is a one-off conversation with no setup, fine for a quick personal question. A Project is a chat pre-loaded with STA instructions and reference files, so it already knows how we work, this is what you use daily (AI Advisor, Support Expert, the Salesforce Cohort). Cowork is the advanced desktop app that can work with files on your computer and run automations; it's limited to admins and power users.</p>
+      <p class="basics-eg"><strong>STA example:</strong> ask a quick wording question in a plain chat, but do real support work in the Support Expert Project.</p></div>
+    <div class="basics-card"><h4>10. What Markdown (.md) files are</h4>
+      <p>Markdown is plain text with light formatting, # for headings, dashes for bullets, **bold**, and it opens in any text editor with no special program. AI tools read and write it because it's clean and simple.</p>
+      <p class="basics-eg"><strong>STA example:</strong> a Project's context/setup files are .md files, and some skills hand back .md output.</p></div>
   </div>
 
 
