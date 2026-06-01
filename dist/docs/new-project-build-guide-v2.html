@@ -341,7 +341,7 @@
 
       <div class="wave-block">
         <div class="wave-label">Wave 1 - the prompt wave (produced first)</div>
-        The Architect saves <code>blueprint-summary.md</code>, <code>instructions.md</code>, any context files needed, and <code>backlog.md</code> (a lightweight tracker for future enhancement ideas, with Active and Implemented sections). Production-ready, not a draft. While iterating, you can ask The Architect to run the <code>prompt-evaluator</code> skill on instructions.md - it returns a scored HTML eval as a Cowork artifact (id <code>eval_[prompt-name]_v[X_Y]</code>, one per evaluated version) per the v4.0 eval-output rule. Fallback to HTML write under <code>The Architect/Evaluations/[project-name]/</code> only if artifact tools are unavailable.
+        The Architect saves <code>blueprint-summary.md</code>, <code>instructions.md</code>, any context files needed, and <code>backlog.md</code> (a lightweight tracker for future enhancement ideas, with Active and Implemented sections). Production-ready, not a draft. While iterating, you can ask The Architect to run the <code>prompt-evaluator</code> skill on instructions.md - it returns a scored HTML eval saved as a real <code>.html</code> file (not a Cowork artifact) under <code>The Architect/prompt-evaluation/[Project Name]/[Project Name] v[X.Y].html</code>, one folder per project/Cowork and one file per version (per the v6.16 eval-output rule).
       </div>
 
       <div class="wave-block gate">
@@ -555,9 +555,9 @@
         <td>When a project is added, deprecated, or significantly changed</td>
       </tr>
       <tr>
-        <td>Cowork artifact <code>eval_[prompt-name]_v[X_Y]</code> (legacy: <code>eval-[date]-v[X.X].html</code>)</td>
-        <td>Cowork artifact list (legacy: <code>The Architect/Evaluations/[name]/</code>)</td>
-        <td>Optional prompt-evaluator score report. v4.0+ creates one Cowork artifact per evaluated version (persistent history). Fallback HTML write only if artifact tools unavailable.</td>
+        <td><code>[Project Name] v[X.Y].html</code></td>
+        <td><code>The Architect/prompt-evaluation/[Project Name]/</code> (one folder per project/Cowork)</td>
+        <td>Optional prompt-evaluator score report. v6.16+ saves a real <code>.html</code> file per evaluated version (the folder is the persistent history); not a Cowork artifact.</td>
         <td>Run during Step 1 iteration if useful for grading the prompt before confirming final.</td>
       </tr>
     </tbody>
