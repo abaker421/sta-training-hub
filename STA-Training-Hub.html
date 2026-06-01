@@ -78,12 +78,11 @@
   .card-recommended { border-top: 3px solid var(--green); }
   .card-optional { border-top: 3px solid var(--gray); }
   .card-admin { border-top: 3px solid var(--orange); }
+  .card-wip { border-top: 3px solid #6c3dbf; }
 
   .card-head { display: flex; align-items: flex-start; gap: 10px; }
-  .card-icon { font-size: 18pt; flex-shrink: 0; line-height: 1; margin-top: 2px; }
   .card-titleblock { flex: 1; min-width: 0; }
   .card-title { font-size: 11pt; font-weight: 700; color: var(--dark); line-height: 1.3; }
-  .card-filename { font-size: 8pt; color: var(--gray); margin-top: 3px; font-family: 'SF Mono', Monaco, monospace; word-break: break-all; }
   .card-fav { background: none; border: none; cursor: pointer; padding: 2px 4px; border-radius: 3px; font-size: 14px; line-height: 1; color: #ccc; transition: color .12s, background .12s; flex-shrink: 0; }
   .card-fav:hover { color: #f0b429; background: rgba(240,180,41,0.1); }
   .card-fav.active { color: #f0b429; }
@@ -97,6 +96,7 @@
   .pill-optional { background: var(--light); color: var(--gray); border: 1px solid var(--border); }
   .pill-live { background: #edf7e6; color: var(--green-dark); border: 1px solid #b8e0a0; }
   .pill-coming { background: #f0eafd; color: #6c3dbf; border: 1px solid #d0b8f0; }
+  .pill-wip { background: #f0eafd; color: #6c3dbf; border: 1px solid #d0b8f0; }
   .pill-html { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
   .pill-docx { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
   .pill-md { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
@@ -215,6 +215,14 @@ window.TRAINING_DATA = {
         {
           heading: 'Recommended Day 1',
           docs: ['quick-ref', 'better-results', 'onboarding-deck']
+        },
+        {
+          heading: 'Tool brief',
+          docs: ['ai-advisor']
+        },
+        {
+          heading: 'Coming Soon',
+          docs: ['behind-the-bell', 'sta-main-chat']
         }
       ]
     },
@@ -222,19 +230,11 @@ window.TRAINING_DATA = {
       id: 'support',
       title: 'Support Team',
       icon: '\u{1F3A7}',
-      sub: 'For Chris Baker and Tyler Baughman. Tools, briefs, and the rollout email for Support Expert.',
+      sub: 'For Chris Baker and Tyler Baughman. Your tool briefs for Support Expert and the time clock log review. New here? Start on the Start Here tab first.',
       sections: [
         {
-          heading: 'Required before first use',
-          docs: ['aup', 'restricted-data', 'getting-started']
-        },
-        {
-          heading: 'Tool brief',
-          docs: ['support-chat-brief']
-        },
-        {
-          heading: 'Recommended Day 1',
-          docs: ['quick-ref', 'better-results', 'tools-reference']
+          heading: 'Tool briefs',
+          docs: ['support-chat-brief', 'ai-advisor', 'time-clock']
         }
       ]
     },
@@ -242,19 +242,15 @@ window.TRAINING_DATA = {
       id: 'sf-admins',
       title: 'Salesforce Admins',
       icon: '\u{1F4CA}',
-      sub: 'For Tanya Ballard, Joanie Preston, Kelsey Eberly, Adam Baker. School Tech Salesforce Cohort kit + the intake doc you fill out together.',
+      sub: 'For Tanya Ballard, Joanie Preston, Kelsey Eberly, Adam Baker. Your School Tech Salesforce Cohort kit. New here? Start on the Start Here tab first.',
       sections: [
-        {
-          heading: 'Required before first use',
-          docs: ['aup', 'restricted-data', 'getting-started']
-        },
         {
           heading: 'Cohort kit',
           docs: ['cohort-getting-started', 'sf-org-intake']
         },
         {
-          heading: 'Recommended Day 1',
-          docs: ['quick-ref', 'better-results', 'tools-reference']
+          heading: 'Tool brief',
+          docs: ['ai-advisor']
         }
       ]
     },
@@ -264,6 +260,10 @@ window.TRAINING_DATA = {
       icon: '\u{1F527}',
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
+        {
+          heading: 'Tool brief',
+          docs: ['ai-advisor']
+        },
         {
           heading: 'System reference',
           docs: ['system-overview', 'user-management', 'maintenance-sop']
@@ -287,8 +287,7 @@ window.TRAINING_DATA = {
     // ===== Policies =====
     'aup': {
       title: 'AI Acceptable Use Policy',
-      icon: '\u{1F4DC}',
-      desc: 'Official School Tech policy governing how AI tools may and may not be used. Required reading and acknowledgment before account activation.',
+      desc: 'The rules for using AI at School Tech. Read and acknowledge this before your account is switched on.',
       file: 'docs/ai-acceptable-use-policy.html',
       type: 'html',
       priority: 'required',
@@ -296,8 +295,7 @@ window.TRAINING_DATA = {
     },
     'restricted-data': {
       title: 'AI Restricted Data Reference Guide',
-      icon: '\u{1F6E1}\u{FE0F}',
-      desc: 'Practical reference for what data cannot be pasted into AI tools - student PII, HR data, financial info, credentials. Required reading.',
+      desc: 'What you can never paste into an AI tool - student PII, HR, financials, passwords. Check here before you share anything.',
       file: 'docs/ai-restricted-data-reference-guide.html',
       type: 'html',
       priority: 'required',
@@ -307,8 +305,7 @@ window.TRAINING_DATA = {
     // ===== Staff core =====
     'getting-started': {
       title: 'Getting Started Guide',
-      icon: '\u{1F4D6}',
-      desc: 'Primary onboarding doc for all staff. Five-step walkthrough covering login, what tools are live, what to expect, the one data rule, suggested first conversations, FAQ.',
+      desc: 'Your first stop: login, what is live, the one data rule, and your first conversations. Read this before anything else.',
       file: 'docs/getting-started-guide.html',
       type: 'html',
       priority: 'required',
@@ -316,8 +313,7 @@ window.TRAINING_DATA = {
     },
     'quick-ref': {
       title: 'Quick Reference Card',
-      icon: '\u{26A1}',
-      desc: 'Single-page cheat sheet: login steps, what is live and coming, the three-ingredient formula, data rules, fix-it phrases. Designed for printing or keeping in a browser tab.',
+      desc: 'One-page cheat sheet to print or pin in a tab - login steps, the prompt formula, data rules, and fix-it phrases.',
       file: 'docs/quick-reference-card.html',
       type: 'html',
       priority: 'recommended',
@@ -325,8 +321,7 @@ window.TRAINING_DATA = {
     },
     'better-results': {
       title: 'Getting Better Results',
-      icon: '\u{1F3AF}',
-      desc: 'Prompting technique guide with School Tech-flavored examples (TT7 clocks, Skyward renewal, customer email rewrites). Six common mistakes and quick-reference table for what to say when.',
+      desc: 'How to write prompts that actually work, with School Tech examples. Open this when the answers feel off.',
       file: 'docs/getting-better-results.html',
       type: 'html',
       priority: 'recommended',
@@ -334,8 +329,7 @@ window.TRAINING_DATA = {
     },
     'tools-reference': {
       title: 'Staff AI Tools Reference',
-      icon: '\u{1F527}',
-      desc: 'Full reference for the three live tools (AI Advisor, Support Expert, School Tech Salesforce Cohort) plus the Coming Soon roadmap, complete data rules, and the routing table.',
+      desc: 'The full rundown of the three live tools plus what is coming, with a routing table for which to use when.',
       file: 'docs/staff-ai-tools-reference.html',
       type: 'html',
       priority: 'recommended',
@@ -345,8 +339,7 @@ window.TRAINING_DATA = {
     // ===== Per-tool briefs =====
     'support-chat-brief': {
       title: 'Support Expert - Getting Started',
-      icon: '\u{1F4DD}',
-      desc: 'Per-tool brief for the Support team. NEVER FABRICATE hard rule, source-label taxonomy (Context-confirmed / Training / Verify / Cannot confirm), 16 product context files, access steps, five starter prompts, escalation table.',
+      desc: 'Everything the Support team needs to run Support Expert - the never-fabricate rule, source labels, and starter prompts.',
       file: 'docs/sta-support-chat-getting-started.html',
       type: 'html',
       priority: 'required',
@@ -354,8 +347,7 @@ window.TRAINING_DATA = {
     },
     'cohort-getting-started': {
       title: 'School Tech Salesforce Cohort - Getting Started',
-      icon: '\u{1F4CA}',
-      desc: 'Per-tool brief for the SF Cohort. How the shared assistant works, the source-label taxonomy, when to route heavy Flows back to Adam, who the cohort tiles are for.',
+      desc: 'How the shared Salesforce assistant works and when to route heavy Flows back to Adam. Read before your first cohort session.',
       file: 'docs/cohort-getting-started.html',
       type: 'html',
       priority: 'required',
@@ -363,19 +355,33 @@ window.TRAINING_DATA = {
     },
     'sf-org-intake': {
       title: 'School Tech Salesforce Org Intake',
-      icon: '\u{1F4DD}',
-      desc: 'Short workflow-focused intake. Each Salesforce admin downloads their own copy, fills out four prose questions (about 10 minutes), and returns it to Adam. Drives the School Tech Salesforce Cohort context file.',
+      desc: 'Download, answer four short questions (~10 min), and send it back to Adam. It powers the Cohort assistant for your org.',
       file: 'files/sta-salesforce-org-intake.docx',
       type: 'docx',
       priority: 'recommended',
       tags: ['Intake']
     },
+    'ai-advisor': {
+      title: 'AI Advisor - Getting Started',
+      desc: 'Your starting point for AI at School Tech. Talk through workflows, see what tools exist, and frame ideas to bring to Adam.',
+      file: 'docs/ai-advisor-getting-started.html',
+      type: 'html',
+      priority: 'recommended',
+      tags: ['Tool Brief']
+    },
+    'time-clock': {
+      title: 'Time Clock Error Log Review',
+      desc: 'Upload a clock’s log files and get a structured root-cause diagnosis. Use it for any TT3/TT7/TT10 clock malfunction.',
+      file: 'docs/time-clock-error-log-review-brief.html',
+      type: 'html',
+      priority: 'recommended',
+      tags: ['Tool Brief']
+    },
 
     // ===== Rollout & admin =====
     'rollout-plan': {
       title: 'AI Rollout Plan v2.0',
-      icon: '\u{1F680}',
-      desc: 'Phased rollout strategy reflecting actual May 2026 state. Phase 0 complete, Phase 1 active for the 5-person cohort, Phase 2 use case discovery, Phase 3 integrations conditional. Tools table, security risk table, roles and responsibilities.',
+      desc: 'Where the AI rollout actually stands and what comes next. Read for the big-picture phase plan.',
       file: 'docs/ai-rollout-plan.html',
       type: 'html',
       priority: 'admin',
@@ -383,8 +389,7 @@ window.TRAINING_DATA = {
     },
     'system-overview': {
       title: 'AI System Overview',
-      icon: '\u{1F30D}',
-      desc: 'Single canonical system map. Claude.ai Projects, Cowork workspaces, personal projects, build pipeline, skills, automations, key files, deprecated tools. Updated to The Architect v6.0.',
+      desc: 'The canonical map of every AI tool, project, and automation. Start here to see how the whole system fits together.',
       file: 'docs/ai-system-overview-admin.html',
       type: 'html',
       priority: 'admin',
@@ -392,8 +397,7 @@ window.TRAINING_DATA = {
     },
     'user-management': {
       title: 'User Management Guide',
-      icon: '\u{1F465}',
-      desc: 'How to add, onboard, promote, and offboard users from the AI system. Three access levels, invite workflow, onboarding checklist, ready-to-send welcome email template, promotion path, offboarding checklist, troubleshooting.',
+      desc: 'How to add, onboard, promote, and offboard users - includes a ready-to-send welcome email.',
       file: 'docs/user-management-guide.html',
       type: 'html',
       priority: 'admin',
@@ -401,8 +405,7 @@ window.TRAINING_DATA = {
     },
     'maintenance-sop': {
       title: 'Maintenance SOP',
-      icon: '\u{1F551}',
-      desc: 'Ongoing maintenance schedule and procedures. Automated tasks, drift detection, context file updates, quarterly pipeline re-run, KB update cycle, warning signs.',
+      desc: 'The ongoing upkeep schedule: automated tasks, drift checks, context updates, and warning signs to watch.',
       file: 'docs/maintenance-sop.html',
       type: 'html',
       priority: 'admin',
@@ -410,8 +413,7 @@ window.TRAINING_DATA = {
     },
     'build-guide': {
       title: 'New Project Build Guide',
-      icon: '\u{1F3D7}\u{FE0F}',
-      desc: 'Step-by-step guide for building a new AI project from scratch using The Architect pipeline. All five steps with exact prompts, Wave 1/Wave 2 gate, file map, deployment decision table.',
+      desc: 'Build a new AI project from scratch through The Architect, step by step with the exact prompts to paste.',
       file: 'docs/new-project-build-guide-v2.html',
       type: 'html',
       priority: 'admin',
@@ -419,8 +421,7 @@ window.TRAINING_DATA = {
     },
     'architect-case-study': {
       title: 'The Architect Case Study',
-      icon: '\u{1F4DA}',
-      desc: 'Deep-dive case study on The Architect pipeline. What the tool is, why it exists, how the pipeline is structured, modes, quality gates, live walkthrough of a real build.',
+      desc: 'A deep look at how The Architect pipeline works, walked through a real build. Read to understand the build engine.',
       file: 'docs/the-architect-case-study.html',
       type: 'html',
       priority: 'admin',
@@ -428,8 +429,7 @@ window.TRAINING_DATA = {
     },
     'google-security': {
       title: 'Google Access Security Checklist',
-      icon: '\u{1F510}',
-      desc: 'Interactive pre-authorization checklist before connecting Gmail, Drive, or Calendar to any AI tool. Required before Phase 3 Gmail integration.',
+      desc: 'Interactive checklist to clear before connecting Gmail, Drive, or Calendar to any AI tool.',
       file: 'docs/google-access-security-checklist.html',
       type: 'html',
       priority: 'admin',
@@ -437,8 +437,7 @@ window.TRAINING_DATA = {
     },
     'sf-security': {
       title: 'Salesforce Access Security Checklist',
-      icon: '\u{1F510}',
-      desc: 'Interactive pre-authorization checklist for connecting Claude to STA Salesforce. Required before Phase 3 SF MCP integration.',
+      desc: 'Interactive checklist to clear before connecting Claude to STA Salesforce.',
       file: 'docs/salesforce-access-security-checklist.html',
       type: 'html',
       priority: 'admin',
@@ -446,8 +445,7 @@ window.TRAINING_DATA = {
     },
     'drift-check': {
       title: 'Drift Check Procedure',
-      icon: '\u{1F50D}',
-      desc: 'Procedure The Architect runs when its own instructions, a flagship project, or the registry changes - scans training materials for affected references and applies fixes.',
+      desc: 'What The Architect does when instructions or the registry change, and how fixes ripple through the training materials.',
       file: 'docs/drift-check-procedure.md',
       type: 'md',
       priority: 'admin',
@@ -455,8 +453,7 @@ window.TRAINING_DATA = {
     },
     'formatting-standards': {
       title: 'Formatting Standards',
-      icon: '\u{1F4DD}',
-      desc: 'Internal style reference for HTML and markdown deliverables - typography, color tokens, layout rules. Reference when producing new training materials or case studies.',
+      desc: 'The house style for HTML and markdown deliverables. Reference it when building new training docs.',
       file: 'docs/formatting-standards.md',
       type: 'md',
       priority: 'admin',
@@ -464,8 +461,7 @@ window.TRAINING_DATA = {
     },
     'write-verification': {
       title: 'Write Verification Protocol',
-      icon: '\u{1F6E1}\u{FE0F}',
-      desc: 'Diagnostic and protocol doc from the 2026-05-02 truncation incident. Documents the post-write verification gate (Read tool only, never bash) used by The Architect.',
+      desc: 'Why the post-write verification gate exists and how it stops truncated files. Read after any write-tool incident.',
       file: 'docs/write-verification-protocol.md',
       type: 'md',
       priority: 'admin',
@@ -473,12 +469,29 @@ window.TRAINING_DATA = {
     },
     'onboarding-deck': {
       title: 'AI Tools Getting Started - Slides',
-      icon: '\u{1F39E}\u{FE0F}',
-      desc: '12-slide onboarding deck designed for a live 40-minute walkthrough with the team. Problem-first opening, login walkthrough, the three-ingredient formula, weak vs strong prompt comparison, the one data rule, cohort-tool note on Slide 6. Use for kickoff sessions with Phase 1 or Phase 2 staff.',
+      desc: '12-slide deck for a live 40-minute kickoff. Grab this when you are running a team walkthrough.',
       file: 'files/ai-tools-getting-started.pdf',
       type: 'pdf',
       priority: 'recommended',
       tags: ['Presentation', 'Onboarding']
+    },
+
+    // ===== Coming soon (WIP) =====
+    'behind-the-bell': {
+      title: 'Behind the Bell Assistant',
+      desc: 'Shared episode-prep assistant for the Behind the Bell hosts: guest research, prep packages, interview questions, and draft scripts. In build - launching soon.',
+      file: 'docs/behind-the-bell-coming-soon.html',
+      type: 'html',
+      priority: 'wip',
+      tags: ['Podcast Prep']
+    },
+    'sta-main-chat': {
+      title: 'STA Main Chat',
+      desc: 'A company-wide assistant grounded in how School Tech actually works. Launches once Tanya has each department’s workflow docs.',
+      file: 'docs/sta-main-chat-coming-soon.html',
+      type: 'html',
+      priority: 'wip',
+      tags: ['Company-wide']
     }
   }
 };
@@ -517,7 +530,7 @@ window.HELPFUL_LINKS = [
     items: [
       { name: 'STA Help Center Index', url: 'https://serene-kulfi-7acc0e.netlify.app/', desc: 'Quick lookup for KB articles by product - the React app this hub was modeled on.' },
       { name: 'STA Help Center (Salesforce)', url: 'https://schooltechnology.my.site.com/s/', desc: 'Official customer-facing knowledge base.' },
-      { name: 'Pinion.md', url: 'https://buildwithbaker.github.io/pinion-md/', desc: 'Clean web app for reading and writing markdown (.md) files on your work computer. Opens any .md file locally, renders it as a formatted document, or flips to edit mode to save in place. Installable as a PWA. No upload, no accounts, no tracking.' },
+      { name: 'Pinion.md', url: 'https://buildwithbaker.github.io/pinion-md/', desc: 'Read and edit markdown (.md) files locally in your browser.' },
     ]
   },
   {
@@ -808,10 +821,8 @@ function DocCard({ docId, doc, isFav, toggleFav, openDoc }) {
   return (
     <div className={`card ${priorityClass}`} onClick={handleClick} title={`Open ${doc.title}`}>
       <div className="card-head">
-        <div className="card-icon">{doc.icon || '\u{1F4C4}'}</div>
         <div className="card-titleblock">
           <div className="card-title">{doc.title}</div>
-          <div className="card-filename">{doc.file}</div>
         </div>
         <button
           className={`card-fav ${isFav ? 'active' : ''}`}
@@ -1035,3 +1046,4 @@ root.render(<App />);
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
