@@ -79,6 +79,7 @@
   .card-optional { border-top: 3px solid var(--gray); }
   .card-admin { border-top: 3px solid var(--orange); }
   .card-wip { border-top: 3px solid #6c3dbf; }
+  .card-skill { border-top: 3px solid #0d7d8c; }
 
   .card-head { display: flex; align-items: flex-start; gap: 10px; }
   .card-titleblock { flex: 1; min-width: 0; }
@@ -97,6 +98,7 @@
   .pill-live { background: #edf7e6; color: var(--green-dark); border: 1px solid #b8e0a0; }
   .pill-coming { background: #f0eafd; color: #6c3dbf; border: 1px solid #d0b8f0; }
   .pill-wip { background: #f0eafd; color: #6c3dbf; border: 1px solid #d0b8f0; }
+  .pill-skill { background: #e0f3f5; color: #0a6470; border: 1px solid #b3dfe5; }
   .pill-html { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
   .pill-docx { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
   .pill-md { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
@@ -221,6 +223,10 @@ window.TRAINING_DATA = {
           docs: ['ai-advisor']
         },
         {
+          heading: 'Skills',
+          docs: ['skill-html-checklist', 'skill-agent-quality-logger']
+        },
+        {
           heading: 'Coming Soon',
           docs: ['behind-the-bell', 'sta-main-chat']
         }
@@ -230,11 +236,15 @@ window.TRAINING_DATA = {
       id: 'support',
       title: 'Support Team',
       icon: '\u{1F3A7}',
-      sub: 'For Chris Baker and Tyler Baughman. Your tool briefs for Support Expert and the time clock log review. New here? Start on the Start Here tab first.',
+      sub: 'For Chris Baker and Tyler Baughman. Your tool briefs and the skills you use most. New here? Start on the Start Here tab first.',
       sections: [
         {
           heading: 'Tool briefs',
-          docs: ['support-chat-brief', 'ai-advisor', 'time-clock']
+          docs: ['support-chat-brief', 'ai-advisor']
+        },
+        {
+          heading: 'Skills',
+          docs: ['time-clock', 'skill-help-center-article']
         }
       ]
     },
@@ -251,6 +261,10 @@ window.TRAINING_DATA = {
         {
           heading: 'Tool brief',
           docs: ['ai-advisor']
+        },
+        {
+          heading: 'Skills',
+          docs: ['skill-help-center-article']
         }
       ]
     },
@@ -263,6 +277,10 @@ window.TRAINING_DATA = {
         {
           heading: 'Tool brief',
           docs: ['ai-advisor']
+        },
+        {
+          heading: 'Skills',
+          docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-prompt-override-guard', 'time-clock', 'skill-agent-quality-logger', 'skill-cowork-context-packager']
         },
         {
           heading: 'System reference',
@@ -374,8 +392,50 @@ window.TRAINING_DATA = {
       desc: 'Upload a clock’s log files and get a structured root-cause diagnosis. Use it for any TT3/TT7/TT10 clock malfunction.',
       file: 'docs/time-clock-error-log-review-brief.html',
       type: 'html',
-      priority: 'recommended',
-      tags: ['Tool Brief']
+      priority: 'skill',
+      tags: ['Time Clocks']
+    },
+
+    // ===== Custom skills (uploaded to the org) =====
+    'skill-help-center-article': {
+      title: 'Help Center Article',
+      desc: 'Turn a ticket fix or workflow into a polished STA Salesforce KB article, troubleshooting guide, or implementation doc.',
+      file: 'docs/skill-help-center-article.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Documentation']
+    },
+    'skill-html-checklist': {
+      title: 'HTML Checklist',
+      desc: 'Turn any process or document into a branded, interactive checklist with a live progress bar.',
+      file: 'docs/skill-html-checklist.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Productivity']
+    },
+    'skill-prompt-override-guard': {
+      title: 'Prompt Override Guard',
+      desc: 'Always-on protection inside every agent that blocks jailbreak and instruction-override attempts. Fires automatically.',
+      file: 'docs/skill-prompt-override-guard.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Security']
+    },
+    'skill-agent-quality-logger': {
+      title: 'Agent Quality Logger',
+      desc: 'Flag when an AI agent gets something wrong. Takes ~60 seconds and feeds the Monday health report.',
+      file: 'docs/skill-agent-quality-logger.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Feedback']
+    },
+    'skill-cowork-context-packager': {
+      title: 'Cowork Context Packager',
+      desc: 'Package content into a production-ready Cowork context file, with the routing trigger and instructions.md edit proposed for you.',
+      file: 'docs/skill-cowork-context-packager.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Build Pipeline']
     },
 
     // ===== Rollout & admin =====
@@ -1046,4 +1106,3 @@ root.render(<App />);
 </script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
