@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - Workspace & Skills Reference</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: var(--blue); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--green); }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.82; margin-top: 6px; max-width: 640px; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.65; }
+  h3.sub-h { font-size: 15px; font-weight: 700; margin: 22px 0 10px; color: var(--dark); }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+
+  pre.tree { background: var(--dark); color: #e7edf2; border-radius: 10px; padding: 18px 20px; font-family: 'SF Mono', Consolas, 'Roboto Mono', monospace; font-size: 12.5px; line-height: 1.55; overflow-x: auto; margin: 8px 0 4px; }
+  pre.tree .c { color: #9fb3c2; }
+  pre.tree .g { color: #9bd97a; }
+  pre.tree .b { color: #6cc0ee; }
+
+  table.ref { width: 100%; border-collapse: collapse; margin: 8px 0 4px; background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 13px; }
+  table.ref th { background: #f4f8fb; text-align: left; padding: 9px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--blue); border-bottom: 2px solid var(--border); }
+  table.ref td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; color: #333; }
+  table.ref td:first-child { white-space: nowrap; font-family: 'SF Mono', Consolas, monospace; font-size: 12px; color: var(--dark); font-weight: 600; }
+  table.ref tr:last-child td { border-bottom: none; }
+
+  .skill-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 10px; border-left: 3px solid var(--green); }
+  .skill-name { font-size: 14px; font-weight: 700; font-family: 'SF Mono', Consolas, monospace; color: var(--blue); }
+  .skill-desc { font-size: 13px; color: #444; margin-top: 4px; }
+  .skill-trig { font-size: 12px; color: var(--gray); margin-top: 6px; }
+  .skill-trig strong { color: #555; }
+  .grp { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gray); margin: 18px 0 8px; }
+
+  code.inline { background: #eef2f5; border-radius: 4px; padding: 1px 5px; font-family: 'SF Mono', Consolas, monospace; font-size: 12px; color: #234; }
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+  @media (max-width: 800px) { .page { padding: 20px 16px 60px; } .header { padding: 24px 16px; } }
+</style>
+</head>
+<body id="top">
+
+<div class="header">
+  <div class="header-inner">
+    <h1>AI Workspace &amp; Skills Reference</h1>
+    <div class="sub">How the AI system is organized on disk: The Architect workspace, the anatomy of a project blueprint, what a live Cowork project folder looks like, and every custom skill currently installed.</div>
+    <div class="badge">AI Admin · Not for general staff distribution</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="callout blue" style="margin-top: 4px;">
+    <strong>Two folders, two jobs.</strong> Every project has a <em>blueprint folder</em> (where The Architect designs and tracks it) and a separate <em>live Cowork folder</em> (where the project actually runs and stores working files). They are not the same place. This guide maps both.
+  </div>
+
+  <div style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 24px; margin-top: 20px;">
+    <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 12px;">Contents</div>
+    <ol style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 2;">
+      <li><a href="#sec-1" style="color: var(--blue); text-decoration: none;">The Architect Workspace Layout</a></li>
+      <li><a href="#sec-2" style="color: var(--blue); text-decoration: none;">Anatomy of a Project Blueprint</a></li>
+      <li><a href="#sec-3" style="color: var(--blue); text-decoration: none;">A Live (Non-Architect) Cowork Folder</a></li>
+      <li><a href="#sec-4" style="color: var(--blue); text-decoration: none;">Every Custom Skill</a></li>
+    </ol>
+  </div>
+
+
+  <!-- SECTION 1 -->
+  <div class="section-title" id="sec-1">1 — The Architect Workspace Layout</div>
+  <div class="section-intro">The Architect lives at <code class="inline">…\Documents\Claude\Projects\.STA Projects\The Architect\</code>. It is the single home for system maintenance — blueprints, the registry, knowledge base, training materials, and backups. Top-level layout:</div>
+
+<pre class="tree">The Architect/
+├── <span class="b">instructions.md</span>            <span class="c"># The Architect's own production prompt</span>
+├── <span class="b">changelog.md</span>               <span class="c"># version history (root-permitted file)</span>
+├── <span class="b">context-agent-registry.md</span>  <span class="c"># master list of every agent/project + status</span>
+├── <span class="b">context-path-reference.md</span>  <span class="c"># canonical path map (root-permitted file)</span>
+├── <span class="b">feedback-log.md</span>            <span class="c"># cross-project feedback log (root-permitted file)</span>
+├── <span class="g">project-blueprints/</span>        <span class="c"># one folder per project (see Section 2)</span>
+├── <span class="g">context-files/</span>            <span class="c"># shared/ (multi-project) + outputs/ (per-project)</span>
+├── <span class="g">knowledge-base/</span>           <span class="c"># Deep Research modules + index.md</span>
+├── <span class="g">Training Materials/</span>       <span class="c"># Training - Staff / Training - Admin (this doc)</span>
+├── <span class="g">Evaluations/</span>             <span class="c"># prompt-evaluator HTML output history</span>
+├── <span class="g">deliverables/</span>            <span class="c"># finished one-off outputs (reports, decks, checklists)</span>
+├── <span class="g">images/</span>                  <span class="c"># shared image assets (e.g. AI Training screenshots)</span>
+├── <span class="g">research-prompts/</span>        <span class="c"># deep-research commission prompts</span>
+├── <span class="g">system-monitor/</span>          <span class="c"># maintenance SOP + health-report context</span>
+└── <span class="g">_Backups/</span>               <span class="c"># skills/ (INDEX.md + per-skill backups), scheduled-tasks/</span></pre>
+
+  <h3 class="sub-h">Inside <code class="inline">project-blueprints/</code></h3>
+  <div class="section-intro">Mix of live project folders and dot-prefixed organizing buckets:</div>
+
+  <table class="ref">
+    <tr><th>Folder</th><th>What's in it</th></tr>
+    <tr><td>[project-name]/</td><td>A live project blueprint (e.g. <code class="inline">sta-support-expert/</code>, <code class="inline">help-center-advisor/</code>, <code class="inline">the-architect/</code>).</td></tr>
+    <tr><td>templates/</td><td>Canonical templates only — instructions example, blueprint-summary, handoff, project-launch, eval, case-study, scheduled-task procedure.</td></tr>
+    <tr><td>_Skills/</td><td>Skill blueprint folders + staged <code class="inline">[skill]-SKILL-updated.md</code> files awaiting install.</td></tr>
+    <tr><td>_Claude-Projects/</td><td>Blueprints for Claude.ai Project deployments (never <code class="inline">_Projects/</code>).</td></tr>
+    <tr><td>_Research-Commissions/</td><td>Research-only projects (no agent build, no pipeline artifacts).</td></tr>
+    <tr><td>_Archived/</td><td>Frozen retired projects — never modified after archival.</td></tr>
+  </table>
+
+  <div class="callout orange">
+    <strong>Root-level rule:</strong> only five file types are allowed at the workspace root — <code class="inline">changelog.md</code>, <code class="inline">feedback-log.md</code>, <code class="inline">context-agent-registry.md</code>, <code class="inline">context-path-reference.md</code>, and explicitly authorized utility scripts. Everything else belongs in a project or <code class="inline">deliverables/</code>.
+  </div>
+
+
+  <!-- SECTION 2 -->
+  <div class="section-title" id="sec-2">2 — Anatomy of a Project Blueprint</div>
+  <div class="section-intro">Every project gets a folder at <code class="inline">project-blueprints/[project-name]/</code>. The Architect produces these files in two waves — Wave 1 (the prompt) before sign-off, Wave 2 (downstream) only after the instructions are confirmed final.</div>
+
+<pre class="tree">project-blueprints/sta-support-expert/
+├── <span class="b">instructions.md</span>          <span class="c"># Wave 1 · the production system prompt</span>
+├── <span class="b">blueprint-summary.md</span>     <span class="c"># Wave 1 · overview, KB modules used, tool assessment, decisions</span>
+├── <span class="b">backlog.md</span>               <span class="c"># Wave 1 · future-enhancement tracker (Active / Implemented)</span>
+├── <span class="b">context-*.md</span>             <span class="c"># Wave 1 · context files (+ -proj.md variants for Projects)</span>
+├── <span class="b">test-cases.md</span>            <span class="c"># Wave 2 · 10 test cases across 5 categories</span>
+├── <span class="b">registry-entry.md</span>        <span class="c"># Wave 2 · the row added to context-agent-registry.md</span>
+├── <span class="b">project-launch.md</span>        <span class="c"># Wave 2 · paste-ready instructions + setup + init prompt</span>
+├── <span class="b">handoff.md</span>               <span class="c"># Wave 2 · pipeline status + changelog</span>
+├── <span class="b">changelog.md</span>             <span class="c"># full version history (ISO 8601 dates)</span>
+├── <span class="b">test-report-*.md</span>         <span class="c"># run-test-cases output (keep the two most recent)</span>
+├── <span class="g">outputs/</span>                 <span class="c"># runtime outputs; scheduled runs use outputs/YYYY/MM/</span>
+└── <span class="g">scheduled-tasks/</span>         <span class="c"># present only if the project has recurring tasks</span></pre>
+
+  <table class="ref">
+    <tr><th>File</th><th>Purpose</th></tr>
+    <tr><td>instructions.md</td><td>The production prompt. Opens with <code class="inline">&lt;!-- vX.X | Name | Updated M/D/YY --&gt;</code>. Required sections: role, what it knows, context-routing, behavior, what it does, constraints, when unsure.</td></tr>
+    <tr><td>blueprint-summary.md</td><td>Plain-language overview: deployment target, files produced, KB modules used, tool assessment (Core / Recommended / Future), design decisions, open markers.</td></tr>
+    <tr><td>test-cases.md</td><td>Normal use (3), ambiguous input (2), uncertainty handling (2), edge cases (2), output-format validation (1).</td></tr>
+    <tr><td>project-launch.md</td><td>Three copy-paste blocks: project instructions, setup checklist, initialization prompt.</td></tr>
+    <tr><td>project-file-map.md</td><td><strong>Claude.ai Project deployments only</strong> — the single source of truth for rebuilding the project after loss.</td></tr>
+  </table>
+
+  <div class="callout blue">
+    Tracker files (<code class="inline">blueprint-summary.md</code>, <code class="inline">handoff.md</code>, <code class="inline">test-cases.md</code>, <code class="inline">backlog.md</code>, <code class="inline">project-launch.md</code>) keep their own internal logs and do <em>not</em> use the version-comment header that instructions files require.
+  </div>
+
+
+  <!-- SECTION 3 -->
+  <div class="section-title" id="sec-3">3 — A Live (Non-Architect) Cowork Folder</div>
+  <div class="section-intro">The blueprint is the spec; the <strong>live Cowork folder</strong> is where the project runs. Each live project has its own home under <code class="inline">…\Documents\Claude\Projects\</code>, grouped into dot-prefixed buckets (<code class="inline">.STA Projects/</code>, <code class="inline">.Adam's Personal Projects/</code>, <code class="inline">.Default Projects/</code>, <code class="inline">archive/</code>).</div>
+
+  <div class="callout green">
+    <strong>Key difference:</strong> a live folder has <em>no</em> blueprint scaffold. The agent's instructions and context live in the Cowork <em>project settings</em>, not as files in the folder. The folder holds working files and outputs — organized however the work demands.
+  </div>
+
+  <h3 class="sub-h">Recommended base layout for a new live folder</h3>
+<pre class="tree"><span class="g">STA Support Expert/</span>            <span class="c"># the live Cowork project home</span>
+├── <span class="b">context-*.md</span>             <span class="c"># optional local state/context the agent reads</span>
+├── <span class="g">outputs/</span>                 <span class="c"># generated reports, drafts, digests</span>
+├── <span class="g">images/</span>                  <span class="c"># any image assets the work uses</span>
+└── <span class="g">archive/</span>                 <span class="c"># superseded files kept for reference</span></pre>
+
+  <div class="section-intro">In practice these folders are freeform. A real example (STA Support Expert) holds working documents and dated output subfolders — e.g. <code class="inline">Error Log Reviews/</code>, <code class="inline">2026-Q2 Documents/</code>, a process-guide <code class="inline">.docx</code>, and diagnostic <code class="inline">.html</code> reports — rather than a fixed scaffold.</div>
+
+  <div class="callout orange">
+    <strong>Hygiene:</strong> the same root and outputs conventions apply — keep generated runs in <code class="inline">outputs/</code>, delete stray unnamed artifacts (random-character files with no extension) as soon as they appear, and don't let working files pile up at the folder root.
+  </div>
+
+
+  <!-- SECTION 4 -->
+  <div class="section-title" id="sec-4">4 — Every Custom Skill</div>
+  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code> in <code class="inline">_Backups/skills/INDEX.md</code>) — 14 currently installed. Anthropic-shipped skills (docx, pptx, xlsx, pdf, schedule, skill-creator, etc.) are not listed here. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
+
+  <div class="grp">Build pipeline — designing &amp; validating agents</div>
+
+  <div class="skill-card"><div class="skill-name">prompt-evaluator</div>
+    <div class="skill-desc">Scores an <code class="inline">instructions.md</code> against named prompt-engineering frameworks and writes a versioned HTML eval artifact.</div>
+    <div class="skill-trig"><strong>Say:</strong> "run the eval", "score these instructions"</div></div>
+
+  <div class="skill-card"><div class="skill-name">run-test-cases</div>
+    <div class="skill-desc">Runs a project's <code class="inline">test-cases.md</code> against its <code class="inline">instructions.md</code>, with a version-alignment check and a structured failure taxonomy. (Formerly <code class="inline">project-tester</code>.)</div>
+    <div class="skill-trig"><strong>Say:</strong> "run the tests", "validate my instructions"</div></div>
+
+  <div class="skill-card"><div class="skill-name">project-feedback</div>
+    <div class="skill-desc">Diagnoses a live, misbehaving Cowork agent and recommends the exact instruction change to fix it, grounded in cited instruction lines.</div>
+    <div class="skill-trig"><strong>Say:</strong> "why did my project do X", "fix this live project"</div></div>
+
+  <div class="skill-card"><div class="skill-name">pipeline-audit</div>
+    <div class="skill-desc">Cross-checks the registry against every blueprint folder and produces a system-wide documentation-coverage matrix.</div>
+    <div class="skill-trig"><strong>Say:</strong> "audit the pipeline", "what's missing from the system"</div></div>
+
+  <div class="skill-card"><div class="skill-name">training-doc-auditor</div>
+    <div class="skill-desc">Verifies that training docs still reflect what agents actually do, cross-checking against the registry and handoff files.</div>
+    <div class="skill-trig"><strong>Say:</strong> "audit training docs", "is training accurate"</div></div>
+
+  <div class="grp">Knowledge base &amp; research</div>
+
+  <div class="skill-card"><div class="skill-name">deep-research-prompt-builder</div>
+    <div class="skill-desc">Crafts a deep-research commission prompt (one large <code class="inline">.md</code>) for the STA knowledge base and returns a one-click kickoff prompt.</div>
+    <div class="skill-trig"><strong>Say:</strong> "craft a deep research prompt", "build a research commission"</div></div>
+
+  <div class="skill-card"><div class="skill-name">knowledge-base-context-builder</div>
+    <div class="skill-desc">Turns existing KB modules into an uploadable project context file with a structured intake and quality gate. (The renamed <code class="inline">cowork-context-packager</code>.)</div>
+    <div class="skill-trig"><strong>Say:</strong> "build a context file from [topic]", "package the [topic] research"</div></div>
+
+  <div class="skill-card"><div class="skill-name">kb-freshness-auditor</div>
+    <div class="skill-desc">Scores KB modules by staleness and priority, then outputs paste-ready Deep Research prompts for the ones that need refreshing.</div>
+    <div class="skill-trig"><strong>Say:</strong> "audit the KB", "which research is out of date"</div></div>
+
+  <div class="skill-card"><div class="skill-name">research-to-slides</div>
+    <div class="skill-desc">Converts a KB research folder into a teaching slide deck using adult-learning principles, assertion titles, and cognitive-load limits.</div>
+    <div class="skill-trig"><strong>Say:</strong> "turn this into slides", "make a presentation from my research"</div></div>
+
+  <div class="grp">Content production</div>
+
+  <div class="skill-card"><div class="skill-name">help-center-article</div>
+    <div class="skill-desc">Writes STA help-center / KB articles in the exact Salesforce Knowledge HTML structure required for proper rendering.</div>
+    <div class="skill-trig"><strong>Say:</strong> "write up a help article", "format this as a KB article"</div></div>
+
+  <div class="skill-card"><div class="skill-name">html-checklist</div>
+    <div class="skill-desc">Converts a process, workflow, or document into a styled STA-branded <code class="inline">.html</code> checklist with in-memory checkbox state.</div>
+    <div class="skill-trig"><strong>Say:</strong> "turn this into a checklist", "make a checkable version of this"</div></div>
+
+  <div class="grp">Operations &amp; utilities</div>
+
+  <div class="skill-card"><div class="skill-name">agent-quality-logger</div>
+    <div class="skill-desc">Logs an agent quality issue (wrong tone, ignored constraint, fabrication) so it surfaces in the Monday health report and routes to Project Feedback.</div>
+    <div class="skill-trig"><strong>Say:</strong> "log this feedback", "the agent messed up"</div></div>
+
+  <div class="skill-card"><div class="skill-name">garage-sale-scanner</div>
+    <div class="skill-desc">Runs the Garage Sale Monitor scan for Ashland, WI — fetches sources, ranks finds, and saves a dated HTML digest.</div>
+    <div class="skill-trig"><strong>Say:</strong> "run a garage sale scan", "do a rummage check"</div></div>
+
+  <div class="skill-card"><div class="skill-name">session-closeout</div>
+    <div class="skill-desc">Wraps up a chat: skim-ready summary, pending manual tasks, pending in-chat work, and an optional one-click handoff prompt for a new chat.</div>
+    <div class="skill-trig"><strong>Say:</strong> "wrap up", "close out", "let's finish up"</div></div>
+
+  <div class="callout blue" style="margin-top: 18px;">
+    <strong>Source of truth:</strong> the authoritative list, versions, and drift state live in <code class="inline">_Backups/skills/INDEX.md</code>. Run the verify procedure there to confirm installed copies match their backups before relying on any skill.
+  </div>
+
+
+  <div style="margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: #555; line-height: 1.6;">
+    <strong style="color: var(--dark);">Maintaining this doc?</strong> Folder maps come from a live scan of the workspace; the skill list comes from <code class="inline">_Backups/skills/INDEX.md</code> (<code class="inline">type: custom</code> rows). Re-verify both against disk before editing.
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>School Technology Associates</strong> &nbsp;·&nbsp; AI Admin &nbsp;·&nbsp; Workspace &amp; Skills Reference
+</div>
+
+<div style="margin: 60px 0 20px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">
+  <a href="#top" style="display: inline-flex; align-items: center; gap: 6px; color: #1f3a5f; text-decoration: none; font-size: 13px; font-weight: 600; padding: 8px 18px; border: 1px solid #1f3a5f; border-radius: 20px;">
+    <span>&uarr;</span><span>Back to top</span>
+  </a>
+</div>
+</body>
+</html>

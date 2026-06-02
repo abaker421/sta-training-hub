@@ -433,7 +433,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Tool brief', docs: ['ai-advisor'] },
         { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-prompt-override-guard', 'time-clock', 'skill-agent-quality-logger', 'skill-cowork-context-packager'] },
-        { heading: 'System reference', docs: ['system-overview', 'user-management', 'maintenance-sop'] },
+        { heading: 'System reference', docs: ['system-overview', 'workspace-skills', 'user-management', 'maintenance-sop'] },
         { heading: 'Build pipeline', docs: ['rollout-plan', 'build-guide', 'architect-case-study'] },
         { heading: 'Security checklists', docs: ['google-security', 'sf-security'] },
         { heading: 'Operational procedures', docs: ['drift-check', 'formatting-standards', 'write-verification'] }
@@ -649,6 +649,16 @@ window.TRAINING_DATA = {
       tags: ['System Reference', 'Admin'],
       added: '2026-05-21', updated: '2026-06-01',
       check: 'What are the four source labels every answer can carry?'
+    },
+    'workspace-skills': {
+      title: 'Workspace & Skills Reference',
+      desc: 'How the AI system is laid out on disk: The Architect workspace, the anatomy of a project blueprint, what a live Cowork folder looks like, and every custom skill.',
+      file: 'docs/workspace-skills-reference.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['System Reference', 'Admin'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What two distinct folders does every project have, and what is each one for?'
     },
     'user-management': {
       title: 'User Management Guide',
