@@ -29,3 +29,6 @@ npm-debug.log*
 !.dev.vars.example
 .env*
 !.env.example
+
+# Local dev helper (not part of the deploy)
+dist/serve.ps1
