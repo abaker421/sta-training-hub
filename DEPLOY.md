@@ -182,16 +182,13 @@ If you need redirect rules in the future (e.g., to rename a URL while preserving
 
 **Users see a 404 when clicking a card.** The asset file isn't in `dist/docs/` or `dist/files/`. Check the path in `window.TRAINING_DATA.docs[id].file` matches what's actually in dist.
 
-**Cards load but the search box doesn't work.** Open the browser console. Likely a JSX syntax error in the source HTML. Babel Standalone reports the line number.
+**Cards load but the search box doesn't work.** Open the browser console. Likely a JavaScript error in the inline `<script type="module">` block in the source HTML. The browser console reports the file and line number directly (there is no Babel transpile step anymore - the app is plain vanilla JS).
 
 **Cloudflare Access loop (users keep getting asked to log in).** Cookie issue - usually third-party cookies blocked in the browser. Have them try a different browser or enable third-party cookies for `cloudflareaccess.com`.
 
-**Whole app blank, no errors.** React 18 CDN issue or Babel CDN issue. Check the Network tab - all three CDN scripts (react, react-dom, babel-standalone) should return 200. If one fails, swap to the unpkg.com versions:
-```html
-<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7.23.2/babel.min.js"></script>
-```
+**Whole app blank, no errors.** The app is a single self-contained file with **no external scripts loaded at startup** - React and Babel were removed (2026-06-01 rewrite). If the page is blank, open the console and look for a syntax/runtime error in the module script. Check the Network tab only for the local assets (`index.html`, the Roboto font CSS); there are no app-framework CDN requests to fail.
+
+**A `.md` or `.docx` doc won't open (other docs are fine).** Those two types are the only ones that fetch an external library, and they load it lazily on first open: `marked` (from jsdelivr) for markdown, `mammoth` (from cdnjs) for Word docs. Both are pinned with Subresource Integrity (SRI) hashes. If the CDN is down, or a future version bump changes the file without updating the `integrity=` hash in the source, the browser blocks the script and only `.md`/`.docx` viewing breaks - HTML and PDF docs are unaffected. Re-generate the hash with `curl -sL <url> | openssl dgst -sha384 -binary | openssl base64 -A` and update the `MARKED` / `MAMMOTH` constants in the source.
 
 ---
 

@@ -1,6 +1,6 @@
 # STA Training Kit Hub - Maintenance Notes
 
-Pattern modeled on the HC Index App (`Claude/Projects/Help Center Assistant/article-index-app/`). Same source-and-dist convention; same React + Babel Standalone (no build step) architecture.
+Pattern modeled on the HC Index App (`Claude/Projects/Help Center Assistant/article-index-app/`). Same source-and-dist convention. Originally React + Babel Standalone (no build step); rewritten to plain vanilla JS on 2026-06-01 (still no build step, and now no framework or CDN scripts loaded at startup).
 
 ---
 
@@ -210,14 +210,14 @@ Also auto-rendered when the user stars any doc: **Saved** tab with all favorited
 
 - **No content rendering** - the app is a launcher. Clicking a card opens the source file (HTML/docx/md) in a new tab. Each doc renders in the browser's native viewer for that type.
 - **No editing** - the app is read-only. To update content, edit the source files in `Training Materials/Training - Staff/` or `Training Materials/Training - Admin/`, then re-sync `dist/docs/` and `dist/files/`.
-- **No analytics** - no tracking, no telemetry, no third-party scripts beyond the React/Babel CDN scripts loaded for the app itself.
+- **No analytics** - no tracking, no telemetry. The app loads no framework scripts at startup; the only external requests are the Roboto web font and, loaded lazily on first open of a `.md` or `.docx` doc, the SRI-pinned `marked` / `mammoth` libraries.
 - **No auth** - auth is enforced upstream by Cloudflare Access at the domain level (see `DEPLOY.md`). The app assumes whoever loads it is already authorized to view it.
 
 ---
 
 ## Origin and Reference Pattern
 
-Built 2026-05-21. Modeled on `Claude/Projects/Help Center Assistant/article-index-app/HC-Index-App.html` which is the proven STA pattern for self-contained React-on-CDN apps. Differences:
+Built 2026-05-21. Modeled on `Claude/Projects/Help Center Assistant/article-index-app/HC-Index-App.html`, the proven STA pattern for self-contained single-file apps. (This hub was originally React-on-CDN like HC Index; it was rewritten to plain vanilla JS on 2026-06-01 - no framework, no build step, no CDN scripts at load.) Differences:
 
 - HC Index uses tabs as products (Time Clocks / VirtuaTime / etc.) with deep TOC sidebar. This app uses tabs as audiences with flat card grids - the right shape for a launcher rather than a content browser.
 - Both apps use the same brand palette (`#1A1A2E` header, `#006098` blue, `#6bc04b` green).
