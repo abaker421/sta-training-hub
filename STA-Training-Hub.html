@@ -1072,19 +1072,16 @@ function viewAudience(aud) {
   if (!aud) return '';
   let html = '<div class="aud-header"><h1 class="aud-title">' + esc(aud.title) + '</h1>'
     + '<div class="aud-sub">' + esc(aud.sub) + '</div></div>';
-  let startDaySec = null;
-  if (aud.id === 'start') {
-    const reqSec = aud.sections.find(s => s.heading === 'Required before first use');
-    startDaySec = aud.sections.find(s => s.heading === 'Recommended Day 1');
-    if (reqSec) html += progressBar('required articles read', reqSec.docs);
-  }
   aud.sections.forEach(sec => {
-    if (startDaySec && sec.heading === 'Recommended Day 1') {
-      html += progressBar('Day 1 articles read', startDaySec.docs);
-    }
     html += '<section class="section"><div class="section-title">' + esc(sec.heading)
-      + '<span class="section-count">' + sec.docs.length + ' ' + (sec.docs.length === 1 ? 'doc' : 'docs') + '</span></div>'
-      + '<div class="card-grid">';
+      + '<span class="section-count">' + sec.docs.length + ' ' + (sec.docs.length === 1 ? 'doc' : 'docs') + '</span></div>';
+    if (aud.id === 'start' && sec.heading === 'Required before first use') {
+      html += progressBar('required articles read', sec.docs);
+    }
+    if (aud.id === 'start' && sec.heading === 'Recommended Day 1') {
+      html += progressBar('Day 1 articles read', sec.docs);
+    }
+    html += '<div class="card-grid">';
     sec.docs.forEach(id => { const d = DATA.docs[id]; if (d) html += cardHTML(id, d); });
     html += '</div></section>';
   });
