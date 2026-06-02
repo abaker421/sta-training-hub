@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Architect — Technical Case Study</title>
+<title>The Architect - Technical Case Study</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -166,7 +166,7 @@
 
 <div class="header">
   <div class="header-inner">
-    <h1>The Architect — How It Actually Works</h1>
+    <h1>The Architect - How It Actually Works</h1>
     <div class="sub">A technical breakdown of the pipeline that takes an AI project from idea to production-ready spec. Uses the Deep Research project build (v1.0 → v1.9) as a worked historical case study. Written for the SF Cohort Power Users (Tanya, Kelsey, Joanie) who want to understand how AI projects are built.</div>
     <div class="meta">
       <span class="badge">Internal Technical Reference</span>
@@ -183,15 +183,15 @@
   <div style="background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 24px; margin-top: 20px; margin-bottom: 4px;">
     <div style="font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 12px;">Contents</div>
     <ol style="margin: 0; padding-left: 20px; font-size: 13px; line-height: 2;">
-    <li><a href="#01-the-big-picture-what-the-architect-actually-is" style="color: var(--blue); text-decoration: none;">01 — The Big Picture · What The Architect actually is</a></li>
-    <li><a href="#02-system-architecture-how-the-pipeline-is-structured" style="color: var(--blue); text-decoration: none;">02 — System Architecture · How the pipeline is structured</a></li>
-    <li><a href="#03-mode-detection-four-build-modes-each-with-different-rules" style="color: var(--blue); text-decoration: none;">03 — Mode Detection · Four build modes, each with different rules</a></li>
-    <li><a href="#04-quality-gates-what-the-pipeline-refuses-to-ship-and-how-it-enforces-that" style="color: var(--blue); text-decoration: none;">04 — Quality Gates · What the pipeline refuses to ship — and how it enforces that</a></li>
-    <li><a href="#05-live-case-study-the-deep-research-build-step-by-step" style="color: var(--blue); text-decoration: none;">05 — Live Case Study · The Deep Research build, step by step</a></li>
-    <li><a href="#06-the-output-what-the-deep-research-build-produced" style="color: var(--blue); text-decoration: none;">06 — The Output · What the Deep Research build produced</a></li>
-    <li><a href="#07-the-file-format-why-every-instructions-md-looks-exactly-the-same" style="color: var(--blue); text-decoration: none;">07 — The File Format · Why every instructions.md looks exactly the same</a></li>
-    <li><a href="#08-what-happens-next-how-the-architect-connects-to-the-rest-of-the-system" style="color: var(--blue); text-decoration: none;">08 — What Happens Next · How The Architect connects to the rest of the system</a></li>
-    <li><a href="#09-the-gravity-of-it-why-this-setup-is-harder-to-build-than-it-looks" style="color: var(--blue); text-decoration: none;">09 — The Gravity of It · Why this setup is harder to build than it looks</a></li>
+    <li><a href="#01-the-big-picture-what-the-architect-actually-is" style="color: var(--blue); text-decoration: none;">01 - The Big Picture · What The Architect actually is</a></li>
+    <li><a href="#02-system-architecture-how-the-pipeline-is-structured" style="color: var(--blue); text-decoration: none;">02 - System Architecture · How the pipeline is structured</a></li>
+    <li><a href="#03-mode-detection-four-build-modes-each-with-different-rules" style="color: var(--blue); text-decoration: none;">03 - Mode Detection · Four build modes, each with different rules</a></li>
+    <li><a href="#04-quality-gates-what-the-pipeline-refuses-to-ship-and-how-it-enforces-that" style="color: var(--blue); text-decoration: none;">04 - Quality Gates · What the pipeline refuses to ship - and how it enforces that</a></li>
+    <li><a href="#05-live-case-study-the-deep-research-build-step-by-step" style="color: var(--blue); text-decoration: none;">05 - Live Case Study · The Deep Research build, step by step</a></li>
+    <li><a href="#06-the-output-what-the-deep-research-build-produced" style="color: var(--blue); text-decoration: none;">06 - The Output · What the Deep Research build produced</a></li>
+    <li><a href="#07-the-file-format-why-every-instructions-md-looks-exactly-the-same" style="color: var(--blue); text-decoration: none;">07 - The File Format · Why every instructions.md looks exactly the same</a></li>
+    <li><a href="#08-what-happens-next-how-the-architect-connects-to-the-rest-of-the-system" style="color: var(--blue); text-decoration: none;">08 - What Happens Next · How The Architect connects to the rest of the system</a></li>
+    <li><a href="#09-the-gravity-of-it-why-this-setup-is-harder-to-build-than-it-looks" style="color: var(--blue); text-decoration: none;">09 - The Gravity of It · Why this setup is harder to build than it looks</a></li>
     </ol>
   </div>
 
@@ -201,14 +201,14 @@
     <div class="verdict-score">6</div>
     <div class="verdict-text">
       <div class="verdict-label">Pipeline Output Files Per Build</div>
-      <div class="verdict-headline">A governed production pipeline — not a prompt polisher</div>
+      <div class="verdict-headline">A governed production pipeline - not a prompt polisher</div>
       <div class="verdict-summary">The Architect is a Claude AI project with a 6,600+ word operating spec. Every project that goes through it leaves with the same six output files, meeting the same quality standard, with no placeholders and no scaffolding. The pipeline is sequential, gated, and self-checking. Nothing is improvised.</div>
     </div>
   </div>
 
 
   <!-- SECTION 01: WHAT IS IT -->
-  <div class="section-title" id="01-the-big-picture-what-the-architect-actually-is">01 — The Big Picture · What The Architect actually is</div>
+  <div class="section-title" id="01-the-big-picture-what-the-architect-actually-is">01 - The Big Picture · What The Architect actually is</div>
 
   <div class="callout blue">Every build follows the same four-phase workflow. The Architect operates under mode detection, confirmation gates, quality gates, and anti-scaffold rules. Output files land in a versioned folder structure that the testing and feedback tools can find automatically.</div>
 
@@ -227,7 +227,7 @@
           <li>The agent behaves differently every session because edge cases aren't covered</li>
           <li>No one knows which version of the instructions is live</li>
           <li>Gaps get papered over with vague "best practices" instead of specific rules</li>
-          <li>There's no registry — nobody knows what projects exist</li>
+          <li>There's no registry - nobody knows what projects exist</li>
         </ul>
       </div>
     </div>
@@ -253,19 +253,19 @@
 
 
   <!-- SECTION 02: ARCHITECTURE -->
-  <div class="section-title" id="02-system-architecture-how-the-pipeline-is-structured">02 — System Architecture · How the pipeline is structured</div>
+  <div class="section-title" id="02-system-architecture-how-the-pipeline-is-structured">02 - System Architecture · How the pipeline is structured</div>
 
   <div class="item blue-top">
     <div class="item-header">
       <div class="item-icon">📄</div>
       <div>
-        <div class="item-title">Layer 1 — The Operating Spec</div>
+        <div class="item-title">Layer 1 - The Operating Spec</div>
         <div class="item-subtitle blue">6,600+ words loaded into The Architect's project</div>
       </div>
     </div>
     <div class="item-body">
-      <p>Defines everything: what phases exist, how mode detection works, what KB modules to read, when confirmation gates fire, what every output file must contain, what "explicit confirmation" actually means, and what constitutes scaffold. It also enumerates three hard rules that override every other instruction — restated at the bottom of the file for redundancy.</p>
-      <p style="color: #666; font-size: 12px; margin-top: 8px;">The three overriding hard rules: NEVER SHIP SCAFFOLD (no placeholders, TODOs, or generic role statements in any saved file), WAVE 2 TIMING (test cases and handoff are not produced until Adam confirms the instructions.md is final), and NO EM DASHES (typographic house rule — plain hyphens only).</p>
+      <p>Defines everything: what phases exist, how mode detection works, what KB modules to read, when confirmation gates fire, what every output file must contain, what "explicit confirmation" actually means, and what constitutes scaffold. It also enumerates three hard rules that override every other instruction - restated at the bottom of the file for redundancy.</p>
+      <p style="color: #666; font-size: 12px; margin-top: 8px;">The three overriding hard rules: NEVER SHIP SCAFFOLD (no placeholders, TODOs, or generic role statements in any saved file), WAVE 2 TIMING (test cases and handoff are not produced until Adam confirms the instructions.md is final), and NO EM DASHES (typographic house rule - plain hyphens only).</p>
     </div>
   </div>
 
@@ -273,7 +273,7 @@
     <div class="item-header">
       <div class="item-icon">🔄</div>
       <div>
-        <div class="item-title">Layer 2 — The Four-Phase Pipeline</div>
+        <div class="item-title">Layer 2 - The Four-Phase Pipeline</div>
         <div class="item-subtitle blue">Sequential, gated, not one-way</div>
       </div>
     </div>
@@ -286,21 +286,21 @@
     <div class="item-header">
       <div class="item-icon">🧱</div>
       <div>
-        <div class="item-title">Wave 1 vs. Wave 2 — the timing wall</div>
+        <div class="item-title">Wave 1 vs. Wave 2 - the timing wall</div>
         <div class="item-subtitle blue">Hard rule: confirmation required between waves</div>
       </div>
     </div>
     <div class="item-body">
-      <p><strong>Wave 1</strong> produces the blueprint files: <code>blueprint-summary.md</code>, <code>instructions.md</code>, and any context files. <strong>Wave 2</strong> — test cases, registry entry, handoff, and project-launch — is blocked until Adam explicitly confirms the instructions.md is final. This timing rule exists to prevent rework: every change to instructions.md after Wave 2 starts requires rewriting the test cases.</p>
+      <p><strong>Wave 1</strong> produces the blueprint files: <code>blueprint-summary.md</code>, <code>instructions.md</code>, and any context files. <strong>Wave 2</strong> - test cases, registry entry, handoff, and project-launch - is blocked until Adam explicitly confirms the instructions.md is final. This timing rule exists to prevent rework: every change to instructions.md after Wave 2 starts requires rewriting the test cases.</p>
       <p style="color: #666; font-size: 12px; margin-top: 8px;">In the Deep Research case study: The Architect ran 5 rounds of eval-driven gap fixes between Wave 1 confirmation and Wave 2 production. Each round would have invalidated the test cases if they'd been written too early.</p>
     </div>
   </div>
 
 
   <!-- SECTION 03: MODE DETECTION -->
-  <div class="section-title" id="03-mode-detection-four-build-modes-each-with-different-rules">03 — Mode Detection · Four build modes, each with different rules</div>
+  <div class="section-title" id="03-mode-detection-four-build-modes-each-with-different-rules">03 - Mode Detection · Four build modes, each with different rules</div>
 
-  <div class="callout blue">Before any work begins, The Architect identifies which of four modes applies. Getting this wrong means running the wrong workflow for an entire session — so mode confirmation is a required gate before anything else starts.</div>
+  <div class="callout blue">Before any work begins, The Architect identifies which of four modes applies. Getting this wrong means running the wrong workflow for an entire session - so mode confirmation is a required gate before anything else starts.</div>
 
   <table style="margin-bottom: 12px;">
     <thead>
@@ -316,7 +316,7 @@
         <td><strong>Full Pipeline</strong></td>
         <td>New project from scratch. No existing instructions.</td>
         <td>Runs all 4 phases. Asks 8 required Discovery questions. Reads KB modules. Identifies blockers. Produces all 6 output files.</td>
-        <td>Nothing — all phases active.</td>
+        <td>Nothing - all phases active.</td>
       </tr>
       <tr>
         <td><strong>Polish Existing</strong></td>
@@ -332,7 +332,7 @@
       </tr>
       <tr>
         <td><strong>Quick Prompt</strong></td>
-        <td>User wants a one-off prompt — no pipeline tracking needed.</td>
+        <td>User wants a one-off prompt - no pipeline tracking needed.</td>
         <td>Asks 3 intake questions. Produces agent identity, system prompt, and tool note in chat only. Nothing saved to disk.</td>
         <td>Everything. Chat output only.</td>
       </tr>
@@ -348,19 +348,19 @@
       </div>
     </div>
     <div class="item-body">
-      <p>Adam had a working v1.0 spec before The Architect existed. It was good but informal — no version comment, no explicit uncertainty rules, no confirmation gates. Polish Existing mode was detected, phases 1–3 were skipped, and the assessment went straight to "here's what it gets right, here's what's missing, here's the plan." Adam confirmed the plan, and the rewrite began.</p>
+      <p>Adam had a working v1.0 spec before The Architect existed. It was good but informal - no version comment, no explicit uncertainty rules, no confirmation gates. Polish Existing mode was detected, phases 1–3 were skipped, and the assessment went straight to "here's what it gets right, here's what's missing, here's the plan." Adam confirmed the plan, and the rewrite began.</p>
     </div>
   </div>
 
 
   <!-- SECTION 04: QUALITY GATES -->
-  <div class="section-title" id="04-quality-gates-what-the-pipeline-refuses-to-ship-and-how-it-enforces-that">04 — Quality Gates · What the pipeline refuses to ship — and how it enforces that</div>
+  <div class="section-title" id="04-quality-gates-what-the-pipeline-refuses-to-ship-and-how-it-enforces-that">04 - Quality Gates · What the pipeline refuses to ship - and how it enforces that</div>
 
   <div class="item red-top">
     <div class="item-header">
       <div class="item-icon">🚫</div>
       <div>
-        <div class="item-title">Hard Rule #1 — NEVER SHIP SCAFFOLD (stated twice in the spec)</div>
+        <div class="item-title">Hard Rule #1 - NEVER SHIP SCAFFOLD (stated twice in the spec)</div>
         <div class="item-subtitle" style="color: var(--red);">Overrides every other instruction, including "finish the task"</div>
       </div>
     </div>
@@ -373,18 +373,18 @@
     <div class="item-header">
       <div class="item-icon">🔎</div>
       <div>
-        <div class="item-title">Pre-save attribution gate — no vague sourcing allowed</div>
+        <div class="item-title">Pre-save attribution gate - no vague sourcing allowed</div>
         <div class="item-subtitle blue">Enforced via regex scan before every save</div>
       </div>
     </div>
     <div class="item-body">
-      <p>Before saving any <code>instructions.md</code>, The Architect scans the file for phrases like "best practices," "industry standard," or "general guidance." Every match must be paired with a specific KB module name and a specific fact. Generic attributions are not acceptable — the file is not saved until they are replaced with specifics.</p>
+      <p>Before saving any <code>instructions.md</code>, The Architect scans the file for phrases like "best practices," "industry standard," or "general guidance." Every match must be paired with a specific KB module name and a specific fact. Generic attributions are not acceptable - the file is not saved until they are replaced with specifics.</p>
       <table style="margin-top: 12px;">
         <thead><tr><th>Not acceptable</th><th>Acceptable</th></tr></thead>
         <tbody>
           <tr>
             <td style="color: var(--red);">"Use prompt engineering best practices for uncertainty handling."</td>
-            <td style="color: #3a8a1e;">"Uses the confirmed / inferred / unknown trichotomy from context-prompt-engineering.md — three explicit buckets rather than a catch-all 'I don't know.'"</td>
+            <td style="color: #3a8a1e;">"Uses the confirmed / inferred / unknown trichotomy from context-prompt-engineering.md - three explicit buckets rather than a catch-all 'I don't know.'"</td>
           </tr>
           <tr>
             <td style="color: var(--red);">"Follow industry standards for source verification."</td>
@@ -400,21 +400,21 @@
       <div class="item-header">
         <div class="item-icon">✋</div>
         <div>
-          <div class="item-title">Explicit confirmation — what counts as a "yes"</div>
+          <div class="item-title">Explicit confirmation - what counts as a "yes"</div>
           <div class="item-subtitle blue">Required at every gate</div>
         </div>
       </div>
       <div class="item-body">
         <p><span class="tag tag-green" style="background:#edf7e6;color:#3a8a1e;border:1px solid #c0ddb0;">Counts</span> "yes," "go," "looks good," "final," "approved," "proceed," "ship it," "do it"</p>
         <p style="margin-top: 8px;"><span class="tag" style="background:#fdf0ef;color:var(--red);border:1px solid #e8c0bc;">Does not count</span> "looks fine," "I think so," "maybe," "sure I guess"</p>
-        <p style="margin-top: 8px; font-size: 12px; color: #666;">Silence or pivoting to a new topic without confirming does not count — The Architect surfaces the gate again.</p>
+        <p style="margin-top: 8px; font-size: 12px; color: #666;">Silence or pivoting to a new topic without confirming does not count - The Architect surfaces the gate again.</p>
       </div>
     </div>
     <div class="item red-top">
       <div class="item-header">
         <div class="item-icon">⏸️</div>
         <div>
-          <div class="item-title">Wave 2 timing wall — hard</div>
+          <div class="item-title">Wave 2 timing wall - hard</div>
           <div class="item-subtitle" style="color: var(--red);">Test cases only after instructions.md is final</div>
         </div>
       </div>
@@ -428,8 +428,8 @@
     <div class="item-header">
       <div class="item-icon">📋</div>
       <div>
-        <div class="item-title">Confirmation gate checklist — 8 Discovery questions before Phase 2</div>
-        <div class="item-subtitle gray">All 8 required — "covered" is not the same as "answered"</div>
+        <div class="item-title">Confirmation gate checklist - 8 Discovery questions before Phase 2</div>
+        <div class="item-subtitle gray">All 8 required - "covered" is not the same as "answered"</div>
       </div>
     </div>
     <div class="item-body">
@@ -438,10 +438,10 @@
         <tbody>
           <tr><td>1</td><td>Purpose and concrete success example</td><td>Without a concrete example, "what it does" is untestable and instructions end up vague</td></tr>
           <tr><td>2</td><td>User (who, what they know, what they need)</td><td>Tone, depth, and escalation paths all depend on who's using it</td></tr>
-          <tr><td>3</td><td>Know-vs-Do specifics (actual product names, real rules)</td><td>Generic descriptions produce generic instructions — which produce inconsistent behavior</td></tr>
+          <tr><td>3</td><td>Know-vs-Do specifics (actual product names, real rules)</td><td>Generic descriptions produce generic instructions - which produce inconsistent behavior</td></tr>
           <tr><td>4</td><td>Interaction style (real exchange from first message to final output)</td><td>Without walking through a real turn, the agent's workflow section is guesswork</td></tr>
           <tr><td>5</td><td>At least one hard constraint</td><td>Agents without explicit constraints expand scope as users push them</td></tr>
-          <tr><td>6</td><td>Failure modes (what would make it useless or harmful)</td><td>Failure modes drive the "never" section — the most important part of instructions.md</td></tr>
+          <tr><td>6</td><td>Failure modes (what would make it useless or harmful)</td><td>Failure modes drive the "never" section - the most important part of instructions.md</td></tr>
           <tr><td>7</td><td>Deployment target (via 3-question decision tree)</td><td>Cowork and Claude.ai Projects have different capabilities; deployment determines what can be inline vs. skill</td></tr>
           <tr><td>8</td><td>Existing materials inventory</td><td>Context files can't be specified without knowing what content exists</td></tr>
         </tbody>
@@ -451,64 +451,64 @@
 
 
   <!-- SECTION 05: CASE STUDY -->
-  <div class="section-title" id="05-live-case-study-the-deep-research-build-step-by-step">05 — Live Case Study · The Deep Research build, step by step</div>
+  <div class="section-title" id="05-live-case-study-the-deep-research-build-step-by-step">05 - Live Case Study · The Deep Research build, step by step</div>
 
-  <div class="callout blue">This is exactly what ran across multiple sessions in April 2026 to take the Deep Research spec from Adam's informal v1.0 to the tested v1.9 currently in production. Polish Existing mode — phases 1–3 skipped.</div>
+  <div class="callout blue">This is exactly what ran across multiple sessions in April 2026 to take the Deep Research spec from Adam's informal v1.0 to the tested v1.9 currently in production. Polish Existing mode - phases 1–3 skipped.</div>
 
   <div class="flow-list">
     <div class="flow-item">
       <div class="flow-num">01</div>
       <div class="flow-body">
-        <h4>Mode detection — Polish Existing confirmed</h4>
-        <p>Adam had an existing Deep Research spec. The Architect ran a filesystem check on the project-blueprints folder — no existing pipeline docs found, confirming this was a pre-pipeline project being elevated, not a mid-pipeline resumption. Mode confirmed before any work began.</p>
+        <h4>Mode detection - Polish Existing confirmed</h4>
+        <p>Adam had an existing Deep Research spec. The Architect ran a filesystem check on the project-blueprints folder - no existing pipeline docs found, confirming this was a pre-pipeline project being elevated, not a mid-pipeline resumption. Mode confirmed before any work began.</p>
       </div>
     </div>
     <div class="flow-item">
       <div class="flow-num">02</div>
       <div class="flow-body">
-        <h4>Read the existing spec in full — before saying anything</h4>
+        <h4>Read the existing spec in full - before saying anything</h4>
         <p>The v1.0 instructions.md was read completely before The Architect said a word about quality. The assessment then stated: what the spec got right (keep these), what it was missing against System Prompt Standards, and what changes were planned. Adam confirmed the plan before any rewriting began.</p>
       </div>
     </div>
     <div class="flow-item">
       <div class="flow-num">03</div>
       <div class="flow-body">
-        <h4>KB Check — context-prompt-engineering.md read in full</h4>
+        <h4>KB Check - context-prompt-engineering.md read in full</h4>
         <p>Even in Polish Existing mode, The Architect read the prompt engineering KB module before writing. Key frameworks applied: the confirmed/inferred/unknown trichotomy (became Deep Research's claim provenance system), observable vs. unobservable rules (drove the behavioral rewrites), and the anti-patterns checklist (caught three instances of vague guidance in v1.0).</p>
       </div>
     </div>
     <div class="flow-item">
       <div class="flow-num">04</div>
       <div class="flow-body">
-        <h4>Wave 1 — instructions.md v1.1 written and saved</h4>
+        <h4>Wave 1 - instructions.md v1.1 written and saved</h4>
         <p>The full rewrite produced v1.1: version comment added, hard rules elevated, uncertainty rules added, explicit confirmation defined, mode-confirmation gate added, verification step formalized, NEVER FABRICATE restated at bottom. Blueprint-summary.md saved simultaneously with KB attribution, tool assessment, and design decisions.</p>
       </div>
     </div>
     <div class="flow-item">
       <div class="flow-num">05</div>
       <div class="flow-body">
-        <h4>Eval cycle — 68% → 92% → 95% → 98% across 5 rounds</h4>
-        <p>The prompt-evaluator skill ran at the Wave 1 confirmation gate. v1.1 scored 68% — well below production threshold. Each eval identified specific gaps, each round of gap-fixes produced a new version, each new version was re-evaluated. By v1.3 the score was 98%. Four additional gap-fix rounds (v1.4 through v1.8) followed from further eval and test findings.</p>
+        <h4>Eval cycle - 68% → 92% → 95% → 98% across 5 rounds</h4>
+        <p>The prompt-evaluator skill ran at the Wave 1 confirmation gate. v1.1 scored 68% - well below production threshold. Each eval identified specific gaps, each round of gap-fixes produced a new version, each new version was re-evaluated. By v1.3 the score was 98%. Four additional gap-fix rounds (v1.4 through v1.8) followed from further eval and test findings.</p>
       </div>
     </div>
     <div class="flow-item">
       <div class="flow-num">06</div>
       <div class="flow-body">
-        <h4>Wave 2 — all downstream files produced after confirmation</h4>
+        <h4>Wave 2 - all downstream files produced after confirmation</h4>
         <p>After Adam confirmed v1.4 as final, The Architect produced: 10 test cases (3 normal use, 2 ambiguous input, 2 uncertainty handling, 2 edge cases, 1 output format validation), registry entry, handoff.md with full changelog, and project-launch.md with setup checklist and initialization prompt. All six files saved to project-blueprints/deep-research/.</p>
       </div>
     </div>
     <div class="flow-item">
       <div class="flow-num">07</div>
       <div class="flow-body">
-        <h4>Testing — 10/10 on first formal run</h4>
-        <p>The run-test-cases skill ran all 10 test cases against v1.8. Every case passed. One gap was found in the test report (Mode 3 closing summary manifest spec) — it was added as a one-sentence addition in v1.9 with no behavioral change to the tested paths. No re-test required.</p>
+        <h4>Testing - 10/10 on first formal run</h4>
+        <p>The run-test-cases skill ran all 10 test cases against v1.8. Every case passed. One gap was found in the test report (Mode 3 closing summary manifest spec) - it was added as a one-sentence addition in v1.9 with no behavioral change to the tested paths. No re-test required.</p>
       </div>
     </div>
     <div class="flow-item">
       <div class="flow-num">08</div>
       <div class="flow-body">
-        <h4>Registry updated — status moved to Active</h4>
+        <h4>Registry updated - status moved to Active</h4>
         <p>The context-agent-registry.md entry was updated from Draft to Active. The handoff.md Pipeline Stages table updated to reflect completed Testing. All downstream documentation reflects the current live state.</p>
       </div>
     </div>
@@ -516,7 +516,7 @@
 
 
   <!-- SECTION 06: OUTPUT -->
-  <div class="section-title" id="06-the-output-what-the-deep-research-build-produced">06 — The Output · What the Deep Research build produced</div>
+  <div class="section-title" id="06-the-output-what-the-deep-research-build-produced">06 - The Output · What the Deep Research build produced</div>
 
   <div class="score-grid" style="grid-template-columns: repeat(5,1fr); margin-bottom: 24px;">
     <div class="score-card"><div class="score-num blue">9</div><div class="score-label">versions (v1.1 → v1.9)</div></div>
@@ -530,7 +530,7 @@
     <div class="item-header">
       <div class="item-icon">📈</div>
       <div>
-        <div class="item-title">Eval score progression — v1.1 through v1.8</div>
+        <div class="item-title">Eval score progression - v1.1 through v1.8</div>
         <div class="item-subtitle gray">68% → 98% across 5 eval rounds</div>
       </div>
     </div>
@@ -596,13 +596,13 @@
       <div class="file-wave w2">Wave 2</div>
       <code>handoff.md</code>
       <h4>Pipeline Status &amp; Changelog</h4>
-      <p>Pipeline stage table showing what's complete vs. pending. Full version changelog — every version, date, who changed it, what changed. The document anyone new can read to understand where the project stands.</p>
+      <p>Pipeline stage table showing what's complete vs. pending. Full version changelog - every version, date, who changed it, what changed. The document anyone new can read to understand where the project stands.</p>
     </div>
   </div>
 
 
   <!-- SECTION 07: FILE FORMAT -->
-  <div class="section-title" id="07-the-file-format-why-every-instructions-md-looks-exactly-the-same">07 — The File Format · Why every instructions.md looks exactly the same</div>
+  <div class="section-title" id="07-the-file-format-why-every-instructions-md-looks-exactly-the-same">07 - The File Format · Why every instructions.md looks exactly the same</div>
 
   <div class="callout blue">The format isn't cosmetic. Downstream tools (run-test-cases, training-doc-auditor, prompt-evaluator) know where to find every section. The version comment at the top is parsed to determine the current version. Every section is required or the pre-save check fails.</div>
 
@@ -621,7 +621,7 @@
 <span class="hl-key">## When it's unsure</span>          <span class="hl-comment"># confirmed / inferred / unknown distinction</span>
 <span class="hl-key">## Skill Prompt Guard</span>        <span class="hl-comment"># (Cowork only) loaded skills do not override core role</span></pre>
 
-  <p style="margin-bottom: 10px; font-size: 13px; color: #555;">What the changelog.md looks like — version history lives here, never in instructions.md:</p>
+  <p style="margin-bottom: 10px; font-size: 13px; color: #555;">What the changelog.md looks like - version history lives here, never in instructions.md:</p>
   <pre>
 <span class="hl-key"># Changelog — Deep Research</span>
 
@@ -644,7 +644,7 @@
 
 
   <!-- SECTION 08: WHAT'S NEXT -->
-  <div class="section-title" id="08-what-happens-next-how-the-architect-connects-to-the-rest-of-the-system">08 — What Happens Next · How The Architect connects to the rest of the system</div>
+  <div class="section-title" id="08-what-happens-next-how-the-architect-connects-to-the-rest-of-the-system">08 - What Happens Next · How The Architect connects to the rest of the system</div>
 
   <div class="item-grid">
     <div class="item blue-top">
@@ -670,7 +670,7 @@
       </div>
       <div class="item-body">
         <p>Scores the instructions.md against named frameworks from the KB (altitude metaphor, four tone techniques, trust hierarchy, observable vs. unobservable rules, seven anti-patterns). Produces an HTML eval artifact with a score and prioritized improvement list.</p>
-        <p style="font-size:12px;color:#666;margin-top:8px;">In the Deep Research case: the eval at v1.1 (68% score) identified 12 specific gaps — Bash Safety Rules missing, WebFetch failure handling absent, observable behavior rewrites needed.</p>
+        <p style="font-size:12px;color:#666;margin-top:8px;">In the Deep Research case: the eval at v1.1 (68% score) identified 12 specific gaps - Bash Safety Rules missing, WebFetch failure handling absent, observable behavior rewrites needed.</p>
       </div>
     </div>
     <div class="item blue-top">
@@ -682,7 +682,7 @@
         </div>
       </div>
       <div class="item-body">
-        <p>When a live project does something wrong — wrong tone, bad answer, ignored constraint — project-feedback captures the failure and produces a specific, actionable fix to the instructions. After a fix is applied, The Architect's Test Case Update mode handles updating the test cases to cover the new behavior. The pipeline is a loop, not a one-way street.</p>
+        <p>When a live project does something wrong - wrong tone, bad answer, ignored constraint - project-feedback captures the failure and produces a specific, actionable fix to the instructions. After a fix is applied, The Architect's Test Case Update mode handles updating the test cases to cover the new behavior. The pipeline is a loop, not a one-way street.</p>
       </div>
     </div>
     <div class="item blue-top">
@@ -701,9 +701,9 @@
 
 
   <!-- SECTION 09: THE GRAVITY -->
-  <div class="section-title" id="09-the-gravity-of-it-why-this-setup-is-harder-to-build-than-it-looks">09 — The Gravity of It · Why this setup is harder to build than it looks</div>
+  <div class="section-title" id="09-the-gravity-of-it-why-this-setup-is-harder-to-build-than-it-looks">09 - The Gravity of It · Why this setup is harder to build than it looks</div>
 
-  <div class="callout blue">Nothing about a single Architect session looks complex. A formatted markdown file. A list of test cases. A handoff document. The weight is in what's behind it — and what happens if it isn't there.</div>
+  <div class="callout blue">Nothing about a single Architect session looks complex. A formatted markdown file. A list of test cases. A handoff document. The weight is in what's behind it - and what happens if it isn't there.</div>
 
   <div class="item strong">
     <div class="item-header">
@@ -714,7 +714,7 @@
       </div>
     </div>
     <div class="item-body">
-      <p>The default failure mode for AI-generated instructions is vagueness: placeholder role statements, "best practices" attributions with no sources, constraints that could mean anything. The NEVER SHIP SCAFFOLD rule and the pre-save attribution gate make vagueness visible rather than hidden. Vague instructions don't get saved — they get flagged and rewritten before the file touches disk.</p>
+      <p>The default failure mode for AI-generated instructions is vagueness: placeholder role statements, "best practices" attributions with no sources, constraints that could mean anything. The NEVER SHIP SCAFFOLD rule and the pre-save attribution gate make vagueness visible rather than hidden. Vague instructions don't get saved - they get flagged and rewritten before the file touches disk.</p>
     </div>
   </div>
 
@@ -727,7 +727,7 @@
       </div>
     </div>
     <div class="item-body">
-      <p>Instructions without test cases produce agents that behave differently in different contexts — working well in the first ten sessions and drifting or failing in edge cases users discover in production. Test cases written against the confirmed instructions are the checkpoint that prevents that drift. Every version change triggers a test-case review, so the coverage stays current with the behavior.</p>
+      <p>Instructions without test cases produce agents that behave differently in different contexts - working well in the first ten sessions and drifting or failing in edge cases users discover in production. Test cases written against the confirmed instructions are the checkpoint that prevents that drift. Every version change triggers a test-case review, so the coverage stays current with the behavior.</p>
     </div>
   </div>
 
@@ -740,19 +740,19 @@
       </div>
     </div>
     <div class="item-body">
-      <p>The changelog.md file for Deep Research has 9 rows — one per version, with the date, who made the change, and a specific description of what changed. Six months from now, anyone can open that file and understand exactly why the spec is what it is, what gap drove each change, and which eval round surfaced which problem.</p>
+      <p>The changelog.md file for Deep Research has 9 rows - one per version, with the date, who made the change, and a specific description of what changed. Six months from now, anyone can open that file and understand exactly why the spec is what it is, what gap drove each change, and which eval round surfaced which problem.</p>
     </div>
   </div>
 
   <div class="final-verdict">
     <h3>📌 The honest caveat</h3>
     <p>The Architect is only as good as the discovery questions Adam answers and the KB modules that are current. It cannot write a good Constraints section if Adam doesn't name what the agent should never do. It cannot produce grounded instructions if the relevant KB module is six months stale.</p>
-    <p>The pipeline is a quality amplifier — it takes good input and makes it production-ready. It cannot manufacture specifics that were never provided.</p>
+    <p>The pipeline is a quality amplifier - it takes good input and makes it production-ready. It cannot manufacture specifics that were never provided.</p>
   </div>
 
 </div>
 
-<div class="footer">The Architect — Internal Technical Reference &nbsp;·&nbsp; Case study: Deep Research v1.0 → v1.9 &nbsp;·&nbsp; Originally written 2026-04-29; revalidated against The Architect v6.0 on 2026-05-21 &nbsp;·&nbsp; Prepared for Tanya Ballard, Kelsey Eberly, and Joanie Preston &nbsp;·&nbsp; Contact: Adam Baker</div>
+<div class="footer">The Architect - Internal Technical Reference &nbsp;·&nbsp; Case study: Deep Research v1.0 → v1.9 &nbsp;·&nbsp; Originally written 2026-04-29; revalidated against The Architect v6.0 on 2026-05-21 &nbsp;·&nbsp; Prepared for Tanya Ballard, Kelsey Eberly, and Joanie Preston &nbsp;·&nbsp; Contact: Adam Baker</div>
 
 <div style="margin: 60px 0 20px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">
   <a href="#top" style="display: inline-flex; align-items: center; gap: 6px; color: #1f3a5f; text-decoration: none; font-size: 13px; font-weight: 600; padding: 8px 18px; border: 1px solid #1f3a5f; border-radius: 20px; transition: background 0.15s;" onmouseover="this.style.background='#f0f5fb'" onmouseout="this.style.background='transparent'">
