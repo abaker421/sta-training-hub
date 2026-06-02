@@ -98,7 +98,7 @@
   .card-admin { border-top: 3px solid var(--orange); }
   .card-wip { border-top: 3px solid #6c3dbf; }
   .card-skill { border-top: 3px solid #0d7d8c; }
-  .card-required-unread { box-shadow: inset 3px 0 0 var(--blue); }
+  .card-required-unread { }
 
   .card-head { display: flex; align-items: flex-start; gap: 10px; }
   .card-titleblock { flex: 1; min-width: 0; }
@@ -237,6 +237,7 @@
 
   @media (max-width: 700px) {
     .app-header { padding: 12px 16px; height: auto; flex-direction: column; align-items: stretch; gap: 12px; }
+    .hdr-logo { align-self: flex-start; }
     .hdr-quickref { margin-left: 0; }
     .search-wrap { max-width: none; margin-left: 0; }
     .content { padding: 20px 16px 60px; }
@@ -444,7 +445,7 @@ window.TRAINING_DATA = {
     // ===== Policies =====
     'aup': {
       title: 'AI Acceptable Use Policy',
-      desc: 'The rules for using AI at School Tech. Read and acknowledge this before your account is switched on.',
+      desc: 'The rules for using AI at School Tech. Read this before your account is switched on.',
       file: 'docs/ai-acceptable-use-policy.html',
       type: 'html',
       priority: 'required',
@@ -1071,13 +1072,16 @@ function viewAudience(aud) {
   if (!aud) return '';
   let html = '<div class="aud-header"><h1 class="aud-title">' + esc(aud.title) + '</h1>'
     + '<div class="aud-sub">' + esc(aud.sub) + '</div></div>';
+  let startDaySec = null;
   if (aud.id === 'start') {
     const reqSec = aud.sections.find(s => s.heading === 'Required before first use');
-    const daySec = aud.sections.find(s => s.heading === 'Recommended Day 1');
+    startDaySec = aud.sections.find(s => s.heading === 'Recommended Day 1');
     if (reqSec) html += progressBar('required articles read', reqSec.docs);
-    if (daySec) html += progressBar('Day 1 articles read', daySec.docs);
   }
   aud.sections.forEach(sec => {
+    if (startDaySec && sec.heading === 'Recommended Day 1') {
+      html += progressBar('Day 1 articles read', startDaySec.docs);
+    }
     html += '<section class="section"><div class="section-title">' + esc(sec.heading)
       + '<span class="section-count">' + sec.docs.length + ' ' + (sec.docs.length === 1 ? 'doc' : 'docs') + '</span></div>'
       + '<div class="card-grid">';
