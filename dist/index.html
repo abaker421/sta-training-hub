@@ -411,7 +411,7 @@ window.TRAINING_DATA = {
       sub: 'For Chris Baker and Tyler Baughman. Your tool briefs and the skills you use most. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Tool briefs', docs: ['support-chat-brief', 'ai-advisor'] },
-        { heading: 'Skills', docs: ['time-clock', 'skill-help-center-article'] }
+        { heading: 'Skills', docs: ['time-clock', 'skill-help-center-article', 'skill-html-checklist'] }
       ]
     },
     {
@@ -422,7 +422,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Cohort kit', docs: ['cohort-getting-started', 'sf-org-intake'] },
         { heading: 'Tool brief', docs: ['ai-advisor'] },
-        { heading: 'Skills', docs: ['skill-help-center-article'] }
+        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist'] }
       ]
     },
     {
@@ -431,7 +431,7 @@ window.TRAINING_DATA = {
       icon: '\u{1F527}',
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
-        { heading: 'Tool brief', docs: ['ai-advisor'] },
+        { heading: 'Tool briefs', docs: ['ai-advisor', 'support-chat-brief', 'cohort-getting-started'] },
         { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-prompt-override-guard', 'time-clock', 'skill-agent-quality-logger', 'skill-cowork-context-packager'] },
         { heading: 'System reference', docs: ['system-overview', 'workspace-skills', 'user-management', 'maintenance-sop'] },
         { heading: 'Build pipeline', docs: ['rollout-plan', 'build-guide', 'architect-case-study'] },
@@ -1059,40 +1059,24 @@ function cardHTML(id, doc) {
     + '<div class="card-meta">' + meta + '</div></div>';
 }
 
-function progressBar(aud) {
-  const ids = audienceDocIds(aud);
+function progressBar(label, ids) {
   const done = ids.filter(id => state.read.has(id)).length;
   const pct = ids.length ? Math.round(done / ids.length * 100) : 0;
-  return '<div class="progress" role="group" aria-label="Reading progress on this tab">'
-    + '<div class="progress-label"><strong>' + done + ' of ' + ids.length + ' done</strong> on this tab</div>'
+  return '<div class="progress" role="group" aria-label="' + esc(label) + '">'
+    + '<div class="progress-label"><strong>' + done + ' of ' + ids.length + '</strong> ' + esc(label) + '</div>'
     + '<div class="progress-track"><div class="progress-fill" style="width:' + pct + '%"></div></div></div>';
-}
-
-function adminScreenshotsPanel() {
-  const items = [
-    'html-checklist: a finished branded checklist with the progress bar',
-    'help-center-article: a produced Salesforce KB article',
-    'time-clock: a sample diagnosis output',
-    'cowork-context-packager: a produced context file + the proposed instructions.md edit',
-    'agent-quality-logger: a logged entry / the Monday health report row',
-    'Login: claude.ai sign-in with the work email',
-    'Projects list in the left sidebar',
-    'The "Personal vs workspace" wrong-account state',
-    'Opening a Project + the chat box (first real action)',
-    'A good-vs-bad prompt, side by side',
-    'The thumbs-down / give-feedback control'
-  ];
-  return '<div class="callout orange screenshots-panel">'
-    + '<strong>Screenshots to gather</strong> (admin to-do, not a training doc):'
-    + '<ul>' + items.map(t => '<li>' + esc(t) + '</li>').join('') + '</ul></div>';
 }
 
 function viewAudience(aud) {
   if (!aud) return '';
   let html = '<div class="aud-header"><h1 class="aud-title">' + esc(aud.title) + '</h1>'
     + '<div class="aud-sub">' + esc(aud.sub) + '</div></div>';
-  if (aud.id === 'admin') html += adminScreenshotsPanel();
-  if (aud.id === 'start') html += progressBar(aud);
+  if (aud.id === 'start') {
+    const reqSec = aud.sections.find(s => s.heading === 'Required before first use');
+    const daySec = aud.sections.find(s => s.heading === 'Recommended Day 1');
+    if (reqSec) html += progressBar('required articles read', reqSec.docs);
+    if (daySec) html += progressBar('Day 1 articles read', daySec.docs);
+  }
   aud.sections.forEach(sec => {
     html += '<section class="section"><div class="section-title">' + esc(sec.heading)
       + '<span class="section-count">' + sec.docs.length + ' ' + (sec.docs.length === 1 ? 'doc' : 'docs') + '</span></div>'
