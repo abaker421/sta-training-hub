@@ -433,7 +433,12 @@ window.TRAINING_DATA = {
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
         { heading: 'Tool briefs', docs: ['ai-advisor', 'support-chat-brief', 'cohort-getting-started'] },
-        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-prompt-override-guard', 'time-clock', 'skill-agent-quality-logger', 'skill-cowork-context-packager'] },
+        { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides'] },
+        { heading: 'Skills - Support & Troubleshooting', docs: ['time-clock'] },
+        { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
+        { heading: 'Skills - Knowledge & Research', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
+        { heading: 'Skills - Safety & Guardrails', docs: ['skill-prompt-override-guard'] },
+        { heading: 'Skills - Maintenance & Ops', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout'] },
         { heading: 'System reference', docs: ['system-overview', 'workspace-skills', 'user-management', 'maintenance-sop'] },
         { heading: 'Build pipeline', docs: ['rollout-plan', 'build-guide', 'architect-case-study'] },
         { heading: 'Security checklists', docs: ['google-security', 'sf-security'] },
@@ -628,6 +633,147 @@ window.TRAINING_DATA = {
       tags: ['Build Pipeline'],
       added: '2026-06-01', updated: '2026-06-01',
       check: 'Besides writing the context file, what edit does this skill generate and propose to wire the file into instructions.md?'
+    },
+
+    'skill-research-to-slides': {
+      title: 'Research to Slides',
+      desc: 'Turn a Deep Research folder or KB modules into a teaching slide deck with assertion titles and cognitive-load limits.',
+      file: 'docs/skill-research-to-slides.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Presentation'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What style of slide titles does this skill use, and what limit does it apply per slide?'
+    },
+    'skill-prompt-evaluator': {
+      title: 'Prompt Evaluator',
+      desc: 'Score a project's instructions.md against named frameworks and produce a versioned eval report before launch.',
+      file: 'docs/skill-prompt-evaluator.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Build Pipeline'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What does the eval score the instructions against instead of unaided intuition?'
+    },
+    'skill-run-test-cases': {
+      title: 'Run Test Cases',
+      desc: 'Validate an agent's instructions against its test cases and report pass/fail with a failure taxonomy.',
+      file: 'docs/skill-run-test-cases.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['QA'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'Which two files does this skill check against each other before reporting pass/fail?'
+    },
+    'skill-project-feedback': {
+      title: 'Project Feedback',
+      desc: 'Diagnose a misbehaving live agent and trace it to the exact instruction line to fix.',
+      file: 'docs/skill-project-feedback.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['QA'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What does this skill ground every diagnosis in, so fixes are not fabricated?'
+    },
+    'skill-skill-evaluator': {
+      title: 'Skill Evaluator',
+      desc: 'Score a SKILL.md for description quality, triggering accuracy, and structure before shipping.',
+      file: 'docs/skill-skill-evaluator.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['QA'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'Name two things this skill checks beyond whether the skill simply works.'
+    },
+    'skill-pipeline-audit': {
+      title: 'Pipeline Audit',
+      desc: 'Cross-check the registry against every blueprint folder to find missing documentation system-wide.',
+      file: 'docs/skill-pipeline-audit.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Admin'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What two things does this skill cross-reference to build its coverage matrix?'
+    },
+    'skill-training-doc-auditor': {
+      title: 'Training Doc Auditor',
+      desc: 'Verify training docs still reflect what agents actually do; catches accumulated drift.',
+      file: 'docs/skill-training-doc-auditor.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Admin'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What does this skill cross-check the training docs against to find drift?'
+    },
+    'skill-knowledge-base-context-builder': {
+      title: 'Knowledge Base Context Builder',
+      desc: 'Turn existing KB research modules into an uploadable project context file with a quality gate.',
+      file: 'docs/skill-knowledge-base-context-builder.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Build Pipeline'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What does the structured intake and quality gate prevent in the resulting context file?'
+    },
+    'skill-project-context-packager': {
+      title: 'Project Context Packager',
+      desc: 'Package content as a Claude.ai Project context file with token economy, XML tags, and upload order.',
+      file: 'docs/skill-project-context-packager.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Build Pipeline'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'Name two formatting rules this skill applies that the Cowork packager does not.'
+    },
+    'skill-deep-research-prompt-builder': {
+      title: 'Deep Research Prompt Builder',
+      desc: 'Craft a deep-research commission prompt for the KB, plus a one-click kickoff prompt.',
+      file: 'docs/skill-deep-research-prompt-builder.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Research'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'Besides the research prompt itself, what does this skill hand back to start the research?'
+    },
+    'skill-kb-freshness-auditor': {
+      title: 'KB Freshness Auditor',
+      desc: 'Find stale KB modules by date and priority, and output ready-to-paste refresh prompts.',
+      file: 'docs/skill-kb-freshness-auditor.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Maintenance'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What does this skill calculate staleness from, and what does it output for stale modules?'
+    },
+    'skill-backup-verifier': {
+      title: 'Backup Verifier',
+      desc: 'Verify everything in _Backups is current and surface stale skill packages as installable .skill files.',
+      file: 'docs/skill-backup-verifier.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Maintenance'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What does this skill surface for any skill package found to be out of date?'
+    },
+    'skill-weekly-github-backup': {
+      title: 'Weekly GitHub Backup',
+      desc: 'Automated weekly backup of all Claude projects and skills to GitHub (Sundays, 7:00 AM).',
+      file: 'docs/skill-weekly-github-backup.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Maintenance'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What day and time does this backup run, and what does it back up?'
+    },
+    'skill-session-closeout': {
+      title: 'Session Closeout',
+      desc: 'Wrap up a session with a skim-ready summary, pending tasks, and a one-click handoff prompt.',
+      file: 'docs/skill-session-closeout.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Productivity'],
+      added: '2026-06-02', updated: '2026-06-02',
+      check: 'What does this skill produce if you want to continue the work in a new chat?'
     },
 
     // ===== Rollout & admin =====
