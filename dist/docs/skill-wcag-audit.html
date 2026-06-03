@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WCAG Audit - Skill Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  :root { --dark:#1A1A2E; --teal:#0d7d8c; --teal-dark:#0a6470; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:var(--dark); color:#fff; padding:28px 32px; border-bottom:3px solid var(--teal); }
+  .badge { display:inline-block; background:#e0f3f5; color:var(--teal-dark); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:rgba(255,255,255,0.7); font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--teal-dark); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  .callout { background:#fff8e6; border:1px solid #f0d98a; border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .callout p { margin-bottom:0; font-size:10.5pt; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Build Pipeline &middot; AI Admin</span>
+      <h1>WCAG Audit</h1>
+      <div class="tagline">Check any digital asset for accessibility against WCAG 2.2 AA.</div>
+    </div>
+    <div class="body">
+      <h2>What it does</h2>
+      <p>Audits a digital asset against the WCAG 2.2 Level AA accessibility standard and produces a severity-ranked findings report, with verifiable evidence behind every Pass and every Fail. It reports problems; it does not modify the asset.</p>
+      <h2>What it can audit</h2>
+      <ul>
+        <li>Live web pages and URLs (rendered in a real browser)</li>
+        <li>Static HTML and CSS files</li>
+        <li>PDF documents (tagging, reading order, alt text, headings, tables)</li>
+        <li>Word (.docx) documents and PowerPoint (.pptx) decks</li>
+      </ul>
+      <h2>When to use it</h2>
+      <p>Any time something needs an accessibility check before it goes out - a public web page, a customer-facing PDF, a training deck, a marketing doc. It also powers the Accessibility dimension of The Test Master, which calls it automatically during a web audit.</p>
+      <h2>How to trigger it</h2>
+      <div class="trigger"><p>"check this for WCAG 2.2 AA"</p><p>"run an accessibility audit on this page"</p><p>"is this PDF accessible for screen readers"</p><p>"does this deck meet ADA / Section 508"</p></div>
+      <h2>The one rule to remember</h2>
+      <div class="callout"><p>A clean automated scan is never proof of conformance. Automated tools catch at most about 57% of accessibility issues, so the skill reports "no automated violations detected; manual review still required" rather than "WCAG conformant." A real conformance claim needs human and screen-reader testing.</p></div>
+    </div>
+    <div class="foot">School Technology Associates &middot; WCAG Audit &middot; Custom Skill</div>
+  </div>
+</body>
+</html>
