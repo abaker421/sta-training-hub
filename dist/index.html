@@ -402,7 +402,7 @@ window.TRAINING_DATA = {
         { heading: 'Tool brief', docs: ['ai-advisor'] },
         { heading: 'Skills', docs: ['skill-html-checklist', 'skill-agent-quality-logger'] },
         { heading: 'Coming Soon', docs: ['behind-the-bell', 'sta-main-chat'] },
-        { heading: 'Go further', docs: ['platforms', 'tub'] }
+        { heading: 'Go further', docs: ['platforms', 'tub', 'claude-skills'] }
       ]
     },
     {
@@ -529,6 +529,16 @@ window.TRAINING_DATA = {
       tags: ['Framework', 'Intermediate'],
       check: 'What capability does each of the four AI-employee levels add, from Contractor to Autonomous?',
       added: '2026-06-01', updated: '2026-06-01'
+    },
+    'claude-skills': {
+      title: 'Claude Skills',
+      desc: 'The deeper look at skills - what they are, how they auto-trigger, and when a repeatable task should become one.',
+      file: 'docs/claude-skills.html',
+      type: 'html',
+      priority: 'recommended',
+      tags: ['Reference', 'Intermediate'],
+      check: 'What makes a skill trigger at the right time, and when should a behavior be a skill instead of staying in the instructions?',
+      added: '2026-06-02', updated: '2026-06-02'
     },
 
     // ===== Per-tool briefs =====

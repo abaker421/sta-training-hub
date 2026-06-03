@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - Claude Skills</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: var(--blue); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--green); }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.82; margin-top: 6px; max-width: 620px; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.65; }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+  .callout.red { background: #fdf0ef; border-left: 4px solid var(--red); }
+
+  /* STEPS */
+  .steps { margin: 0; }
+  .step { display: flex; gap: 20px; margin-bottom: 20px; }
+  .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--blue); color: white; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-body { flex: 1; background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .step-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .step-desc { font-size: 13px; color: #444; line-height: 1.6; }
+  .step-note { font-size: 12px; color: #555; background: var(--light); border-left: 3px solid var(--blue); padding: 8px 12px; margin-top: 12px; border-radius: 0 5px 5px 0; line-height: 1.5; }
+
+  /* TOOL CARDS */
+  .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+  .tool-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .tool-card.live { border-top: 3px solid var(--green); }
+  .tool-card.soon { border-top: 3px solid var(--border); opacity: 0.75; }
+  .tool-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+  .tool-tag.live { color: #2e7010; }
+  .tool-tag.soon { color: var(--gray); }
+  .tool-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .tool-desc { font-size: 12px; color: #555; line-height: 1.55; }
+  .tool-use { font-size: 12px; color: var(--blue); margin-top: 10px; font-weight: 600; }
+
+  /* WHAT IT IS / IS NOT */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+  .two-col-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .two-col-card.good { border-top: 3px solid var(--green); }
+  .two-col-card.caution { border-top: 3px solid var(--orange); }
+  .two-col-head { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 12px; }
+  .two-col-head.good { color: #2e7010; }
+  .two-col-head.caution { color: #9a5800; }
+  .two-col-item { font-size: 13px; color: #333; line-height: 1.55; margin-bottom: 8px; padding-left: 18px; position: relative; }
+  .two-col-item::before { position: absolute; left: 0; font-size: 12px; }
+  .two-col-card.good .two-col-item::before { content: "\2713"; color: var(--green); }
+  .two-col-card.caution .two-col-item::before { content: "!"; color: var(--orange); font-weight: 700; }
+
+  /* RESTRICTED DATA */
+  .data-rule-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .data-rule { background: white; border: 1px solid #f5b8aa; border-radius: 10px; padding: 16px 18px; border-top: 3px solid var(--red); }
+  .data-rule-label { font-size: 12px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .data-rule-desc { font-size: 12px; color: #444; line-height: 1.55; }
+
+  /* FAQ - styled cards */
+  .faq-item { background:var(--white); border:1px solid var(--border); border-radius:8px;
+    padding:18px 20px; margin-bottom:10px; box-shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);
+    transition: box-shadow .18s ease, transform .18s ease; }
+  .faq-item:hover { transform:translateY(-2px);
+    box-shadow:0 4px 10px rgba(16,24,40,.10),0 2px 4px rgba(16,24,40,.08); }
+  .faq-q { display:flex; align-items:flex-start; gap:10px; color:var(--blue);
+    font-weight:500; font-size:15px; line-height:1.45; }
+  .faq-badge { flex:none; width:24px; height:24px; border-radius:6px; background:#e6f1fb;
+    color:var(--blue); font-size:13px; font-weight:500; display:flex; align-items:center;
+    justify-content:center; margin-top:1px; }
+  .faq-a { margin-left:34px; margin-top:8px; color:var(--dark); font-size:14.5px; line-height:1.6; }
+
+  /* ===== AI Basics ===== */
+  .basics-grid { display: flex; flex-direction: column; gap: 14px; max-width: 640px; }
+  .basics-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.08); padding: 20px 22px; }
+  .basics-card h4 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 700; color: var(--blue); }
+  .basics-card p { margin: 0; color: var(--dark); line-height: 1.6; }
+  .basics-eg { margin-top: 10px !important; font-size: .9rem; color: var(--gray); }
+  .basics-card { transition: box-shadow .18s ease, transform .18s ease; }
+  .basics-card:hover { transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(16,24,40,.10), 0 2px 4px rgba(16,24,40,.08); }
+  .basics-card h4 { display:flex; align-items:center; gap:11px; font-size:1.1rem; }
+  .basics-badge { flex:none; width:26px; height:26px; border-radius:50%; background:var(--blue);
+    color:#fff; font-size:13px; font-weight:500; display:flex; align-items:center;
+    justify-content:center; }
+  .basics-eg strong { color:#1f9d55; font-weight:500; }   /* accessible STA-family green */
+  @media (prefers-reduced-motion:reduce){ .basics-card,.faq-item { transition:none; }
+    .basics-card:hover,.faq-item:hover { transform:none; } }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 800px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+    .two-col { grid-template-columns: 1fr; }
+    .tool-grid { grid-template-columns: 1fr; }
+    .data-rule-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body id="top">
+
+<style>
+  .glance { width:100%; border-collapse:collapse; margin:0; font-size:13px; }
+  .glance th, .glance td { border:1px solid var(--border); padding:9px 12px; text-align:left; vertical-align:top; line-height:1.5; }
+  .glance thead th { background:var(--blue); color:#fff; font-weight:700; }
+  .glance tbody th { background:var(--light); color:var(--dark); font-weight:700; }
+  .glance tbody tr:nth-child(even) td { background:#fafbfc; }
+  .glance td { color:#444; }
+  .glance-wrap { overflow-x:auto; margin:8px 0 4px; }
+  .deep-list { list-style:none; margin:8px 0 4px; padding:0; }
+  .deep-list > li { background:#fff; border:1px solid var(--border); border-radius:8px; padding:12px 16px; margin-bottom:10px; font-size:14px; line-height:1.6; color:#333; }
+  .deep-list > li strong { color:var(--dark); }
+  .doc-p { font-size:14px; color:#444; line-height:1.65; margin-bottom:14px; }
+  .doc-p strong { color:var(--dark); }
+  .doc-list { font-size:14px; color:#444; line-height:1.7; margin:8px 0 14px 22px; }
+  .doc-list li { margin-bottom:7px; }
+</style>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Claude Skills</h1>
+    <div class="sub">You've seen skills kick in (turn this into a checklist, write a help article). This is the deeper look: what a skill actually is, how you use them, and when something you do should become one. The Getting Started guide has the one-line version; this is the next level.</div>
+    <div class="badge">For Staff - Intermediate</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- 1 What a skill actually is -->
+  <div class="section-title">What a skill actually is</div>
+  <div class="basics-grid" style="max-width:none;">
+    <div class="basics-card">
+      <h4><span class="basics-badge">1</span>A packaged, reusable capability</h4>
+      <p>A skill is a reusable capability packaged in a file (a SKILL.md, plus optional scripts and reference files) that teaches Claude how to do one specific job a consistent way.</p>
+    </div>
+    <div class="basics-card">
+      <h4><span class="basics-badge">2</span>It loads progressively</h4>
+      <p>Only the skill's name and a short description sit in Claude's context until your request matches it, then the full instructions load. That keeps things fast, and it means you can have many skills available without slowing Claude down.</p>
+    </div>
+    <div class="basics-card">
+      <h4><span class="basics-badge">3</span>It's portable</h4>
+      <p>The same skill file works across Claude.ai, Cowork, Claude Code, and the API. It's an open format, not a one-off.</p>
+    </div>
+    <div class="basics-card">
+      <h4><span class="basics-badge">4</span>It comes from a few places</h4>
+      <p>Built-in ones from Anthropic (docx, pptx, xlsx, pdf), custom ones uploaded to our School Tech org, and personal ones an individual installs.</p>
+    </div>
+  </div>
+
+  <!-- 2 How you use them -->
+  <div class="section-title">How you use them</div>
+  <p class="doc-p"><strong>You don't trigger a skill by hand.</strong> Claude reads your request and auto-runs the matching skill. You just ask naturally.</p>
+  <p class="doc-p"><strong>Example:</strong> "write this up as a help article" fires the Help Center Article skill; "make this a checklist" fires the HTML Checklist skill. You never type a command.</p>
+  <ul class="doc-list">
+    <li>Built-in skills (Word, PowerPoint, Excel, PDF) are always available.</li>
+    <li>Our STA custom skills are uploaded to the org, so they're available in the right tools.</li>
+    <li>In Cowork you install a skill from its file; in a Claude.ai Project, skills activate automatically when relevant (some need code execution turned on).</li>
+  </ul>
+  <div class="callout green"><strong>Nothing to memorize:</strong> if a skill exists for your task, describing the task is enough.</div>
+
+  <!-- 3 The skills we've built -->
+  <div class="section-title">The skills we've built</div>
+  <p class="doc-p">We have a growing set of STA custom skills - help-article writing, checklists, the prompt-override guard, time-clock log review, and the build-pipeline tools.</p>
+  <div class="callout blue"><strong>See the full list:</strong> the AI Admin tab has every one of our custom skills and what each does.</div>
+
+  <!-- 4 When to make a new one -->
+  <div class="section-title">When to make a new one</div>
+  <div class="section-intro">The question is whether a behavior should be its own skill or just live in a project's instructions.</div>
+  <div class="two-col">
+    <div class="two-col-card good">
+      <div class="two-col-head good">Make a skill when</div>
+      <div class="two-col-item">It's a repeatable procedure</div>
+      <div class="two-col-item">It's only needed some of the time</div>
+      <div class="two-col-item">It has a clear start and a clear output</div>
+      <div class="two-col-item">It's long (roughly 200+ lines of steps)</div>
+      <div class="two-col-item" style="color:#666;">Document-creation patterns, audits, and workflows fit here.</div>
+    </div>
+    <div class="two-col-card caution">
+      <div class="two-col-head caution">Keep it inline when</div>
+      <div class="two-col-item">It defines who the agent is</div>
+      <div class="two-col-item">It's a hard rule the agent must follow every time</div>
+      <div class="two-col-item">It's the tone the agent always uses</div>
+      <div class="two-col-item" style="color:#666;">Identity and always-on rules belong in the project's instructions.</div>
+    </div>
+  </div>
+  <div class="callout blue"><strong>Quick heuristic:</strong> facts and identity go in the instructions; repeatable procedures become a skill.</div>
+
+  <!-- 5 What makes a skill work -->
+  <div class="section-title">What makes a skill work</div>
+  <div class="callout blue"><strong>The description is the most important part.</strong> It's what tells Claude when to fire the skill, so it has to name the real phrases people say and the artifacts involved.</div>
+  <p class="doc-p"><strong>Two ways a skill misfires</strong>, and both trace back to a weak description:</p>
+  <ul class="doc-list">
+    <li><strong>Undertriggering</strong> - it never fires when it should.</li>
+    <li><strong>Overtriggering</strong> - it fires when it shouldn't.</li>
+  </ul>
+  <p class="doc-p">At School Tech we build skills through the <strong>skill-creator</strong> tool, which enforces the description quality, the length limit, and runs an eval loop before a skill ships. That's why our skills trigger reliably.</p>
+
+  <!-- 6 Next step -->
+  <div class="section-title">Next step</div>
+  <div class="callout green"><strong>Got a task you do the same way over and over?</strong> That's a skill candidate. Bring it to Adam with the steps you follow and what a good result looks like, and it can be built and tested through skill-creator.</div>
+
+  <!-- FOOTER -->
+  <div style="margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: #555; line-height: 1.6;">
+    <strong style="color: var(--dark);">Questions or issues?</strong> Contact Adam.
+    New to AI? Start with the <a href="getting-started-guide.html" style="color:#0a66c2;text-decoration:underline;">Getting Started Guide</a>.
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>School Technology Associates</strong> &nbsp;&middot;&nbsp; AI Tools for Staff &nbsp;&middot;&nbsp; Claude Skills
+</div>
+
+<div style="margin: 60px 0 20px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">
+  <a href="#top" style="display: inline-flex; align-items: center; gap: 6px; color: #1f3a5f; text-decoration: none; font-size: 13px; font-weight: 600; padding: 8px 18px; border: 1px solid #1f3a5f; border-radius: 20px; transition: background 0.15s;" onmouseover="this.style.background='#f0f5fb'" onmouseout="this.style.background='transparent'">
+    <span>&uarr;</span>
+    <span>Back to top</span>
+  </a>
+</div>
+</body>
+</html>
