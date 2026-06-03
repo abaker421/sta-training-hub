@@ -98,13 +98,13 @@
   .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
 
   .card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; transition: border-color .12s, box-shadow .12s, transform .12s; cursor: pointer; position: relative; min-height: 152px; }
-  .card:hover { border-color: var(--blue); box-shadow: 0 2px 8px rgba(0,96,152,0.1); transform: translateY(-1px); }
-  .card-required { border-top: 3px solid var(--blue); }
-  .card-recommended { border-top: 3px solid var(--green); }
-  .card-optional { border-top: 3px solid var(--gray); }
-  .card-admin { border-top: 3px solid var(--orange); }
-  .card-wip { border-top: 3px solid #6c3dbf; }
-  .card-skill { border-top: 3px solid #0d7d8c; }
+  .card:hover { border-color: var(--card-accent, var(--blue)); box-shadow: 0 4px 12px rgba(0,0,0,0.13); transform: translateY(-1px); }
+  .card-required { border-top: 3px solid var(--blue); --card-accent: var(--blue); }
+  .card-recommended { border-top: 3px solid var(--green); --card-accent: var(--green); }
+  .card-optional { border-top: 3px solid var(--gray); --card-accent: var(--gray); }
+  .card-admin { border-top: 3px solid var(--orange); --card-accent: var(--orange); }
+  .card-wip { border-top: 3px solid #6c3dbf; --card-accent: #6c3dbf; }
+  .card-skill { border-top: 3px solid #0d7d8c; --card-accent: #0d7d8c; }
   .card-required-unread { }
 
   .card-head { display: flex; align-items: flex-start; gap: 10px; }
