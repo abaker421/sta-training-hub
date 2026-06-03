@@ -1071,33 +1071,8 @@ if (!Array.isArray(state.favorites)) state.favorites = [];
 const el = {
   tabbar: document.getElementById('tabbar'),
   main: document.getElementById('main'),
-  search: document.getElementById('search'),
-  header: document.querySelector('.app-header')
+  search: document.getElementById('search')
 };
-
-// Per-category header colors. `bg` is a header-safe (darkened) shade so the
-// white logo + title stay legible; `bar` is the bright card stripe color used
-// for the header's bottom accent border. When no doc is open the header
-// reverts to the default navy (inline styles cleared).
-const HEADER_TONE = {
-  required:    { bg: '#006098', bar: '#006098' },
-  recommended: { bg: '#3a8a1e', bar: '#6bc04b' },
-  optional:    { bg: '#5c6063', bar: '#8a8d8e' },
-  admin:       { bg: '#9c6a00', bar: '#F4A300' },
-  wip:         { bg: '#5a31a3', bar: '#6c3dbf' },
-  skill:       { bg: '#0a6571', bar: '#0d7d8c' }
-};
-function applyHeaderColor(doc) {
-  if (!el.header) return;
-  const tone = doc && HEADER_TONE[doc.priority || 'optional'];
-  if (tone) {
-    el.header.style.background = tone.bg;
-    el.header.style.borderBottomColor = tone.bar;
-  } else {
-    el.header.style.background = '';
-    el.header.style.borderBottomColor = '';
-  }
-}
 
 let viewerKeyHandler = null;
 
@@ -1206,20 +1181,16 @@ function audienceDocIds(aud) {
 function render() {
   renderTabs();
   if (state.search.trim()) {
-    applyHeaderColor(null);
     el.main.innerHTML = '<div class="content">' + viewSearch() + '</div>';
     window.scrollTo({ top: 0 });
   } else if (state.viewerDocId) {
     const doc = DATA.docs[state.viewerDocId];
-    applyHeaderColor(doc);
     el.main.innerHTML = viewViewer(doc);
     initViewer(doc);
     window.scrollTo({ top: 0 });
   } else if (state.activeAud === 'favorites') {
-    applyHeaderColor(null);
     el.main.innerHTML = '<div class="content">' + viewFavorites() + '</div>';
   } else {
-    applyHeaderColor(null);
     el.main.innerHTML = '<div class="content">' + viewAudience(DATA.audiences.find(a => a.id === state.activeAud)) + '</div>';
   }
 }
