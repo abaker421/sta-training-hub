@@ -1,6 +1,12 @@
 # Cloudflare Pages custom headers
 # Serve docx and md files with safe content disposition
 
+/sw.js
+  Cache-Control: no-cache
+
+/manifest.json
+  Cache-Control: no-cache
+
 /files/*
   Cache-Control: public, max-age=3600
 
