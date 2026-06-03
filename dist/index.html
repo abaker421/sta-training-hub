@@ -442,7 +442,8 @@ window.TRAINING_DATA = {
         { heading: 'System reference', docs: ['system-overview', 'workspace-skills', 'user-management', 'maintenance-sop'] },
         { heading: 'Build pipeline', docs: ['rollout-plan', 'build-guide', 'architect-case-study'] },
         { heading: 'Security checklists', docs: ['google-security', 'sf-security'] },
-        { heading: 'Operational procedures', docs: ['drift-check', 'formatting-standards', 'write-verification'] }
+        { heading: 'Operational procedures', docs: ['drift-check', 'formatting-standards', 'write-verification'] },
+        { heading: 'Knowledge base', docs: ['kb-module-catalog'] }
       ]
     }
   ],
@@ -906,6 +907,16 @@ window.TRAINING_DATA = {
       tags: ['Protocol', 'Admin'],
       added: '2026-05-21', updated: '2026-05-22',
       check: 'After an Edit where the new_string is shorter than the old_string, what specific byte must you check the file for to detect silent corruption?'
+    },
+    'kb-module-catalog': {
+      title: 'STA Knowledge Base Module Catalog',
+      desc: 'Every STA-scope KB module grouped by area with a one-line summary of each - the domain expertise The Architect draws from. STA scope only.',
+      file: 'docs/sta-kb-module-catalog.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Knowledge Base', 'Admin'],
+      added: '2026-06-03', updated: '2026-06-03',
+      check: 'How many STA-scope modules and how many grouped areas does the catalog list, and which scope of the knowledge base does it deliberately leave out?'
     },
     'onboarding-deck': {
       title: 'AI Tools Getting Started - Slides',
@@ -1471,27 +1482,4 @@ el.search.addEventListener('input', () => {
 // Back button stepping through tabs/docs within the site instead of leaving it).
 window.addEventListener('popstate', () => {
   teardownViewerFocus();
-  const r = parseHash();
-  if (r) applyRoute(r);
-  else { state.viewerDocId = null; state.search = ''; if (el.search) el.search.value = ''; }
-  persist();
-  render();
-});
-
-// ---- init ----
-(function init() {
-  const r = parseHash();
-  if (r) {
-    applyRoute(r);
-  } else {
-    const saved = lsGet(LS.aud, 'start');
-    state.activeAud = (typeof saved === 'string' && VALID_AUDS.includes(saved)) ? saved : 'start';
-    if (state.activeAud === 'favorites' && state.favorites.length === 0) state.activeAud = 'start';
-    state.viewerDocId = null;
-  }
-  setupThemeToggle();
-  go(false); // replaceState to a canonical hash + first render
-})();
-</script>
-</body>
-</html>
+  const r = parse

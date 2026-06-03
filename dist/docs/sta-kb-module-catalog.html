@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - STA Knowledge Base Module Catalog</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: var(--blue); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--green); }
+  .header-inner { max-width: 920px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.82; margin-top: 6px; max-width: 660px; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; margin-right: 6px; }
+  .page { max-width: 920px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 14px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-title .count { float: right; color: var(--blue); font-weight: 700; letter-spacing: 0; }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 18px; line-height: 1.65; }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.orange { background: #fef4e0; border-left: 4px solid var(--orange); }
+
+  table.ref { width: 100%; border-collapse: collapse; margin: 8px 0 4px; background: white; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 13px; }
+  table.ref th { background: #f4f8fb; text-align: left; padding: 9px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--blue); border-bottom: 2px solid var(--border); }
+  table.ref td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; color: #333; }
+  table.ref td:first-child { font-weight: 700; color: var(--dark); width: 30%; }
+  table.ref td:last-child { white-space: nowrap; text-align: center; color: var(--gray); font-family: 'SF Mono', Consolas, monospace; font-size: 12px; width: 64px; }
+  table.ref th:last-child { text-align: center; }
+  table.ref tr:last-child td { border-bottom: none; }
+  table.ref .slug { display: block; font-weight: 400; font-family: 'SF Mono', Consolas, monospace; font-size: 11px; color: var(--gray); margin-top: 3px; }
+
+  code.inline { background: #eef2f5; border-radius: 4px; padding: 1px 5px; font-family: 'SF Mono', Consolas, monospace; font-size: 12px; color: #234; }
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+  @media (max-width: 800px) { .page { padding: 20px 16px 60px; } .header { padding: 24px 16px; } table.ref td:first-child { width: 38%; } }
+</style>
+</head>
+<body id="top">
+
+<div class="header">
+  <div class="header-inner">
+    <h1>STA Knowledge Base &mdash; Module Catalog</h1>
+    <div class="sub">Every research and reference module in the STA scope of the knowledge base, grouped by area with a one-line summary of each. This is the domain expertise The Architect draws from when building and running STA's AI projects.</div>
+    <div class="badge">AI Admin &middot; Not for general staff distribution</div>
+    <div class="badge">70 STA modules &middot; 10 areas</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="callout blue" style="margin-top: 4px;">
+    <strong>What this is.</strong> The knowledge base is split into two scopes that share one index: <strong>STA</strong> (work-context modules used to build, train, and run STA's AI system) and <strong>Adam</strong> (personal-project modules). This catalog lists the <strong>STA scope only</strong>. Modules live under <code class="inline">knowledge-base/sta/&hellip;</code> and are pulled into projects by path during The Architect's Phase 2 KB Check. The number on the right of each row is how many sub-modules that topic contains.
+  </div>
+
+  <div class="callout orange">
+    <strong>Keep this current.</strong> New modules are added to <code class="inline">knowledge-base/index.md</code> as research is commissioned. When the index gains or loses an STA row, this catalog should be regenerated from it so the two stay in sync.
+  </div>
+
+  <!-- 1 -->
+  <div class="section-title">AI System &amp; Prompt Engineering <span class="count">9</span></div>
+  <div class="section-intro">How Claude, Cowork, and the prompt itself work &mdash; the foundation for every agent The Architect builds.</div>
+  <table class="ref">
+    <tr><th>Module</th><th>What it covers</th><th>#</th></tr>
+    <tr><td>Anthropic Prompt Engineering Best Practices<span class="slug">anthropic-prompt-engineering-best-practices</span></td><td>Anthropic's official system-prompt guidance: the altitude metaphor, the four tone techniques, observable vs unobservable rules, the trust hierarchy, and the seven anti-patterns.</td><td>8</td></tr>
+    <tr><td>System Prompt Decomposition Patterns<span class="slug">system-prompt-decomposition-patterns</span></td><td>Splitting a large prompt across primacy/recency zones, pointer files, and compaction triggers without losing instruction-following.</td><td>6</td></tr>
+    <tr><td>How AI Context Works<span class="slug">how-ai-context-works</span></td><td>How Claude's context window, attention, and memory actually behave &mdash; Claude-specific and general principles.</td><td>9</td></tr>
+    <tr><td>Claude Skills Architecture<span class="slug">claude-skills-architecture</span></td><td>What Skills are, how they load, how to author them, and where their limitations bite.</td><td>7</td></tr>
+    <tr><td>Multi-Agent Orchestration Patterns<span class="slug">multi-agent-orchestration-patterns</span></td><td>Patterns for coordinating multiple agents &mdash; handoffs, orchestrator/sub-agent designs, and where they break down.</td><td>7</td></tr>
+    <tr><td>Cowork vs Claude.ai Projects<span class="slug">cowork-vs-claude-projects-platform-comparison</span></td><td>When to deploy to Cowork vs a Claude.ai Project, decided on file access, collaboration, and regulated data.</td><td>4</td></tr>
+    <tr><td>Cowork Tool &amp; MCP Capabilities<span class="slug">cowork-tool-and-mcp-capabilities</span></td><td>What Cowork's tools and MCP connectors can and can't do, with the failure-mode caveats used in tool assessments.</td><td>8</td></tr>
+    <tr><td>Claude Design<span class="slug">claude-design</span></td><td>Anthropic's Claude Design UI/design-system tool (Labs research preview, launched April 2026).</td><td>5</td></tr>
+    <tr><td>Web Search Best Practices for AI Research Agents<span class="slug">web-search-best-practices-for-ai-research-agents</span></td><td>How research agents should fan out searches, fetch sources, and verify claims.</td><td>5</td></tr>
+  </table>
+
+  <!-- 2 -->
+  <div class="section-title">AI Quality, Testing &amp; Governance <span class="count">6</span></div>
+  <div class="section-intro">Making sure agents behave &mdash; testing methodology, adversarial review, and access governance.</div>
+  <table class="ref">
+    <tr><th>Module</th><th>What it covers</th><th>#</th></tr>
+    <tr><td>LLM Behavioral Testing &amp; Evaluation<span class="slug">llm-behavioral-testing-and-evaluation</span></td><td>Methodology for testing and evaluating LLM behavior systematically.</td><td>8</td></tr>
+    <tr><td>AI Red-Teaming &amp; Adversarial Testing<span class="slug">ai-red-teaming-and-adversarial-testing</span></td><td>Adversarial testing and red-teaming techniques for LLM applications.</td><td>8</td></tr>
+    <tr><td>Software QA Engineering for AI Agents<span class="slug">software-qa-engineering-for-ai-agents</span></td><td>Classic software-QA principles applied to AI agent systems.</td><td>8</td></tr>
+    <tr><td>Anthropic API Test Harness Design<span class="slug">anthropic-api-test-harness-design</span></td><td>Building an automated test harness on top of the Anthropic API.</td><td>8</td></tr>
+    <tr><td>AI Agent Access Control &amp; Governance<span class="slug">sta/security/ai-agent-access-control-and-governance</span></td><td>Access control, data scoping, and governance for deployed AI agents in K-12 ed-tech.</td><td>5</td></tr>
+    <tr><td>Claude Certified Architect &mdash; Foundations<span class="slug">claude-certified-architect-foundations</span></td><td>Exam-prep course for the CCA-Foundations credential (Phases 1-3 built; Module 12 deferred).</td><td>13</td></tr>
+  </table>
+
+  <!-- 3 -->
+  <div class="section-title">STA Company, Products &amp; Internal Knowledge <span class="count">9</span></div>
+  <div class="section-intro">Who School Tech is, what it sells, and how it runs &mdash; the company-specific grounding required for any STA project.</div>
+  <table class="ref">
+    <tr><th>Module</th><th>What it covers</th><th>#</th></tr>
+    <tr><td>School Technology Associates &mdash; Company Profile<span class="slug">sta-company-profile</span></td><td>STA's identity, team, products, and customer base. Required context for every STA-serving project.</td><td>8</td></tr>
+    <tr><td>School Tech Org Context<span class="slug">context-files/outputs</span></td><td>Packaged org context: identity, team, tech stack, data policy, brand, and AI roadmap.</td><td>6</td></tr>
+    <tr><td>School Tech Help Center<span class="slug">school-tech-help-center</span></td><td>First-party product knowledge ingested from the live School Tech Help Center.</td><td>16</td></tr>
+    <tr><td>School Tech Product Manuals<span class="slug">product-manuals</span></td><td>Product manuals for the time clocks, tardy kiosk, and positive attendance lines.</td><td>9</td></tr>
+    <tr><td>School Tech Internal Processes<span class="slug">internal-processes</span></td><td>Internal workflows &mdash; vendor RMA and repair processes.</td><td>1</td></tr>
+    <tr><td>Skyward Ecosystem Deep Dive<span class="slug">skyward-ecosystem-deep-dive</span></td><td>The Skyward SIS ecosystem STA's products integrate with.</td><td>7</td></tr>
+    <tr><td>Skyward Qmlativ Migration Dynamics<span class="slug">skyward-qmlativ-migration-dynamics</span></td><td>How districts migrate to Skyward Qmlativ and what it means for STA.</td><td>5</td></tr>
+    <tr><td>Behind the Bell Podcast<span class="slug">sta/podcast/behind-the-bell-podcast</span></td><td>STA's K-12 podcast: show profile, episode history, guest pipeline, and templates.</td><td>1</td></tr>
+    <tr><td>Podcast Best Practices<span class="slug">sta/podcast/podcast-best-practices</span></td><td>Best practices for an interview-format K-12 education show.</td><td>3</td></tr>
+  </table>
+
+  <!-- 4 -->
+  <div class="section-title">Salesforce <span class="count">6</span></div>
+  <div class="section-intro">STA's core CRM and service platform &mdash; configuration, automation, and predictive AI.</div>
+  <table class="ref">
+    <tr><th>Module</th><th>What it covers</th><th>#</th></tr>
+    <tr><td>Salesforce Knowledge &amp; Help Center<span class="slug">salesforce-knowledge-and-help-center</span></td><td>Configuring and authoring in Salesforce Knowledge and the Help Center.</td><td>9</td></tr>
+    <tr><td>Salesforce Flows &mdash; Fundamentals<span class="slug">salesforce-flows-fundamentals</span></td><td>Flow Mastery 1 of 3: Flow building blocks and core patterns.</td><td>9</td></tr>
+    <tr><td>Salesforce Flows &mdash; Advanced &amp; Integration<span class="slug">salesforce-flows-advanced-integration</span></td><td>Flow Mastery 2 of 3: advanced flows and integration patterns.</td><td>9</td></tr>
+    <tr><td>Salesforce Flows &mdash; Operations &amp; Mastery<span class="slug">salesforce-flows-operations-mastery</span></td><td>Flow Mastery 3 of 3: operations, debugging, and mastery.</td><td>9</td></tr>
+    <tr><td>Salesforce Einstein (Predictive)<span class="slug">salesforce-einstein-predictive</span></td><td>Salesforce Einstein predictive AI &mdash; explicitly not Agentforce.</td><td>9</td></tr>
+    <tr><td>Salesforce Experience Cloud<span class="slug">salesforce-experience-cloud</span></td><td>Building portals and communities on Salesforce Experience Cloud.</td><td>8</td></tr>
+  </table>
+
+  <!-- 5 -->
+  <div class="section-title">Platforms &amp; Productivity Tools <span class="count">6</span></div>
+  <div class="section-intro">The day-to-day tools STA operates on and may automate against.</div>
+  <table class="ref">
+    <tr><th>Module</th><th>What it covers</th><th>#</th></tr>
+    <tr><td>Slack Platform Fundamentals<span class="slug">slack-platform-fundamentals</span></td><td>How Slack works as a platform &mdash; workspaces, channels, and core concepts.</td><td>8</td></tr>
+    <tr><td>Slack Automation, API &amp; Agent Integration<span class="slug">slack-automation-api-and-agent-integration</span></td><td>Automating Slack and wiring agents into it via the API.</td><td>9</td></tr>
+    <tr><td>Granola<span class="slug">granola</span></td><td>The Granola AI meeting-notes tool &mdash; capture, templates, and integration.</td><td>7</td></tr>
+    <tr><td>Calendly<span class="slug">calendly</span></td><td>The Calendly scheduling platform.</td><td>7</td></tr>
+    <tr><td>GitHub Platform &amp; Automation<span class="slug">github-platform-and-automation</span></td><td>GitHub as a platform plus automation (Actions, workflows).</td><td>9</td></tr>
+    <tr><td>WordPress + WooCommerce Stack<span class="slug">wordpress-woocommerce-stack</span></td><td>The WordPress + WooCommerce stack.</td><td>8</td></tr>
+  </table>
+
+  <!-- 6 -->
+  <div class="section-title">Device &amp; IT Administration <span class="count">8</span></div>
+  <div class="section-intro">Endpoint management and IT-support reference for the platforms STA's customers and staff run.</div>
+  <table class="ref">
+    <tr><th>Module</th><th>What it covers</th><th>#</th></tr>
+    <tr><td>Chrome Device Management &amp; Web App Deployment<span class="slug">chrome-device-management-and-web-app-deployment</span></td><td>Managing Chrome devices and deploying web apps to them.</td><td>9</td></tr>
+    <tr><td>Mobile Device Management<span class="slug">mobile-device-management</span></td><td>Android Enterprise and Apple MDM.</td><td>9</td></tr>
+    <tr><td>Google Admin Console (General)<span class="slug">google-admin-console-general</span></td><td>General administration of the Google Admin Console.</td><td>10</td></tr>
+    <tr><td>Windows IT Administration<span class="slug">windows-it-administration</span></td><td>Windows IT administration, practitioner-to-master depth.</td><td>13</td></tr>
+    <tr><td>Android IT Administration<span class="slug">android-it-administration</span></td><td>Android IT administration.</td><td>7</td></tr>
+    <tr><td>iOS/iPadOS IT Administration<span class="slug">ios-it-administration</span></td><td>iOS and iPadOS IT administration.</td><td>7</td></tr>
+    <tr><td>Remote Access Tools for K-12 IT Support<span class="slug">remote-access-tools-k12-it-support</span></td><td>SSH, VNC, and WinSCP for K-12 IT support.</td><td>6</td></tr>
+    <tr><td>SQL Server Ecosystem for IT Support<span class="slug">sql-server-ecosystem-it-support</span></td><td>ODBC, SQL Express, and SSMS for support staff.</td><td>5</td></tr>
+  </table>
+
+  <!-- 7 -->
+  <div class="section-title">Security &amp; Compliance <span class="count">4</span></div>
+  <div class="section-intro">The privacy and security frameworks STA operates under as a K-12 SaaS vendor.</div>
+  <table class="ref">
+    <tr><th>Module</th><th>What it covers</th><th>#</th></tr>
+    <tr><td>CIS Controls v8.1 Framework<span class="slug">cis-controls-v81-framework</span></td><td>The CIS Controls v8.1 security framework.</td><td>7</td></tr>
+    <tr><td>FERPA + COPPA Student Data Privacy<span class="slug">ferpa-coppa-student-data-privacy</span></td><td>The FERPA and COPPA student-data-privacy framework.</td><td>7</td></tr>
+    <tr><td>Biometric Data Privacy in K-12<span class="slug">biometric-data-privacy-in-k12</span></td><td>Biometric data privacy law in K-12 &mdash; directly relevant to time clocks and kiosks.</td><td>6</td></tr>
+    <tr><td>ADA Title II Digital Accessibility<span class="slug">sta/ada-title-ii-digital-accessibility-saas-vendor</span></td><td>ADA Title II digital-accessibility requirements from a SaaS-vendor perspective.</td><td>8</td></tr>
+  </table>
+
+  <!-- 8 -->
+  <div class="section-title">K-12 Domain &amp; Market <span class="count">5</span></div>
+  <div class="section-intro">How the K-12 world works &mdash; the market, the buyers, and the operational realities STA sells into.</div>
+  <table class="ref">
+    <tr><th>Module</th><th>What it covers</th><th>#</th></tr>
+    <tr><td>K-12 Education Market Overview<span class="slug">k12-education-market-overview</span></td><td>Overview of the K-12 education market.</td><td>6</td></tr>
+    <tr><td>Chronic Absenteeism in K-12<span class="slug">chronic-absenteeism-in-k12</span></td><td>Chronic-absenteeism research and interventions &mdash; the problem STA's attendance products address.</td><td>6</td></tr>
+    <tr><td>K-12 HR/Payroll Timekeeping Compliance<span class="slug">k12-hr-payroll-timekeeping-compliance</span></td><td>HR/payroll timekeeping compliance for K-12 &mdash; the rules behind the time clocks.</td><td>6</td></tr>
+    <tr><td>K-12 School Nutrition &amp; Food Service<span class="slug">k12-school-nutrition-and-food-service</span></td><td>School nutrition and food-service operations.</td><td>6</td></tr>
+    <tr><td>K-12 Procurement Mechanics<span class="slug">k12-procurement-mechanics</span></td><td>How K-12 districts actually buy &mdash; budgets, cycles, and approvals.</td><td>6</td></tr>
+  </table>
+
+  <!-- 9 -->
+  <div class="section-title">Sales, Marketing &amp; Customer Success <span class="count">9</span></div>
+  <div class="section-intro">Going to market and keeping customers &mdash; STA-specific outreach, pricing, retention, and analytics.</div>
+  <table class="ref">
+    <tr><th>Module</th><th>What it covers</th><th>#</th></tr>
+    <tr><td>B2B Customer Outreach Best Practices (STA)<span class="slug">customer-outreach-best-practices-sta</span></td><td>STA-specific B2B customer-outreach best practices.</td><td>6</td></tr>
+    <tr><td>B2B Email Marketing with Mailchimp<span class="slug">b2b-email-marketing-with-mailchimp</span></td><td>B2B email marketing with Mailchimp, tuned for STA.</td><td>6</td></tr>
+    <tr><td>Help Center Strategy<span class="slug">help-center-strategy</span></td><td>Strategy for STA's customer-facing Help Center.</td><td>6</td></tr>
+    <tr><td>Webinar &amp; Event Marketing in K-12 Ed-Tech<span class="slug">webinar-event-marketing-k12-edtech</span></td><td>Running webinars and events as a K-12 ed-tech vendor.</td><td>6</td></tr>
+    <tr><td>K-12 Ed-Tech Sales Methodology (STA)<span class="slug">k12-edtech-sales-methodology</span></td><td>STA-specific K-12 ed-tech sales methodology.</td><td>1</td></tr>
+    <tr><td>K-12 SaaS Customer Success &amp; Retention (STA)<span class="slug">k12-saas-customer-success-and-retention</span></td><td>Customer success and retention for K-12 SaaS, STA-specific.</td><td>1</td></tr>
+    <tr><td>B2B Public-Sector Quote &amp; Pricing Strategy (STA)<span class="slug">b2b-public-sector-quote-and-pricing-strategy</span></td><td>Quoting and pricing into the public sector, STA-specific.</td><td>1</td></tr>
+    <tr><td>Voice of Customer &amp; Support Analytics (STA)<span class="slug">voice-of-customer-and-support-analytics</span></td><td>Mining voice-of-customer signal and support-ticket analytics.</td><td>1</td></tr>
+    <tr><td>B2B Marketing Master Reference<span class="slug">b2b-marketing-master-reference</span></td><td>Master reference for B2B marketing.</td><td>12</td></tr>
+  </table>
+
+  <!-- 10 -->
+  <div class="section-title">Engineering &amp; Document Craft <span class="count">8</span></div>
+  <div class="section-intro">The hands-on build and output skills The Architect and its agents use to produce deliverables.</div>
+  <table class="ref">
+    <tr><th>Module</th><th>What it covers</th><th>#</th></tr>
+    <tr><td>HTML Best Practices (Master Level)<span class="slug">html-best-practices-master-level</span></td><td>Master-level HTML best practices.</td><td>8</td></tr>
+    <tr><td>CSS &amp; Visual Design (Master Level)<span class="slug">css-visual-design-master-level</span></td><td>Master-level CSS and visual design.</td><td>7</td></tr>
+    <tr><td>React (Master Level Reference)<span class="slug">react-master-level-reference</span></td><td>Master-level React reference.</td><td>9</td></tr>
+    <tr><td>Python (Master Level Reference)<span class="slug">python-master-level</span></td><td>Master-level Python reference.</td><td>14</td></tr>
+    <tr><td>python-docx / pptx / openpyxl Formatting API<span class="slug">python-office-formatting-api-reference</span></td><td>Formatting API reference for the Office-document Python libraries.</td><td>4</td></tr>
+    <tr><td>Document Design Principles for AI Output<span class="slug">document-design-principles-for-ai-output</span></td><td>Design principles for AI-generated Word, PowerPoint, and Excel.</td><td>5</td></tr>
+    <tr><td>Report Design for Humans in HTML<span class="slug">sta/report-design-for-humans-html</span></td><td>Communication craft plus HTML execution for human-readable reports.</td><td>8</td></tr>
+    <tr><td>B2B Self-Service Portal UX Patterns<span class="slug">b2b-self-service-portal-ux-patterns</span></td><td>UX patterns and role-scoped permission models for B2B self-service portals.</td><td>6</td></tr>
+  </table>
+
+</div>
+
+<div class="footer">
+  <strong>STA Knowledge Base &mdash; Module Catalog</strong> &middot; STA scope only &middot; generated from <code style="color:rgba(255,255,255,0.7)">knowledge-base/index.md</code><br>
+  Regenerate whenever the index gains or loses an STA module.
+</div>
+
+</body>
+</html>
