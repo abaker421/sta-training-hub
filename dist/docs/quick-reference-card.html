@@ -5,224 +5,169 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>School Tech AI - Quick Reference Card</title>
 <style>
-  :root {
-    --blue: #006098;
-    --green: #6bc04b;
-    --orange: #F4A300;
-    --red: #c0392b;
-    --gray: #8a8d8e;
-    --light: #f4f6f8;
-    --dark: #1e2a35;
-    --white: #ffffff;
-    --border: #dde3e8;
+  :root{
+    --blue:#006098; --blue-d:#00466e; --blue2:#e6f0f7;
+    --green:#2f7a16; --green2:#eaf5e2;
+    --amber:#8a5200; --amber2:#fbf1de;
+    --red:#b5392c; --red2:#fbe9e6;
+    --ink:#1f272e; --sub:#46525c; --line:#d8dee4; --bg:#ffffff; --soft:#f5f7f9;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--white); color: var(--dark); line-height: 1.5; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#e9edf1;color:var(--ink);line-height:1.55;padding:26px 14px;-webkit-font-smoothing:antialiased;}
+  .sheet{max-width:1000px;margin:0 auto;background:var(--bg);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 3px 14px rgba(16,24,40,.09);}
 
-  /* PRINT-FIRST LAYOUT */
-  .card { max-width: 900px; margin: 0 auto; padding: 28px 36px 32px; }
+  .top{display:flex;align-items:baseline;gap:18px;background:var(--blue);color:#fff;padding:22px 30px;border-bottom:4px solid var(--green);}
+  .top h1{font-size:23px;font-weight:700;letter-spacing:.2px;}
+  .top .sub{font-size:13.5px;opacity:.85;}
+  .pin{margin-left:auto;text-align:right;font-size:11.5px;opacity:.85;line-height:1.5;}
+  .pin b{font-weight:600;}
 
-  .card-header { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 14px; border-bottom: 3px solid var(--blue); margin-bottom: 20px; }
-  .card-header-left h1 { font-size: 20px; font-weight: 700; color: var(--dark); }
-  .card-header-left .sub { font-size: 12px; color: var(--gray); margin-top: 3px; }
-  .card-header-right { text-align: right; font-size: 11px; color: var(--gray); }
-  .card-header-right strong { color: var(--blue); display: block; font-size: 13px; margin-bottom: 2px; }
+  .body{padding:24px 28px 22px;display:grid;grid-template-columns:1fr 1fr;gap:18px 22px;}
+  .col-span{grid-column:1 / -1;}
 
-  /* SECTION LAYOUT */
-  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-  .grid-full { margin-bottom: 14px; }
+  .panel{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg);}
+  .ph{padding:9px 16px;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid var(--line);}
+  .ph.blue{background:var(--blue2);color:var(--blue-d);}
+  .ph.red{background:var(--red2);color:var(--red);}
+  .ph.green{background:var(--green2);color:var(--green);}
+  .ph.amber{background:var(--amber2);color:var(--amber);}
+  .pb{padding:15px 16px;}
 
-  .block { background: var(--light); border-radius: 8px; padding: 14px 16px; border: 1px solid var(--border); }
-  .block.blue-top { border-top: 3px solid var(--blue); }
-  .block.green-top { border-top: 3px solid var(--green); }
-  .block.orange-top { border-top: 3px solid var(--orange); }
-  .block.red-top { border-top: 3px solid var(--red); }
+  .steps{display:flex;flex-direction:column;gap:11px;}
+  .st{display:flex;gap:12px;align-items:flex-start;font-size:14px;}
+  .st .n{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .st b{font-weight:700;}
+  .muted{color:var(--sub);}
+  .hint{margin-top:13px;font-size:12.5px;color:#5d4a1e;background:var(--amber2);border:1px solid #ecd9ad;border-radius:6px;padding:9px 12px;}
+  .hint b{color:var(--amber);}
 
-  .block-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gray); margin-bottom: 9px; }
-  .block-label.blue { color: var(--blue); }
-  .block-label.green { color: #2e7010; }
-  .block-label.orange { color: #9a5800; }
-  .block-label.red { color: var(--red); }
+  .never .row{display:flex;gap:11px;align-items:flex-start;font-size:14px;margin-bottom:9px;}
+  .never .row:last-of-type{margin-bottom:0;}
+  .never .mk{width:7px;height:7px;background:var(--red);border-radius:2px;flex-shrink:0;margin-top:6px;}
+  .never b{font-weight:700;}
+  .rule{margin:13px -16px -15px;padding:11px 16px;background:var(--red2);font-size:13.5px;font-weight:800;color:var(--red);}
 
-  /* ITEMS */
-  .item { font-size: 12px; color: #333; line-height: 1.5; margin-bottom: 6px; padding-left: 14px; position: relative; }
-  .item:last-child { margin-bottom: 0; }
-  .item::before { position: absolute; left: 0; color: var(--blue); font-size: 11px; font-weight: 700; }
-  .item.check::before { content: "✓"; color: var(--green); }
-  .item.bang::before { content: "!"; color: var(--orange); }
-  .item.dash::before { content: "–"; color: var(--gray); }
-  .item.arrow::before { content: "→"; }
-  .item.never::before { content: "✗"; color: var(--red); }
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .cd{border:1px solid var(--line);border-radius:7px;padding:13px 15px;background:var(--soft);}
+  .cd .nm{font-size:14px;font-weight:700;color:var(--blue);}
+  .cd .who{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--sub);margin:5px 0 8px;}
+  .cd .d{font-size:12.5px;color:#33404a;line-height:1.5;}
 
-  .item strong { font-weight: 700; color: var(--dark); }
-  .item em { font-style: italic; color: #555; }
+  .modes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .md{border:1px solid var(--line);border-radius:7px;padding:0;overflow:hidden;}
+  .md .mh{font-size:13.5px;font-weight:700;padding:9px 14px;background:var(--soft);border-bottom:1px solid var(--line);}
+  .md.try .mh{background:var(--green2);color:var(--green);}
+  .md .u{font-size:12.5px;color:#33404a;line-height:1.5;padding:11px 14px;}
+  .md .u b{font-weight:700;color:var(--ink);}
+  .md .ex{display:block;margin-top:8px;font-size:11px;font-weight:700;color:var(--green);}
 
-  /* FORMULA BLOCKS */
-  .formula-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 14px; }
-  .formula-part { padding: 12px 14px; background: white; border-right: 1px solid var(--border); }
-  .formula-part:last-child { border-right: none; }
-  .formula-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .formula-num.what { color: var(--blue); }
-  .formula-num.ctx { color: #2e7010; }
-  .formula-num.fmt { color: #9a5800; }
-  .formula-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-  .formula-eg { font-size: 11px; color: var(--gray); font-style: italic; line-height: 1.45; }
+  .formula{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;}
+  .fp{padding:13px 16px;border-right:1px solid var(--line);}
+  .fp:last-child{border-right:none;}
+  .fp .l{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px;color:var(--amber);}
+  .fp .l .opt{font-weight:600;text-transform:none;letter-spacing:0;color:var(--sub);}
+  .fp .t{font-size:14px;font-weight:700;margin-bottom:5px;}
+  .fp .eg{font-size:12px;color:var(--sub);font-style:italic;line-height:1.5;}
 
-  /* FIX-IT PHRASES */
-  .phrase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .phrase { background: white; border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-size: 12px; font-style: italic; color: #333; line-height: 1.45; }
-  .phrase-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; color: var(--blue); margin-bottom: 4px; font-style: normal; display: block; }
+  .fix{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .fx{border:1px solid var(--line);border-left:3px solid var(--green);background:var(--soft);border-radius:0 6px 6px 0;padding:10px 14px;}
+  .fx .tag{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--green);margin-bottom:4px;}
+  .fx .q{font-size:12.5px;font-style:italic;color:#33404a;line-height:1.5;}
 
-  /* DIVIDER */
-  .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+  .foot{display:flex;justify-content:space-between;align-items:center;padding:13px 28px;border-top:1px solid var(--line);font-size:11.5px;color:var(--sub);background:var(--soft);}
+  .foot a{color:var(--blue);text-decoration:none;font-weight:600;}
 
-  /* FOOTER */
-  .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 2px solid var(--border); margin-top: 6px; font-size: 11px; color: var(--gray); }
-  .card-footer a { color: var(--blue); }
-
-  @media print {
-    body { background: white; }
-    .card { padding: 18px 24px; }
-    .block { break-inside: avoid; }
-  }
-  @media (max-width: 700px) {
-    .grid-3 { grid-template-columns: 1fr; }
-    .grid-2 { grid-template-columns: 1fr; }
-    .formula-row { grid-template-columns: 1fr; }
-    .phrase-grid { grid-template-columns: 1fr; }
-  }
+  @media print{ body{background:#fff;padding:0;} .sheet{box-shadow:none;border:none;border-radius:0;} .panel{break-inside:avoid;} }
+  @media(max-width:720px){ .body{grid-template-columns:1fr;} .grid3,.modes,.formula{grid-template-columns:1fr;} .fix{grid-template-columns:1fr;} .formula .fp{border-right:none;border-bottom:1px solid var(--line);} }
 </style>
 </head>
-<body id="top">
+<body>
+  <div class="sheet">
 
-<div class="card">
-
-  <div class="card-header">
-    <div class="card-header-left">
-      <h1>AI Tools at School Tech - Quick Reference</h1>
-      <div class="sub">What to do, what to say, what to never paste</div>
-    </div>
-    <div class="card-header-right">
-      <strong>School Technology Associates</strong>
-      Questions? adamb@k12sta.com
-    </div>
-  </div>
-
-
-  <!-- ROW 1: LOGIN + TOOLS LIVE + DATA RULES -->
-  <div class="grid-3">
-
-    <div class="block blue-top">
-      <div class="block-label blue">How to Get In</div>
-      <div class="item arrow">Go to <strong>claude.ai</strong></div>
-      <div class="item arrow">Sign in with your <strong>@k12sta.com</strong> email - not Gmail, not Google sign-in</div>
-      <div class="item arrow">Open <strong>Projects</strong> in the left sidebar</div>
-      <div class="item arrow">Click a project name and start typing</div>
-      <hr class="divider">
-      <div class="item bang">If you see "Personal" you're in the wrong account - log out and use your work email</div>
+    <div class="top">
+      <div>
+        <h1>AI Quick Reference</h1>
+        <div class="sub">What to do &middot; what to say &middot; what to never paste</div>
+      </div>
+      <div class="pin"><b>Pin or print this.</b><br>School Technology Associates &middot; adamb@k12sta.com</div>
     </div>
 
-    <div class="block green-top">
-      <div class="block-label green">What's Live Now</div>
-      <div class="item check"><strong>AI Advisor</strong> - all staff; explore AI fit, find what's built, frame ideas for Adam</div>
-      <div class="item check"><strong>STA Support Chat</strong> - the Support team; product troubleshooting + customer email drafts</div>
-      <div class="item check"><strong>STA Salesforce Cohort</strong> - the Salesforce admin team; SF admin tasks, formulas, guidance</div>
-      <hr class="divider">
-      <div class="block-label" style="margin-bottom: 6px;">Coming Soon</div>
-      <div class="item dash">STA Main Chat - general org / product lookups for all staff</div>
-    </div>
+    <div class="body">
 
-    <div class="block red-top">
-      <div class="block-label red">Never Paste These</div>
-      <div class="item never"><strong>Student data</strong> - names, IDs, grades, attendance, anything from Skyward</div>
-      <div class="item never"><strong>Employee PII</strong> - SSNs, payroll, HR records, performance data</div>
-      <div class="item never"><strong>Credentials</strong> - passwords, API keys, tokens, login info for any system</div>
-      <hr class="divider">
-      <div class="item bang" style="font-size: 11px;">When in doubt - don't paste it. See the <em>Restricted Data Reference Guide</em> or ask Adam.</div>
-    </div>
-
-  </div>
-
-
-  <!-- ROW 2: FORMULA -->
-  <div class="block-label" style="margin-bottom: 8px; margin-top: 4px;">The Three-Ingredient Formula - hit all three for a useful first draft</div>
-  <div class="formula-row">
-    <div class="formula-part">
-      <div class="formula-num what">1 - What</div>
-      <div class="formula-title">The actual task</div>
-      <div class="formula-eg">"Draft a response to this customer complaint." Not "I was wondering if maybe you could help me..."</div>
-    </div>
-    <div class="formula-part">
-      <div class="formula-num ctx">2 - Context</div>
-      <div class="formula-title">The relevant situation</div>
-      <div class="formula-eg">Paste the actual email, error message, or case note. The real thing beats a description of it every time.</div>
-    </div>
-    <div class="formula-part">
-      <div class="formula-num fmt">3 - Format (optional)</div>
-      <div class="formula-title">What you want back</div>
-      <div class="formula-eg">"Keep it under 3 sentences." "Formal - this is for a superintendent." "Use bullet points."</div>
-    </div>
-  </div>
-
-
-  <!-- ROW 3: FIX-IT PHRASES + WHAT IT IS / ISN'T -->
-  <div class="grid-2">
-
-    <div class="block orange-top">
-      <div class="block-label orange">When the Response Isn't Right - Stay in the Conversation</div>
-      <div class="phrase-grid">
-        <div class="phrase">
-          <span class="phrase-tag">Name what's wrong</span>
-          "Too formal - this customer is casual. Rewrite just the opening."
-        </div>
-        <div class="phrase">
-          <span class="phrase-tag">Add what you left out</span>
-          "Should have mentioned - this district is 3 months in, not new."
-        </div>
-        <div class="phrase">
-          <span class="phrase-tag">Keep what's working</span>
-          "First two paragraphs are good. Just rewrite the closing."
-        </div>
-        <div class="phrase">
-          <span class="phrase-tag">Ask for options</span>
-          "Give me two versions: one short and direct, one more detailed."
+      <div class="panel">
+        <div class="ph blue">Get In</div>
+        <div class="pb">
+          <div class="steps">
+            <div class="st"><span class="n">1</span><div>Go to <b>claude.ai</b></div></div>
+            <div class="st"><span class="n">2</span><div>Sign in with your <b>@k12sta.com</b> email <span class="muted">(not Gmail, not the Google button)</span></div></div>
+            <div class="st"><span class="n">3</span><div>Open <b>Projects</b> in the left sidebar, click one, start typing</div></div>
+          </div>
+          <div class="hint"><b>If you see "Personal":</b> wrong account. Log out, sign back in with your work email.</div>
         </div>
       </div>
+
+      <div class="panel">
+        <div class="ph red">Never Paste</div>
+        <div class="pb never">
+          <div class="row"><span class="mk"></span><div><b>Student data</b> &mdash; names, IDs, grades, attendance, anything from Skyward</div></div>
+          <div class="row"><span class="mk"></span><div><b>Employee PII</b> &mdash; SSNs, payroll, HR records, performance data</div></div>
+          <div class="row"><span class="mk"></span><div><b>Credentials</b> &mdash; passwords, API keys, tokens, logins</div></div>
+          <div class="rule">When in doubt, don't paste it.</div>
+        </div>
+      </div>
+
+      <div class="panel col-span">
+        <div class="ph green">Which Tool</div>
+        <div class="pb">
+          <div class="grid3">
+            <div class="cd"><div class="nm">AI Advisor</div><div class="who">All staff</div><div class="d">Explore where AI fits, see what's built, frame an idea for Adam.</div></div>
+            <div class="cd"><div class="nm">Support Expert</div><div class="who">Support team</div><div class="d">Product troubleshooting and customer email drafts.</div></div>
+            <div class="cd"><div class="nm">Salesforce Cohort</div><div class="who">SF admin team</div><div class="d">Salesforce admin tasks, formulas, step-by-step guidance.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel col-span">
+        <div class="ph blue">Which Claude Mode</div>
+        <div class="pb">
+          <div class="modes">
+            <div class="md"><div class="mh">Chat</div><div class="u">A blank conversation. <b>Quick one-offs</b> &mdash; a reword, a definition. Forgets everything after you close it.</div></div>
+            <div class="md"><div class="mh">Project</div><div class="u"><b>Your daily driver.</b> Pre-loaded with STA context. The tools above are Projects &mdash; use these for real work.</div></div>
+            <div class="md try"><div class="mh">Cowork</div><div class="u">Desktop app that <b>works with your files and runs scheduled jobs</b>. A real step up &mdash; best if you're comfortable with technical setup and willing to invest the time.<span class="ex">Worth trying &mdash; just expect a learning curve.</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel col-span">
+        <div class="ph amber">The 3-Part Ask</div>
+        <div class="pb" style="padding:0;">
+          <div class="formula">
+            <div class="fp"><div class="l">1 &middot; What</div><div class="t">The actual task</div><div class="eg">"Draft a reply to this customer complaint."</div></div>
+            <div class="fp"><div class="l">2 &middot; Context</div><div class="t">The real thing</div><div class="eg">Paste the actual email or error &mdash; it beats describing it.</div></div>
+            <div class="fp"><div class="l">3 &middot; Format <span class="opt">&middot; optional</span></div><div class="t">What you want back</div><div class="eg">"Under 3 sentences." "Formal &mdash; it's for a superintendent."</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel col-span">
+        <div class="ph green">Answer Off? Stay in the Chat</div>
+        <div class="pb">
+          <div class="fix">
+            <div class="fx"><div class="tag">Name what's wrong</div><div class="q">"Too formal &mdash; this customer is casual. Redo the opening."</div></div>
+            <div class="fx"><div class="tag">Add what you left out</div><div class="q">"They're on the HR module, mid-year renewal."</div></div>
+            <div class="fx"><div class="tag">Tighten it</div><div class="q">"Cut it to 3 sentences." "Just the steps, no intro."</div></div>
+            <div class="fx"><div class="tag">Keep going</div><div class="q">Don't restart &mdash; correcting in the same chat works best.</div></div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div>
-      <div class="block" style="margin-bottom: 14px; border-top: 3px solid var(--green);">
-        <div class="block-label green">It's good at</div>
-        <div class="item check">Drafting emails, responses, and documents</div>
-        <div class="item check">Troubleshooting step by step</div>
-        <div class="item check">Explaining processes in plain language</div>
-        <div class="item check">Turning rough notes into polished writing</div>
-      </div>
-      <div class="block" style="border-top: 3px solid var(--orange);">
-        <div class="block-label orange">Keep in mind</div>
-        <div class="item bang">Verify facts before using them</div>
-        <div class="item bang">Doesn't remember previous conversations</div>
-        <div class="item bang">Review output before sending - you're responsible for it</div>
-      </div>
+    <div class="foot">
+      <span>Full detail: <a href="getting-started-guide.html">Getting Started Guide</a> &middot; <a href="ai-restricted-data-reference-guide.html">Restricted Data Guide</a></span>
+      <span>Updated 2026-06-04</span>
     </div>
 
   </div>
-
-
-  <!-- FOOTER -->
-  <div class="card-footer">
-    <div>Full guides: <a href="getting-started-guide.html" style="color:#0a66c2;text-decoration:underline;">Getting Started Guide</a> · <a href="getting-better-results.html" style="color:#0a66c2;text-decoration:underline;">Getting Better Results</a> · <a href="ai-restricted-data-reference-guide.html" style="color:#0a66c2;text-decoration:underline;">AI Restricted Data Reference Guide</a></div>
-    <div>Contact Adam - <a href="mailto:adamb@k12sta.com">adamb@k12sta.com</a></div>
-  </div>
-
-</div>
-
-<div style="margin: 60px 0 20px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">
-  <a href="#top" style="display: inline-flex; align-items: center; gap: 6px; color: #1f3a5f; text-decoration: none; font-size: 13px; font-weight: 600; padding: 8px 18px; border: 1px solid #1f3a5f; border-radius: 20px; transition: background 0.15s;" onmouseover="this.style.background='#f0f5fb'" onmouseout="this.style.background='transparent'">
-    <span>&uarr;</span>
-    <span>Back to top</span>
-  </a>
-</div>
 </body>
 </html>
