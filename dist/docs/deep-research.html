@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deep Research - Tool Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:var(--blue); color:#fff; padding:28px 32px; border-bottom:3px solid var(--green); }
+  .badge { display:inline-block; background:#e6f0f6; color:var(--blue-dark); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:rgba(255,255,255,0.75); font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  ol { margin:0 0 12px 22px; } ol li { margin-bottom:6px; font-size:11pt; }
+  .note { background:#fdeeee; border-left:4px solid var(--red); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:var(--red); }
+  .prompts { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:16px 18px; margin-top:8px; }
+  .prompts p { margin-bottom:8px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Live &middot; Admin (Adam only)</span>
+      <h1>Deep Research</h1>
+      <div class="tagline">Turns any input into structured knowledge-base modules.</div>
+    </div>
+    <div class="body">
+      <h2>What it is</h2>
+      <p>A Cowork project that takes a research request or uploaded source material and turns it into structured knowledge modules in the knowledge base - formatted so other AI projects can draw from them as working knowledge, not just reference documents. It is the front end of the build pipeline: the knowledge The Architect later draws on starts here.</p>
+
+      <h2>What it does</h2>
+      <ul>
+        <li>Narrows a broad topic to a researchable scope through conversation, and pushes back on undefined topics.</li>
+        <li>Recommends one of three output shapes per request: a quick chat answer, an in-depth module, or a course/syllabus set of modules.</li>
+        <li>Runs announced web research and ingests uploaded material (PDFs, transcripts), then writes the modules and updates the KB index.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Hard rule - never fabricate.</strong> No invented facts, sources, citations, statistics, dates, or version numbers. If a claim has no verifiable source, it does not go in the module. Gaps are surfaced, not filled.
+      </div>
+
+      <h2>What it does not do</h2>
+      <ul>
+        <li>Does not write final project specs &rarr; The Architect.</li>
+        <li>Does not package modules into project context files &rarr; Knowledge Base Context Builder skill.</li>
+        <li>Does not evaluate or test prompts &rarr; Prompt Evaluator / Run Test Cases.</li>
+        <li>Does not act on the knowledge it produces - the goal is to make knowledge available, not to use it.</li>
+      </ul>
+
+      <h2>How to access it</h2>
+      <p>Lives in Adam's Cowork workspace as a dedicated project. Cowork-only.</p>
+
+      <h2>Try starting with</h2>
+      <div class="prompts">
+        <p>"Research [topic] and build it into in-depth KB modules."</p>
+        <p>"Here's a PDF - ingest it into the knowledge base."</p>
+        <p>"Help me scope this topic before we research it."</p>
+      </div>
+    </div>
+    <div class="foot">School Technology Associates &middot; Deep Research &middot; Tool Brief</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Monitor - Tool Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:var(--blue); color:#fff; padding:28px 32px; border-bottom:3px solid var(--green); }
+  .badge { display:inline-block; background:#e6f0f6; color:var(--blue-dark); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:rgba(255,255,255,0.75); font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  ol { margin:0 0 12px 22px; } ol li { margin-bottom:6px; font-size:11pt; }
+  .note { background:#fdeeee; border-left:4px solid var(--red); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:var(--red); }
+  .prompts { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:16px 18px; margin-top:8px; }
+  .prompts p { margin-bottom:8px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Live &middot; Admin (Adam only)</span>
+      <h1>System Monitor</h1>
+      <div class="tagline">Keeps the AI system healthy, visible, and navigable.</div>
+    </div>
+    <div class="body">
+      <h2>What it is</h2>
+      <p>A Cowork operations layer for the whole School Tech AI system. Its job is to keep what has already been built healthy and navigable - not to build new things. It runs in two modes.</p>
+
+      <h2>Two modes</h2>
+      <ul>
+        <li><strong>Monitor mode</strong> - generates a weekly health snapshot across every Active STA project and the knowledge base, applies consistent thresholds, and posts the report to Slack. Fires on the Monday 8am scheduled task or on an explicit "run health check" request.</li>
+        <li><strong>Navigator mode</strong> - answers questions about the AI system by reading live files, and routes issues to the right tool with the diagnostic work already done. The default for any casual "how's the system doing?" question.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Read-only.</strong> System Monitor never edits project files. It monitors, informs, and routes - build work goes to The Architect, live-bug fixes go to Project Feedback. Slack is its only delivery channel.
+      </div>
+
+      <h2>How to access it</h2>
+      <p>Lives in Adam's Cowork workspace and requires The Architect workspace folder connected. Cowork-only (the former claude.ai Project version was superseded by AI Advisor).</p>
+
+      <h2>Try starting with</h2>
+      <div class="prompts">
+        <p>"Run the weekly health check."</p>
+        <p>"Where do I go to fix [problem]?"</p>
+        <p>"What changed in the system recently?"</p>
+      </div>
+    </div>
+    <div class="foot">School Technology Associates &middot; System Monitor &middot; Tool Brief</div>
+  </div>
+</body>
+</html>

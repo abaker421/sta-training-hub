@@ -130,6 +130,7 @@
   .pill-docx { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
   .pill-md { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
   .pill-pptx { background: #fdf0ef; color: var(--red); border: 1px solid #f5b8aa; }
+  .pill-org { background: #dff3d3; color: var(--green-dark); border: 1px solid #9fd182; cursor: help; }
 
   /* FRESHNESS CHIPS */
   .chip { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
@@ -371,7 +372,7 @@
 </noscript>
 <div class="app">
   <header class="app-header">
-    <img class="hdr-logo" src="/icons/icon-192.png" alt="School Technology Associates">
+    <img class="hdr-logo" src="/img/sta-circle-logo.png" alt="School Technology Associates">
     <div class="hdr-brand">
       <div class="hdr-title">School Tech AI Training Hub</div>
       <div class="hdr-sub">School Technology Associates &middot; Internal</div>
@@ -386,7 +387,7 @@
   <nav id="tabbar" class="tab-bar" aria-label="Audience tabs"></nav>
   <main id="main" class="main-host"></main>
   <footer class="app-footer">
-    <img class="ftr-mark" src="/icons/icon-192.png" alt=""><strong>School Tech AI Training Hub</strong> &middot; Internal &middot; Updated 2026-06-01 &middot; Maintained by Adam
+    <img class="ftr-mark" src="/img/sta-circle-logo.png" alt=""><strong>School Tech AI Training Hub</strong> &middot; Internal &middot; Updated 2026-06-01 &middot; Maintained by Adam
   </footer>
 </div>
 
@@ -407,7 +408,7 @@ window.TRAINING_DATA = {
         { heading: 'Required before first use', docs: ['aup', 'restricted-data', 'getting-started'] },
         { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results', 'onboarding-deck'] },
         { heading: 'Tool briefs', docs: ['ai-advisor', 'behind-the-bell'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-agent-quality-logger'] },
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-agent-quality-logger', 'skill-session-closeout'] },
         { heading: 'Coming Soon', docs: ['sta-main-chat'] },
         { heading: 'Go further', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills'] }
       ]
@@ -419,7 +420,7 @@ window.TRAINING_DATA = {
       sub: 'For the Support team. Your tool briefs and the skills you use most. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Tool briefs', docs: ['support-chat-brief', 'ai-advisor'] },
-        { heading: 'Skills', docs: ['time-clock', 'skill-help-center-article', 'skill-html-checklist'] }
+        { heading: 'Skills', docs: ['time-clock', 'skill-help-center-article', 'skill-html-checklist', 'skill-agent-quality-logger', 'skill-session-closeout'] }
       ]
     },
     {
@@ -430,7 +431,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Cohort kit', docs: ['cohort-getting-started', 'sf-org-intake'] },
         { heading: 'Tool brief', docs: ['ai-advisor'] },
-        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist'] }
+        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-agent-quality-logger', 'skill-session-closeout'] }
       ]
     },
     {
@@ -440,6 +441,7 @@ window.TRAINING_DATA = {
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
         { heading: 'Tool briefs', docs: ['ai-advisor', 'support-chat-brief', 'cohort-getting-started'] },
+        { heading: 'Internal agents (Adam-only)', docs: ['work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
         { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides'] },
         { heading: 'Skills - Support & Troubleshooting', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
@@ -594,6 +596,7 @@ window.TRAINING_DATA = {
       title: 'Time Clock Error Log Review',
       desc: 'Upload a clock’s log files and get a structured root-cause diagnosis. Use it for any TT3/TT7/TT10 clock malfunction.',
       file: 'docs/time-clock-error-log-review-brief.html',
+      org: true,
       type: 'html',
       priority: 'skill',
       tags: ['Time Clocks'],
@@ -601,11 +604,74 @@ window.TRAINING_DATA = {
       check: 'What three things will you be asked to provide before the Time Clock Error Log Review begins its analysis?'
     },
 
+    // ===== Internal agents (Adam-only Cowork tools) =====
+    'work-assistant': {
+      title: 'Work Personal Assistant',
+      desc: 'Adam\'s day-to-day School Tech work assistant in Cowork - email rewrites in his voice, drafts, summaries, Today\'s Agenda, and the Skyward weekly scan.',
+      file: 'docs/work-personal-assistant.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-04', updated: '2026-06-04',
+      check: 'What five sections does the Today\'s Agenda briefing include, and which four sources does it draw from?'
+    },
+    'deep-research': {
+      title: 'Deep Research',
+      desc: 'Turns a research request or uploaded source into structured knowledge-base modules other AI projects draw from. Three output shapes; never-fabricate hard rule.',
+      file: 'docs/deep-research.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-04', updated: '2026-06-04',
+      check: 'What are the three output shapes Deep Research can produce, and what does it hand off to The Architect instead of doing itself?'
+    },
+    'sf-admin-assistant': {
+      title: 'Salesforce Admin Assistant',
+      desc: 'Adam\'s personal Salesforce reference and build partner - Flows, formulas, CPQ, Spanning. Reference-only (no org access); warns before any destructive operation.',
+      file: 'docs/salesforce-admin-assistant.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-04', updated: '2026-06-04',
+      check: 'What two hard rules govern this assistant, and how does it differ from the shared School Tech Salesforce Cohort?'
+    },
+    'security-advisor': {
+      title: 'STA Security Advisor',
+      desc: 'CIS Controls v8.1 compliance repository and monitoring partner for Salesforce and Google Workspace. Confirmed / Inferred / Unknown evidence states; never assumes compliant.',
+      file: 'docs/sta-security-advisor.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-04', updated: '2026-06-04',
+      check: 'What are the three evidence states this advisor uses, and what does it require before marking a control Confirmed?'
+    },
+    'help-center-advisor': {
+      title: 'Help Center Advisor',
+      desc: 'Structure and content strategy for the STA Salesforce Knowledge help center - eight task types, three audit dimensions, impact-tier ranked recommendations.',
+      file: 'docs/help-center-advisor.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-04', updated: '2026-06-04',
+      check: 'What are the three audit dimensions, and what two hard rules apply to every recommendation it delivers?'
+    },
+    'system-monitor-tool': {
+      title: 'System Monitor',
+      desc: 'Operations layer for the whole AI system - weekly Slack health report (Monitor mode) plus live system Q&A and routing (Navigator mode). Read-only; does not build or fix.',
+      file: 'docs/system-monitor.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-04', updated: '2026-06-04',
+      check: 'What are the two modes System Monitor runs in, and where does it route build work versus live-bug fixes?'
+    },
+
     // ===== Custom skills (uploaded to the org) =====
     'skill-help-center-article': {
       title: 'Help Center Article',
       desc: 'Turn a ticket fix or workflow into a polished STA Salesforce KB article, troubleshooting guide, or implementation doc.',
       file: 'docs/skill-help-center-article.html',
+      org: true,
       type: 'html',
       priority: 'skill',
       tags: ['Documentation'],
@@ -616,6 +682,7 @@ window.TRAINING_DATA = {
       title: 'HTML Checklist',
       desc: 'Turn any process or document into a branded, interactive checklist with a live progress bar.',
       file: 'docs/skill-html-checklist.html',
+      org: true,
       type: 'html',
       priority: 'skill',
       tags: ['Productivity'],
@@ -626,6 +693,7 @@ window.TRAINING_DATA = {
       title: 'Prompt Override Guard',
       desc: 'Always-on protection inside every agent that blocks jailbreak and instruction-override attempts. Fires automatically.',
       file: 'docs/skill-prompt-override-guard.html',
+      org: true,
       type: 'html',
       priority: 'skill',
       tags: ['Security'],
@@ -636,6 +704,7 @@ window.TRAINING_DATA = {
       title: 'Agent Quality Logger',
       desc: 'Flag when an AI agent gets something wrong. Takes ~60 seconds and feeds the Monday health report.',
       file: 'docs/skill-agent-quality-logger.html',
+      org: true,
       type: 'html',
       priority: 'skill',
       tags: ['Feedback'],
@@ -646,6 +715,7 @@ window.TRAINING_DATA = {
       title: 'Cowork Context Packager',
       desc: 'Package content into a production-ready Cowork context file, with the routing trigger and instructions.md edit proposed for you.',
       file: 'docs/skill-cowork-context-packager.html',
+      org: true,
       type: 'html',
       priority: 'skill',
       tags: ['Build Pipeline'],
@@ -717,6 +787,7 @@ window.TRAINING_DATA = {
       title: 'Skill Evaluator',
       desc: 'Score a SKILL.md for description quality, triggering accuracy, and structure before shipping.',
       file: 'docs/skill-skill-evaluator.html',
+      org: true,
       type: 'html',
       priority: 'skill',
       tags: ['QA'],
@@ -807,6 +878,7 @@ window.TRAINING_DATA = {
       title: 'Session Closeout',
       desc: 'Wrap up a session with a skim-ready summary, pending tasks, and a one-click handoff prompt.',
       file: 'docs/skill-session-closeout.html',
+      org: true,
       type: 'html',
       priority: 'skill',
       tags: ['Productivity'],
@@ -1238,6 +1310,7 @@ function cardHTML(id, doc) {
   const tags = (doc.tags || []).slice(0, 2);
   let meta = '';
   if (doc.priority) meta += '<span class="pill pill-' + esc(doc.priority) + '">' + esc(doc.priority) + '</span>';
+  if (doc.org) meta += '<span class="pill pill-org" tabindex="0" title="This is an org-wide skill and is available for use now." aria-label="Org-wide skill, available for use now">Org skill</span>';
   meta += tags.map(t => '<span class="pill pill-optional">' + esc(t) + '</span>').join('');
   meta += freshnessChip(doc);
   if (reqUnread) meta += '<span class="req-unread">Required - not yet read</span>';

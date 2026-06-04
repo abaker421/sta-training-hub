@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help Center Advisor - Tool Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:var(--blue); color:#fff; padding:28px 32px; border-bottom:3px solid var(--green); }
+  .badge { display:inline-block; background:#e6f0f6; color:var(--blue-dark); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:rgba(255,255,255,0.75); font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  ol { margin:0 0 12px 22px; } ol li { margin-bottom:6px; font-size:11pt; }
+  .note { background:#fdeeee; border-left:4px solid var(--red); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:var(--red); }
+  .prompts { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:16px 18px; margin-top:8px; }
+  .prompts p { margin-bottom:8px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Live &middot; Admin (Adam only)</span>
+      <h1>Help Center Advisor</h1>
+      <div class="tagline">Structure and content strategy for the STA help center.</div>
+    </div>
+    <div class="body">
+      <h2>What it is</h2>
+      <p>A Cowork assistant that manages the structure and content strategy for STA's Salesforce Knowledge help center - auditing articles, finding coverage gaps by product, flagging duplicates, and delivering ranked, actionable recommendations. It is the strategy layer above the Help Center Article skill, which does the actual writing.</p>
+
+      <h2>What it does - eight task types</h2>
+      <ul>
+        <li>Article audit, product category audit, and full help-center audit.</li>
+        <li>Gap analysis by product and duplicate detection.</li>
+        <li>Article improvement suggestions (line-level edits).</li>
+        <li>Priority ranking ("what to work on first").</li>
+        <li>HC Index App maintenance.</li>
+      </ul>
+      <p>Audits run across three orthogonal dimensions: KCS v6 four-field structure, an 18-criterion density-and-voice checklist, and an 18-criterion RAG-readiness checklist for AI retrieval.</p>
+
+      <div class="note">
+        <strong>Hard rules.</strong> Every recommendation is ranked by impact tier (Critical &rarr; High &rarr; Medium &rarr; Low) - never a flat list. No archive recommendation without a stated reason and the disposition of inbound links.
+      </div>
+
+      <h2>What it does not do</h2>
+      <ul>
+        <li>Does not write or format articles &rarr; Help Center Article skill.</li>
+        <li>Does not archive, delete, or unpublish - it provides rationale; Adam takes the action.</li>
+        <li>Does not change Salesforce taxonomy, data categories, or topics &rarr; that is SF admin work for Kelsey Eberly.</li>
+      </ul>
+
+      <h2>How to access it</h2>
+      <p>Lives in Adam's Cowork workspace. Cowork-only.</p>
+
+      <h2>Try starting with</h2>
+      <div class="prompts">
+        <p>"Audit the Tardy Kiosk article category for coverage and quality."</p>
+        <p>"Where are our biggest help-center gaps right now?"</p>
+        <p>"Find duplicate articles across the time-clock products."</p>
+      </div>
+    </div>
+    <div class="foot">School Technology Associates &middot; Help Center Advisor &middot; Tool Brief</div>
+  </div>
+</body>
+</html>

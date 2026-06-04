@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salesforce Admin Assistant - Tool Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:var(--blue); color:#fff; padding:28px 32px; border-bottom:3px solid var(--green); }
+  .badge { display:inline-block; background:#e6f0f6; color:var(--blue-dark); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:rgba(255,255,255,0.75); font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  ol { margin:0 0 12px 22px; } ol li { margin-bottom:6px; font-size:11pt; }
+  .note { background:#fdeeee; border-left:4px solid var(--red); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:var(--red); }
+  .prompts { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:16px 18px; margin-top:8px; }
+  .prompts p { margin-bottom:8px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Live &middot; Admin (Adam only)</span>
+      <h1>Salesforce Admin Assistant</h1>
+      <div class="tagline">Adam's personal Salesforce reference and build partner.</div>
+    </div>
+    <div class="body">
+      <h2>What it is</h2>
+      <p>A Cowork assistant that answers Salesforce admin questions, guides builds step by step, and drafts formulas and logic on request. It covers every admin area - Flows, validation rules, page layouts, fields, reports, dashboards, user management, permission sets, approval processes, data management, CPQ, and Spanning. It answers at peer technical-reviewer level, not as a trainer.</p>
+      <p><strong>V1 is reference and guidance only.</strong> It has no direct Salesforce org access and makes no changes in any org.</p>
+
+      <h2>What it does</h2>
+      <ul>
+        <li>Designs and debugs Flows, grounded in a 27-module Flow knowledge base (fundamentals, advanced/integration, and operations).</li>
+        <li>Drafts validation-rule and field formulas, and writes any multi-line config snippet as a code block.</li>
+        <li>Explains tradeoffs (for example, Apex vs Flow) and walks through builds as numbered steps.</li>
+        <li>Knows STA's org context: three orgs (Production, Dev Sandbox, Partial Data Sandbox), the CPQ and Spanning packages, and that Adam owns most automation.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Two hard rules.</strong> It warns before advising on any data deletion or irreversible operation, every time. And it never gives a confident answer when unsure - org-specific or unverified behavior is labeled training knowledge with a recommendation to verify.
+      </div>
+
+      <h2>How to access it</h2>
+      <p>Lives in Adam's Cowork workspace. Cowork-only. Distinct from the shared <strong>School Tech Salesforce Cohort</strong> - heavy Flow design from the cohort routes back here.</p>
+
+      <h2>Try starting with</h2>
+      <div class="prompts">
+        <p>"Design a record-triggered flow that does [X] - walk me through it."</p>
+        <p>"Write a validation rule formula for [condition]."</p>
+        <p>"What's the safest way to mass-update these records?"</p>
+      </div>
+    </div>
+    <div class="foot">School Technology Associates &middot; Salesforce Admin Assistant &middot; Tool Brief</div>
+  </div>
+</body>
+</html>

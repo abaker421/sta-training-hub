@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work Personal Assistant - Tool Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:var(--blue); color:#fff; padding:28px 32px; border-bottom:3px solid var(--green); }
+  .badge { display:inline-block; background:#e6f0f6; color:var(--blue-dark); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:rgba(255,255,255,0.75); font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  ol { margin:0 0 12px 22px; } ol li { margin-bottom:6px; font-size:11pt; }
+  .note { background:#fdeeee; border-left:4px solid var(--red); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:var(--red); }
+  .prompts { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:16px 18px; margin-top:8px; }
+  .prompts p { margin-bottom:8px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Live &middot; Admin (Adam only)</span>
+      <h1>Work Personal Assistant</h1>
+      <div class="tagline">Adam's day-to-day School Tech work assistant in Cowork.</div>
+    </div>
+    <div class="body">
+      <h2>What it is</h2>
+      <p>A Cowork assistant that handles Adam's School Tech work tasks and speaks in Adam's own colleague voice. It is the work counterpart to the Personal Assistant - same style baseline, different scope. It is also the replication-ready template if work assistants are ever rolled out to other staff.</p>
+
+      <h2>What it does</h2>
+      <ul>
+        <li>Rewrites work emails and messages to match Adam's tone, adapting register to the recipient (formal for vendors and leadership, casual for quick internal notes).</li>
+        <li>Drafts internal messages, vendor emails, customer follow-ups, and leadership updates.</li>
+        <li>Answers work questions directly and searches the web when a question needs current information.</li>
+        <li>Summarizes work content - emails, docs, and threads Adam shares.</li>
+        <li>Generates Today's Agenda: a five-section daily briefing (today's meetings, carryover, open projects, pending review, and Wren notes) drawing from Google Calendar, Slack, the project tracker, and Adam's Wren notes.</li>
+        <li>Runs the Skyward weekly intelligence scan on demand and saves an HTML digest.</li>
+      </ul>
+
+      <h2>What it does not do</h2>
+      <ul>
+        <li>No action in external systems - it does not send email, file tickets, or change anything outside the conversation.</li>
+        <li>Personal tasks (home, family, creative writing, personal finances) &rarr; Personal Assistant.</li>
+        <li>Designing an agent or building a prompt &rarr; The Architect.</li>
+        <li>Sustained multi-source research &rarr; Deep Research.</li>
+        <li>Customer support workflows and support-queue drafts &rarr; Support Expert.</li>
+        <li>Compliance interpretation or regulatory guidance &rarr; a security/compliance professional.</li>
+      </ul>
+
+      <h2>How to access it</h2>
+      <p>Lives in Adam's Cowork workspace as a dedicated project. Cowork-only - there is no claude.ai Project version.</p>
+
+      <div class="note">
+        <strong>The one data rule.</strong> Never paste restricted data - student PII, HR records, financial details, or credentials. When in doubt, leave it out.
+      </div>
+
+      <h2>Try starting with</h2>
+      <div class="prompts">
+        <p>"Rewrite this email to the vendor - keep it firm but cordial."</p>
+        <p>"Give me Today's Agenda."</p>
+        <p>"Summarize this thread and tell me what needs a reply."</p>
+      </div>
+    </div>
+    <div class="foot">School Technology Associates &middot; Work Personal Assistant &middot; Tool Brief</div>
+  </div>
+</body>
+</html>
