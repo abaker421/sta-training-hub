@@ -1539,4 +1539,24 @@ window.addEventListener('popstate', () => {
   b.setAttribute('aria-label', 'Install this app');
   b.style.cssText = 'flex-shrink:0;margin-left:10px;padding:7px 14px;border-radius:20px;border:1.5px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.12);color:#fff;font-family:inherit;font-size:9pt;font-weight:600;cursor:pointer;';
   // Always visible, except when already running as an installed app.
-  if (window.
+  if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) b.style.display = 'none';
+  b.addEventListener('click', function () {
+    if (deferred) { deferred.prompt(); deferred.userChoice.finally(function () { deferred = null; }); return; }
+    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    alert(iOS
+      ? 'To install: tap the Share button, then "Add to Home Screen".'
+      : 'To install: open your browser menu and choose "Install" (or the install icon in the address bar).');
+  });
+  (document.querySelector('.app-header') || document.body).appendChild(b);
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; });
+  window.addEventListener('appinstalled', function () { b.style.display = 'none'; deferred = null; });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}
+</script>
+</body>
+</html>
