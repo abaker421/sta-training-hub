@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOW — Adding Claude to STA Salesforce</title>
+<style>
+  :root{
+    --sta-blue:#006098; --sta-blue-dark:#004a78;
+    --sta-green:#6bc04b; --sta-green-dark:#4f9a31;
+    --bg:#eef1f4; --card:#ffffff; --border:#dde1e6;
+    --text:#1a2332; --muted:#6b7280;
+    --amber:#b7791f; --amber-bg:#fef6e7; --red:#c0392b; --red-bg:#fdeceb;
+    --green-bg:#eef8e9;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;font-size:15px;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px 60px;}
+  header.hero{background:linear-gradient(135deg,var(--sta-blue) 0%,var(--sta-blue-dark) 100%);
+    color:#fff;padding:28px 32px;border-radius:0 0 10px 10px;margin-bottom:22px;}
+  header.hero h1{margin:0 0 4px;font-size:25px;letter-spacing:-.3px;}
+  header.hero .sub{font-size:14px;opacity:.9;}
+  header.hero .meta{margin-top:14px;font-size:12.5px;opacity:.85;display:flex;flex-wrap:wrap;gap:18px;border-top:1px solid rgba(255,255,255,.25);padding-top:12px;}
+  header.hero .meta b{opacity:1;}
+  h2{font-size:18px;margin:30px 0 12px;color:var(--sta-blue-dark);border-left:4px solid var(--sta-green);padding-left:10px;}
+  h3{font-size:15px;margin:0 0 6px;}
+  p{margin:0 0 10px;}
+  .lead{font-size:15.5px;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:16px 18px;margin-bottom:14px;}
+  .callout{border-left:5px solid var(--sta-green);background:#fff;border-radius:7px;padding:12px 16px;margin:14px 0;}
+  .callout.warn{border-left-color:var(--amber);background:var(--amber-bg);}
+  .callout.win{border-left-color:var(--sta-green-dark);background:var(--green-bg);}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;color:#fff;vertical-align:middle;}
+  .rank{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--sta-blue);color:#fff;font-weight:700;font-size:13px;margin-right:8px;}
+  .rank.r1{background:var(--sta-green-dark);}
+  .rank.low{background:#9aa3ad;}
+  table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:13px;}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
+  th{background:#e8edf1;color:var(--sta-blue-dark);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;}
+  td.fit{font-weight:700;white-space:nowrap;}
+  .fit-hi{color:var(--sta-green-dark);}
+  .fit-mid{color:var(--amber);}
+  .fit-lo{color:var(--red);}
+  ul{margin:4px 0 4px;padding-left:20px;}
+  li{margin-bottom:4px;}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .twocol .good h4,.twocol .bad h4{margin:0 0 6px;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;}
+  .good h4{color:var(--sta-green-dark);} .bad h4{color:var(--red);}
+  .opt-head{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+  .opt-head h3{margin:0;}
+  .tag{font-size:11px;background:#e8edf1;color:var(--sta-blue-dark);border-radius:5px;padding:2px 7px;font-weight:600;}
+  .tag.cost{background:var(--green-bg);color:var(--sta-green-dark);}
+  .tag.cost.paid{background:var(--amber-bg);color:var(--amber);}
+  footer{font-size:11.5px;color:var(--muted);margin-top:30px;border-top:1px solid var(--border);padding-top:14px;}
+  footer a{color:var(--sta-blue);}
+  .steps{counter-reset:s;list-style:none;padding-left:0;}
+  .steps li{counter-increment:s;position:relative;padding-left:34px;margin-bottom:9px;}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:24px;height:24px;background:var(--sta-blue);color:#fff;border-radius:50%;text-align:center;line-height:24px;font-weight:700;font-size:12px;}
+  @media(max-width:680px){.twocol{grid-template-columns:1fr;}header.hero h1{font-size:21px;}}
+  @media print{body{background:#fff;}.card,.callout{break-inside:avoid;}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>Statement of Work — Adding Claude to STA's Salesforce</h1>
+  <div class="sub">Integration options, trade-offs, and a recommended path</div>
+  <div class="meta">
+    <span><b>Prepared for:</b> Adam Baker &amp; STA Salesforce admin team</span>
+    <span><b>Author:</b> The Architect</span>
+    <span><b>Date:</b> 2026-06-01</span>
+    <span><b>Status:</b> Draft for review</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <h2>Objective</h2>
+  <p class="lead">Connect Anthropic's Claude to STA's Salesforce org so the 4-person admin team can <b>query, draft, and act on CRM data in natural language</b> — without leaving the tools they already use. This SOW lays out every viable path, what each gives you, what each <b>lacks</b>, and a ranked recommendation.</p>
+
+  <div class="card" style="background:#f7f9fb;">
+    <p style="margin:0;"><b>Two directions — don't confuse them:</b></p>
+    <ul style="margin-top:6px;">
+      <li><b>Outbound (Claude → Salesforce):</b> Adam's Claude reads/acts on the org. <i>This is the primary intent and where the options below focus.</i></li>
+      <li><b>Inbound (Claude inside Salesforce):</b> Claude as the AI engine powering SF-side features (Prompt Builder, Agentforce agents) for end users. Covered as Option F.</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <b>Your data posture changes the math.</b> STA's org holds <b>no PII, no student data, and very limited customer data</b>. That removes the "regulated workload" blocker that forces most orgs toward the heavy, fully-governed path. STA can safely use the lightweight, low-cost connectors that a district with student data could not. <b>Translation: don't overpay for a trust boundary you don't need.</b>
+  </div>
+
+  <h2>Recommendation</h2>
+  <div class="callout win">
+    <p style="margin:0 0 6px;"><b>Winner — Salesforce Hosted MCP Server connected to Claude as a custom connector (Option A).</b> Official, Salesforce-governed, team-wide, no code to maintain, and it works inside the Claude environment Adam already lives in. It is the durable answer.</p>
+    <p style="margin:0;"><b>Start this week — DX MCP Server, local (Option B)</b> as a zero-cost, zero-license pilot for Adam. Prove the workflow in ~30 minutes, then graduate the team to Option A once the edition/Agentforce question (below) is settled.</p>
+  </div>
+  <div class="callout warn">
+    <b>⚠ One dependency gates Option A — confirm before committing.</b> Hosted MCP requires <b>Agentforce provisioned</b> in the org (the <code>sfap_api</code> scope). It's free on Developer Edition, but a production Enterprise-Edition org may need Agentforce enabled and will meter usage in <b>Flex Credits (~$0.10 per agent action)</b>. <b>Action: Adam/Tanya verify STA's SF edition and whether Agentforce is provisioned.</b> Until then, Option B carries the pilot at $0.
+  </div>
+
+  <h2>Options at a glance</h2>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Option</th><th>What it is</th><th>Cost</th><th>STA fit</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><b>A</b></td><td>Hosted MCP + Claude connector</td><td>SF-run MCP server added to Claude (Pro/Team/Max/Ent) via OAuth</td><td>Free*–credits</td><td class="fit fit-hi">Best</td></tr>
+      <tr><td><b>B</b></td><td>DX MCP Server (local)</td><td>Local server via Salesforce CLI; 60+ dev/admin tools</td><td>Free</td><td class="fit fit-hi">Best (Adam)</td></tr>
+      <tr><td><b>C</b></td><td>Community / open-source MCP</td><td>Third-party MCP (e.g. tsmztech) for read/write</td><td>Free</td><td class="fit fit-mid">Backup</td></tr>
+      <tr><td><b>D</b></td><td>Agentforce 360 + Claude (native)</td><td>Anthropic–Salesforce partnership; bi-directional MCP Apps</td><td>$$ credits/seats</td><td class="fit fit-mid">Watch</td></tr>
+      <tr><td><b>E</b></td><td>Dedicated SF user + Claude in Chrome</td><td>Give Claude a SF login; drive the UI in a browser</td><td>$ 1 SF seat</td><td class="fit fit-lo">Fallback</td></tr>
+      <tr><td><b>F</b></td><td>Einstein / Models API (Claude inside SF)</td><td>Claude as the model behind Prompt Builder / Flow</td><td>$$ credits</td><td class="fit fit-mid">Different job</td></tr>
+      <tr><td><b>G</b></td><td>Custom Anthropic API + Apex/Flow callout</td><td>Build your own middleware integration</td><td>$$$ build</td><td class="fit fit-lo">Overkill</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11.5px;color:var(--muted);">*Free on Developer Edition; production orgs meter agent actions in Flex Credits.</p>
+
+  <h2>Ranked options &amp; trade-offs</h2>
+
+  <!-- A -->
+  <div class="card">
+    <div class="opt-head"><span class="rank r1">1</span><h3>Option A — Salesforce Hosted MCP Server + Claude custom connector</h3><span class="tag cost">Free on Dev Ed / credits in prod</span></div>
+    <p style="margin:0 0 8px;">Salesforce hosts the MCP server on its own infrastructure (Headless 360, 60+ tools across CRM, Data Cloud, Agentforce, Slack, workflows). You add it to Claude as a custom connector using an External Client App (OAuth 2.0 + PKCE). Adam then queries and acts on the org in plain language from Claude.</p>
+    <div class="twocol">
+      <div class="good"><h4>✅ Benefits</h4><ul>
+        <li><b>Official &amp; supported</b> by Salesforce — not a side project</li>
+        <li><b>Governed:</b> respects SF permissions, sharing, and the user's own login scope</li>
+        <li><b>Bi-directional:</b> read data and take governed actions</li>
+        <li><b>No code to maintain</b> — Salesforce owns the server</li>
+        <li>Team-wide: each admin connects with their own permissions</li>
+        <li>Lives in Claude, where Adam already builds everything</li>
+      </ul></div>
+      <div class="bad"><h4>What you'd lack / watch</h4><ul>
+        <li><b>Requires Agentforce provisioned</b> (sfap_api scope) — the gating unknown</li>
+        <li>Prod usage meters <b>Flex Credits (~$0.10/action)</b></li>
+        <li>Requires a paid Claude plan (Pro/Team/Max/Enterprise) for custom connectors</li>
+        <li>One-time admin setup of the External Client App + scopes</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="card">
+    <div class="opt-head"><span class="rank">2</span><h3>Option B — DX MCP Server, run locally</h3><span class="tag cost">Free</span></div>
+    <p style="margin:0 0 8px;">A local MCP server launched via <code>npx</code> that uses your Salesforce CLI credentials. ~60 development/admin-focused tools (metadata, deploys, Apex tests, queries). No OAuth app, no Agentforce license. Setup ~30 minutes.</p>
+    <div class="twocol">
+      <div class="good"><h4>✅ Benefits</h4><ul>
+        <li><b>$0 and fast</b> — running today, no procurement</li>
+        <li><b>No Agentforce / edition dependency</b></li>
+        <li>Tuned for <b>admin/dev work</b> — perfect for Adam (owns Flows &amp; metadata)</li>
+        <li>Uses the same CLI OAuth flow you already trust; creds stay local</li>
+      </ul></div>
+      <div class="bad"><h4>What you'd lack</h4><ul>
+        <li><b>Local-only</b> — tied to one machine, not a team service</li>
+        <li>Dev-oriented; <b>thinner for business-user querying</b></li>
+        <li>Depends on the CLI being installed/authorized</li>
+        <li>No central governance or audit beyond the SF user's scope</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="card">
+    <div class="opt-head"><span class="rank">3</span><h3>Option C — Community / open-source MCP server</h3><span class="tag cost">Free</span></div>
+    <p style="margin:0 0 8px;">Third-party MCP implementations (e.g. <code>github.com/tsmztech/mcp-server-salesforce</code>) offering simple read/write with username-password or OAuth login.</p>
+    <div class="twocol">
+      <div class="good"><h4>✅ Benefits</h4><ul>
+        <li>Free and flexible; broad CRUD access</li>
+        <li>Works on any edition; no Agentforce needed</li>
+        <li>Good for a quick proof-of-concept if A and B don't fit</li>
+      </ul></div>
+      <div class="bad"><h4>What you'd lack</h4><ul>
+        <li><b>No Salesforce support</b> and you own the maintenance</li>
+        <li>Third-party code touching the org — security review needed even with low-PII</li>
+        <li>Username/password auth patterns are weaker than PKCE OAuth</li>
+        <li>Superseded by the official A/B paths for most needs</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- D -->
+  <div class="card">
+    <div class="opt-head"><span class="rank">4</span><h3>Option D — Agentforce 360 + Claude native partnership</h3><span class="tag cost paid">Credits / seats</span></div>
+    <p style="margin:0 0 8px;">The deep Anthropic–Salesforce partnership: Claude models run <b>inside the Salesforce trust boundary</b>, with bi-directional MCP Apps that bring SF context into Claude and trigger governed Agentforce actions. Rolling out across 2026, starting with Slack.</p>
+    <div class="twocol">
+      <div class="good"><h4>✅ Benefits</h4><ul>
+        <li>Most governed; data stays in SF-managed VPCs</li>
+        <li>Trigger native Agentforce actions from Claude</li>
+        <li>Slack-first — and STA uses Slack</li>
+        <li>Strategic / future-proof direction</li>
+      </ul></div>
+      <div class="bad"><h4>What you'd lack / why not now</h4><ul>
+        <li><b>The trust-boundary selling point is low value for STA</b> (no PII)</li>
+        <li>Needs Agentforce; conversation (~$2) or credit costs</li>
+        <li>Premium seats (Agentforce add-ons $125–$150/user/mo; Agentforce 1 from $550/user/mo) are unjustifiable here</li>
+        <li>Still rolling out through 2026 — not all GA</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- E -->
+  <div class="card">
+    <div class="opt-head"><span class="rank low">5</span><h3>Option E — Dedicated Salesforce user + Claude in Chrome</h3><span class="tag cost paid">~1 SF seat</span></div>
+    <p style="margin:0 0 8px;">Provision a licensed "Claude" Salesforce login and let Claude drive the SF UI through the browser. The brute-force path when an API/MCP route isn't available.</p>
+    <div class="twocol">
+      <div class="good"><h4>✅ Benefits</h4><ul>
+        <li>Works on <b>any SF edition</b> — no MCP or Agentforce needed</li>
+        <li>Can reach anything a human can click, including no-API screens</li>
+        <li>Useful for one-off UI tasks or verification</li>
+      </ul></div>
+      <div class="bad"><h4>What you'd lack</h4><ul>
+        <li><b>Brittle</b> — UI changes break the automation; slow vs API</li>
+        <li>Costs a full SF seat and creates an autonomous-login security surface</li>
+        <li>No governance/audit advantages</li>
+        <li>Against The Architect's own posture (browser is read-only by default)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- F -->
+  <div class="card">
+    <div class="opt-head"><span class="rank low">6</span><h3>Option F — Einstein / Models API (Claude <i>inside</i> Salesforce)</h3><span class="tag cost paid">Credits</span></div>
+    <p style="margin:0 0 8px;">Use Claude as the LLM behind Salesforce-native AI — Prompt Builder templates, Flow-invoked generation, Agentforce agents serving SF end users. This is the <b>inbound</b> direction, a different job than A–C.</p>
+    <div class="twocol">
+      <div class="good"><h4>✅ Benefits</h4><ul>
+        <li>AI surfaces directly in Salesforce for end users (e.g. Help Center / Experience Cloud)</li>
+        <li>Governed by SF Prompt Builder grounding and guardrails</li>
+        <li>Reuses Adam's Flow expertise</li>
+      </ul></div>
+      <div class="bad"><h4>What you'd lack</h4><ul>
+        <li>Doesn't give Adam Claude-side control of the org (different use case)</li>
+        <li>Needs Einstein/Agentforce setup and credits</li>
+        <li>Only worth it if there's a defined end-user AI feature to ship</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- G -->
+  <div class="card">
+    <div class="opt-head"><span class="rank low">7</span><h3>Option G — Custom Anthropic API + Apex/Flow callout</h3><span class="tag cost paid">Build cost</span></div>
+    <p style="margin:0 0 8px;">Hand-build the integration: Anthropic API key, Named Credential, Apex callouts or Flow HTTP callouts wiring Claude into custom org logic.</p>
+    <div class="twocol">
+      <div class="good"><h4>✅ Benefits</h4><ul>
+        <li>Total control over behavior and data flow</li>
+        <li>Can embed Claude in any bespoke automation</li>
+      </ul></div>
+      <div class="bad"><h4>What you'd lack</h4><ul>
+        <li><b>Build + maintenance burden</b> the official MCP paths remove</li>
+        <li>API key/secret management overhead</li>
+        <li>Reinvents what Options A/B/F give for free or near-free</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <h2>Cost reference (2026)</h2>
+  <table>
+    <thead><tr><th>Item</th><th>Price</th><th>Applies to</th></tr></thead>
+    <tbody>
+      <tr><td>DX MCP Server (local)</td><td>Free</td><td>Option B</td></tr>
+      <tr><td>Hosted MCP on Developer Edition</td><td>Free, pre-enabled</td><td>Option A (dev/sandbox)</td></tr>
+      <tr><td>Flex Credits</td><td>$500 / 100k credits — ~20 credits (~$0.10) per agent action</td><td>A, D, F in production</td></tr>
+      <tr><td>Salesforce Foundations (free tier, Enterprise+)</td><td>$0 — incl. 200k Flex Credits + Agent/Prompt Builder</td><td>Lowers A/D/F entry cost</td></tr>
+      <tr><td>Conversation pricing (customer-facing agents)</td><td>$2 / conversation</td><td>D, F end-user agents</td></tr>
+      <tr><td>Agentforce User License (employee)</td><td>$5 / user / mo</td><td>D</td></tr>
+      <tr><td>Agentforce add-on / Agentforce 1 Edition</td><td>$125–$150/user/mo · from $550/user/mo</td><td>Not recommended for STA</td></tr>
+      <tr><td>Claude paid plan (for custom connectors)</td><td>Pro / Team / Max / Enterprise</td><td>Option A client side</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Recommended next steps</h2>
+  <ol class="steps">
+    <li><b>Confirm the gating fact</b> (Adam/Tanya): STA's Salesforce edition and whether Agentforce is provisioned (<code>sfap_api</code> scope). This decides Option A's cost.</li>
+    <li><b>Run the Option B pilot this week</b> (Adam): install Salesforce CLI, authorize the org, create <code>.mcp.json</code>, connect from Claude. ~30 min, $0. Validate real admin workflows (e.g. query renewals, draft Flow logic).</li>
+    <li><b>Stand up Option A for the team</b> once the edition question is settled: create the External Client App (callback URL, "Access MCP servers" + "Perform requests at any time" scopes, PKCE on), add as a Claude custom connector, each admin connects with their own login.</li>
+    <li><b>Park Options D &amp; F</b> as a future "watch" item — revisit only if STA defines a customer-facing AI feature for the Experience Cloud Help Center.</li>
+    <li><b>Skip C, E, G</b> unless A and B both prove unworkable.</li>
+  </ol>
+
+  <footer>
+    <b>Sources</b><br>
+    <a href="https://developer.salesforce.com/blogs/2026/05/connect-claude-with-salesforce-hosted-mcp-servers">Connect Claude with Salesforce Hosted MCP Servers — Salesforce Developers</a> ·
+    <a href="https://developer.salesforce.com/docs/platform/hosted-mcp-servers/guide/claude.html">Configure Claude | Hosted MCP Servers</a> ·
+    <a href="https://help.salesforce.com/s/articleView?id=platform.claude_with_connectors.htm&language=en_US&type=5">Configure Claude with Connectors — Salesforce Help</a> ·
+    <a href="https://developer.salesforce.com/blogs/2026/04/new-developer-edition-agentforce-vibes-claude-mcp">Salesforce Developer Edition: Agentforce Vibes, Claude 4.5, MCP</a> ·
+    <a href="https://www.salesforce.com/news/stories/salesforce-anthropic-trusted-context-ai-actions-on-claude/">Salesforce &amp; Anthropic — Trusted Context &amp; AI Actions on Claude</a> ·
+    <a href="https://www.anthropic.com/news/salesforce-anthropic-expanded-partnership">Anthropic &amp; Salesforce expand partnership</a> ·
+    <a href="https://github.com/tsmztech/mcp-server-salesforce">Community MCP server (tsmztech)</a> ·
+    <a href="https://ekfrazo.com/resources/blogs/resources-blogs-salesforce-agentforce-pricing-2026/">Agentforce Pricing 2026 — Flex Credits &amp; Real Costs</a> ·
+    <a href="https://help.salesforce.com/s/articleView?language=en_US&id=ai.agent_mcp_requirements.htm&type=5">Agentforce MCP requirements — Salesforce Help</a>
+    <br><br>
+    Prepared by The Architect · 2026-06-01 · Draft for STA Salesforce admin review. Cost figures are 2026 public pricing and should be confirmed against STA's Salesforce contract.
+  </footer>
+
+</div>
+</body>
+</html>

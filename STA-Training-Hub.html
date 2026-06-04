@@ -450,6 +450,7 @@ window.TRAINING_DATA = {
         { heading: 'Skills - Maintenance & Ops', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter'] },
         { heading: 'System reference', docs: ['system-overview', 'workspace-skills', 'user-management', 'maintenance-sop'] },
         { heading: 'Build pipeline', docs: ['rollout-plan', 'build-guide', 'architect-case-study'] },
+        { heading: 'Planned builds (in scoping)', docs: ['google-ai-employee-sow', 'salesforce-integration-sow'] },
         { heading: 'Security checklists', docs: ['google-security', 'sf-security'] },
         { heading: 'Operational procedures', docs: ['drift-check', 'formatting-standards', 'write-verification'] },
         { heading: 'Knowledge base', docs: ['kb-module-catalog'] }
@@ -1026,6 +1027,28 @@ window.TRAINING_DATA = {
       tags: ['Presentation', 'Onboarding'],
       added: '2026-05-22', updated: '2026-05-22',
       check: 'Which Claude model does the onboarding deck tell staff to use instead of Opus?'
+    },
+
+    // ===== Planned builds (SOW / in scoping) =====
+    'google-ai-employee-sow': {
+      title: 'Google Workspace AI Employee - Scope of Work',
+      desc: 'Proposed build, in scoping. A headless claude@k12sta.com assistant: technicians forward a support email, then chat with it in Slack for analysis and a draft reply. A human always reviews and sends.',
+      file: 'docs/google-ai-employee-sow.html',
+      type: 'html',
+      priority: 'wip',
+      tags: ['Planned', 'Admin'],
+      added: '2026-06-04', updated: '2026-06-04',
+      check: 'In the forward-and-chat design, why is forwarding email to the agent a security win over giving it standing access to the support inbox?'
+    },
+    'salesforce-integration-sow': {
+      title: 'Claude + Salesforce Integration - Scope of Work',
+      desc: 'Proposed build, in scoping. Connect Claude to STA Salesforce for the 4-person admin team. Recommends the Salesforce Hosted MCP Server as a custom connector.',
+      file: 'docs/salesforce-claude-integration-sow.html',
+      type: 'html',
+      priority: 'wip',
+      tags: ['Planned', 'Admin'],
+      added: '2026-06-04', updated: '2026-06-04',
+      check: 'Which integration option does the SOW recommend, and what about STA\'s data posture makes the lightweight connector path safe?'
     },
 
     // ===== Coming soon (WIP) =====
