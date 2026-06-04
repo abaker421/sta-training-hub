@@ -275,7 +275,7 @@
     <div class="step-num">2</div>
     <div class="step-body">
       <div class="step-title">Give them Cowork access</div>
-      <div class="step-desc">Cowork access is managed separately from claude.ai. Share the Cowork workspace URL and provide login instructions. For Power Users, share read access to relevant workspaces. For Admins, share full access to all pipeline workspaces (The Architect, Deep Research, Work Personal Assistant, Task Scheduler) plus the admin-triggered Cowork skills (Run Test Cases, Project Feedback, prompt-evaluator).</div>
+      <div class="step-desc">Cowork access is managed separately from claude.ai. Share the Cowork workspace URL and provide login instructions. For Power Users, share read access to relevant workspaces. For Admins, share full access to all pipeline workspaces (The Architect, Deep Research, Work Personal Assistant) plus the admin-triggered Cowork skills (Run Test Cases, Project Feedback, prompt-evaluator). Scheduling is no longer a separate workspace - the Task Scheduler was retired 2026-05-06 and recurring jobs now live per-project via Cowork's scheduled-tasks system.</div>
     </div>
   </div>
 
@@ -311,7 +311,7 @@
     <div class="onboard-card-body">
       <ul>
         <li>Do they own any active project builds or pipeline files? If so, identify who takes over before removing access.</li>
-        <li>Do they have any scheduled tasks set up in Task Scheduler that need to be reassigned or deleted?</li>
+        <li>Do they own any scheduled tasks (per-project, via Cowork's scheduled-tasks system) that need to be reassigned or deleted? Scheduling moved out of the retired Task Scheduler workspace to per-project ownership on 2026-05-06.</li>
         <li>Are they listed as a stakeholder or primary contact in any blueprint files or handoff docs? Update those references.</li>
         <li><strong>Admin only:</strong> Do any Cowork workspace settings, skill configurations, or context files reference them by name that need to be updated?</li>
         <li><strong>Admin only:</strong> Were any shared credentials or API tokens granted to them that need to be rotated after removal?</li>
@@ -332,7 +332,7 @@
     <div class="step-num red">2</div>
     <div class="step-body">
       <div class="step-title">Revoke Cowork access (Power Users and Admins only)</div>
-      <div class="step-desc">If the user had Power User or Admin access to Cowork, revoke their workspace access from Cowork settings. Also check the Task Scheduler workspace - if they created any scheduled tasks, review each one: delete tasks no longer needed, or reassign ownership to a current admin before removing their access. An orphaned scheduled task may continue to run under their identity or silently fail.</div>
+      <div class="step-desc">If the user had Power User or Admin access to Cowork, revoke their workspace access from Cowork settings. Also review any scheduled tasks they created - scheduling now lives per-project via Cowork's scheduled-tasks system (the central Task Scheduler workspace was retired 2026-05-06). For each task they owned, delete those no longer needed or reassign ownership to a current admin before removing their access. An orphaned scheduled task may continue to run under their identity or silently fail.</div>
     </div>
   </div>
 

@@ -371,7 +371,7 @@
 </noscript>
 <div class="app">
   <header class="app-header">
-    <img class="hdr-logo" src="/img/sta-logo-white.png" alt="School Technology Associates">
+    <img class="hdr-logo" src="/icons/icon-192.png" alt="School Technology Associates">
     <div class="hdr-brand">
       <div class="hdr-title">School Tech AI Training Hub</div>
       <div class="hdr-sub">School Technology Associates &middot; Internal</div>
@@ -386,7 +386,7 @@
   <nav id="tabbar" class="tab-bar" aria-label="Audience tabs"></nav>
   <main id="main" class="main-host"></main>
   <footer class="app-footer">
-    <img class="ftr-mark" src="/img/sta-logo-white.png" alt=""><strong>School Tech AI Training Hub</strong> &middot; Internal &middot; Updated 2026-06-01 &middot; Maintained by Adam
+    <img class="ftr-mark" src="/icons/icon-192.png" alt=""><strong>School Tech AI Training Hub</strong> &middot; Internal &middot; Updated 2026-06-01 &middot; Maintained by Adam
   </footer>
 </div>
 
@@ -406,10 +406,10 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Required before first use', docs: ['aup', 'restricted-data', 'getting-started'] },
         { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results', 'onboarding-deck'] },
-        { heading: 'Tool brief', docs: ['ai-advisor'] },
+        { heading: 'Tool briefs', docs: ['ai-advisor', 'behind-the-bell'] },
         { heading: 'Skills', docs: ['skill-html-checklist', 'skill-agent-quality-logger'] },
-        { heading: 'Coming Soon', docs: ['behind-the-bell', 'sta-main-chat'] },
-        { heading: 'Go further', docs: ['platforms', 'tub', 'claude-skills'] }
+        { heading: 'Coming Soon', docs: ['sta-main-chat'] },
+        { heading: 'Go further', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills'] }
       ]
     },
     {
@@ -445,7 +445,7 @@ window.TRAINING_DATA = {
         { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
         { heading: 'Skills - Knowledge & Research', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
         { heading: 'Skills - Safety & Guardrails', docs: ['skill-prompt-override-guard'] },
-        { heading: 'Skills - Maintenance & Ops', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout'] },
+        { heading: 'Skills - Maintenance & Ops', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter'] },
         { heading: 'System reference', docs: ['system-overview', 'workspace-skills', 'user-management', 'maintenance-sop'] },
         { heading: 'Build pipeline', docs: ['rollout-plan', 'build-guide', 'architect-case-study'] },
         { heading: 'Security checklists', docs: ['google-security', 'sf-security'] },
@@ -651,6 +651,16 @@ window.TRAINING_DATA = {
       tags: ['Build Pipeline'],
       added: '2026-06-01', updated: '2026-06-01',
       check: 'Besides writing the context file, what edit does this skill generate and propose to wire the file into instructions.md?'
+    },
+    'skill-cowork-snapshot-exporter': {
+      title: 'Cowork Snapshot Exporter',
+      desc: 'Package a Cowork project into a timestamped ZIP to share with a teammate - system prompt, setup guide, and every referenced context file, folders preserved.',
+      file: 'docs/skill-cowork-snapshot-exporter.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Build Pipeline'],
+      added: '2026-06-03', updated: '2026-06-03',
+      check: 'What four things does the exported ZIP contain, and what is deliberately left out (for example, connector credentials)?'
     },
 
     'skill-research-to-slides': {
@@ -949,12 +959,12 @@ window.TRAINING_DATA = {
     // ===== Coming soon (WIP) =====
     'behind-the-bell': {
       title: 'Behind the Bell Assistant',
-      desc: 'Shared episode-prep assistant for the Behind the Bell hosts: guest research, prep packages, interview questions, and draft scripts. In build - launching soon.',
-      file: 'docs/behind-the-bell-coming-soon.html',
+      desc: 'Shared episode-prep assistant for the Behind the Bell hosts: guest research, prep packages, grouped interview questions, draft scripts, and guest-outreach emails. [CONFIRMED]/[UNVERIFIED] sourcing on every fact.',
+      file: 'docs/behind-the-bell-getting-started.html',
       type: 'html',
-      priority: 'wip',
-      tags: ['Podcast Prep'],
-      added: '2026-06-01', updated: '2026-06-01',
+      priority: 'recommended',
+      tags: ['Tool Brief', 'Podcast Prep'],
+      added: '2026-06-01', updated: '2026-06-03',
       check: 'What two tags must every fact in a prep package carry so nothing unverified slips on air?'
     },
     'sta-main-chat': {
@@ -1527,25 +1537,6 @@ window.addEventListener('popstate', () => {
   var b = document.createElement('button');
   b.type = 'button'; b.id = 'installBtn'; b.textContent = 'Install app';
   b.setAttribute('aria-label', 'Install this app');
-  b.style.cssText = 'display:none;flex-shrink:0;margin-left:10px;padding:7px 14px;border-radius:20px;border:1.5px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.12);color:#fff;font-family:inherit;font-size:9pt;font-weight:600;cursor:pointer;';
-  b.addEventListener('click', function () {
-    if (!deferred) return;
-    deferred.prompt();
-    deferred.userChoice.finally(function () { deferred = null; b.style.display = 'none'; });
-  });
-  (document.querySelector('.app-header') || document.body).appendChild(b);
-  window.addEventListener('beforeinstallprompt', function (e) {
-    e.preventDefault(); deferred = e;
-    if (!window.matchMedia('(display-mode: standalone)').matches) b.style.display = 'inline-flex';
-  });
-  window.addEventListener('appinstalled', function () { b.style.display = 'none'; deferred = null; });
-})();
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/sw.js').catch(function () {});
-  });
-}
-</script>
-</body>
-</html>
+  b.style.cssText = 'flex-shrink:0;margin-left:10px;padding:7px 14px;border-radius:20px;border:1.5px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.12);color:#fff;font-family:inherit;font-size:9pt;font-weight:600;cursor:pointer;';
+  // Always visible, except when already running as an installed app.
+  if (window.

@@ -116,7 +116,7 @@
     <div class="badges">
       <div class="badge">Admin / Power Users Only</div>
       <div class="badge blue">Training - Admin</div>
-      <div class="badge green">Updated 2026-05-21 (The Architect v6.0)</div>
+      <div class="badge green">Updated 2026-06-03 (The Architect v6.17)</div>
     </div>
   </div>
 </div>
@@ -144,42 +144,48 @@
   <!-- SYSTEM ARCHITECTURE -->
   <div id="arch"></div>
   <div class="section-title">System Architecture</div>
-  <div class="section-intro">Two parallel deployment layers. <strong>Claude.ai Projects</strong> are the staff-facing tools - three are Active (AI Advisor, STA Support Chat, STA Salesforce Cohort) and one is Draft (STA Main Chat). <strong>Cowork workspaces</strong> are the build, ops, and personal layer - primarily Adam's, with one (System Monitor) handling automated health monitoring. The Architect handles all project builds across both deployment types. The shared file system lives in the The Architect workspace folder, auto-backed up to GitHub every 30 min via Obsidian Git.</div>
+  <div class="section-intro">Two parallel deployment layers. <strong>Claude.ai Projects</strong> are the staff-facing tools - four are Active (AI Advisor, STA Support Chat, STA Salesforce Cohort, Behind the Bell Assistant) and one is Draft (STA Main Chat). <strong>Cowork workspaces</strong> are the build, ops, and personal layer - primarily Adam's, with one (System Monitor) handling automated health monitoring. The Architect handles all project builds across both deployment types. The shared file system lives in the The Architect workspace folder, auto-backed up to GitHub every 30 min via Obsidian Git.</div>
 
   <svg class="arch-svg" viewBox="0 0 960 420" xmlns="http://www.w3.org/2000/svg">
     <!-- STAFF-FACING ROW -->
     <text x="0" y="20" font-size="11" font-weight="700" fill="#8a8d8e" letter-spacing="1px">STAFF-FACING (CLAUDE.AI PROJECTS)</text>
 
-    <rect x="0" y="32" width="218" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
-    <text x="109" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#1e2a35">AI Advisor</text>
-    <text x="109" y="70" text-anchor="middle" font-size="9.5" fill="#3a8a1e">Active v1.14 (eval 100/100)</text>
-    <text x="109" y="84" text-anchor="middle" font-size="9.5" fill="#3a8a1e">All staff - explore AI fit</text>
-    <text x="109" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">8 CONTEXT FILES</text>
+    <rect x="0" y="32" width="180" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
+    <text x="90" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">AI Advisor</text>
+    <text x="90" y="70" text-anchor="middle" font-size="9" fill="#3a8a1e">Active v1.14</text>
+    <text x="90" y="84" text-anchor="middle" font-size="9" fill="#3a8a1e">All staff - explore AI</text>
+    <text x="90" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">8 CONTEXT FILES</text>
 
-    <rect x="232" y="32" width="218" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
-    <text x="341" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#1e2a35">STA Support Chat</text>
-    <text x="341" y="70" text-anchor="middle" font-size="9.5" fill="#3a8a1e">Active since 2026-05-15</text>
-    <text x="341" y="84" text-anchor="middle" font-size="9.5" fill="#3a8a1e">Support team - product diag</text>
-    <text x="341" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">16 CONTEXT FILES</text>
+    <rect x="195" y="32" width="180" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
+    <text x="285" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">STA Support Chat</text>
+    <text x="285" y="70" text-anchor="middle" font-size="9" fill="#3a8a1e">Active since 5/15</text>
+    <text x="285" y="84" text-anchor="middle" font-size="9" fill="#3a8a1e">Support - product diag</text>
+    <text x="285" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">16 CONTEXT FILES</text>
 
-    <rect x="464" y="32" width="218" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
-    <text x="573" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#1e2a35">STA Salesforce Cohort</text>
-    <text x="573" y="70" text-anchor="middle" font-size="9.5" fill="#3a8a1e">Active (shipping 2026-05-21)</text>
-    <text x="573" y="84" text-anchor="middle" font-size="9.5" fill="#3a8a1e">SF admin team (4 ppl)</text>
-    <text x="573" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">4 CONTEXT FILES</text>
+    <rect x="390" y="32" width="180" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
+    <text x="480" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">STA Salesforce Cohort</text>
+    <text x="480" y="70" text-anchor="middle" font-size="9" fill="#3a8a1e">Active (eval 87/100)</text>
+    <text x="480" y="84" text-anchor="middle" font-size="9" fill="#3a8a1e">SF admins (4 ppl)</text>
+    <text x="480" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">4 CONTEXT FILES</text>
 
-    <rect x="696" y="32" width="218" height="74" rx="8" fill="#f4f6f8" stroke="#8a8d8e" stroke-width="2" stroke-dasharray="4,3"/>
-    <text x="805" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#1e2a35">STA Main Chat</text>
-    <text x="805" y="70" text-anchor="middle" font-size="9.5" fill="#8a8d8e">Draft (context ready)</text>
-    <text x="805" y="84" text-anchor="middle" font-size="9.5" fill="#8a8d8e">All staff - org/product base</text>
-    <text x="805" y="98" text-anchor="middle" font-size="8.5" fill="#8a8d8e" font-weight="700">PENDING INSTRUCTIONS</text>
+    <rect x="585" y="32" width="180" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
+    <text x="675" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">Behind the Bell</text>
+    <text x="675" y="70" text-anchor="middle" font-size="9" fill="#3a8a1e">Active v1.2</text>
+    <text x="675" y="84" text-anchor="middle" font-size="9" fill="#3a8a1e">Podcast - 3 hosts</text>
+    <text x="675" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">8 CONTEXT FILES</text>
+
+    <rect x="780" y="32" width="180" height="74" rx="8" fill="#f4f6f8" stroke="#8a8d8e" stroke-width="2" stroke-dasharray="4,3"/>
+    <text x="870" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">STA Main Chat</text>
+    <text x="870" y="70" text-anchor="middle" font-size="9" fill="#8a8d8e">Draft (context ready)</text>
+    <text x="870" y="84" text-anchor="middle" font-size="9" fill="#8a8d8e">All staff - org base</text>
+    <text x="870" y="98" text-anchor="middle" font-size="8.5" fill="#8a8d8e" font-weight="700">PENDING INSTRUCTIONS</text>
 
     <!-- COWORK BUILD/OPS ROW -->
     <text x="0" y="138" font-size="11" font-weight="700" fill="#8a8d8e" letter-spacing="1px">COWORK - BUILD, OPS, AND ADMIN (ADAM)</text>
 
     <rect x="0" y="150" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
     <text x="109" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">The Architect</text>
-    <text x="109" y="184" text-anchor="middle" font-size="9.5" fill="#006098">v6.0 - build pipeline</text>
+    <text x="109" y="184" text-anchor="middle" font-size="9.5" fill="#006098">v6.17 - build pipeline</text>
     <text x="109" y="198" text-anchor="middle" font-size="9" fill="#006098">Discovery, blueprint, spec</text>
 
     <rect x="232" y="150" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
@@ -252,7 +258,7 @@
 
     <div class="ws-card green">
       <div class="ws-name">STA Salesforce Cohort</div>
-      <div class="ws-tag green">Active (shipping 2026-05-21, eval 87/100)</div>
+      <div class="ws-tag green">Active (eval 87/100)</div>
       <p><strong>For:</strong> the Salesforce admin team. Shared SF admin reference and guidance - step-by-step tasks, formula drafts, multi-approach tradeoffs.</p>
       <p><strong>Hard rules:</strong> warn before destructive ops; never give a confident answer when unsure; heavy Flow design routes back to Adam's SF Admin Assistant.</p>
       <div class="ws-meta">
@@ -269,6 +275,16 @@
         <strong>Blueprint:</strong> <code>project-blueprints/_Claude-Projects/sta-main-chat-proj/</code>
       </div>
     </div>
+
+    <div class="ws-card green">
+      <div class="ws-name">Behind the Bell Assistant</div>
+      <div class="ws-tag green">Active v1.2 (2026-06-01)</div>
+      <p><strong>For:</strong> the three hosts of STA's "Behind the Bell" K-12 education podcast (Jessie, Pat, Adam). Produces guest research and prep packages, grouped interview questions, loose episode scripts, and drafted guest-outreach emails.</p>
+      <p><strong>Hard rule:</strong> [CONFIRMED] / [UNVERIFIED] sourcing discipline on guest facts. HTML + Word output; it is not a sales pitch.</p>
+      <div class="ws-meta">
+        <strong>8 context files:</strong> <code>context-podcast-profile.md</code>, <code>context-prep-doc-format.md</code>, <code>context-prep-doc-template.docx</code>, <code>context-script-format.md</code>, <code>context-guest-list.md</code>, <code>context-email-templates.md</code>, <code>context-sta-company-proj.md</code>, <code>context-podcast-best-practices.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/_Claude-Projects/behind-the-bell-assistant/</code>
+      </div>
+    </div>
   </div>
 
   <!-- STA COWORK WORKSPACES -->
@@ -279,7 +295,7 @@
   <div class="card-grid">
     <div class="ws-card blue">
       <div class="ws-name">The Architect</div>
-      <div class="ws-tag blue">Active v6.0 - build pipeline</div>
+      <div class="ws-tag blue">Active v6.17 - build pipeline</div>
       <p><strong>Use for:</strong> building new projects, polishing existing prompts, quick one-off prompts, updating test cases after fixes, all system maintenance work (registry updates, training materials, knowledge-base oversight).</p>
       <p><strong>Four modes:</strong> Full Pipeline &middot; Polish Existing &middot; Quick Prompt &middot; Test Case Update.</p>
       <div class="ws-meta">
@@ -427,6 +443,11 @@
     <div class="skill-item"><div class="skill-name">Time Clock Diagnostics</div><div class="skill-desc">Analyzes STA time clock log files (TT3, TT7, TT10) - app.config, winsvc, emulator.log, errors.txt, settings.xml.</div><div class="skill-trigger">Upload any clock log file</div></div>
     <div class="skill-item"><div class="skill-name">Cowork Snapshot Exporter</div><div class="skill-desc">Packages a Cowork project into a timestamped ZIP for sharing - system prompt, setup guide, all referenced context files.</div><div class="skill-trigger">"snapshot this project", "export this cowork"</div></div>
     <div class="skill-item"><div class="skill-name">Research to Slides</div><div class="skill-desc">Converts Deep Research modules into polished PowerPoint decks with STA branding and SVG diagrams.</div><div class="skill-trigger">"turn this into slides"</div></div>
+    <div class="skill-item"><div class="skill-name">Backup Verifier</div><div class="skill-desc">Read-only Drift Report over _Backups/ - skills, projects, archives, scheduled-task snapshots; surfaces stale .skill packages as click-installable.</div><div class="skill-trigger">"verify all backups", "are my backups up to date"</div></div>
+    <div class="skill-item"><div class="skill-name">WCAG Audit</div><div class="skill-desc">Audits a web page, HTML/CSS, PDF, Word, or PPTX for WCAG 2.2 AA conformance; severity-ranked findings with evidence. Standalone or handoff to The Test Master.</div><div class="skill-trigger">"run an accessibility audit", "check WCAG 2.2 AA"</div></div>
+    <div class="skill-item"><div class="skill-name">Deep Research Prompt Builder</div><div class="skill-desc">Crafts a deep research commission prompt as one .md for the knowledge base, then returns a one-click kickoff prompt.</div><div class="skill-trigger">"craft a deep research prompt", "build a research commission"</div></div>
+    <div class="skill-item"><div class="skill-name">Session Closeout</div><div class="skill-desc">Wraps up a chat - summary, pending manual tasks, pending in-chat items; optional one-click handoff prompt for a new chat.</div><div class="skill-trigger">"end chat", "wrap up", "close out"</div></div>
+    <div class="skill-item"><div class="skill-name">Weekly GitHub Backup</div><div class="skill-desc">Backs up all Claude projects and skills to GitHub on a weekly schedule (also runs as a scheduled task).</div><div class="skill-trigger">Scheduled (Sundays); or "run the GitHub backup"</div></div>
   </div>
 
   <h3 style="font-size:13px; margin: 18px 0 8px; color: var(--gray); text-transform:uppercase; letter-spacing:0.7px;">Standard platform skills (Anthropic-bundled with Cowork)</h3>
@@ -442,7 +463,7 @@
   <!-- AUTOMATIONS -->
   <div id="auto"></div>
   <div class="section-title">Scheduled Automations</div>
-  <div class="section-intro">Scheduled tasks live per-project (the central Task Scheduler workspace was retired 2026-05-06). Each project that owns a recurring job manages it through Cowork's scheduled-tasks system.</div>
+  <div class="section-intro">Scheduled tasks live per-project (the central Task Scheduler workspace was retired 2026-05-06). Each project that owns a recurring job manages it through Cowork's scheduled-tasks system. (Adam's personal automations - daily email summary, House Monitor listing scout - are intentionally not listed here.)</div>
 
   <table>
     <thead>
@@ -462,18 +483,40 @@
       </tr>
       <tr>
         <td><strong>Knowledge Base Update Checker</strong></td>
-        <td>Mondays 8:09 AM</td>
+        <td>Mondays 9:09 AM</td>
         <td>System Monitor</td>
-        <td>Reads knowledge-base/index.md, flags overdue topics (weekly/monthly/quarterly/annually). Reports in chat + email summary.</td>
+        <td>Reads knowledge-base/index.md, flags overdue topics (weekly/monthly/quarterly/annually). Reports in chat + posts a summary to #kb-update-check in Slack.</td>
       </tr>
       <tr>
         <td><strong>Weekly GitHub Backup</strong></td>
-        <td>Sundays evening</td>
+        <td>Sundays 7:00 AM</td>
         <td>System Monitor (scheduled task)</td>
         <td>Backs up workspace to <code>github.com/abaker421/school-tech-ai-system</code>. Verified by System Monitor Check 12 every Monday.</td>
       </tr>
       <tr>
-
+        <td><strong>Context Staleness Monthly Check</strong></td>
+        <td>1st of month, 8:00 AM</td>
+        <td>System Monitor</td>
+        <td>Flags Claude.ai Project context files unchanged 60+/90+ days so stale uploaded context gets refreshed.</td>
+      </tr>
+      <tr>
+        <td><strong>Chris Customer Meetings Daily Summary</strong></td>
+        <td>Weekdays 7:40 AM</td>
+        <td>Standalone (Support)</td>
+        <td>Posts a daily summary of Chris's customer meetings to #daily-support-call-summary in Slack (via the Slack connector).</td>
+      </tr>
+      <tr>
+        <td><strong>R&amp;D Time-Tracking Weekly</strong></td>
+        <td>Mondays 8:00 AM</td>
+        <td>Standalone (R&amp;D)</td>
+        <td>Pulls the prior week's product-dev meetings from Granola + Calendar + Zoom; updates the Word notes docs and the Excel R&amp;D tracker.</td>
+      </tr>
+      <tr>
+        <td><strong>Help Center Weekly Scan</strong></td>
+        <td>Saturdays 9:00 AM</td>
+        <td>Help Center Advisor</td>
+        <td>Scans the STA help center for new articles, auto-categorizes into hc-data.json, rebuilds the HC Index App, and updates context-help-center-state.md.</td>
+      </tr>
     </tbody>
   </table>
 
@@ -574,7 +617,7 @@
 </div>
 
 <div class="footer">
-  <strong>School Technology Associates</strong> &nbsp;|&nbsp; Adam's AI System - Operational Reference &nbsp;|&nbsp; Updated 2026-05-21 (The Architect v6.0)
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; Adam's AI System - Operational Reference &nbsp;|&nbsp; Updated 2026-06-03 (The Architect v6.17)
 </div>
 
 <div style="margin: 60px 0 20px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">
