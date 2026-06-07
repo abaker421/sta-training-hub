@@ -1655,25 +1655,52 @@ window.addEventListener('popstate', () => {
   go(false); // replaceState to a canonical hash + first render
 })();
 
-// On-screen Install button (Chromium/Android fire beforeinstallprompt; iOS uses Share > Add to Home Screen)
+// On-screen Install button.
+// Chromium (Chrome/Edge/Android) fire beforeinstallprompt: we preventDefault, stash
+// the event, and the button fires the REAL OS install prompt. On those browsers the
+// button only appears once that event is in hand, so the user is NEVER shown manual
+// instructions. Safari/Firefox lack the API entirely - only there does the button
+// fall back to manual "Add to Home Screen" / browser-menu instructions.
 (function () {
   var deferred = null;
+  var installed = false;
+  var supportsPrompt = 'onbeforeinstallprompt' in window;
+  var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
   var b = document.createElement('button');
   b.type = 'button'; b.id = 'installBtn'; b.textContent = 'Install app';
   b.setAttribute('aria-label', 'Install this app');
   b.style.cssText = 'flex-shrink:0;margin-left:10px;padding:7px 14px;border-radius:20px;border:1.5px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.12);color:#fff;font-family:inherit;font-size:9pt;font-weight:600;cursor:pointer;';
-  // Always visible, except when already running as an installed app.
-  if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) b.style.display = 'none';
+
+  function hide() { b.style.display = 'none'; }
+  function show() { if (!installed && !standalone) b.style.display = ''; }
+
+  // Chromium: keep the button hidden until a real beforeinstallprompt arrives, so a
+  // click can ONLY ever trigger the genuine prompt. Safari/Firefox: show it now and
+  // let the click fall back to instructions. Already-installed: never show.
+  if (standalone || supportsPrompt) hide(); else show();
+
   b.addEventListener('click', function () {
-    if (deferred) { deferred.prompt(); deferred.userChoice.finally(function () { deferred = null; }); return; }
+    if (deferred) {
+      var e = deferred; deferred = null; // a BeforeInstallPromptEvent can only be prompted once
+      e.prompt();
+      e.userChoice.then(function (choice) {
+        if (choice && choice.outcome === 'accepted') { installed = true; }
+        hide(); // accepted -> appinstalled also hides; dismissed -> Chrome re-fires beforeinstallprompt and re-shows
+      }).catch(function () { hide(); });
+      return;
+    }
+    if (supportsPrompt) return; // Chromium with no stashed event: do nothing - never show instructions
     var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     alert(iOS
       ? 'To install: tap the Share button, then "Add to Home Screen".'
       : 'To install: open your browser menu and choose "Install" (or the install icon in the address bar).');
   });
+
   (document.querySelector('.app-header') || document.body).appendChild(b);
-  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; });
-  window.addEventListener('appinstalled', function () { b.style.display = 'none'; deferred = null; });
+
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; show(); });
+  window.addEventListener('appinstalled', function () { installed = true; deferred = null; hide(); });
 })();
 
 if ('serviceWorker' in navigator) {
