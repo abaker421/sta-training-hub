@@ -1655,18 +1655,45 @@ window.addEventListener('popstate', () => {
   go(false); // replaceState to a canonical hash + first render
 })();
 
-// On-screen Install button (Chromium/Android fire beforeinstallprompt; iOS uses Share > Add to Home Screen)
+// On-screen Install button. Chromium/Edge fire beforeinstallprompt -> we preventDefault
+// and stash it, then trigger the REAL native install prompt on click, hiding the button
+// permanently once the user accepts or the app reports 'appinstalled'. Browsers WITHOUT
+// the API (Safari/Firefox) never get a stashed event, so a click there falls back to the
+// short Add-to-Home-Screen / browser-menu instructions. Chrome/Edge never see instructions.
 (function () {
   var deferred = null;
   var b = document.createElement('button');
   b.type = 'button'; b.id = 'installBtn'; b.textContent = 'Install app';
   b.setAttribute('aria-label', 'Install this app');
   b.style.cssText = 'flex-shrink:0;margin-left:10px;padding:7px 14px;border-radius:20px;border:1.5px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.12);color:#fff;font-family:inherit;font-size:9pt;font-weight:600;cursor:pointer;';
+  function hide() { b.style.display = 'none'; }
   // Always visible, except when already running as an installed app.
-  if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) b.style.display = 'none';
+  if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) hide();
   b.addEventListener('click', function () {
-    if (deferred) { deferred.prompt(); deferred.userChoice.finally(function () { deferred = null; }); return; }
+    if (deferred) {
+      // Real install prompt (Chromium/Edge). Hide permanently once accepted.
+      deferred.prompt();
+      deferred.userChoice.then(function (choice) {
+        if (choice && choice.outcome === 'accepted') hide();
+      }).finally(function () { deferred = null; });
+      return;
+    }
+    // Fallback ONLY where beforeinstallprompt does not exist (Safari/Firefox).
     var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     alert(iOS
       ? 'To install: tap the Share button, then "Add to Home Screen".'
-      : 'To install: open your browser menu and choose "Install" (or the install 
+      : 'To install: open your browser menu and choose "Install" (or the install icon in the address bar).');
+  });
+  (document.querySelector('.app-header') || document.body).appendChild(b);
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; });
+  window.addEventListener('appinstalled', function () { hide(); deferred = null; });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}
+</script>
+</body>
+</html>
