@@ -582,14 +582,14 @@ window.TRAINING_DATA = {
 
     // ===== Per-tool briefs =====
     'support-chat-brief': {
-      title: 'Support Expert - Getting Started',
-      desc: 'Everything the Support team needs to run Support Expert - the never-fabricate rule, source labels, and starter prompts.',
+      title: 'STA Support Chat - Getting Started',
+      desc: 'Everything the Support team needs to run STA Support Chat - the never-fabricate rule, source labels, and starter prompts.',
       file: 'docs/sta-support-chat-getting-started.html',
       type: 'html',
       priority: 'required',
       tags: ['Tool Brief'],
       added: '2026-05-21', updated: '2026-05-22',
-      check: 'What are the four source labels that Support Expert can attach to a substantive answer?'
+      check: 'What are the four source labels that STA Support Chat can attach to a substantive answer?'
     },
     'cohort-getting-started': {
       title: 'School Tech Salesforce Cohort - Getting Started',
@@ -1112,7 +1112,7 @@ window.HELPFUL_LINKS = [
     icon: '\u{1F517}',
     headerBg: '#006098',
     items: [
-      { name: 'Sign in to Claude', url: 'https://claude.ai', desc: 'The entry point for AI Advisor, Support Expert, School Tech Salesforce Cohort - use your @k12sta.com email.' },
+      { name: 'Sign in to Claude', url: 'https://claude.ai', desc: 'The entry point for AI Advisor, STA Support Chat, School Tech Salesforce Cohort - use your @k12sta.com email.' },
       { name: 'Download Claude Desktop', url: 'https://claude.ai/download', desc: 'Native app: faster, better notifications, runs without a browser tab open.' }
     ]
   },
@@ -1669,18 +1669,4 @@ window.addEventListener('popstate', () => {
     var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     alert(iOS
       ? 'To install: tap the Share button, then "Add to Home Screen".'
-      : 'To install: open your browser menu and choose "Install" (or the install icon in the address bar).');
-  });
-  (document.querySelector('.app-header') || document.body).appendChild(b);
-  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferred = e; });
-  window.addEventListener('appinstalled', function () { b.style.display = 'none'; deferred = null; });
-})();
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/sw.js').catch(function () {});
-  });
-}
-</script>
-</body>
-</html>
+      : 'To install: open your browser menu and choose "Install" (or the install 
