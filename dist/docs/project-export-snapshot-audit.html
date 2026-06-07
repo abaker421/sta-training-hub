@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All 22 Active/Draft projects are export-ready - 6 gaps found and closed same-day</title>
+<style>
+  :root{
+    --brand:#006098; --brand-d:#004a78; --green:#6bc04b; --green-d:#4f9a34;
+    --eyebrow:#bfe0f0; --headmeta:#cfe5f1;
+    --good:#1a7f37; --warn:#9a6700; --bad:#b42318;
+    --good-bg:#eaf6ec; --warn-bg:#fdf6e3; --bad-bg:#fdeceb;
+    --ink:#1a1f24; --muted:#5a5f66; --line:#e3e6ea; --bg:#FFFFFF; --band:#eef4f8;
+    --sp-1:4px; --sp-2:8px; --sp-3:16px; --sp-4:24px; --sp-5:40px;
+  }
+  *{box-sizing:border-box;}
+  html,body{overflow-x:hidden;}
+  body{margin:0;color:var(--ink);background:#EDF0F6;
+    font:16px/1.6 "Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;}
+  main{max-width:820px;margin:0 auto;background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.08);}
+  header{background:linear-gradient(135deg,#006098 0%,#004a78 100%);color:#fff;
+    padding:var(--sp-5) var(--sp-5) var(--sp-4);border-bottom:5px solid var(--green);}
+  .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--eyebrow);font-weight:600;margin:0 0 var(--sp-2);}
+  header h1{font-size:1.75rem;line-height:1.22;margin:0;font-weight:800;letter-spacing:-.01em;}
+  .meta{margin:var(--sp-3) 0 0;font-size:.82rem;color:var(--headmeta);}
+  .body{padding:var(--sp-5);}
+  .verdict{display:inline-block;border-radius:999px;padding:3px 12px;font-weight:700;font-size:.82rem;margin:0 0 var(--sp-3);}
+  .verdict.warn{background:var(--warn-bg);color:var(--warn);border:1px solid #e8d48a;}
+  .verdict.good{background:var(--good-bg);color:var(--good);border:1px solid #b9ddc9;}
+  .bluf{display:flex;gap:var(--sp-4);align-items:flex-start;background:var(--band);
+    border:1px solid var(--line);border-left:5px solid var(--brand);
+    border-radius:8px;padding:var(--sp-4);margin:0 0 var(--sp-5);}
+  .hero{flex:0 0 auto;text-align:center;min-width:120px;}
+  .hero .big{font-size:2.2rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;color:var(--warn);}
+  .hero .lab{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:var(--sp-2);}
+  .bluf .txt{flex:1;} .bluf p{margin:0;} .bluf strong{color:var(--brand-d);}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--sp-3);margin:0 0 var(--sp-5);}
+  .kpi{border:1px solid var(--line);border-radius:10px;padding:var(--sp-3) var(--sp-4);
+    background:linear-gradient(180deg,#fff 0%,#F4F6FA 100%);}
+  .kpi .num{font-size:1.75rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1;color:var(--brand-d);}
+  .kpi .label{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;margin-top:var(--sp-1);}
+  h2{font-size:1.18rem;line-height:1.3;margin:var(--sp-5) 0 var(--sp-3);color:var(--brand-d);
+    padding-top:var(--sp-4);border-top:1px solid var(--line);}
+  h2:first-of-type{border-top:none;padding-top:0;}
+  p{margin:0 0 var(--sp-3);}
+  .find{border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:0 6px 6px 0;
+    padding:var(--sp-4);margin:0 0 var(--sp-3);background:#fff;}
+  .find.warnf{border-left-color:var(--warn);background:var(--warn-bg);}
+  .find-head{display:flex;align-items:flex-start;gap:var(--sp-3);margin:0 0 var(--sp-2);}
+  .find .badge{flex:0 0 auto;margin-top:3px;font-size:.66rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.07em;padding:3px 10px;border-radius:999px;line-height:1.4;}
+  .badge.bwarn{background:var(--warn);color:#fff;}
+  .find h3{margin:0;font-size:1.06rem;font-weight:700;line-height:1.32;color:var(--ink);}
+  .find p{margin:0;font-size:.95rem;}
+  table{border-collapse:collapse;width:100%;margin:var(--sp-2) 0 var(--sp-3);font-size:.95rem;}
+  caption{text-align:left;font-weight:600;margin-bottom:var(--sp-2);color:var(--ink);}
+  th,td{padding:var(--sp-2) var(--sp-3);border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+  th[scope=col]{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  th[scope=row]{font-size:.82rem;color:var(--muted);font-weight:600;white-space:nowrap;width:160px;}
+  tbody tr:nth-child(even){background:#F5F7FB;}
+  .st{font-weight:600;} .st.g{color:var(--good);} .st.w{color:var(--warn);} .st.b{color:var(--bad);}
+  details{margin:var(--sp-4) 0 0;border-top:1px solid var(--line);padding-top:var(--sp-3);}
+  summary{cursor:pointer;font-weight:600;min-height:24px;color:var(--muted);}
+  details p{font-size:.88rem;color:var(--muted);margin-top:var(--sp-2);}
+  details.plug{border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:0 6px 6px 0;
+    background:#fff;margin:0 0 var(--sp-2);padding:0;}
+  details.plug summary{padding:var(--sp-2) var(--sp-3);color:var(--brand-d);font-size:.98rem;}
+  details.plug summary:hover{background:var(--band);}
+  details.plug[open] summary{border-bottom:1px solid var(--line);background:var(--band);}
+  details.plug .inner{padding:var(--sp-2) var(--sp-3) var(--sp-3);}
+  details.plug table{font-size:.88rem;margin:var(--sp-2) 0 0;}
+  details.plug.gap{border-left-color:var(--warn);}
+  .tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:999px;margin-left:6px;}
+  .tag.ok{background:var(--good-bg);color:var(--good);}
+  .tag.gap{background:var(--warn-bg);color:var(--warn);}
+  .callout{background:var(--band);border-left:5px solid var(--brand);border-radius:0 6px 6px 0;
+    padding:var(--sp-3) var(--sp-4);margin:0 0 var(--sp-4);color:var(--ink);font-size:.95rem;}
+  .callout strong{color:var(--brand-d);}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  a{color:var(--brand);}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--brand-d);outline-offset:2px;border-radius:4px;}
+  footer{padding:var(--sp-4) var(--sp-5);border-top:3px solid var(--green);background:var(--band);font-size:.8rem;color:var(--muted);}
+  @media print{
+    @page{size:Letter;margin:.7in;}
+    body{background:#fff;font-size:11pt;} main{box-shadow:none;max-width:none;}
+    header,.bluf,.kpi,.find,.badge,.verdict,.callout,.tag,tbody tr:nth-child(even){
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .find,.kpi,table,.bluf,.callout,details.plug{break-inside:avoid;} h2{break-after:avoid;} p{orphans:3;widows:3;}
+    details{display:block;} details>*{display:block;}
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">School Technology Associates &middot; AI Admin Export-Snapshot Audit</p>
+    <h1>All 22 Active/Draft projects are export-ready - 6 gaps found and closed same-day</h1>
+    <p class="meta">Generated 2026-06-06 &nbsp;&middot;&nbsp; Source: agent registry + per-blueprint folder sweep &nbsp;&middot;&nbsp; Scope: every Active and Draft Cowork agent and Claude.ai Project; skills and Parked/Deprecated entries noted but not snapshotted</p>
+  </header>
+
+  <div class="body">
+
+    <p class="verdict good">Result: CLEAN - every Active/Draft project is export-ready</p>
+    <section class="bluf" role="note" aria-label="Bottom line">
+      <div class="hero">
+        <div class="big" style="color:var(--good)">22<small>/22</small></div>
+        <div class="lab">Export-ready</div>
+      </div>
+      <div class="txt"><p><strong>Bottom line:</strong> each project below has a full export snapshot - what the cowork-snapshot-exporter would package: context files and their purposes, skills used, KB modules referenced, and install requirements (instructions text excluded per spec). The initial sweep found 6 projects blocked from export; all 6 were fixed the same day (2026-06-06) and every project now exports cleanly. The fix table below records what was backfilled.</p></div>
+    </section>
+
+    <div class="kpis">
+      <div class="kpi"><div class="num">18</div><div class="label">Cowork agents (incl. 1 Both)</div></div>
+      <div class="kpi"><div class="num">4</div><div class="label">Claude.ai Projects</div></div>
+      <div class="kpi"><div class="num">6</div><div class="label">Gaps closed 2026-06-06</div></div>
+    </div>
+
+    <h2>Six gaps found and closed same-day</h2>
+    <table>
+      <caption>Export-readiness backfill, 2026-06-06 - every fix is a file addition; no live behavior changed</caption>
+      <thead><tr><th scope="col">Project</th><th scope="col">Gap found</th><th scope="col">Fix applied</th></tr></thead>
+      <tbody>
+        <tr><td>The Customer</td><td>No standalone instructions.md; context files only in the runnable instance</td><td>instructions.md (v1.3) + 5 context files synced from .Default Projects into the blueprint folder; changelog.md created</td></tr>
+        <tr><td>House Monitor</td><td>Pre-pipeline - no instructions.md or launch file</td><td>Slim instructions.md (v1.0) created (identity + context routing; sweep workflow stays in the prompt file) + project-launch.md with the scheduled-task recreation step</td></tr>
+        <tr><td>Personal Assistant</td><td>No project-launch.md (or blueprint-summary.md)</td><td>project-launch.md created (Blocks 1-3; blueprint-summary still open as a nice-to-have)</td></tr>
+        <tr><td>The Architect</td><td>No project-launch.md</td><td>project-launch.md created, incl. peer-skill install list and template verification</td></tr>
+        <tr><td>Deep Research</td><td>No project-launch.md</td><td>project-launch.md created, incl. KB-index writability check</td></tr>
+        <tr><td>System Monitor</td><td>No project-launch.md</td><td>project-launch.md created (Cowork variant only; retired Project variant flagged do-not-deploy)</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>Note on Block 1 format:</strong> the four backfilled launch files for live, self-maintained agents use a pointer-style Block 1 ("paste the contents of instructions.md, drop the version comment") instead of duplicating the full instructions text. Deliberate deviation from the launch template's verbatim rule: these agents version-bump in place, and a second full copy would silently drift on every bump.</div>
+    <h2>Cowork agents - 18 snapshots (click any to expand)</h2>
+
+    <details class="plug"><summary>Adam's Personal Assistant - v2.6 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">Personal Assistant snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v2.6 (5/24/26) &middot; Cowork &middot; Active &middot; Personal scope</td></tr>
+        <tr><th scope="row">Context files</th><td>context-adam-style (tone for rewrites); context-adam-contacts (recipients); context-adam-identity (background, home purchase, finances); context-adam-projects (side projects); context-org-team + context-org-identity (shared - personal-relevance trigger only); context-doc-design-standards (shared); report-design-spec.md + report-template.html + palette.css (shared from build-with-baker/shared - BwB visual deliverables)</td></tr>
+        <tr><th scope="row">Skills used</th><td>None referenced (skill prompt guard only)</td></tr>
+        <tr><th scope="row">KB modules</th><td>adam/context-adam-* files only; no topic modules</td></tr>
+        <tr><th scope="row">Install needs</th><td>project-launch.md created 2026-06-06: mount workspace, paste instructions, verify 8 files. [RECOMMENDED] BwB report assets, WebSearch/WebFetch</td></tr>
+        <tr><th scope="row">Gaps</th><td>Closed 2026-06-06 (launch file backfilled). Still open as nice-to-haves: blueprint-summary.md, registry-entry.md</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Work Personal Assistant - v1.26 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">Work Personal Assistant snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.26 (6/5/26) &middot; Cowork &middot; Active &middot; STA scope &middot; replication-ready staff template</td></tr>
+        <tr><th scope="row">Context files</th><td>style-profile.md + contacts.md (shared with Personal Assistant - voice + recipients); work-standing-context (work identity, sign-offs); agenda-state (persistent tracker memory); stage-classification-standard; skyward-digest-reference-prompt (weekly scan); 12 shared context-org-*/compliance files (team, identity, brand, data-policy, tech-stack, ai-roadmap, outreach, skyward-ecosystem, qmlativ-migration, hr-compliance, student-data-privacy, biometric-privacy); context-doc-design-standards (shared); Wren Notes folder as standing knowledge source</td></tr>
+        <tr><th scope="row">Skills used</th><td>None referenced</td></tr>
+        <tr><th scope="row">KB modules</th><td>adam/autohotkey-ahk-reference; KB index catch-all</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] paste Block 1; confirm style-profile, contacts, work-standing-context, context-org-team, context-org-identity exist. [RECOMMENDED] WebSearch, WebFetch. Do NOT connect task scheduler</td></tr>
+        <tr><th scope="row">Core tools</th><td>WebSearch, Read &middot; Recommended: WebFetch</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>The Architect - v6.21 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">The Architect snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v6.21 (6/6/26) &middot; Cowork (instructions in project settings) &middot; Active &middot; STA scope</td></tr>
+        <tr><th scope="row">Context files</th><td>context-agent-registry.md (root - every agent/project/skill, overlap checks); context-path-reference.md (root - key paths); sta-company-profile (shared); context-doc-design-standards (shared); context-prompt-engineering; context-cowork-vs-projects; context-cowork-tools-and-mcp (caveat library); context-ai-context-mechanics; context-context-design-rules; context-claude-skills</td></tr>
+        <tr><th scope="row">Skills used</th><td>deep-research, knowledge-base-context-builder, skill-creator, prompt-evaluator, run-test-cases, project-feedback, training-doc-audit, help-center-article, schedule</td></tr>
+        <tr><th scope="row">KB modules</th><td>KB index (read at start of every task); modules per-project during pipeline runs</td></tr>
+        <tr><th scope="row">Install needs</th><td>project-launch.md created 2026-06-06: mount workspace, paste instructions, verify 13 files, install 5 required peer skills (prompt-evaluator, run-test-cases, project-feedback, knowledge-base-context-builder, skill-creator) + 6 recommended</td></tr>
+        <tr><th scope="row">Gaps</th><td>Closed 2026-06-06 (launch file backfilled, pointer-style Block 1)</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Deep Research - v1.13 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">Deep Research snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.13 (5/21/26) &middot; Cowork &middot; Active &middot; STA scope</td></tr>
+        <tr><th scope="row">Context files</th><td>context-web-search-best-practices (search strategy, source evaluation); context-knowledge-base-index (live KB index snapshot). No formal routing section - files listed in _context-files.md</td></tr>
+        <tr><th scope="row">Skills used</th><td>knowledge-base-context-builder (hand-off for packaging modules)</td></tr>
+        <tr><th scope="row">KB modules</th><td>KB index + quick-answers log; writes new modules as its core output</td></tr>
+        <tr><th scope="row">Install needs</th><td>project-launch.md created 2026-06-06: mount workspace, paste instructions, verify 2 context files + writable KB index, enable WebSearch/WebFetch. [RECOMMENDED] knowledge-base-context-builder + deep-research-prompt-builder skills</td></tr>
+        <tr><th scope="row">Gaps</th><td>Closed 2026-06-06 (launch file backfilled). Still open as a nice-to-have: no "Context Files and When to Use Them" section in instructions (files listed in _context-files.md)</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>System Monitor - v1.13 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">System Monitor snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.13 Cowork (5/27/26) &middot; Active; Claude.ai Project variant v1.9 retired (kept as historical reference)</td></tr>
+        <tr><th scope="row">Context files</th><td>context-health-check-rules (thresholds + flags); context-system-reference (what each tool/folder does); context-maintenance-sop (schedules, drift handling, root sweep); context-doc-design-standards (shared)</td></tr>
+        <tr><th scope="row">Skills used</th><td>weekly-github-backup (verified during health check); routes fixes to project-feedback</td></tr>
+        <tr><th scope="row">KB modules</th><td>KB index; sta/slack-automation-api-and-agent-integration</td></tr>
+        <tr><th scope="row">Install needs</th><td>project-launch.md created 2026-06-06: mount workspace, paste instructions-cowork.md, verify 4 context files, connect Slack MCP. [RECOMMENDED] recreate weekly health-report scheduled task (folder field mandatory), weekly-github-backup skill</td></tr>
+        <tr><th scope="row">Gaps</th><td>Closed 2026-06-06 (launch file backfilled; retired Project variant flagged do-not-deploy in the launch file)</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Salesforce Admin Assistant - v1.7 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">Salesforce Admin Assistant snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.7 (5/18/26) &middot; Cowork &middot; Active &middot; STA scope</td></tr>
+        <tr><th scope="row">Context files</th><td>context-salesforce-org (STA org topology, sandboxes, packages); sta-company-profile (shared); 27 inline-routed Flow KB module entries; KB index catch-all</td></tr>
+        <tr><th scope="row">Skills used</th><td>None referenced</td></tr>
+        <tr><th scope="row">KB modules</th><td>salesforce-flows-fundamentals, salesforce-flows-advanced-integration, salesforce-flows-operations-mastery (27 modules total), salesforce-org-schema</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] upload context-salesforce-org.md; mount KB workspace folder. [RECOMMENDED] WebFetch</td></tr>
+        <tr><th scope="row">Core tools</th><td>Read &middot; Recommended: WebFetch</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>STA Security Advisor - v1.8 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">STA Security Advisor snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.8 (5/18/26) &middot; Cowork &middot; Active &middot; STA scope</td></tr>
+        <tr><th scope="row">Context files</th><td>context-cis81-framework (controls + safeguards); context-sta-security-stack (Bullphish, Spanning, Webroot, SF, Google tooling); context-compliance-status (living tracker - updated as evidence lands); sta-company-profile (shared); context-doc-design-standards (shared)</td></tr>
+        <tr><th scope="row">Skills used</th><td>project-feedback (referenced)</td></tr>
+        <tr><th scope="row">KB modules</th><td>k12-cybersecurity-threat-landscape, google-admin-console-security-audit, salesforce-security-and-event-monitoring</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] upload the 3 context files. [RECOMMENDED] Salesforce MCP connector</td></tr>
+        <tr><th scope="row">Core tools</th><td>Read/Write/Edit, WebSearch, Bash &middot; Recommended: Salesforce MCP, Slack MCP</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>The Green Man - v1.5 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">The Green Man snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.5 (5/18/26) &middot; Cowork &middot; Active &middot; Personal scope</td></tr>
+        <tr><th scope="row">Context files</th><td>adams-setup (conditions, inventory, household - single source of truth); inventory-schema (per-plant file format + lifecycle); runtime-search-fallback (trusted web sources when KB misses)</td></tr>
+        <tr><th scope="row">Skills used</th><td>None referenced</td></tr>
+        <tr><th scope="row">KB modules</th><td>plant-care-foundations, current-inventory-care, northwoods-outdoor-gardening</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] create project, mount Green Man + KB folders, paste Block 1, upload 3 context files. [RECOMMENDED] weekly check-in task, verify vision + WebSearch/WebFetch</td></tr>
+        <tr><th scope="row">Core tools</th><td>Read/Write/Edit, vision, scheduled tasks, WebSearch, WebFetch</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>House Monitor - v1.0 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">House Monitor snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>instructions.md v1.0 (6/6/26 backfill - identity + context routing; sweep workflow stays in listing-scout-daily-prompt.md, 5/17/26) &middot; daily 5pm scheduled task &middot; Active &middot; Personal</td></tr>
+        <tr><th scope="row">Context files</th><td>home_criteria (hard limits + scoring rubric); home_report_template (per-property format); photo_red_flags (MLS photo analysis, sourced from home-inspector KB module-09); context-html-report-design (shared master copy)</td></tr>
+        <tr><th scope="row">Skills used</th><td>None - prompts use Gmail, Chrome sweep, web_fetch, JSON dedupe cache</td></tr>
+        <tr><th scope="row">KB modules</th><td>report-design-for-humans-html; wi-mi-home-inspector-licensure-roadmap (module-09)</td></tr>
+        <tr><th scope="row">Install needs</th><td>project-launch.md created 2026-06-06: mount House Monitor folder, paste instructions, verify 4 context files + dedupe JSON, connect Gmail MCP + Claude in Chrome, create the listing-scout-daily scheduled task (cron 0 17 * * *, folder field mandatory)</td></tr>
+        <tr><th scope="row">Gaps</th><td>Closed 2026-06-06 (instructions.md v1.0 + launch file created). Remains outside the Architect blueprint structure by design; full pipeline pass still optional</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Local Discovery - v1.8 / v1.5 (Both) <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">Local Discovery snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.8 Cowork (6/3/26) + v1.5 Claude.ai Project (mobile) &middot; Active &middot; intentional version split (Cowork-only skill features exempt from lockstep)</td></tr>
+        <tr><th scope="row">Context files</th><td>context-source-tiers (which sources per anchor/horizon, JS vs open-web); context-seed-places (routing into seed-places KB); context-search-techniques (query phrasing, dedup); context-html-report-design (shared - Pine digest craft, Cowork only). Persistence: state.md + preferences.md</td></tr>
+        <tr><th scope="row">Skills used</th><td>garage-sale-scanner (Mode 6, Cowork only - sole authorized skill)</td></tr>
+        <tr><th scope="row">KB modules</th><td>local-discovery-seed-places, northwoods-event-sources, northwoods-birding-reference, wi-fishing-reference, northwoods-park-systems, web-search-best-practices</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] create + paste, mount workspace, verify 3 context files + 5 KB modules + sample-pine-report.html. [RECOMMENDED] pre-create state.md, verify WebFetch/WebSearch</td></tr>
+        <tr><th scope="row">Core tools</th><td>Read, Write, Edit, WebFetch, WebSearch</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>The Chef - v1.8 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">The Chef snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.8 (5/18/26) &middot; Cowork &middot; Active &middot; Personal scope</td></tr>
+        <tr><th scope="row">Context files</th><td>recipe-format-reference (master format source of truth); preferences (tastes, equipment, skill notes - actively appended); context-doc-design-standards (shared)</td></tr>
+        <tr><th scope="row">Skills used</th><td>docx, pdf</td></tr>
+        <tr><th scope="row">KB modules</th><td>cooking-science-fundamentals, ingredient-substitution-chemistry, recipe-scaling-ratios-bakers-percentages, recipe-attribution-copyright-fair-use, nutrition-estimation-usda-fdc</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] workspace root, confirm 2 context files + 5 cooking KB folders, USDA FDC API key. [RECOMMENDED] docx + pdf skills</td></tr>
+        <tr><th scope="row">Core tools</th><td>Read/Write/Edit, Bash + curl, WebSearch + WebFetch, docx skill</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Help Center Advisor - v1.11 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">Help Center Advisor snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.11 (6/5/26) &middot; Cowork &middot; Active &middot; STA scope</td></tr>
+        <tr><th scope="row">Context files</th><td>context-help-center-state (article inventory, gaps, action list); sta-company-profile (shared); two canonical KB checklist modules (density-and-voice, RAG-readiness - do not paraphrase)</td></tr>
+        <tr><th scope="row">Skills used</th><td>help-center-article (hard routing rule - advisor never formats articles itself)</td></tr>
+        <tr><th scope="row">KB modules</th><td>help-article-density-scannability-and-voice, help-articles-for-ai-retrieval, help-center-strategy, salesforce-knowledge-and-help-center</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] upload context-help-center-state.md; confirm help-center-article skill installed. [RECOMMENDED] WebSearch</td></tr>
+        <tr><th scope="row">Core tools</th><td>WebFetch, Read &middot; Recommended: WebSearch</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>STA Support Expert - v2.1 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">STA Support Expert snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v2.1 (5/22/26) &middot; Cowork &middot; Active &middot; STA scope &middot; absorbed Skyward Advisor at v2.0</td></tr>
+        <tr><th scope="row">Context files</th><td>21 routed entries: context-skyward-compatibility (consult FIRST); 9 per-product files (time-clocks, tardy-kiosk, schooltrak, positive-attendance, food-service, visitor-management, id-badging, transcript-labels, sta-products); 4 howto files (time-clocks, schooltrak, id-badging, id-printers); context-product-mechanics; sta-company-profile (shared); context-remote-access-tools; context-sql-server-ecosystem; context-coverage-and-routing; context-platform-detection</td></tr>
+        <tr><th scope="row">Skills used</th><td>time-clock-diagnostics (log analysis routing); help-center-article (drafting routing)</td></tr>
+        <tr><th scope="row">KB modules</th><td>school-tech-help-center, skyward-ecosystem-deep-dive, skyward-qmlativ-migration-dynamics</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] upload 15 context files. [RECOMMENDED] confirm both routed skills active</td></tr>
+        <tr><th scope="row">Core tools</th><td>Read. Folder also holds -proj variants feeding the STA Support Chat sibling</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>The Test Master - v1.5 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">The Test Master snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.5 (6/3/26) &middot; Cowork &middot; Active &middot; Personal scope</td></tr>
+        <tr><th scope="row">Context files</th><td>context-web-app-audit (web app/PWA composition); context-extension-audit (MV3 composition); context-website-audit (static-site composition)</td></tr>
+        <tr><th scope="row">Skills used</th><td>wcag-audit (handoff mode, Accessibility dimension, KB fallback if absent); run-test-cases (mention)</td></tr>
+        <tr><th scope="row">KB modules</th><td>Six dimension-keyed: wcag-22-audit-methodology, core-web-vitals-audit-methodology, csp-design-and-audit, schema-org-structured-data-validation, mobile-web-testing, chrome-extension-security-review</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] mount workspace, connect Claude in Chrome, paste Block 1, verify 3 context files + 6 KB folders. [RECOMMENDED] init prompt in fresh chat</td></tr>
+        <tr><th scope="row">Core tools</th><td>Claude in Chrome MCP family, Read/Grep/Glob, Bash, Write</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>The Tutor - v1.1 (BwB suite) <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">The Tutor snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.1 (5/28/26) &middot; Cowork &middot; Active &middot; BwB suite - customer-deployable</td></tr>
+        <tr><th scope="row">Context files</th><td>context-subject-type-routing (4-type taxonomy + per-type moves); context-dialogue-moves (feedback/repair/worked-example rules); context-tutor-voice (banned vocabulary + pre-send audit). Plus 4 persistent learner-state files created at runtime</td></tr>
+        <tr><th scope="row">Skills used</th><td>None - fully self-contained (by suite design)</td></tr>
+        <tr><th scope="row">KB modules</th><td>None - zero KB references (portable by design)</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] upload 3 context files, set R/W workspace, confirm Read/Write/Edit. [RECOMMENDED] present_files</td></tr>
+        <tr><th scope="row">Gaps</th><td>registry-entry.md missing from folder (registry row exists); minor</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Build with Baker - v1.4 (Draft) <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">Build with Baker snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.4 (6/3/26) &middot; Cowork &middot; Draft &middot; Personal/BwB scope</td></tr>
+        <tr><th scope="row">Context files</th><td>brand-strategy (positioning, pillars, roadmap); brand-voice (voice baseline + captured signals); brand-state (asset/state Q&amp;A); context-adam-style + context-adam-identity (shared with Personal Assistant); context-ai-cost-estimator-funnel; shared/report-design-spec + report-template.html + palette.css (shared into Personal Assistant); H:\ brand image library</td></tr>
+        <tr><th scope="row">Skills used</th><td>docx, pptx, xlsx, project-feedback, prompt-evaluator, run-test-cases</td></tr>
+        <tr><th scope="row">KB modules</th><td>unistyle-project (authoritative UniStyle state), x-creator-strategy-ai-educator, context-adam-*</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] create project, workspace = Architect root, paste Block 1, verify Read/Write/Edit. [RECOMMENDED] WebSearch, WebFetch</td></tr>
+        <tr><th scope="row">Core tools</th><td>File tools &middot; Recommended: WebSearch, WebFetch</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Project Tester (Deep) - v1.2 (Draft) <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">Project Tester snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.2 (5/21/26) &middot; Cowork &middot; Draft &middot; STA scope &middot; supersedes run-test-cases for deep structured testing</td></tr>
+        <tr><th scope="row">Context files</th><td>context-behavioral-testing (LLM-as-judge, rubrics, bias mitigations); context-adversarial-testing (OWASP LLM Top 10 red-team standard); context-qa-engineering (partitioning, boundary, state-transition); context-test-harness (Mode 3 code-test harness)</td></tr>
+        <tr><th scope="row">Skills used</th><td>project-feedback, prompt-evaluator (referenced)</td></tr>
+        <tr><th scope="row">KB modules</th><td>KB index (the four ai-platform testing modules ground the context files)</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] upload 4 context files, mount workspace, confirm bash - 6 items, all REQUIRED</td></tr>
+        <tr><th scope="row">Core tools</th><td>Read, Write, Edit, Bash</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>The Customer - v1.3 (Draft, BwB suite) <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">The Customer snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.3 (6/6/26) &middot; Cowork &middot; Draft &middot; BwB suite (generic engine + swappable STA layer) &middot; prompt-evaluator 99/100</td></tr>
+        <tr><th scope="row">Context files</th><td>persona-pack-sta (four K-12 personas with skill floors); district-operations-sta (org chart, business-office mindset); coaching-reference-sta (GROW debrief + nine-item rubric); scenario-bank-sta (six practice scenarios); sta-company-profile (shared, synced copy)</td></tr>
+        <tr><th scope="row">Skills used</th><td>None in instructions; run-test-cases gates Draft to Active</td></tr>
+        <tr><th scope="row">KB modules</th><td>KB index on demand; grounded by the three sales-enablement modules</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] paste Block 1, place 5 context files, create outputs/scorecards/. [RECOMMENDED] confirm Read/Write</td></tr>
+        <tr><th scope="row">Gaps</th><td>Closed 2026-06-06: instructions.md (v1.3, md5-verified) + all 5 context files synced from the .Default Projects instance into the blueprint folder; changelog.md created with a sync rule (blueprint copy follows the runnable copy on every bump)</td></tr>
+      </tbody></table>
+    </div></details>
+    <h2>Claude.ai Projects - 4 snapshots, all with file maps</h2>
+
+    <details class="plug"><summary>STA Support Chat - v1.6 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">STA Support Chat snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.6 (6/3/26) &middot; Claude.ai Project &middot; Active &middot; shared with Tyler + support team</td></tr>
+        <tr><th scope="row">Context files</th><td>Same 15 product/howto/mechanics files as STA Support Expert (shared content lineage) + context-sta-company-proj (shared) + kb-index.md upload - 17 entries total</td></tr>
+        <tr><th scope="row">Skills used</th><td>None - self-contained, no skills available in Projects</td></tr>
+        <tr><th scope="row">KB modules</th><td>None live - kb-index.md uploaded as a static file</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] create + paste, upload 16 context files, share with support team ("Can use")</td></tr>
+        <tr><th scope="row">File map</th><td class="st g">project-file-map.md exists, ~28 file rows - full recreation checklist</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>AI Advisor - v1.15 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">AI Advisor snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.15 (6/3/26) &middot; Claude.ai Project &middot; Active &middot; shared with all STA staff</td></tr>
+        <tr><th scope="row">Context files</th><td>context-sta-company-proj (shared - company grounding); context-sta-team-ai-proj (roster); context-sta-products-detail (product accuracy); context-ai-system-overview-proj (what AI exists today); context-prompting-guide-proj; context-getting-started-proj; context-tub-framework-proj (TUB levels); context-research-topic-index-proj (13 indexed topics)</td></tr>
+        <tr><th scope="row">Skills used</th><td>None</td></tr>
+        <tr><th scope="row">KB modules</th><td>None - pure conversational, runs on uploads only</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] upload all 8 context files; share with STA staff</td></tr>
+        <tr><th scope="row">File map</th><td class="st g">project-file-map.md exists, ~25 file rows</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>STA Salesforce Cohort - v1.3 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">STA Salesforce Cohort snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.3 (6/3/26) &middot; Claude.ai Project &middot; Active &middot; 4-person SF admin cohort, live</td></tr>
+        <tr><th scope="row">Context files</th><td>context-sta-company-proj (shared, per rule 10); context-sta-cohort (4 members, voice, data guardrails); context-sta-salesforce-org (org topology, packages, ownership); context-flow-overview (Flow at awareness depth + route-to-Adam rule)</td></tr>
+        <tr><th scope="row">Skills used</th><td>None - skill references would be inert in Projects</td></tr>
+        <tr><th scope="row">KB modules</th><td>None</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] all 8 steps: create, paste (strip version comment), upload 4 context files, add 4 members, send init prompt</td></tr>
+        <tr><th scope="row">File map</th><td class="st g">project-file-map.md exists, ~11 file rows</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Behind the Bell Assistant - v1.4 <span class="tag ok">Export-ready</span></summary><div class="inner">
+      <table><caption class="sr-only">Behind the Bell snapshot</caption><tbody>
+        <tr><th scope="row">Version / target</th><td>v1.4 (6/3/26) &middot; Claude.ai Project &middot; Active &middot; shared with 3 hosts (Jessie, Pat, Adam)</td></tr>
+        <tr><th scope="row">Context files</th><td>context-podcast-profile (show voice, structure, sensitivity); context-prep-doc-format + context-prep-doc-template.docx (prep package layout + exact Word template); context-script-format (run-of-show); context-guest-list (pipeline); context-email-templates (outreach); context-sta-company-proj (shared - not-a-pitch positioning); context-podcast-best-practices; rolling uploaded episode research modules</td></tr>
+        <tr><th scope="row">Skills used</th><td>None</td></tr>
+        <tr><th scope="row">KB modules</th><td>None live - episode research produced in Cowork, uploaded as files</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] create + paste, upload 8 context files, add 3 hosts. [RECOMMENDED] episode research modules, confirm web search</td></tr>
+        <tr><th scope="row">File map</th><td class="st g">project-file-map.md exists, ~10 file rows</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <h2>Not snapshotted - and why</h2>
+    <table>
+      <caption>Out-of-scope registry entries (audit covered Active + Draft Cowork/Project deployments only)</caption>
+      <thead><tr><th scope="col">Entry</th><th scope="col">Status</th><th scope="col">Why skipped</th></tr></thead>
+      <tbody>
+        <tr><td>STA Project Tracker (Hub Tab)</td><td class="st g">Active</td><td>Web app on Cloudflare Pages, not a Cowork/Project deployment - nothing for the exporter to package</td></tr>
+        <tr><td>STA Main Chat</td><td class="st w">Parked</td><td>Context files pre-built, instructions pending - snapshot when build resumes</td></tr>
+        <tr><td>Prompt Maker, Task Scheduler, Document Maker, Skyward Advisor, Garage Sale Monitor</td><td class="st b">Deprecated</td><td>Retired or absorbed; Garage Sale Monitor archived to _Archived/ (frozen)</td></tr>
+        <tr><td>~25 custom skills</td><td class="st g">Active</td><td>Skills install via .skill files, not project export - tracked in _Backups/skills/INDEX.md</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout"><strong>Shared-file web (matters for any export):</strong> sta-company-profile.md and context-doc-design-standards.md are the two registry-level shared files; context-sta-company-proj.md is the Projects variant. style-profile.md + contacts.md are shared between the two assistants. build-with-baker/shared/ (report spec, template, palette) feeds the Personal Assistant. context-html-report-design.md is shared into Local Discovery and House Monitor. Exporting any one project must carry its shared copies or the recipient gets broken references.</div>
+
+    <details>
+      <summary>Methodology and data sources</summary>
+      <p>Data gathered 2026-06-06 by a per-folder sweep of project-blueprints/ (plus the House Monitor folder under .Adam's Personal Projects): version comments from instructions files, "Context Files and When to Use Them" sections, skill-name greps, knowledge-base/ path greps, project-launch.md Block 2 checklists, and blueprint-summary.md tool assessments. Registry (context-agent-registry.md) used as the project list and status source. "Export-ready" = has instructions.md + project-launch.md + context files resolvable on disk, per the cowork-snapshot-exporter skill's packaging requirements. Instructions text deliberately excluded from every snapshot. Same-day backfill (2026-06-06): 4 launch files created (Personal Assistant, The Architect, Deep Research, System Monitor), House Monitor instructions.md v1.0 + launch file created, The Customer instructions + 5 context files synced into its blueprint folder with a new changelog.md. Point-in-time: any version bump invalidates the affected card.</p>
+    </details>
+
+  </div>
+
+  <footer>School Technology Associates &middot; AI Admin Export-Snapshot Audit &middot; Generated 2026-06-06 &middot; Internal</footer>
+</main>
+</body>
+</html>

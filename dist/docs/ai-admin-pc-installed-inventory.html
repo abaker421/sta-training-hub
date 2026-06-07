@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The AI Admin PC runs 27 plugins and ~276 non-custom skills - three kits carry 45% of them</title>
+<style>
+  :root{
+    --brand:#006098; --brand-d:#004a78; --green:#6bc04b; --green-d:#4f9a34;
+    --eyebrow:#bfe0f0; --headmeta:#cfe5f1;
+    --good:#1a7f37; --warn:#9a6700; --bad:#b42318;
+    --good-bg:#eaf6ec; --warn-bg:#fdf6e3; --bad-bg:#fdeceb;
+    --ink:#1a1f24; --muted:#5a5f66; --line:#e3e6ea; --bg:#FFFFFF; --band:#eef4f8;
+    --sp-1:4px; --sp-2:8px; --sp-3:16px; --sp-4:24px; --sp-5:40px;
+  }
+  *{box-sizing:border-box;}
+  html,body{overflow-x:hidden;}
+  body{margin:0;color:var(--ink);background:#EDF0F6;
+    font:16px/1.6 "Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;}
+  main{max-width:820px;margin:0 auto;background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.08);}
+
+  header{background:linear-gradient(135deg,#006098 0%,#004a78 100%);color:#fff;
+    padding:var(--sp-5) var(--sp-5) var(--sp-4);border-bottom:5px solid var(--green);}
+  .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--eyebrow);font-weight:600;margin:0 0 var(--sp-2);}
+  header h1{font-size:1.75rem;line-height:1.22;margin:0;font-weight:800;letter-spacing:-.01em;}
+  .meta{margin:var(--sp-3) 0 0;font-size:.82rem;color:var(--headmeta);}
+
+  .body{padding:var(--sp-5);}
+
+  .verdict{display:inline-block;border-radius:999px;padding:3px 12px;font-weight:700;font-size:.82rem;margin:0 0 var(--sp-3);}
+  .verdict.good{background:var(--good-bg);color:var(--good);border:1px solid #b9ddc9;}
+  .verdict.warn{background:var(--warn-bg);color:var(--warn);border:1px solid #e8d48a;}
+  .verdict.bad{background:var(--bad-bg);color:var(--bad);border:1px solid #f0c5c1;}
+
+  .bluf{display:flex;gap:var(--sp-4);align-items:flex-start;background:var(--band);
+    border:1px solid var(--line);border-left:5px solid var(--brand);
+    border-radius:8px;padding:var(--sp-4);margin:0 0 var(--sp-5);}
+  .hero{flex:0 0 auto;text-align:center;min-width:120px;}
+  .hero .big{font-size:2.2rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;color:var(--brand-d);}
+  .hero .big small{font-size:1rem;font-weight:600;color:var(--muted);}
+  .hero .lab{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:var(--sp-2);}
+  .bluf .txt{flex:1;} .bluf p{margin:0;} .bluf strong{color:var(--brand-d);}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--sp-3);margin:0 0 var(--sp-5);}
+  .kpi{border:1px solid var(--line);border-radius:10px;padding:var(--sp-3) var(--sp-4);
+    background:linear-gradient(180deg,#fff 0%,#F4F6FA 100%);}
+  .kpi .num{font-size:1.75rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1;color:var(--brand-d);}
+  .kpi .label{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;margin-top:var(--sp-1);}
+  .kpi .delta{font-size:.82rem;font-weight:700;margin-top:var(--sp-1);}
+  .up{color:var(--good);} .down{color:var(--bad);} .flat{color:var(--muted);}
+
+  h2{font-size:1.18rem;line-height:1.3;margin:var(--sp-5) 0 var(--sp-3);color:var(--brand-d);
+    padding-top:var(--sp-4);border-top:1px solid var(--line);}
+  h2:first-of-type{border-top:none;padding-top:0;}
+  p{margin:0 0 var(--sp-3);}
+
+  table{border-collapse:collapse;width:100%;margin:var(--sp-2) 0 var(--sp-3);font-size:.95rem;}
+  caption{text-align:left;font-weight:600;margin-bottom:var(--sp-2);color:var(--ink);}
+  th,td{padding:var(--sp-2) var(--sp-3);border-bottom:1px solid var(--line);text-align:left;}
+  th[scope=col]{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tbody tr:nth-child(even){background:#F5F7FB;}
+  tfoot td{font-weight:700;border-top:2px solid var(--line);}
+  .st{font-weight:600;} .st.g{color:var(--good);} .st.w{color:var(--warn);} .st.b{color:var(--bad);}
+
+  .callout{background:var(--band);border-left:5px solid var(--brand);border-radius:0 6px 6px 0;
+    padding:var(--sp-3) var(--sp-4);margin:0 0 var(--sp-4);color:var(--ink);font-size:.95rem;}
+  .callout strong{color:var(--brand-d);}
+
+  figure{margin:0 0 var(--sp-3);} figcaption{font-weight:600;margin-bottom:var(--sp-2);}
+  .barlabel{font:11px "Roboto",sans-serif;fill:var(--muted);}
+  .barval{font:600 11px "Roboto",sans-serif;fill:var(--ink);font-variant-numeric:tabular-nums;}
+  .axis{stroke:var(--line);stroke-width:1;}
+
+  details{margin:var(--sp-4) 0 0;border-top:1px solid var(--line);padding-top:var(--sp-3);}
+  summary{cursor:pointer;font-weight:600;min-height:24px;color:var(--muted);}
+  details p{font-size:.88rem;color:var(--muted);margin-top:var(--sp-2);}
+
+  /* Per-plugin drop-down detail cards */
+  details.plug{border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:0 6px 6px 0;
+    background:#fff;margin:0 0 var(--sp-2);padding:0;}
+  details.plug summary{padding:var(--sp-2) var(--sp-3);color:var(--brand-d);font-size:.98rem;}
+  details.plug summary:hover{background:var(--band);}
+  details.plug[open] summary{border-bottom:1px solid var(--line);background:var(--band);}
+  details.plug .inner{padding:var(--sp-2) var(--sp-3) var(--sp-3);}
+  details.plug table{font-size:.88rem;margin:var(--sp-2) 0 0;}
+  details.plug td:first-child{font-family:ui-monospace,Consolas,monospace;font-size:.82rem;white-space:nowrap;color:var(--brand-d);}
+  details.plug h4{margin:var(--sp-3) 0 var(--sp-1);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+  .conn{font-size:.85rem;color:var(--muted);margin:var(--sp-2) 0 0;}
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  a{color:var(--brand);}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--brand-d);outline-offset:2px;border-radius:4px;}
+
+  footer{padding:var(--sp-4) var(--sp-5);border-top:3px solid var(--green);background:var(--band);font-size:.8rem;color:var(--muted);}
+
+  @media print{
+    @page{size:Letter;margin:.7in;}
+    body{background:#fff;font-size:11pt;} main{box-shadow:none;max-width:none;}
+    header,.bluf,.kpi,.verdict,.callout,tbody tr:nth-child(even){
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .kpi,table,figure,.bluf,.callout{break-inside:avoid;} h2{break-after:avoid;} p{orphans:3;widows:3;}
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">School Technology Associates &middot; AI Admin System Inventory</p>
+    <h1>The AI Admin PC runs 27 plugins and ~276 non-custom skills - three kits carry 45% of them</h1>
+    <p class="meta">Generated 2026-06-06 &nbsp;&middot;&nbsp; Source: live session registry (skills + MCP servers) &nbsp;&middot;&nbsp; Scope: all installed plugins and stock skills; Adam's custom skills excluded</p>
+  </header>
+
+  <div class="body">
+
+    <section class="bluf" role="note" aria-label="Bottom line">
+      <div class="hero">
+        <div class="big">27</div>
+        <div class="lab">Plugins installed</div>
+      </div>
+      <div class="txt"><p><strong>Bottom line:</strong> coverage is broad and role-shaped - ten business-department plugins, twelve tool integrations, three research engines, four workflow utilities, plus Anthropic's 18 stock skills covering the full document pipeline. The skill count concentrates in three deep kits (Twilio, Small Business, Zoom) that together hold ~45% of all bundled skills. Most plugin MCP connectors sit unauthenticated until first use. Click the arrow on any plugin below for its full skill-by-skill detail. Nothing needs action - this is a reference inventory.</p></div>
+    </section>
+
+    <div class="kpis">
+      <div class="kpi"><div class="num">~258</div><div class="label">Plugin-bundled skills</div></div>
+      <div class="kpi"><div class="num">18</div><div class="label">Anthropic stock skills</div></div>
+      <div class="kpi"><div class="num">~55</div><div class="label">Bundled MCP connectors</div></div>
+    </div>
+    <h2>Three developer-grade kits hold nearly half the skill count</h2>
+    <p>Twilio (55 skills), Small Business (31), and Zoom (30) are reference libraries more than daily drivers - deep, narrow, and there when a build needs them. The plugins used most often in daily work (data, engineering, sales, marketing) sit in the 8-14 skill range.</p>
+    <figure>
+      <figcaption>Skills bundled per plugin, top six - Twilio alone outweighs any two role plugins combined</figcaption>
+      <svg viewBox="0 0 600 230" width="100%" height="230" role="img" aria-label="Ranked bar chart: Twilio 55, Small Business 31, Zoom 30, Nimble 14, Data 10, Engineering 10 skills">
+        <g font-size="13">
+          <text class="barlabel" x="0" y="26">Twilio Dev Kit</text><rect x="130" y="14" width="420" height="20" rx="3" fill="#006098"/><text class="barval" x="556" y="29">55</text>
+          <text class="barlabel" x="0" y="62">Small Business</text><rect x="130" y="50" width="237" height="20" rx="3" fill="#3d8ab8"/><text class="barval" x="373" y="65">31</text>
+          <text class="barlabel" x="0" y="98">Zoom</text><rect x="130" y="86" width="229" height="20" rx="3" fill="#3d8ab8"/><text class="barval" x="365" y="101">30</text>
+          <text class="barlabel" x="0" y="134">Nimble</text><rect x="130" y="122" width="107" height="20" rx="3" fill="#4f9a34"/><text class="barval" x="243" y="137">14</text>
+          <text class="barlabel" x="0" y="170">Data</text><rect x="130" y="158" width="76" height="20" rx="3" fill="#4f9a34"/><text class="barval" x="212" y="173">10</text>
+          <text class="barlabel" x="0" y="206">Engineering</text><rect x="130" y="194" width="76" height="20" rx="3" fill="#4f9a34"/><text class="barval" x="212" y="209">10</text>
+        </g>
+      </svg>
+    </figure>
+
+    <h2>Ten role plugins give you a full business-department bench</h2>
+    <table>
+      <caption>Business-role plugins (106 skills total) - each behaves like a department on call</caption>
+      <thead><tr><th scope="col">Plugin</th><th scope="col" class="num">Skills</th><th scope="col">What it gives you</th></tr></thead>
+      <tbody>
+        <tr><td>Small Business</td><td class="num">31</td><td>SMB owner suite: cash flow, invoicing, payroll prep, CRM, campaigns, contracts, tax prep. Connectors: Canva, PayPal, Stripe</td></tr>
+        <tr><td>Data</td><td class="num">10</td><td>SQL, dashboards, viz, statistical analysis, data QA. Connectors: Snowflake, Databricks, Hex, Definite</td></tr>
+        <tr><td>Engineering</td><td class="num">10</td><td>Code review, debugging, architecture/ADRs, incident response, deploy checklists. Connectors: GitHub, Datadog, PagerDuty</td></tr>
+        <tr><td>Sales</td><td class="num">9</td><td>Account research, call prep/summary, outreach, pipeline review, forecasting, battlecards. Connectors: Apollo, Close, Outreach</td></tr>
+        <tr><td>Operations</td><td class="num">9</td><td>Process docs, runbooks, risk assessment, vendor review, capacity planning, status reports</td></tr>
+        <tr><td>Product Mgmt</td><td class="num">9</td><td>Specs/PRDs, roadmaps, sprint planning, research synthesis, metrics review. Connectors: Amplitude, Pendo, Fireflies</td></tr>
+        <tr><td>Marketing</td><td class="num">8</td><td>Campaign plans, content drafting, email sequences, SEO audits, brand review. Connectors: Ahrefs, Klaviyo, Supermetrics</td></tr>
+        <tr><td>Finance</td><td class="num">8</td><td>Financial statements, journal entries, reconciliation, variance analysis, SOX testing</td></tr>
+        <tr><td>Design</td><td class="num">7</td><td>Design critique, a11y review, UX copy, design systems, research synthesis</td></tr>
+        <tr><td>Customer Support</td><td class="num">5</td><td>Ticket triage, response drafting, escalations, KB articles. Connectors: HubSpot, Intercom, Guru</td></tr>
+      </tbody>
+    </table>
+
+    <details class="plug"><summary>Small Business - 31 skills, full detail</summary><div class="inner">
+      <p class="conn">An SMB owner's whole back office. Connectors: Canva, PayPal, Stripe.</p>
+      <table><caption class="sr-only">Small Business skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>smb-router</td><td>Front door - routes any vague business request to the right skill</td></tr>
+        <tr><td>smb-onboard</td><td>First-run setup: connect tools, interview the owner, store business context</td></tr>
+        <tr><td>business-pulse</td><td>One-page cross-functional snapshot: cash, sales, pipeline, watch list</td></tr>
+        <tr><td>monday-brief</td><td>Monday morning briefing - cash, sales, pipeline, week ahead, top 3 to-dos</td></tr>
+        <tr><td>friday-brief</td><td>End-of-week pulse - revenue vs prior week, top sellers, wins and watches</td></tr>
+        <tr><td>month-heads-up</td><td>Runs on the 25th - 30-day cash outlook before month-end</td></tr>
+        <tr><td>cash-flow-snapshot</td><td>30/60/90-day cash forecast with confidence bands, from QB/PayPal/Stripe or CSV</td></tr>
+        <tr><td>plan-payroll</td><td>Cash forecast + overdue invoice ranking so payroll clears</td></tr>
+        <tr><td>invoice-chase</td><td>Overdue-invoice reminder emails matched to each customer's history and tone</td></tr>
+        <tr><td>close-month / month-end-prep</td><td>Reconcile QB vs processors, flag gaps, P&amp;L narrative, close packet export</td></tr>
+        <tr><td>margin-analyzer / price-check</td><td>Unit economics by product + pricing-scenario data views</td></tr>
+        <tr><td>quarterly-review</td><td>Full QBR narrative as presentation-ready PDF or deck</td></tr>
+        <tr><td>tax-prep / tax-season-organizer</td><td>Quarterly estimated tax calc or year-end 1099 prep, accountant handoff packet</td></tr>
+        <tr><td>contract-review / review-contract</td><td>Plain-English NDA/MSA/vendor review with severity-rated red flags and redline docx</td></tr>
+        <tr><td>lead-triage / call-list</td><td>Score inbound leads, produce "call these 5 today" with talking points</td></tr>
+        <tr><td>crm-cleanup / crm-maintenance</td><td>HubSpot hygiene: stale deals, duplicates, auto-logging from email/calendar</td></tr>
+        <tr><td>customer-pulse / customer-pulse-check</td><td>Disputes + tickets + reviews into themes and top-3 fixable issues</td></tr>
+        <tr><td>handle-complaint / ticket-deflector</td><td>End-to-end complaint handling; tone-matched replies with PayPal/HubSpot context</td></tr>
+        <tr><td>content-strategy / sales-brief</td><td>Sales-data-driven 30-day or 2-week content brief: push winners, clear slow movers</td></tr>
+        <tr><td>canva-creator / run-campaign</td><td>Execute a campaign end to end: calendar, Canva assets, copy, staged sends</td></tr>
+        <tr><td>job-post-builder</td><td>Hiring packet: job post, interview guide with rubric, offer letter</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Data - 10 skills, full detail</summary><div class="inner">
+      <p class="conn">Analyst bench. Connectors: Snowflake, Databricks, Hex, Definite.</p>
+      <table><caption class="sr-only">Data skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>analyze</td><td>Answer any data question, from quick lookup to full analysis</td></tr>
+        <tr><td>explore-data</td><td>Profile a new dataset: shape, nulls, distributions, quality issues</td></tr>
+        <tr><td>sql-queries / write-query</td><td>Correct, performant SQL across all major warehouse dialects</td></tr>
+        <tr><td>create-viz / data-visualization</td><td>Publication-quality charts with the right chart type and design principles</td></tr>
+        <tr><td>build-dashboard</td><td>Interactive HTML dashboard with charts, filters, KPI cards</td></tr>
+        <tr><td>statistical-analysis</td><td>Trends, outliers, hypothesis testing, correlations</td></tr>
+        <tr><td>validate-data</td><td>QA an analysis before sharing - methodology, accuracy, bias checks</td></tr>
+        <tr><td>data-context-extractor</td><td>Build a company-specific data skill from your warehouse's tribal knowledge</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Engineering - 10 skills, full detail</summary><div class="inner">
+      <p class="conn">Connectors: GitHub, Datadog, PagerDuty, Gmail, Calendar.</p>
+      <table><caption class="sr-only">Engineering skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>code-review</td><td>Security, performance, and correctness review of a PR or diff</td></tr>
+        <tr><td>debug</td><td>Structured debugging: reproduce, isolate, diagnose, fix</td></tr>
+        <tr><td>architecture / system-design</td><td>ADRs, technology trade-offs, service and API design</td></tr>
+        <tr><td>incident-response</td><td>Triage, comms, and blameless postmortems</td></tr>
+        <tr><td>deploy-checklist</td><td>Pre-deployment verification: CI, migrations, flags, rollback triggers</td></tr>
+        <tr><td>testing-strategy</td><td>Test plans, coverage strategy, test architecture</td></tr>
+        <tr><td>tech-debt</td><td>Identify, categorize, and prioritize refactoring work</td></tr>
+        <tr><td>documentation</td><td>READMEs, runbooks, API and architecture docs</td></tr>
+        <tr><td>standup</td><td>Standup update generated from recent commits, PRs, tickets</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Sales - 9 skills, full detail</summary><div class="inner">
+      <p class="conn">Connectors: Apollo, Close, Outreach.</p>
+      <table><caption class="sr-only">Sales skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>account-research</td><td>Company/person intel via web search, supercharged with CRM</td></tr>
+        <tr><td>call-prep</td><td>Account context, attendee research, suggested agenda before a call</td></tr>
+        <tr><td>call-summary</td><td>Notes/transcript into action items, follow-up email, CRM log</td></tr>
+        <tr><td>draft-outreach</td><td>Research a prospect, then draft personalized cold outreach</td></tr>
+        <tr><td>daily-briefing</td><td>Prioritized morning sales brief from calendar, CRM, email</td></tr>
+        <tr><td>pipeline-review</td><td>Pipeline health: stale deals, hygiene issues, weekly action plan</td></tr>
+        <tr><td>forecast</td><td>Weighted forecast with best/likely/worst and gap-to-quota</td></tr>
+        <tr><td>competitive-intelligence</td><td>Interactive HTML battlecard with comparison matrix</td></tr>
+        <tr><td>create-an-asset</td><td>Tailored sales assets: landing pages, decks, one-pagers from deal context</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Operations - 9 skills, full detail</summary><div class="inner">
+      <table><caption class="sr-only">Operations skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>process-doc</td><td>Flowcharts, RACI matrices, SOPs for processes living in someone's head</td></tr>
+        <tr><td>process-optimization</td><td>Find and fix bottlenecks in slow workflows</td></tr>
+        <tr><td>runbook</td><td>Step-by-step operational runbooks with troubleshooting and escalation</td></tr>
+        <tr><td>risk-assessment</td><td>Risk registers: identify, assess, mitigate</td></tr>
+        <tr><td>vendor-review</td><td>Vendor evaluation: cost, risk, TCO, negotiation points</td></tr>
+        <tr><td>change-request</td><td>Change management with impact analysis and rollback plan</td></tr>
+        <tr><td>capacity-plan</td><td>Workload analysis and utilization forecasting for planning</td></tr>
+        <tr><td>compliance-tracking</td><td>SOC 2 / ISO / GDPR audit-readiness tracking</td></tr>
+        <tr><td>status-report</td><td>Leadership status with KPIs, risks, green/yellow/red health</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Product Management - 9 skills, full detail</summary><div class="inner">
+      <p class="conn">Connectors: Amplitude (US + EU), Pendo, Fireflies.</p>
+      <table><caption class="sr-only">Product management skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>write-spec</td><td>Feature specs and PRDs from a problem statement</td></tr>
+        <tr><td>roadmap-update</td><td>Create or reprioritize a Now/Next/Later roadmap</td></tr>
+        <tr><td>sprint-planning</td><td>Scope a sprint against real team capacity</td></tr>
+        <tr><td>metrics-review</td><td>Product metrics scorecard with trend analysis and actions</td></tr>
+        <tr><td>synthesize-research</td><td>Interviews, surveys, tickets into ranked insights</td></tr>
+        <tr><td>stakeholder-update</td><td>Status updates tailored to exec, engineering, or customer audiences</td></tr>
+        <tr><td>competitive-brief</td><td>Competitor positioning analysis and battlecards</td></tr>
+        <tr><td>brainstorm / product-brainstorming</td><td>Sharp thinking partner for problem-space exploration</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Marketing - 8 skills, full detail</summary><div class="inner">
+      <p class="conn">Connectors: Ahrefs, Klaviyo, Supermetrics, Gmail, Calendar.</p>
+      <table><caption class="sr-only">Marketing skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>campaign-plan</td><td>Full campaign brief: objectives, audience, channels, week-by-week calendar</td></tr>
+        <tr><td>content-creation / draft-content</td><td>Blog, social, email, landing pages, press releases with channel formatting</td></tr>
+        <tr><td>email-sequence</td><td>Multi-email drip flows with timing, branching, exit conditions</td></tr>
+        <tr><td>seo-audit</td><td>Keyword research, on-page analysis, content gaps, prioritized plan</td></tr>
+        <tr><td>brand-review</td><td>Check drafts against brand voice and style guide, flag deviations</td></tr>
+        <tr><td>competitive-brief</td><td>Competitor positioning and messaging comparison</td></tr>
+        <tr><td>performance-report</td><td>Campaign metrics, wins/misses, optimization recommendations</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Finance - 8 skills, full detail</summary><div class="inner">
+      <p class="conn">Connectors: BigQuery, Databricks, Snowflake, Gmail, Calendar.</p>
+      <table><caption class="sr-only">Finance skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>financial-statements</td><td>P&amp;L, balance sheet, cash flow with variance analysis</td></tr>
+        <tr><td>journal-entry / journal-entry-prep</td><td>Debits/credits with supporting documentation for close</td></tr>
+        <tr><td>reconciliation</td><td>GL vs subledger, bank recs, intercompany recs</td></tr>
+        <tr><td>variance-analysis</td><td>Decompose variances into drivers with waterfall narrative</td></tr>
+        <tr><td>close-management</td><td>Month-end close sequencing, dependencies, status tracking</td></tr>
+        <tr><td>sox-testing / audit-support</td><td>SOX 404 sample selection, workpapers, deficiency classification</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Design - 7 skills, full detail</summary><div class="inner">
+      <p class="conn">Connectors: Gmail, Calendar.</p>
+      <table><caption class="sr-only">Design skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>design-critique</td><td>Structured feedback on usability, hierarchy, consistency</td></tr>
+        <tr><td>accessibility-review</td><td>WCAG 2.1 AA audit: contrast, keyboard nav, touch targets</td></tr>
+        <tr><td>ux-copy</td><td>Microcopy: error messages, empty states, CTAs, onboarding text</td></tr>
+        <tr><td>design-system</td><td>Audit, document, or extend a design system</td></tr>
+        <tr><td>design-handoff</td><td>Developer specs: tokens, props, states, breakpoints</td></tr>
+        <tr><td>user-research / research-synthesis</td><td>Plan research, then distill it into themes and next steps</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Customer Support - 5 skills, full detail</summary><div class="inner">
+      <p class="conn">Connectors: HubSpot, Intercom, Guru.</p>
+      <table><caption class="sr-only">Customer support skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>ticket-triage</td><td>Categorize, set P1-P4 priority, route, duplicate-check</td></tr>
+        <tr><td>draft-response</td><td>Customer-facing replies tuned to situation and relationship</td></tr>
+        <tr><td>customer-research</td><td>Multi-source lookups with source attribution</td></tr>
+        <tr><td>customer-escalation</td><td>Package escalations for engineering/product/leadership</td></tr>
+        <tr><td>kb-article</td><td>Knowledge base article from a resolved issue</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <h2>Twelve tool integrations - the two heaviest are developer reference kits</h2>
+    <table>
+      <caption>Tool-integration plugins (114 skills total) - Twilio and Zoom are docs-in-a-box, the rest are working surfaces</caption>
+      <thead><tr><th scope="col">Plugin</th><th scope="col" class="num">Skills</th><th scope="col">What it gives you</th></tr></thead>
+      <tbody>
+        <tr><td>Twilio Developer Kit</td><td class="num">55</td><td>Full Twilio + SendGrid build reference: SMS/WhatsApp/RCS, voice, Verify, compliance, deliverability. Includes live docs search</td></tr>
+        <tr><td>Zoom</td><td class="num">30</td><td>Zoom platform build reference: Meeting/Video SDKs, webhooks, OAuth, Contact Center, RTMS, MCP workflows</td></tr>
+        <tr><td>Figma</td><td class="num">8</td><td>Design-to-code and code-to-design, diagrams, design-system generation, Code Connect. Official Figma MCP</td></tr>
+        <tr><td>Slack by Salesforce</td><td class="num">7</td><td>Channel digests, search, summaries, announcements, standups. Slack MCP connected</td></tr>
+        <tr><td>PDF Viewer</td><td class="num">5</td><td>Interactive viewing, annotation, form fill, signatures</td></tr>
+        <tr><td>Airtable</td><td class="num">3</td><td>Base/table/record CRUD and filtering via CLI</td></tr>
+        <tr><td>Qodo</td><td class="num">2</td><td>Coding-rules loading and PR review-comment resolution</td></tr>
+        <tr><td>Fluent (ServiceNow)</td><td class="num">2</td><td>ServiceNow now-sdk docs and setup</td></tr>
+        <tr><td>Desktop Commander</td><td class="num">1</td><td>Persistent shells, REPLs, filesystem beyond workspace (26-tool MCP)</td></tr>
+        <tr><td>Postiz</td><td class="num">1</td><td>Social scheduling to 28+ channels</td></tr>
+      </tbody>
+    </table>
+
+    <details class="plug"><summary>Twilio Developer Kit - 55 skills, full detail</summary><div class="inner">
+      <p class="conn">Complete Twilio + SendGrid build companion, plus a live Twilio docs search MCP. Grouped by job:</p>
+      <h4>Getting started + auth (5)</h4>
+      <table><caption class="sr-only">Twilio setup skills</caption><tbody>
+        <tr><td>twilio-account-setup</td><td>Account creation, trial limits, credentials, first API call, subaccounts</td></tr>
+        <tr><td>twilio-organizations-setup</td><td>Org &gt; account &gt; subaccount governance, SSO, SCIM</td></tr>
+        <tr><td>twilio-iam-auth-setup / twilio-security-api-auth</td><td>Auth tokens, API keys, access tokens, rotation</td></tr>
+        <tr><td>twilio-cli-reference</td><td>Manage Twilio from the terminal: numbers, webhooks, debugging</td></tr>
+      </tbody></table>
+      <h4>Messaging (12)</h4>
+      <table><caption class="sr-only">Twilio messaging skills</caption><tbody>
+        <tr><td>twilio-messaging-overview / -channel-advisor</td><td>Channel landscape + pick SMS vs MMS vs RCS vs WhatsApp</td></tr>
+        <tr><td>twilio-send-message / -sms-send-message</td><td>Send across all channels; SMS-specific error/filtering deep dive</td></tr>
+        <tr><td>twilio-whatsapp-send-message / -manage-senders</td><td>24-hour window rules, templates, sender registration at scale</td></tr>
+        <tr><td>twilio-rcs-messaging</td><td>RCS rich cards, carousels, SMS fallback, onboarding</td></tr>
+        <tr><td>twilio-messaging-services / -webhooks</td><td>Production sender pools, sticky sender; inbound + status callbacks</td></tr>
+        <tr><td>twilio-content-template-builder</td><td>Pre-approved message templates via Content API</td></tr>
+        <tr><td>twilio-numbers-senders / -sms-isv-setup</td><td>Number/sender type selection; multi-tenant ISV patterns</td></tr>
+      </tbody></table>
+      <h4>Voice + contact center (8)</h4>
+      <table><caption class="sr-only">Twilio voice skills</caption><tbody>
+        <tr><td>twilio-voice-outbound-calls / -voice-twiml</td><td>REST API calls, AMD, call logic verbs, IVR examples</td></tr>
+        <tr><td>twilio-voice-conversation-relay</td><td>Real-time AI voice agents: ASR, TTS, WebSocket streaming</td></tr>
+        <tr><td>twilio-conference-calls / -call-recordings</td><td>Warm/cold transfer, whisper, barge; compliant recording</td></tr>
+        <tr><td>twilio-taskrouter-routing</td><td>Skills-based routing to agents, queues, workflows</td></tr>
+        <tr><td>twilio-customer-support-architect / -agent-augmentation-architect</td><td>Planning skills: support ladders, AI coaching architectures</td></tr>
+      </tbody></table>
+      <h4>AI agents + intelligence (7)</h4>
+      <table><caption class="sr-only">Twilio AI skills</caption><tbody>
+        <tr><td>twilio-ai-agent-architect / -agent-connect</td><td>Plan conversational agents; connect OpenAI/Bedrock/LangChain agents</td></tr>
+        <tr><td>twilio-conversation-intelligence / -orchestrator</td><td>Sentiment/QA analysis pipelines; auto conversation capture</td></tr>
+        <tr><td>twilio-customer-memory / -enterprise-knowledge</td><td>Per-customer persistent memory; org-wide knowledge retrieval</td></tr>
+        <tr><td>twilio-conversations-classic-api</td><td>Multi-party, multi-channel persistent conversations</td></tr>
+      </tbody></table>
+      <h4>Verify, lookup, compliance, ops (15)</h4>
+      <table><caption class="sr-only">Twilio compliance skills</caption><tbody>
+        <tr><td>twilio-verify-send-otp / -identity-verification-advisor</td><td>OTP over five channels; fraud-risk architecture planning</td></tr>
+        <tr><td>twilio-lookup-phone-intelligence</td><td>Line type, SIM swap, SMS-pumping risk scoring</td></tr>
+        <tr><td>twilio-compliance-onboarding / -compliance-traffic</td><td>A2P 10DLC, toll-free, WABA registration; TCPA/GDPR/PCI/HIPAA rules</td></tr>
+        <tr><td>twilio-regulatory-compliance-bundles</td><td>International number compliance bundles</td></tr>
+        <tr><td>twilio-security-hardening / -security-compliance-hipaa</td><td>Webhook validation, pumping prevention; BAA + HIPAA projects</td></tr>
+        <tr><td>twilio-debugging-observability / -reliability-patterns</td><td>Console debugger, error streams; 429 backoff, fallback chains</td></tr>
+        <tr><td>twilio-webhook-architecture / -messaging-webhooks</td><td>Secure callback endpoints, retries, local tunneling</td></tr>
+        <tr><td>twilio-marketing-promotions-advisor / -notifications-alerts-advisor</td><td>Campaign and alert architecture planning</td></tr>
+        <tr><td>twilio-email-send / -email-deliverability-advisor</td><td>Twilio-native email (not SendGrid): batch sends, deliverability</td></tr>
+      </tbody></table>
+      <h4>SendGrid (8)</h4>
+      <table><caption class="sr-only">SendGrid skills</caption><tbody>
+        <tr><td>sendgrid-account-setup / -email-send</td><td>API keys, domain auth (DKIM/SPF); transactional + bulk sends</td></tr>
+        <tr><td>sendgrid-deliverability-advisor / -engagement-quality</td><td>Spam/inbox diagnosis; SEQ reputation scoring</td></tr>
+        <tr><td>sendgrid-email-settings / -suppressions</td><td>Dynamic templates, tracking, link branding; bounce/unsub management</td></tr>
+        <tr><td>sendgrid-webhooks / -inbound-parse</td><td>Delivery event tracking; email-to-app workflows</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Zoom - 30 skills, full detail</summary><div class="inner">
+      <p class="conn">Zoom platform build reference with an MCP for meetings, recordings, and transcripts.</p>
+      <h4>Planning + routing (6)</h4>
+      <table><caption class="sr-only">Zoom planning skills</caption><tbody>
+        <tr><td>start / choose-zoom-approach / plan-zoom-product</td><td>Entry points: pick the right Zoom surface for a use case</td></tr>
+        <tr><td>plan-zoom-integration</td><td>Idea to implementation plan with milestones and risks</td></tr>
+        <tr><td>general</td><td>Cross-product platform guidance, app models, scopes</td></tr>
+        <tr><td>design-mcp-workflow / setup-zoom-mcp / zoom-mcp</td><td>When and how to use Zoom MCP vs REST</td></tr>
+      </tbody></table>
+      <h4>Build surfaces (13)</h4>
+      <table><caption class="sr-only">Zoom build skills</caption><tbody>
+        <tr><td>meeting-sdk / build-zoom-meeting-app</td><td>Embed real Zoom meetings; join flows, waiting rooms, bots</td></tr>
+        <tr><td>video-sdk / ui-toolkit</td><td>Fully custom video sessions; prebuilt React UI</td></tr>
+        <tr><td>zoom-apps-sdk</td><td>Web apps running inside the Zoom client</td></tr>
+        <tr><td>build-zoom-bot / rtms</td><td>Meeting bots; real-time audio/video/transcript streams</td></tr>
+        <tr><td>scribe</td><td>Transcription of uploaded/stored media, batch jobs</td></tr>
+        <tr><td>team-chat / phone / contact-center / virtual-agent / cobrowse-sdk</td><td>Chat bots, Phone APIs/dialers, CC integrations, KB-synced virtual agents, co-browsing</td></tr>
+      </tbody></table>
+      <h4>Plumbing + debugging (11)</h4>
+      <table><caption class="sr-only">Zoom plumbing skills</caption><tbody>
+        <tr><td>oauth / setup-zoom-oauth</td><td>Credentials, grant types, scopes, token refresh</td></tr>
+        <tr><td>rest-api / webhooks / websockets / rivet-sdk</td><td>Endpoints and rate limits; events via webhook, WebSocket, or Rivet server SDK</td></tr>
+        <tr><td>probe-sdk</td><td>Preflight device/network readiness checks</td></tr>
+        <tr><td>debug-zoom / debug-zoom-integration</td><td>Isolate failures across auth, API, SDK, MCP layers</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Figma - 8 skills, full detail</summary><div class="inner">
+      <p class="conn">Official Figma MCP - bridges code and design both directions.</p>
+      <table><caption class="sr-only">Figma skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>figma-use</td><td>Mandatory prerequisite before any Figma write action</td></tr>
+        <tr><td>figma-generate-design</td><td>Translate an app page or layout into Figma using the design system</td></tr>
+        <tr><td>figma-generate-library</td><td>Build a full design system: tokens, variants, theming</td></tr>
+        <tr><td>figma-generate-diagram</td><td>Mermaid-driven flowcharts, ERDs, sequence diagrams in FigJam</td></tr>
+        <tr><td>figma-code-connect</td><td>Map Figma components to codebase components</td></tr>
+        <tr><td>figma-create-new-file</td><td>Mandatory prerequisite for new design/FigJam/Slides files</td></tr>
+        <tr><td>figma-use-figjam / figma-use-slides</td><td>FigJam- and Slides-context variants of figma-use</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Slack by Salesforce - 7 skills, full detail</summary><div class="inner">
+      <p class="conn">Slack MCP connected (read, search, send, canvases, scheduled messages).</p>
+      <table><caption class="sr-only">Slack skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>channel-digest / summarize-channel</td><td>Activity digests across channels or one channel</td></tr>
+        <tr><td>find-discussions</td><td>Topic search across channels</td></tr>
+        <tr><td>draft-announcement</td><td>Well-formatted announcement saved as draft</td></tr>
+        <tr><td>standup</td><td>Standup update from your recent Slack activity</td></tr>
+        <tr><td>slack-messaging / slack-search</td><td>mrkdwn formatting craft; effective search syntax</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>PDF Viewer, Airtable, Qodo, Fluent, Desktop Commander, Postiz - 14 skills</summary><div class="inner">
+      <table><caption class="sr-only">Smaller tool plugin skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>pdf-viewer: view-pdf / open / annotate / fill-form / sign</td><td>Interactive PDF viewing, collaborative markup, form fill, signatures</td></tr>
+        <tr><td>airtable: cli / filters / overview</td><td>Base/table/record CRUD, filtering patterns, data-model explainer</td></tr>
+        <tr><td>qodo: get-rules / pr-resolver</td><td>Load org coding rules; review and resolve PR feedback</td></tr>
+        <tr><td>fluent: now-sdk-explain / now-sdk-setup</td><td>ServiceNow Fluent SDK docs and environment setup</td></tr>
+        <tr><td>desktop-commander-overview</td><td>Persistent shells/REPLs, filesystem beyond workspace, SSH (26-tool MCP)</td></tr>
+        <tr><td>postiz</td><td>Schedule social/chat posts to 28+ channels (X, LinkedIn, Reddit, Discord...)</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <h2>Research and meta plugins round out the stack</h2>
+    <table>
+      <caption>Research engines (20 skills) and workflow utilities (18 skills)</caption>
+      <thead><tr><th scope="col">Plugin</th><th scope="col" class="num">Skills</th><th scope="col">What it gives you</th></tr></thead>
+      <tbody>
+        <tr><td>Nimble</td><td class="num">14</td><td>Live web research: company deep dives, competitor intel, market finder, SEO intel, talent sourcing, meeting prep</td></tr>
+        <tr><td>Enterprise Search</td><td class="num">5</td><td>Cross-source search and digests over connected platforms</td></tr>
+        <tr><td>VPAI (Vibe Prospecting)</td><td class="num">1</td><td>Contact/company data: 150M+ companies, 800M+ professionals</td></tr>
+        <tr><td>Product Tracking</td><td class="num">7</td><td>Analytics/telemetry lifecycle: audit, tracking plans, instrumentation code, watchdog agent</td></tr>
+        <tr><td>Brand Voice</td><td class="num">5</td><td>Brand discovery, guideline generation, voice enforcement. Connectors: Box, Gong, Granola, Figma</td></tr>
+        <tr><td>Productivity</td><td class="num">4</td><td>Task management + two-tier memory. Connectors: Notion, Linear, Atlassian, ClickUp, Monday, MS365, Slack</td></tr>
+        <tr><td>Cowork Plugin Mgmt</td><td class="num">2</td><td>Create and customize Cowork plugins</td></tr>
+      </tbody>
+    </table>
+
+    <details class="plug"><summary>Nimble - 14 skills, full detail</summary><div class="inner">
+      <p class="conn">Live-web research engine (requires Nimble CLI auth). The only path to live website access at scale.</p>
+      <table><caption class="sr-only">Nimble skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>nimble-web-expert</td><td>Fetch any URL, scrape, call public APIs, bulk crawl - get data now</td></tr>
+        <tr><td>nimble-agent-builder</td><td>Build reusable extraction workflows for sites you scrape repeatedly</td></tr>
+        <tr><td>search</td><td>Default web search command, 8 focus modes</td></tr>
+        <tr><td>company-deep-dive</td><td>Sourced 360 report on any company: funding, leadership, product, news</td></tr>
+        <tr><td>competitor-intel / competitor-positioning</td><td>Business-signal briefings; messaging/pricing/positioning teardowns</td></tr>
+        <tr><td>market-finder</td><td>Find all businesses of a type in a geography; audit your list against it</td></tr>
+        <tr><td>local-places</td><td>Discover and score local businesses with reviews and a map</td></tr>
+        <tr><td>meeting-prep</td><td>Attendee + company research before any meeting</td></tr>
+        <tr><td>seo-intel</td><td>Keywords, rank tracking, site audits, AI-visibility across 5 platforms</td></tr>
+        <tr><td>talent-sourcing</td><td>Ranked candidate lists from LinkedIn/Indeed/GitHub</td></tr>
+        <tr><td>healthcare-providers extract / enrich / verify</td><td>Practitioner data extraction, gap-filling, NPI credential validation</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Enterprise Search + VPAI - 6 skills, full detail</summary><div class="inner">
+      <table><caption class="sr-only">Enterprise search and VPAI skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
+        <tr><td>search / search-strategy</td><td>One query across all connected sources; query decomposition per source</td></tr>
+        <tr><td>knowledge-synthesis</td><td>Deduplicated answers with confidence scoring and attribution</td></tr>
+        <tr><td>digest</td><td>Daily/weekly activity digest across sources</td></tr>
+        <tr><td>source-management</td><td>Detect, connect, and prioritize search sources</td></tr>
+        <tr><td>vibe-prospecting</td><td>Contact + company data: 150M+ companies, 800M+ professionals, intent signals</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <details class="plug"><summary>Productivity, Brand Voice, Product Tracking, Plugin Mgmt - 18 skills, full detail</summary><div class="inner">
+      <h4>Productivity (4) - connectors: Notion, Linear, Atlassian, ClickUp, Monday, MS365, Slack</h4>
+      <table><caption class="sr-only">Productivity skills</caption><tbody>
+        <tr><td>start / update</td><td>Initialize the system + dashboard; sync tasks and refresh memory</td></tr>
+        <tr><td>task-management</td><td>Shared TASKS.md task tracking</td></tr>
+        <tr><td>memory-management</td><td>Two-tier memory: decodes your shorthand, acronyms, nicknames</td></tr>
+      </tbody></table>
+      <h4>Brand Voice (5) - connectors: Box, Gong, Granola, Figma; ships 5 subagents</h4>
+      <table><caption class="sr-only">Brand voice skills</caption><tbody>
+        <tr><td>discover-brand</td><td>Search connected platforms for scattered brand materials</td></tr>
+        <tr><td>guideline-generation / generate-guidelines</td><td>Brand voice guidelines from docs, transcripts, call recordings</td></tr>
+        <tr><td>brand-voice-enforcement / enforce-voice</td><td>Apply guidelines to any content: emails, decks, posts</td></tr>
+      </tbody></table>
+      <h4>Product Tracking (7) + watchdog agent</h4>
+      <table><caption class="sr-only">Product tracking skills</caption><tbody>
+        <tr><td>model-product</td><td>Entry point: structured product model from codebase + interview</td></tr>
+        <tr><td>audit-current-tracking</td><td>Reverse-engineer what analytics already exist in a codebase</td></tr>
+        <tr><td>design-tracking-plan / generate-implementation-guide</td><td>Target event plan + SDK-specific instrumentation guide (24 destinations)</td></tr>
+        <tr><td>implement-tracking / instrument-new-feature</td><td>Generate typed wrapper code; keep the plan current as features ship</td></tr>
+        <tr><td>business-case</td><td>Stakeholder-ready case for adding telemetry</td></tr>
+      </tbody></table>
+      <h4>Cowork Plugin Management (2)</h4>
+      <table><caption class="sr-only">Plugin management skills</caption><tbody>
+        <tr><td>create-cowork-plugin</td><td>Scaffold a new plugin from scratch, delivered as .plugin file</td></tr>
+        <tr><td>cowork-plugin-customizer</td><td>Tailor an existing plugin to your org's tools</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <h2>Anthropic's 18 stock skills cover the document pipeline end to end</h2>
+    <table>
+      <caption>Stock skills by job - documents and visual design dominate</caption>
+      <thead><tr><th scope="col">Group</th><th scope="col" class="num">Count</th><th scope="col">Skills</th></tr></thead>
+      <tbody>
+        <tr><td>Office documents</td><td class="num">4</td><td>docx, pptx, xlsx, pdf</td></tr>
+        <tr><td>Visual / design</td><td class="num">6</td><td>canvas-design, algorithmic-art, brand-guidelines, theme-factory, web-artifacts-builder, slack-gif-creator</td></tr>
+        <tr><td>Writing</td><td class="num">2</td><td>doc-coauthoring, internal-comms</td></tr>
+        <tr><td>Builders</td><td class="num">2</td><td>skill-creator, mcp-builder</td></tr>
+        <tr><td>Utility</td><td class="num">4</td><td>schedule, learn, setup-cowork, consolidate-memory</td></tr>
+      </tbody>
+      <tfoot><tr><td>Total</td><td class="num">18</td><td></td></tr></tfoot>
+    </table>
+    <details class="plug"><summary>All 18 stock skills, full detail</summary><div class="inner">
+      <h4>Office documents (4)</h4>
+      <table><caption class="sr-only">Office document skills</caption><tbody>
+        <tr><td>docx</td><td>Word documents: reports, memos, TOCs, tracked changes, find-and-replace</td></tr>
+        <tr><td>pptx</td><td>PowerPoint decks: create, read, edit, templates, speaker notes</td></tr>
+        <tr><td>xlsx</td><td>Excel: formulas, formatting, charts, data analysis</td></tr>
+        <tr><td>pdf</td><td>Extract, create, merge, split, fill forms, OCR</td></tr>
+      </tbody></table>
+      <h4>Visual / design (6)</h4>
+      <table><caption class="sr-only">Visual design skills</caption><tbody>
+        <tr><td>canvas-design</td><td>Posters and static art as .png/.pdf with design philosophy</td></tr>
+        <tr><td>algorithmic-art</td><td>Generative art: p5.js, flow fields, particle systems</td></tr>
+        <tr><td>brand-guidelines</td><td>Anthropic's brand colors/typography applied to artifacts</td></tr>
+        <tr><td>theme-factory</td><td>10 preset themes (or generate one) for any artifact</td></tr>
+        <tr><td>web-artifacts-builder</td><td>Complex multi-component React/Tailwind/shadcn artifacts</td></tr>
+        <tr><td>slack-gif-creator</td><td>Animated GIFs sized and validated for Slack</td></tr>
+      </tbody></table>
+      <h4>Writing (2)</h4>
+      <table><caption class="sr-only">Writing skills</caption><tbody>
+        <tr><td>doc-coauthoring</td><td>Structured co-writing workflow for docs, specs, proposals</td></tr>
+        <tr><td>internal-comms</td><td>Status reports, leadership updates, newsletters, incident reports</td></tr>
+      </tbody></table>
+      <h4>Builders + utility (6)</h4>
+      <table><caption class="sr-only">Builder and utility skills</caption><tbody>
+        <tr><td>skill-creator</td><td>Create, improve, and eval-test skills</td></tr>
+        <tr><td>mcp-builder</td><td>Build MCP servers in Python or TypeScript</td></tr>
+        <tr><td>schedule</td><td>Scheduled tasks: on-demand or recurring</td></tr>
+        <tr><td>learn</td><td>Teaching mode: explanations, quizzes, learning paths</td></tr>
+        <tr><td>setup-cowork</td><td>Guided onboarding: plugins, connectors, first skill</td></tr>
+        <tr><td>consolidate-memory</td><td>Merge/prune auto-memory files and fix stale facts</td></tr>
+      </tbody></table>
+    </div></details>
+
+    <p>A <strong>deep-research</strong> harness (fan-out search, adversarial verification, cited reports) is also available as a built-in, outside the stock-skill count.</p>
+
+    <div class="callout"><strong>Excluded by design:</strong> the ~30 custom-built skills (garage-sale-scanner, prompt-evaluator, sta-html-report, time-clock-diagnostics, training-doc-auditor, and the rest of the pipeline tooling). They are all installed alongside everything above and documented on their own hub cards.</div>
+
+    <details>
+      <summary>Methodology and data sources</summary>
+      <p>Counts taken from the live Cowork session registry (available-skills list plus connected and deferred MCP server inventory) as of 2026-06-06. Skill counts are approximate where plugins mix skills and slash commands (Twilio 55 including its 8 SendGrid skills, product-management 9 including its brainstorm command). The ~55 MCP connector figure counts per-plugin bundles, so shared services (Gmail, Google Calendar) appear once per plugin that ships them; most connectors expose only authentication endpoints until first sign-in. Point-in-time snapshot - installing or removing a plugin invalidates the counts.</p>
+    </details>
+  </div>
+
+  <footer>School Technology Associates &middot; AI Admin System Inventory &middot; Generated 2026-06-06 &middot; Internal</footer>
+</main>
+</body>
+</html>

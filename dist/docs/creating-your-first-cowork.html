@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - Creating Your First Cowork Project</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: var(--blue); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--green); }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.82; margin-top: 6px; max-width: 620px; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; margin-right: 6px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 36px 60px 80px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.65; }
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+  .callout.red { background: #fdf0ef; border-left: 4px solid var(--red); }
+  .steps { margin: 0; }
+  .step { display: flex; gap: 20px; margin-bottom: 20px; }
+  .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--blue); color: white; font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-body { flex: 1; background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .step-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .step-desc { font-size: 13px; color: #444; line-height: 1.6; }
+  .step-note { font-size: 12px; color: #555; background: var(--light); border-left: 3px solid var(--blue); padding: 8px 12px; margin-top: 12px; border-radius: 0 5px 5px 0; line-height: 1.5; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px; }
+  .two-col-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .two-col-card.good { border-top: 3px solid var(--green); }
+  .two-col-card.caution { border-top: 3px solid var(--orange); }
+  .two-col-head { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 12px; }
+  .two-col-head.good { color: #2e7010; }
+  .two-col-head.caution { color: #9a5800; }
+  .two-col-item { font-size: 13px; color: #333; line-height: 1.55; margin-bottom: 8px; padding-left: 18px; position: relative; }
+  .two-col-item::before { position: absolute; left: 0; font-size: 12px; }
+  .two-col-card.good .two-col-item::before { content: "\2713"; color: var(--green); }
+  .two-col-card.caution .two-col-item::before { content: "!"; color: var(--orange); font-weight: 700; }
+  code { background: #eef2f5; border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; font-size: 12px; }
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+  @media (max-width: 700px) { .page, .header { padding-left: 24px; padding-right: 24px; } .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body id="top">
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Creating Your First Cowork Project</h1>
+    <div class="sub">A step-by-step guide to building a Cowork project from scratch - instructions, folder access, context files, skills, and a first-chat verification that proves it all works.</div>
+    <div class="badge">Power Users</div>
+    <div class="badge">Intermediate</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="section-title">Before You Start</div>
+  <p class="section-intro">A Cowork project is a configured workspace inside the Claude desktop app: its own instructions, its own folder on the PC it runs on, and its own set of context files and skills. That's what separates it from a regular chat (no memory of your setup) and from a claude.ai team Project (shared, but no file access). If you're not sure which of the three you need, read <strong>Chat vs Project vs Cowork</strong> first - it's the deciding-between-them guide.</p>
+
+  <div class="callout blue"><strong>Access check:</strong> Cowork runs in the Claude desktop app and requires power-user access. Regular staff use the claude.ai team Projects (AI Advisor, STA Support Chat, STA Salesforce Cohort). If you think a workflow you own needs a Cowork project, start with a chat in the AI Advisor - it will help you shape the idea into something buildable.</p>
+
+  <div class="callout red"><strong>Data rule still applies:</strong> a Cowork project can read files on the PC it runs on. The AI Restricted Data Reference Guide applies to folders exactly as it does to pasted text - never point a project at folders containing student PII, HR records, financials, or credentials.</p>
+
+  <div class="section-title">The Build, Step by Step</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Decide what the project is for - one job, stated in one sentence</div>
+        <div class="step-desc">The strongest projects do one thing: "draft customer replies grounded in our Help Center," "track my compliance evidence," "turn research into training decks." If you can't state the job in a sentence, the project will drift. Write that sentence down - it becomes the first line of your instructions.</div>
+        <div class="step-note">Scope test: if your idea needs three unrelated workflows or serves three different user types, it's probably two projects.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Create the project in Cowork</div>
+        <div class="step-desc">Open the Claude desktop app, switch to Cowork, and create a new project. Name it for the job, not the tool ("Help Center Advisor," not "Claude Helper"). The name shows up in every session header, so make it say what it does.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Write the project instructions</div>
+        <div class="step-desc">Paste your instructions into the project settings. A solid first version covers six things: <strong>who it is</strong> (role + who it serves), <strong>what it does</strong>, <strong>what it never does</strong>, <strong>how it formats answers</strong>, <strong>which files it should consult and when</strong>, and <strong>what to do when unsure</strong> (say so - never invent). Plain, direct language beats clever prose.</div>
+        <div class="step-note">Don't start from a blank page: the Getting Better Results guide covers the prompting fundamentals, and the New Project Build Guide shows the full professional version of this process used for production agents.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Pick the project's folder</div>
+        <div class="step-desc">Select the folder the project can read and write. This is the project's whole filesystem world: its context files, its outputs, its working notes all live here. Create a dedicated folder per project rather than pointing at a broad drive location - tight folders keep the project focused and keep the restricted-data rule easy to honor.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Add context files - and tell the instructions when to use them</div>
+        <div class="step-desc">Context files are reference documents the project consults: a product sheet, a tone guide, a policy file, a roster. Drop them in the project folder, then add a routing line per file in your instructions: "When [trigger], consult [filename] before answering." Without that routing line, the file just sits there - the project won't reliably know when it applies.</div>
+        <div class="step-note">Format that works: a short Purpose section at the top of each file, then the actual reference content. One topic per file beats one giant file.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-title">Install any skills the project needs</div>
+        <div class="step-desc">Skills are installable playbooks (the Claude Skills guide explains the concept). If your project produces Word docs, slide decks, or KB articles, install the matching skill and name it in your instructions so the project knows to reach for it. Skip skills entirely for pure Q&amp;A projects.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <div class="step-title">Run a first-chat verification</div>
+        <div class="step-desc">Before real work, send a setup-check message as the very first chat: ask the project to (1) state its role in one sentence, (2) try to read each context file by name and report found / not found, (3) list the skills it can see, and (4) list anything missing. Two minutes here catches the classic failures - wrong folder, missing file, instructions that didn't save.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <div class="step-title">Use it, then tighten it</div>
+        <div class="step-desc">Every time the project does something you didn't want, fix the instructions - add the rule, sharpen the trigger, name the exception. Expect 3-4 small revisions in the first week; that's the system working, not failing. When a project proves valuable enough that others should use it, bring it to the AI admin for a production build - it gets the full pipeline treatment: tested instructions, a launch file, and a registry entry.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Do / Watch Out</div>
+  <div class="two-col">
+    <div class="two-col-card good">
+      <div class="two-col-head good">Do</div>
+      <div class="two-col-item">One project = one job, named for the job</div>
+      <div class="two-col-item">Dedicated folder per project</div>
+      <div class="two-col-item">A routing line in the instructions for every context file</div>
+      <div class="two-col-item">First-chat verification before real work</div>
+      <div class="two-col-item">Revise instructions the moment behavior surprises you</div>
+    </div>
+    <div class="two-col-card caution">
+      <div class="two-col-head caution">Watch out</div>
+      <div class="two-col-item">Pointing the project at broad folders "just in case" - scope and data risk</div>
+      <div class="two-col-item">Context files with no trigger rule - they get ignored inconsistently</div>
+      <div class="two-col-item">Letting one project absorb every new idea - spin off a second project instead</div>
+      <div class="two-col-item">Restricted data anywhere in the project folder - the AUP applies to folders, not just chats</div>
+      <div class="two-col-item">Treating a personal build as production - shared tools go through the build pipeline</div>
+    </div>
+  </div>
+
+  <div class="callout green"><strong>Where to go next:</strong> Chat vs Project vs Cowork (choosing the right container) &middot; Claude Skills (what skills are and when to use them) &middot; Getting Better Results (prompting fundamentals) &middot; New Project Build Guide (the full production pipeline, admin-level).</div>
+
+</div>
+
+<div class="footer">
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; AI Training Kit - Creating Your First Cowork Project &nbsp;|&nbsp; Updated 2026-06-06
+</div>
+
+</body>
+</html>

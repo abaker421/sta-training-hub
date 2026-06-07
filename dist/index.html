@@ -410,7 +410,7 @@ window.TRAINING_DATA = {
         { heading: 'Tool briefs', docs: ['ai-advisor', 'behind-the-bell'] },
         { heading: 'Skills', docs: ['skill-html-checklist', 'skill-agent-quality-logger', 'skill-session-closeout'] },
         { heading: 'Coming Soon', docs: ['sta-main-chat'] },
-        { heading: 'Go further', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills'] }
+        { heading: 'Go further', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork'] }
       ]
     },
     {
@@ -448,7 +448,7 @@ window.TRAINING_DATA = {
         { heading: 'Skills - Knowledge & Research', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
         { heading: 'Skills - Safety & Guardrails', docs: ['skill-prompt-override-guard'] },
         { heading: 'Skills - Maintenance & Ops', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter'] },
-        { heading: 'System reference', docs: ['system-overview', 'workspace-skills', 'user-management', 'maintenance-sop'] },
+        { heading: 'System reference', docs: ['system-overview', 'ai-admin-pc-installed-inventory', 'project-export-snapshot-audit', 'workspace-skills', 'user-management', 'maintenance-sop'] },
         { heading: 'Build pipeline', docs: ['rollout-plan', 'build-guide', 'architect-case-study'] },
         { heading: 'Planned builds (in scoping)', docs: ['google-ai-employee-sow', 'salesforce-integration-sow'] },
         { heading: 'Security checklists', docs: ['google-security', 'sf-security'] },
@@ -458,6 +458,34 @@ window.TRAINING_DATA = {
     }
   ],
   docs: {
+    'creating-your-first-cowork': {
+      title: 'Creating Your First Cowork Project',
+      desc: 'Step-by-step build guide for power users: scope the job, write instructions, pick the folder, add context files with routing rules, install skills, and run a first-chat verification.',
+      file: 'docs/creating-your-first-cowork.html',
+      type: 'html',
+      priority: 'optional',
+      tags: ['Guide', 'Intermediate'],
+      added: '2026-06-06', updated: '2026-06-06'
+    },
+    // ===== AI Admin system inventory =====
+    'ai-admin-pc-installed-inventory': {
+      title: 'AI Admin PC - Installed Plugins & Skills Inventory',
+      desc: 'Everything installed on the AI Admin PC: 27 plugins, ~276 non-custom skills, and ~55 MCP connectors - with click-to-expand skill-by-skill detail for every plugin.',
+      file: 'docs/ai-admin-pc-installed-inventory.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Admin', 'Inventory'],
+      added: '2026-06-06', updated: '2026-06-06'
+    },
+    'project-export-snapshot-audit': {
+      title: 'Project Export-Snapshot Audit',
+      desc: 'Per-project export snapshots for all 22 Active/Draft Cowork agents and Claude.ai Projects - context files, skills used, KB modules, and install requirements. All 22 export-ready; six gaps found and closed 2026-06-06.',
+      file: 'docs/project-export-snapshot-audit.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Admin', 'Audit'],
+      added: '2026-06-06', updated: '2026-06-06'
+    },
     // ===== Policies =====
     'aup': {
       title: 'AI Acceptable Use Policy',
