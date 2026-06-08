@@ -134,7 +134,7 @@
 
   /* FRESHNESS CHIPS */
   .chip { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
-  .chip-new { background: #edf7e6; color: var(--green-dark); border: 1px solid #b8e0a0; }
+  .chip-new { background: var(--blue); color: #fff; border: 1px solid var(--blue); }
   .chip-updated { background: #fff3da; color: #a06500; border: 1px solid #f5cf80; }
 
   /* READ TRACKING */
@@ -397,8 +397,8 @@ window.TRAINING_DATA = {
       sub: 'Everyone reads these first. Day 1 onboarding for the AI program, no matter your role.',
       sections: [
         { heading: 'Required before first use', docs: ['aup', 'restricted-data', 'getting-started'] },
-        { heading: 'Org-wide skills - available to everyone, right now', docs: ['skill-wcag-audit', 'skill-html-checklist', 'skill-session-closeout', 'skill-skill-evaluator', 'skill-help-center-article', 'skill-prompt-override-guard', 'time-clock', 'skill-agent-quality-logger', 'skill-cowork-context-packager'] },
         { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results', 'onboarding-deck'] },
+        { heading: 'Org-wide skills - available to everyone, right now', docs: ['skill-wcag-audit', 'skill-html-checklist', 'skill-session-closeout', 'skill-skill-evaluator', 'skill-help-center-article', 'skill-prompt-override-guard', 'time-clock', 'skill-agent-quality-logger', 'skill-cowork-context-packager'] },
         { heading: 'Reading the files we send you', docs: ['open-html', 'open-markdown'] },
         { heading: 'Tool briefs', docs: ['ai-advisor', 'behind-the-bell'] },
         { heading: 'Coming Soon', docs: ['sta-main-chat'] },
@@ -407,7 +407,7 @@ window.TRAINING_DATA = {
     },
     {
       id: 'sales',
-      title: 'Sales Team',
+      title: 'Sales',
       icon: '\u{1F4BC}',
       sub: 'For the Sales team - Pat and Jessie. Pitch and renewal practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
@@ -417,7 +417,7 @@ window.TRAINING_DATA = {
     },
     {
       id: 'support',
-      title: 'Support Team',
+      title: 'Support',
       icon: '\u{1F3A7}',
       sub: 'For the Support team - Chris and Tyler. Your tool briefs and the skills you use most. New here? Start on the Start Here tab first.',
       sections: [
@@ -446,6 +446,16 @@ window.TRAINING_DATA = {
       ]
     },
     {
+      id: 'renewals',
+      title: 'Renewals',
+      icon: '\u{1F501}',
+      sub: 'For Renewals - Jessie. Renewal-call practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
+      sections: [
+        { heading: 'Tool briefs', docs: ['ai-advisor', 'the-customer'] },
+        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
+      ]
+    },
+    {
       id: 'sf-admins',
       title: 'Salesforce Admins',
       icon: '\u{1F4CA}',
@@ -462,9 +472,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F527}',
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
-        { heading: 'Tool briefs', docs: ['ai-advisor', 'support-chat-brief', 'cohort-getting-started'] },
-        { heading: 'Internal tools - Claude.ai Projects', docs: ['rd-tracker'] },
-        { heading: 'Internal tools - Coworks', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'sta-support-expert', 'security-advisor', 'help-center-advisor', 'system-monitor-tool', 'the-customer'] },
+        { heading: 'Internal tools - Claude.ai Projects', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool'] },
+        { heading: 'Internal tools - Coworks', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'sta-support-expert', 'security-advisor', 'help-center-advisor', 'system-monitor-tool', 'project-tester-tool', 'the-customer', 'virtuatime-tool'] },
         { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides'] },
         { heading: 'Skills - Support & Troubleshooting', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
@@ -788,12 +797,61 @@ window.TRAINING_DATA = {
       added: '2026-06-08', updated: '2026-06-08'
     },
     'rd-tracker': {
-      title: 'Internal R&amp;D Tracker',
-      desc: 'A Claude.ai Project that classifies STA’s software-development costs and staff time by R&amp;D stage and assembles a CPA-ready package for the federal IRC §41 credit and MN/WI/AZ state credits (2026+). Advisory only - it organizes and documents, it does not file. Backed by seven context files.',
+      title: 'Internal R&D Tracker',
+      desc: 'A Claude.ai Project that classifies STA’s software-development costs and staff time by R&D stage and assembles a CPA-ready package for the federal IRC §41 credit and MN/WI/AZ state credits (2026+). Advisory only - it organizes and documents, it does not file. Backed by seven context files.',
       file: 'docs/internal-rd-tracker.html',
       type: 'html',
       priority: 'admin',
       tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-08', updated: '2026-06-08'
+    },
+    'ai-advisor-tool': {
+      title: 'AI Advisor',
+      desc: 'Shared Claude.ai Project that helps any staff member explore where AI fits their workflows, see what is already live, and frame an idea to bring to Adam; routes implementation to IT.',
+      file: 'docs/ai-advisor-tool.html',
+      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-08', updated: '2026-06-08'
+    },
+    'support-chat-tool': {
+      title: 'STA Support Chat',
+      desc: 'Shared Claude.ai Project for the support team - Help-Center-grounded product troubleshooting and customer-email drafts across 16 product context files; never-fabricate hard rule.',
+      file: 'docs/sta-support-chat-tool.html',
+      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-08', updated: '2026-06-08'
+    },
+    'cohort-tool': {
+      title: 'STA Salesforce Cohort',
+      desc: 'Shared Claude.ai Project: Salesforce reference and build guidance for the 4-person admin cohort; heavy Flow work routes to the Salesforce Admin Assistant.',
+      file: 'docs/sta-salesforce-cohort-tool.html',
+      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-08', updated: '2026-06-08'
+    },
+    'main-chat-tool': {
+      title: 'STA Main Chat',
+      desc: 'Planned company-wide base brain (org knowledge, products, processes) that department brains extend from. Parked until department workflow docs are collected.',
+      file: 'docs/sta-main-chat-tool.html',
+      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-08', updated: '2026-06-08'
+    },
+    'behind-the-bell-tool': {
+      title: 'Behind the Bell Assistant',
+      desc: 'Shared Claude.ai Project: production assistant for the Behind the Bell podcast - guest research, prep packages, interview questions, scripts, outreach emails; Confirmed/Unverified sourcing.',
+      file: 'docs/behind-the-bell-tool.html',
+      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-08', updated: '2026-06-08'
+    },
+    'project-tester-tool': {
+      title: 'Project Tester (Deep)',
+      desc: 'Deep QA engineer for Cowork projects, agents, and code - behavioral compliance, adversarial red-team, code execution, regression. Draft; the run-test-cases skill covers quick checks.',
+      file: 'docs/project-tester-tool.html',
+      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-08', updated: '2026-06-08'
+    },
+    'virtuatime-tool': {
+      title: 'VirtuaTime Implementation Assistant',
+      desc: 'Planned Cowork assistant to track VirtuaTime implementation Case state, draft templated emails, and flag payment/count gates. Parked - context pack complete, agent not yet built.',
+      file: 'docs/virtuatime-tool.html',
+      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
     },
 
@@ -1492,10 +1550,10 @@ function cardHTML(id, doc) {
   const reqUnread = doc.priority === 'required' && !isRead;
   const tags = (doc.tags || []).slice(0, 2);
   let meta = '';
+  meta += freshnessChip(doc);
   if (doc.priority && doc.priority !== 'recommended') meta += '<span class="pill pill-' + esc(doc.priority) + '">' + esc(doc.priority) + '</span>';
   if (doc.org) meta += '<span class="pill pill-org" tabindex="0" title="Org-wide skill - available to everyone, right now." aria-label="Org-wide skill, available to everyone now">Org-wide</span>';
   meta += tags.map(t => '<span class="pill pill-optional">' + esc(t) + '</span>').join('');
-  meta += freshnessChip(doc);
   if (reqUnread) meta += '<span class="req-unread">Required - not yet read</span>';
   meta += '<button class="card-read' + (isRead ? ' is-read' : '') + '" type="button" data-action="read" data-doc="' + esc(id) + '"'
     + ' aria-pressed="' + isRead + '" aria-label="' + (isRead ? 'Mark as unread' : 'Mark as read') + '">'
