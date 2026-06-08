@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - How to Open Markdown Files</title>
+<style>
+  :root { --blue:#006098; --green:#6bc04b; --orange:#F4A300; --red:#c0392b; --gray:#8a8d8e; --light:#f4f6f8; --dark:#1e2a35; --white:#fff; --border:#dde3e8; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:var(--light); color:var(--dark); line-height:1.6; }
+  .header { background:#3a8a1e; color:#fff; padding:40px 60px 36px; border-bottom:5px solid var(--green); }
+  .header-inner { max-width:900px; margin:0 auto; }
+  .header h1 { font-size:26px; font-weight:700; }
+  .header .sub { font-size:14px; opacity:0.82; margin-top:6px; max-width:640px; }
+  .header .badge { display:inline-block; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:20px; padding:3px 12px; font-size:12px; margin-top:12px; }
+  .page { max-width:900px; margin:0 auto; padding:36px 60px 80px; }
+  h2.section-title { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--gray); margin:44px 0 16px; padding-bottom:8px; border-bottom:2px solid var(--border); }
+  h2.section-title:first-of-type { margin-top:8px; }
+  p { font-size:14px; color:#333; margin-bottom:14px; }
+  .lead { font-size:15px; color:#444; margin-bottom:8px; }
+  .callout { border-radius:8px; padding:14px 18px; margin:18px 0; font-size:13px; line-height:1.6; }
+  .callout.blue { background:#e8f2f8; border-left:4px solid var(--blue); }
+  .callout.green { background:#edf7e6; border-left:4px solid var(--green); }
+  .callout.orange { background:#fef4e0; border-left:4px solid var(--orange); }
+  .callout strong { color:var(--dark); }
+  .steps { counter-reset:step; margin:8px 0 4px; }
+  .step { display:flex; gap:18px; margin-bottom:16px; }
+  .step-num { width:32px; height:32px; border-radius:50%; background:var(--green); color:#fff; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+  .step-body { flex:1; }
+  .step-title { font-size:15px; font-weight:700; margin-bottom:3px; }
+  .step-desc { font-size:13.5px; color:#444; line-height:1.55; }
+  kbd { font-family:'SF Mono',Consolas,monospace; font-size:11.5px; background:#eef2f5; border:1px solid var(--border); border-radius:4px; padding:1px 6px; color:#234; }
+  .opt-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:8px 0; }
+  .opt-card { background:#fff; border:1px solid var(--border); border-radius:10px; padding:18px 20px; border-top:3px solid var(--green); }
+  .opt-card.blue { border-top-color:var(--blue); }
+  .opt-name { font-size:15px; font-weight:700; margin-bottom:6px; }
+  .opt-desc { font-size:13px; color:#444; line-height:1.55; }
+  .opt-desc a { color:var(--blue); }
+  a { color:var(--blue); }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.5); text-align:center; padding:20px; font-size:12px; margin-top:60px; }
+  .footer strong { color:rgba(255,255,255,0.8); }
+  @media (max-width:800px) { .page { padding:20px 16px 60px; } .header { padding:24px 16px; } .opt-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body id="top">
+
+<div class="header">
+  <div class="header-inner">
+    <h1>How to Open Markdown Files</h1>
+    <div class="sub">Some AI output and reference notes come as a .md (Markdown) file - plain text with light formatting. Here is how to read one so it looks clean instead of cluttered.</div>
+    <div class="badge">For Team Members</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <p class="lead">A <strong>Markdown file</strong> ends in <kbd>.md</kbd>. It's just text with a few simple marks - <kbd>#</kbd> for a heading, <kbd>-</kbd> for a bullet, <kbd>**bold**</kbd> for bold. Open it raw and it's perfectly readable; open it in a Markdown reader and those marks turn into real headings, bullets, and bold text.</p>
+
+  <div class="callout green">
+    <strong>The short version:</strong> for a clean, formatted view, open the .md file in <a href="https://buildwithbaker.github.io/pinion-md/">Pinion.md</a> (linked at the bottom of the Help Center). Or use any Markdown reader you like - or just open it in a text editor to read it as-is.
+  </div>
+
+  <h2 class="section-title">Easiest: Pinion.md (no install)</h2>
+  <p>Pinion.md is a free in-browser Markdown reader and editor we already use - nothing to install, and it works in Chrome.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Open Pinion.md</div>
+        <div class="step-desc">Go to <a href="https://buildwithbaker.github.io/pinion-md/">buildwithbaker.github.io/pinion-md</a> - it's also linked at the bottom of the Help Center under the tools we've built.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Open or drop in your .md file</div>
+        <div class="step-desc">Use its open-file option, or drag the <kbd>.md</kbd> file onto the page. You can also paste Markdown text straight in.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Read the clean version</div>
+        <div class="step-desc">The <kbd>#</kbd> and <kbd>-</kbd> marks become real headings and bullets. You can edit and save changes locally too.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Other ways to read a .md file</h2>
+  <p>Use whatever's convenient - any of these work:</p>
+  <div class="opt-grid">
+    <div class="opt-card blue">
+      <div class="opt-name">Any Markdown reader you like</div>
+      <div class="opt-desc">If you already use a Markdown app or browser extension, keep using it. They all render the same <kbd>.md</kbd> format. Pinion.md is just our no-install default.</div>
+    </div>
+    <div class="opt-card">
+      <div class="opt-name">A plain text editor</div>
+      <div class="opt-desc">Right-click &rarr; <strong>Open with &rarr; Notepad</strong> (or any editor). You'll see the raw marks, but <kbd>.md</kbd> is written to be readable as-is - fine for a quick look.</div>
+    </div>
+  </div>
+  <div class="callout orange">
+    <strong>Don't double-click expecting a formatted view.</strong> On most computers a <kbd>.md</kbd> file isn't linked to any app, so double-clicking may do nothing or open raw text. Open it through Pinion.md or your reader of choice instead.
+  </div>
+
+  <div class="callout green" style="margin-top:24px;">
+    <strong>That's it.</strong> For a clean read: Pinion.md (or your own Markdown reader). For a quick glance: any text editor.
+  </div>
+
+</div>
+
+<div class="footer"><strong>School Technology Associates</strong> &middot; AI Program &middot; How to Open Markdown Files</div>
+
+</body>
+</html>

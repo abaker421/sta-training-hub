@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - How to Open HTML Files</title>
+<style>
+  :root { --blue:#006098; --green:#6bc04b; --orange:#F4A300; --red:#c0392b; --gray:#8a8d8e; --light:#f4f6f8; --dark:#1e2a35; --white:#fff; --border:#dde3e8; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:var(--light); color:var(--dark); line-height:1.6; }
+  .header { background:#3a8a1e; color:#fff; padding:40px 60px 36px; border-bottom:5px solid var(--green); }
+  .header-inner { max-width:900px; margin:0 auto; }
+  .header h1 { font-size:26px; font-weight:700; }
+  .header .sub { font-size:14px; opacity:0.82; margin-top:6px; max-width:640px; }
+  .header .badge { display:inline-block; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:20px; padding:3px 12px; font-size:12px; margin-top:12px; }
+  .page { max-width:900px; margin:0 auto; padding:36px 60px 80px; }
+  h2.section-title { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--gray); margin:44px 0 16px; padding-bottom:8px; border-bottom:2px solid var(--border); }
+  h2.section-title:first-of-type { margin-top:8px; }
+  p { font-size:14px; color:#333; margin-bottom:14px; }
+  .lead { font-size:15px; color:#444; margin-bottom:8px; }
+  .callout { border-radius:8px; padding:14px 18px; margin:18px 0; font-size:13px; line-height:1.6; }
+  .callout.blue { background:#e8f2f8; border-left:4px solid var(--blue); }
+  .callout.green { background:#edf7e6; border-left:4px solid var(--green); }
+  .callout.orange { background:#fef4e0; border-left:4px solid var(--orange); }
+  .callout strong { color:var(--dark); }
+  .steps { counter-reset:step; margin:8px 0 4px; }
+  .step { display:flex; gap:18px; margin-bottom:16px; }
+  .step-num { width:32px; height:32px; border-radius:50%; background:var(--green); color:#fff; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+  .step-body { flex:1; }
+  .step-title { font-size:15px; font-weight:700; margin-bottom:3px; }
+  .step-desc { font-size:13.5px; color:#444; line-height:1.55; }
+  kbd { font-family:'SF Mono',Consolas,monospace; font-size:11.5px; background:#eef2f5; border:1px solid var(--border); border-radius:4px; padding:1px 6px; color:#234; }
+  a { color:var(--blue); }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.5); text-align:center; padding:20px; font-size:12px; margin-top:60px; }
+  .footer strong { color:rgba(255,255,255,0.8); }
+  @media (max-width:800px) { .page { padding:20px 16px 60px; } .header { padding:24px 16px; } }
+</style>
+</head>
+<body id="top">
+
+<div class="header">
+  <div class="header-inner">
+    <h1>How to Open HTML Files</h1>
+    <div class="sub">A lot of what the AI tools produce - reports, digests, checklists, dashboards - comes as an .html file. Here is how to open one and see it the way it's meant to look.</div>
+    <div class="badge">For Team Members</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <p class="lead">An <strong>HTML file</strong> is just a web page saved to your computer. It ends in <kbd>.html</kbd>. You don't need internet for it and you don't need any special software - your web browser already opens it.</p>
+
+  <div class="callout green">
+    <strong>The short version:</strong> download the file, then double-click it - or drag it onto a Google Chrome window. It opens like any web page.
+  </div>
+
+  <h2 class="section-title">Open it in 3 steps</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Download the file</div>
+        <div class="step-desc">Save it somewhere you'll find it again - your Downloads folder or Desktop is fine. If it came as an attachment or a link, choose <strong>Download</strong> (not "open in a new tab," which may just show the raw code).</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Double-click it</div>
+        <div class="step-desc">It should open in your default browser automatically. If it opens as plain code or in the wrong app, right-click the file &rarr; <strong>Open with</strong> &rarr; <strong>Google Chrome</strong>.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Read it like a web page</div>
+        <div class="step-desc">Scroll, click buttons, expand sections - it behaves like any site. Nothing is sent anywhere; the file lives on your computer.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Use Google Chrome</h2>
+  <p>Any browser will open an HTML file - Edge, Firefox, Safari - so if you're in a pinch, use what you have. But <strong>we standardize on Google Chrome</strong> at School Tech, and some of what we build uses features that only render fully in Chrome.</p>
+  <div class="callout orange">
+    <strong>Heads-up:</strong> open our files in Chrome to get the full effect. In Edge or another browser, most of it still works, but you may see missing pieces or things that don't behave the way they should. When something looks broken, re-open it in Chrome before assuming the file is wrong.
+  </div>
+  <p>To make Chrome your default so double-clicking always uses it: Chrome menu (&#8942;) &rarr; <strong>Settings</strong> &rarr; <strong>Default browser</strong> &rarr; <strong>Make default</strong>. Or on Windows: <kbd>Settings &rarr; Apps &rarr; Default apps</kbd> and set Chrome for web pages.</p>
+
+  <h2 class="section-title">Common snags</h2>
+  <div class="callout blue">
+    <strong>It opened as a wall of code.</strong> You're seeing the raw HTML, not the page. Right-click the file &rarr; <strong>Open with &rarr; Google Chrome</strong>.
+  </div>
+  <div class="callout blue">
+    <strong>It won't open / opens in a text editor.</strong> The file is set to open in the wrong app. Right-click &rarr; <strong>Open with &rarr; Choose another app</strong> &rarr; pick <strong>Google Chrome</strong> and check "always use this app."
+  </div>
+  <div class="callout blue">
+    <strong>You only see a download link, never the page.</strong> Some email and chat tools preview the code instead of rendering it. Download the file first, then open the downloaded copy.
+  </div>
+
+  <div class="callout green" style="margin-top:24px;">
+    <strong>That's it.</strong> Download &rarr; double-click (or drag into Chrome) &rarr; read. When in doubt, Chrome.
+  </div>
+
+</div>
+
+<div class="footer"><strong>School Technology Associates</strong> &middot; AI Program &middot; How to Open HTML Files</div>
+
+</body>
+</html>
