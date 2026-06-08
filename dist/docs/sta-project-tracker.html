@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STA Project Tracker - Tool Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:var(--blue); color:#fff; padding:28px 32px; border-bottom:3px solid var(--green); }
+  .badge { display:inline-block; background:#e6f0f6; color:var(--blue-dark); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:rgba(255,255,255,0.75); font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  .note { background:#eef7e6; border-left:4px solid var(--green-dark); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:var(--green-dark); }
+  .prompts { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:16px 18px; margin-top:8px; }
+  .prompts p { margin-bottom:8px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Live &middot; Shared (product/dev team)</span>
+      <h1>STA Project Tracker</h1>
+      <div class="tagline">Shared internal tracker for STA product and dev work - delivered as the Projects tab in the Help Center Index app.</div>
+    </div>
+    <div class="body">
+      <h2>What it is</h2>
+      <p>Not a chat agent - a built web app. It is the shared project tracker for STA's product and development work, surfaced as the Projects tab inside the Help Center Index single-page app, hosted on Cloudflare Pages. It gives the team one place to see where each project stands rather than chasing status across chats and docs.</p>
+
+      <h2>What it does</h2>
+      <ul>
+        <li>Shows every tracked product/dev project with its current stage, using a shared stage-classification standard so "where is this" means the same thing to everyone.</li>
+        <li>Shared with the product/dev team - Adam, Chris, Tyler, and Andy.</li>
+        <li><strong>Phase A (live):</strong> read-only view driven by <code>project-data.json</code>.</li>
+        <li><strong>Phase B (deferred):</strong> collaborative editing backed by a Cloudflare D1 database, so the team can update status in-app.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Built and maintained through The Architect's pipeline,</strong> tracked in the same agent registry as the chat agents even though it is a web app rather than a conversational tool.
+      </div>
+
+      <h2>What it does not do</h2>
+      <ul>
+        <li>Not a conversational assistant - you read and (in Phase B) edit it, you do not chat with it.</li>
+        <li>Does not replace Salesforce as the system of record for customer-facing work - this is internal product/dev tracking.</li>
+      </ul>
+
+      <h2>How to access it</h2>
+      <p>Open the Help Center Index app and switch to the Projects tab. Shared automatically with the product/dev team.</p>
+    </div>
+    <div class="foot">School Technology Associates &middot; STA Project Tracker &middot; Tool Brief</div>
+  </div>
+</body>
+</html>
