@@ -108,7 +108,7 @@
   <header>
     <p class="eyebrow">School Technology Associates &middot; AI Admin System Inventory</p>
     <h1>The AI Admin PC runs 27 plugins and ~276 non-custom skills - three kits carry 45% of them</h1>
-    <p class="meta">Generated 2026-06-06 &nbsp;&middot;&nbsp; Source: live session registry (skills + MCP servers) &nbsp;&middot;&nbsp; Scope: all installed plugins and stock skills; Adam's custom skills excluded</p>
+    <p class="meta">Generated 2026-06-06, updated 2026-06-07 &nbsp;&middot;&nbsp; Source: live session registry (skills + MCP servers) + context-org-tech-stack.md &nbsp;&middot;&nbsp; Scope: all installed plugins and stock skills, plus the full STA tech stack the AI layer plugs into; Adam's custom skills excluded</p>
   </header>
 
   <div class="body">
@@ -172,17 +172,27 @@
         <tr><td>cash-flow-snapshot</td><td>30/60/90-day cash forecast with confidence bands, from QB/PayPal/Stripe or CSV</td></tr>
         <tr><td>plan-payroll</td><td>Cash forecast + overdue invoice ranking so payroll clears</td></tr>
         <tr><td>invoice-chase</td><td>Overdue-invoice reminder emails matched to each customer's history and tone</td></tr>
-        <tr><td>close-month / month-end-prep</td><td>Reconcile QB vs processors, flag gaps, P&amp;L narrative, close packet export</td></tr>
-        <tr><td>margin-analyzer / price-check</td><td>Unit economics by product + pricing-scenario data views</td></tr>
+        <tr><td>close-month</td><td>Closes the month: reconcile QB vs processors, flag gaps, P&amp;L narrative, close packet export</td></tr>
+        <tr><td>month-end-prep</td><td>Walks the owner through month-end close - uncategorized transactions, duplicates, missing receipts, xlsx + PDF packet</td></tr>
+        <tr><td>margin-analyzer</td><td>Unit economics by product, cost benchmarks, pricing-scenario data (analysis only - no price recommendation)</td></tr>
+        <tr><td>price-check</td><td>Margin-by-product table plus three pricing-scenario views before a pricing decision</td></tr>
         <tr><td>quarterly-review</td><td>Full QBR narrative as presentation-ready PDF or deck</td></tr>
-        <tr><td>tax-prep / tax-season-organizer</td><td>Quarterly estimated tax calc or year-end 1099 prep, accountant handoff packet</td></tr>
-        <tr><td>contract-review / review-contract</td><td>Plain-English NDA/MSA/vendor review with severity-rated red flags and redline docx</td></tr>
-        <tr><td>lead-triage / call-list</td><td>Score inbound leads, produce "call these 5 today" with talking points</td></tr>
-        <tr><td>crm-cleanup / crm-maintenance</td><td>HubSpot hygiene: stale deals, duplicates, auto-logging from email/calendar</td></tr>
-        <tr><td>customer-pulse / customer-pulse-check</td><td>Disputes + tickets + reviews into themes and top-3 fixable issues</td></tr>
-        <tr><td>handle-complaint / ticket-deflector</td><td>End-to-end complaint handling; tone-matched replies with PayPal/HubSpot context</td></tr>
-        <tr><td>content-strategy / sales-brief</td><td>Sales-data-driven 30-day or 2-week content brief: push winners, clear slow movers</td></tr>
-        <tr><td>canva-creator / run-campaign</td><td>Execute a campaign end to end: calendar, Canva assets, copy, staged sends</td></tr>
+        <tr><td>tax-prep</td><td>Quarterly estimated tax calculation or year-end 1099 prep with accountant handoff packet</td></tr>
+        <tr><td>tax-season-organizer</td><td>Tax-season deliverables framed for the accountant - estimates, 1099-NEC candidate list, W-9 flags</td></tr>
+        <tr><td>contract-review</td><td>Plain-English NDA/MSA/vendor review from files, Gmail, or DocuSign; flags non-standard terms; redline DOCX</td></tr>
+        <tr><td>review-contract</td><td>Contract review with severity-rated red flags and a marked-up docx/PDF; takes a file path or DocuSign envelope ID</td></tr>
+        <tr><td>lead-triage</td><td>Scores inbound HubSpot leads by engagement, fit, urgency - "call these 5 today" with talking points</td></tr>
+        <tr><td>call-list</td><td>Ranks top-5 leads to call, pulls talking points from email history, blocks calendar time, drafts follow-ups</td></tr>
+        <tr><td>crm-cleanup</td><td>Scans HubSpot for stale deals, duplicate contacts, missing fields; fixes what the owner approves</td></tr>
+        <tr><td>crm-maintenance</td><td>Keeps HubSpot current without opening it - creates/updates contacts and deals from email and calendar context</td></tr>
+        <tr><td>customer-pulse</td><td>PayPal disputes, HubSpot tickets, email sentiment, and reviews into a themes report with "do these three things this week"</td></tr>
+        <tr><td>customer-pulse-check</td><td>Top-3 fixable issues synthesized from disputes/tickets/reviews, with drafted response templates</td></tr>
+        <tr><td>handle-complaint</td><td>End-to-end complaint handling - pulls context, drafts the response, suggests an operational fix</td></tr>
+        <tr><td>ticket-deflector</td><td>Tone-matched replies from PayPal order status + HubSpot history; can issue PayPal refunds with explicit approval</td></tr>
+        <tr><td>content-strategy</td><td>Sales data + seasonality into a prioritized 30-day content brief: what to push, what offers to run, what to hold</td></tr>
+        <tr><td>sales-brief</td><td>Top/bottom sellers and seasonality into a 2-week content brief - push winners, clear slow movers</td></tr>
+        <tr><td>canva-creator</td><td>Executes an approved content brief: posting calendar, Canva social designs, captions, staged HubSpot sends - every step owner-approved</td></tr>
+        <tr><td>run-campaign</td><td>End-to-end campaign run: sales analysis, content brief, Canva assets, HubSpot send</td></tr>
         <tr><td>job-post-builder</td><td>Hiring packet: job post, interview guide with rubric, offer letter</td></tr>
       </tbody></table>
     </div></details>
@@ -192,8 +202,10 @@
       <table><caption class="sr-only">Data skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
         <tr><td>analyze</td><td>Answer any data question, from quick lookup to full analysis</td></tr>
         <tr><td>explore-data</td><td>Profile a new dataset: shape, nulls, distributions, quality issues</td></tr>
-        <tr><td>sql-queries / write-query</td><td>Correct, performant SQL across all major warehouse dialects</td></tr>
-        <tr><td>create-viz / data-visualization</td><td>Publication-quality charts with the right chart type and design principles</td></tr>
+        <tr><td>sql-queries</td><td>Correct, performant SQL across all major warehouse dialects; optimization and dialect translation</td></tr>
+        <tr><td>write-query</td><td>Natural-language data need into optimized, dialect-specific SQL with CTEs, joins, window functions</td></tr>
+        <tr><td>create-viz</td><td>Query results or a DataFrame into a publication-quality chart, including interactive hover/zoom</td></tr>
+        <tr><td>data-visualization</td><td>Chart-type selection, color theory, and accessibility principles for matplotlib/seaborn/plotly</td></tr>
         <tr><td>build-dashboard</td><td>Interactive HTML dashboard with charts, filters, KPI cards</td></tr>
         <tr><td>statistical-analysis</td><td>Trends, outliers, hypothesis testing, correlations</td></tr>
         <tr><td>validate-data</td><td>QA an analysis before sharing - methodology, accuracy, bias checks</td></tr>
@@ -206,7 +218,8 @@
       <table><caption class="sr-only">Engineering skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
         <tr><td>code-review</td><td>Security, performance, and correctness review of a PR or diff</td></tr>
         <tr><td>debug</td><td>Structured debugging: reproduce, isolate, diagnose, fix</td></tr>
-        <tr><td>architecture / system-design</td><td>ADRs, technology trade-offs, service and API design</td></tr>
+        <tr><td>architecture</td><td>Architecture decision records (ADRs) - technology choices documented with trade-offs and consequences</td></tr>
+        <tr><td>system-design</td><td>Systems, services, and architectures: API design, data modeling, service boundaries</td></tr>
         <tr><td>incident-response</td><td>Triage, comms, and blameless postmortems</td></tr>
         <tr><td>deploy-checklist</td><td>Pre-deployment verification: CI, migrations, flags, rollback triggers</td></tr>
         <tr><td>testing-strategy</td><td>Test plans, coverage strategy, test architecture</td></tr>
@@ -255,7 +268,8 @@
         <tr><td>synthesize-research</td><td>Interviews, surveys, tickets into ranked insights</td></tr>
         <tr><td>stakeholder-update</td><td>Status updates tailored to exec, engineering, or customer audiences</td></tr>
         <tr><td>competitive-brief</td><td>Competitor positioning analysis and battlecards</td></tr>
-        <tr><td>brainstorm / product-brainstorming</td><td>Sharp thinking partner for problem-space exploration</td></tr>
+        <tr><td>brainstorm</td><td>Slash-command thinking partner for a product idea or strategic question</td></tr>
+        <tr><td>product-brainstorming</td><td>Problem-space exploration, solution generation, and assumption stress-testing before converging</td></tr>
       </tbody></table>
     </div></details>
 
@@ -263,7 +277,8 @@
       <p class="conn">Connectors: Ahrefs, Klaviyo, Supermetrics, Gmail, Calendar.</p>
       <table><caption class="sr-only">Marketing skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
         <tr><td>campaign-plan</td><td>Full campaign brief: objectives, audience, channels, week-by-week calendar</td></tr>
-        <tr><td>content-creation / draft-content</td><td>Blog, social, email, landing pages, press releases with channel formatting</td></tr>
+        <tr><td>content-creation</td><td>Marketing content across channels - blog, social, email, landing pages, press releases, case studies</td></tr>
+        <tr><td>draft-content</td><td>Channel-formatted drafts with SEO recommendations, headline/subject-line options, and platform adaptation</td></tr>
         <tr><td>email-sequence</td><td>Multi-email drip flows with timing, branching, exit conditions</td></tr>
         <tr><td>seo-audit</td><td>Keyword research, on-page analysis, content gaps, prioritized plan</td></tr>
         <tr><td>brand-review</td><td>Check drafts against brand voice and style guide, flag deviations</td></tr>
@@ -276,11 +291,13 @@
       <p class="conn">Connectors: BigQuery, Databricks, Snowflake, Gmail, Calendar.</p>
       <table><caption class="sr-only">Finance skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
         <tr><td>financial-statements</td><td>P&amp;L, balance sheet, cash flow with variance analysis</td></tr>
-        <tr><td>journal-entry / journal-entry-prep</td><td>Debits/credits with supporting documentation for close</td></tr>
+        <tr><td>journal-entry</td><td>Journal entries with proper debits, credits, and supporting detail - accruals, depreciation, rev rec</td></tr>
+        <tr><td>journal-entry-prep</td><td>Month-end close entries: AP/payroll accruals, prepaid amortization, fixed-asset depreciation, deferred revenue</td></tr>
         <tr><td>reconciliation</td><td>GL vs subledger, bank recs, intercompany recs</td></tr>
         <tr><td>variance-analysis</td><td>Decompose variances into drivers with waterfall narrative</td></tr>
         <tr><td>close-management</td><td>Month-end close sequencing, dependencies, status tracking</td></tr>
-        <tr><td>sox-testing / audit-support</td><td>SOX 404 sample selection, workpapers, deficiency classification</td></tr>
+        <tr><td>sox-testing</td><td>SOX sample selections, testing workpapers, and control assessments for quarterly/annual 404 testing</td></tr>
+        <tr><td>audit-support</td><td>SOX 404 control-testing methodology, sample selection, deficiency classification, audit prep</td></tr>
       </tbody></table>
     </div></details>
 
@@ -292,7 +309,8 @@
         <tr><td>ux-copy</td><td>Microcopy: error messages, empty states, CTAs, onboarding text</td></tr>
         <tr><td>design-system</td><td>Audit, document, or extend a design system</td></tr>
         <tr><td>design-handoff</td><td>Developer specs: tokens, props, states, breakpoints</td></tr>
-        <tr><td>user-research / research-synthesis</td><td>Plan research, then distill it into themes and next steps</td></tr>
+        <tr><td>user-research</td><td>Plan and conduct research: interview guides, usability tests, survey design, research questions</td></tr>
+        <tr><td>research-synthesis</td><td>Transcripts, surveys, tickets, and NPS into themes, segments, and prioritized recommendations</td></tr>
       </tbody></table>
     </div></details>
 
@@ -307,7 +325,7 @@
       </tbody></table>
     </div></details>
 
-    <h2>Twelve tool integrations - the two heaviest are developer reference kits</h2>
+    <h2>Ten tool integrations - the two heaviest are developer reference kits</h2>
     <table>
       <caption>Tool-integration plugins (114 skills total) - Twilio and Zoom are docs-in-a-box, the rest are working surfaces</caption>
       <thead><tr><th scope="col">Plugin</th><th scope="col" class="num">Skills</th><th scope="col">What it gives you</th></tr></thead>
@@ -331,52 +349,74 @@
       <table><caption class="sr-only">Twilio setup skills</caption><tbody>
         <tr><td>twilio-account-setup</td><td>Account creation, trial limits, credentials, first API call, subaccounts</td></tr>
         <tr><td>twilio-organizations-setup</td><td>Org &gt; account &gt; subaccount governance, SSO, SCIM</td></tr>
-        <tr><td>twilio-iam-auth-setup / twilio-security-api-auth</td><td>Auth tokens, API keys, access tokens, rotation</td></tr>
+        <tr><td>twilio-iam-auth-setup</td><td>Auth tokens, API keys (Standard/Main/Restricted), access tokens, credential rotation</td></tr>
+        <tr><td>twilio-security-api-auth</td><td>Pick the right auth method: auth token (testing), API keys (production), OAuth2, test credentials</td></tr>
         <tr><td>twilio-cli-reference</td><td>Manage Twilio from the terminal: numbers, webhooks, debugging</td></tr>
       </tbody></table>
       <h4>Messaging (12)</h4>
       <table><caption class="sr-only">Twilio messaging skills</caption><tbody>
-        <tr><td>twilio-messaging-overview / -channel-advisor</td><td>Channel landscape + pick SMS vs MMS vs RCS vs WhatsApp</td></tr>
-        <tr><td>twilio-send-message / -sms-send-message</td><td>Send across all channels; SMS-specific error/filtering deep dive</td></tr>
-        <tr><td>twilio-whatsapp-send-message / -manage-senders</td><td>24-hour window rules, templates, sender registration at scale</td></tr>
+        <tr><td>twilio-messaging-overview</td><td>All channels (SMS, WhatsApp, RCS, Messenger), unified Messages API, recommended setup sequence</td></tr>
+        <tr><td>twilio-messaging-channel-advisor</td><td>Pick SMS vs MMS vs RCS vs WhatsApp by content type, geography, use case, cost</td></tr>
+        <tr><td>twilio-send-message</td><td>Send across all channels - text, media, rich content, templates, status callbacks</td></tr>
+        <tr><td>twilio-sms-send-message</td><td>SMS deep dive: error codes, "messages being filtered" diagnosis, MMS media limits</td></tr>
+        <tr><td>twilio-whatsapp-send-message</td><td>24-hour service window rules, sandbox testing, template approval workflow</td></tr>
+        <tr><td>twilio-whatsapp-manage-senders</td><td>Programmatic WhatsApp sender registration, profiles, lifecycle, ISV flows</td></tr>
         <tr><td>twilio-rcs-messaging</td><td>RCS rich cards, carousels, SMS fallback, onboarding</td></tr>
-        <tr><td>twilio-messaging-services / -webhooks</td><td>Production sender pools, sticky sender; inbound + status callbacks</td></tr>
+        <tr><td>twilio-messaging-services</td><td>Production sender pools, geo-match, sticky sender, scheduling, link shortening</td></tr>
+        <tr><td>twilio-messaging-webhooks</td><td>Inbound messages, TwiML replies, signature validation, delivery status callbacks</td></tr>
         <tr><td>twilio-content-template-builder</td><td>Pre-approved message templates via Content API</td></tr>
-        <tr><td>twilio-numbers-senders / -sms-isv-setup</td><td>Number/sender type selection; multi-tenant ISV patterns</td></tr>
+        <tr><td>twilio-numbers-senders</td><td>Choose number/sender type before building - each has its own compliance program</td></tr>
+        <tr><td>twilio-sms-isv-setup</td><td>Multi-tenant SaaS SMS: customer compliance onboarding, subaccounts, billing patterns</td></tr>
       </tbody></table>
       <h4>Voice + contact center (8)</h4>
       <table><caption class="sr-only">Twilio voice skills</caption><tbody>
-        <tr><td>twilio-voice-outbound-calls / -voice-twiml</td><td>REST API calls, AMD, call logic verbs, IVR examples</td></tr>
+        <tr><td>twilio-voice-outbound-calls</td><td>Outbound calls via REST: calls.create(), answering machine detection, agent bridging, SIP</td></tr>
+        <tr><td>twilio-voice-twiml</td><td>Call logic verbs (Say, Play, Gather, Dial, Record, Conference) with a full IVR example</td></tr>
         <tr><td>twilio-voice-conversation-relay</td><td>Real-time AI voice agents: ASR, TTS, WebSocket streaming</td></tr>
-        <tr><td>twilio-conference-calls / -call-recordings</td><td>Warm/cold transfer, whisper, barge; compliant recording</td></tr>
+        <tr><td>twilio-conference-calls</td><td>Multi-party calls: warm/cold transfer, whisper coaching, hold vs mute, supervisor barge</td></tr>
+        <tr><td>twilio-call-recordings</td><td>Record verb vs Dial-record distinction, dual-channel QA, mid-call PCI pause</td></tr>
         <tr><td>twilio-taskrouter-routing</td><td>Skills-based routing to agents, queues, workflows</td></tr>
-        <tr><td>twilio-customer-support-architect / -agent-augmentation-architect</td><td>Planning skills: support ladders, AI coaching architectures</td></tr>
+        <tr><td>twilio-customer-support-architect</td><td>Plan the support ladder: self-service &rarr; AI agents &rarr; contact center</td></tr>
+        <tr><td>twilio-agent-augmentation-architect</td><td>Plan real-time AI coaching, compliance, and QA for human agents</td></tr>
       </tbody></table>
       <h4>AI agents + intelligence (7)</h4>
       <table><caption class="sr-only">Twilio AI skills</caption><tbody>
-        <tr><td>twilio-ai-agent-architect / -agent-connect</td><td>Plan conversational agents; connect OpenAI/Bedrock/LangChain agents</td></tr>
-        <tr><td>twilio-conversation-intelligence / -orchestrator</td><td>Sentiment/QA analysis pipelines; auto conversation capture</td></tr>
-        <tr><td>twilio-customer-memory / -enterprise-knowledge</td><td>Per-customer persistent memory; org-wide knowledge retrieval</td></tr>
+        <tr><td>twilio-ai-agent-architect</td><td>Qualify and plan conversational-agent builds: outcome, entry point, customer profile</td></tr>
+        <tr><td>twilio-agent-connect</td><td>Connect OpenAI/Bedrock/LangChain/Foundry agents to Twilio channels with identity + memory</td></tr>
+        <tr><td>twilio-conversation-intelligence</td><td>Sentiment, QA, and agent-assist analysis pipelines; aggregated insight queries</td></tr>
+        <tr><td>twilio-conversation-orchestrator</td><td>Auto-capture SMS/voice/WhatsApp/RCS/chat traffic into unified conversations</td></tr>
+        <tr><td>twilio-customer-memory</td><td>Per-customer persistent memory: profiles, traits, observations, semantic recall</td></tr>
+        <tr><td>twilio-enterprise-knowledge</td><td>Org-wide knowledge base provisioning + semantic search for agent grounding</td></tr>
         <tr><td>twilio-conversations-classic-api</td><td>Multi-party, multi-channel persistent conversations</td></tr>
       </tbody></table>
       <h4>Verify, lookup, compliance, ops (15)</h4>
       <table><caption class="sr-only">Twilio compliance skills</caption><tbody>
-        <tr><td>twilio-verify-send-otp / -identity-verification-advisor</td><td>OTP over five channels; fraud-risk architecture planning</td></tr>
+        <tr><td>twilio-verify-send-otp</td><td>OTP over SMS, RCS, voice, email, or WhatsApp; service config and code checks</td></tr>
+        <tr><td>twilio-identity-verification-advisor</td><td>Risk-adaptive verification architecture: method, channel, fraud level, UX</td></tr>
         <tr><td>twilio-lookup-phone-intelligence</td><td>Line type, SIM swap, SMS-pumping risk scoring</td></tr>
-        <tr><td>twilio-compliance-onboarding / -compliance-traffic</td><td>A2P 10DLC, toll-free, WABA registration; TCPA/GDPR/PCI/HIPAA rules</td></tr>
+        <tr><td>twilio-compliance-onboarding</td><td>Registrations before traffic works: A2P 10DLC, toll-free, WABA, STIR/SHAKEN</td></tr>
+        <tr><td>twilio-compliance-traffic</td><td>Rules for live traffic: TCPA, GDPR, PCI DSS, HIPAA, FDCPA, CAN-SPAM, consent</td></tr>
         <tr><td>twilio-regulatory-compliance-bundles</td><td>International number compliance bundles</td></tr>
-        <tr><td>twilio-security-hardening / -security-compliance-hipaa</td><td>Webhook validation, pumping prevention; BAA + HIPAA projects</td></tr>
-        <tr><td>twilio-debugging-observability / -reliability-patterns</td><td>Console debugger, error streams; 429 backoff, fallback chains</td></tr>
-        <tr><td>twilio-webhook-architecture / -messaging-webhooks</td><td>Secure callback endpoints, retries, local tunneling</td></tr>
-        <tr><td>twilio-marketing-promotions-advisor / -notifications-alerts-advisor</td><td>Campaign and alert architecture planning</td></tr>
-        <tr><td>twilio-email-send / -email-deliverability-advisor</td><td>Twilio-native email (not SendGrid): batch sends, deliverability</td></tr>
+        <tr><td>twilio-security-hardening</td><td>Credential management, webhook signature validation, SMS-pumping prevention, geo-permissions</td></tr>
+        <tr><td>twilio-security-compliance-hipaa</td><td>BAA requirements, HIPAA project designation, eligible services, message redaction</td></tr>
+        <tr><td>twilio-debugging-observability</td><td>Console debugger, Monitor Alerts, Event Streams, systematic debugging workflow</td></tr>
+        <tr><td>twilio-reliability-patterns</td><td>429 exponential backoff, per-number throughput, StatusCallback resilience, fallback chains</td></tr>
+        <tr><td>twilio-webhook-architecture</td><td>Design, secure, and operate callback endpoints: retries, timeouts, local tunneling</td></tr>
+        <tr><td>twilio-marketing-promotions-advisor</td><td>Marketing campaign architecture: channel, compliance readiness, audience, tracking</td></tr>
+        <tr><td>twilio-notifications-alerts-advisor</td><td>Transactional notification architecture: urgency, delivery confirmation, fallback</td></tr>
+        <tr><td>twilio-email-send</td><td>Twilio-native email (comms.twilio.com, not SendGrid): single + batch sends to 10k</td></tr>
+        <tr><td>twilio-email-deliverability-advisor</td><td>Deliverability diagnosis for the Twilio Email API specifically</td></tr>
       </tbody></table>
       <h4>SendGrid (8)</h4>
       <table><caption class="sr-only">SendGrid skills</caption><tbody>
-        <tr><td>sendgrid-account-setup / -email-send</td><td>API keys, domain auth (DKIM/SPF); transactional + bulk sends</td></tr>
-        <tr><td>sendgrid-deliverability-advisor / -engagement-quality</td><td>Spam/inbox diagnosis; SEQ reputation scoring</td></tr>
-        <tr><td>sendgrid-email-settings / -suppressions</td><td>Dynamic templates, tracking, link branding; bounce/unsub management</td></tr>
-        <tr><td>sendgrid-webhooks / -inbound-parse</td><td>Delivery event tracking; email-to-app workflows</td></tr>
+        <tr><td>twilio-sendgrid-account-setup</td><td>SendGrid API keys (SG.-prefix), domain authentication (DKIM/SPF), sender verification</td></tr>
+        <tr><td>twilio-sendgrid-email-send</td><td>Transactional + bulk sends via Mail Send v3: dynamic templates, scheduling, sandbox</td></tr>
+        <tr><td>twilio-sendgrid-deliverability-advisor</td><td>Spam/inbox diagnosis: SPF, DKIM, DMARC, BIMI, IP warmup, list hygiene</td></tr>
+        <tr><td>twilio-sendgrid-engagement-quality</td><td>SEQ reputation scoring - 5 metrics, eligibility, interpretation</td></tr>
+        <tr><td>twilio-sendgrid-email-settings</td><td>Dynamic Handlebars templates, open/click tracking, link branding, content types</td></tr>
+        <tr><td>twilio-sendgrid-suppressions</td><td>Bounces, blocks, spam reports, global unsubscribes, ASM suppression groups</td></tr>
+        <tr><td>twilio-sendgrid-webhooks</td><td>All 11 delivery/engagement event types, ECDSA signature verification, batching</td></tr>
+        <tr><td>twilio-sendgrid-inbound-parse</td><td>Email-to-app workflows: MX setup, parsed vs raw mode, attachments</td></tr>
       </tbody></table>
     </div></details>
 
@@ -384,26 +424,42 @@
       <p class="conn">Zoom platform build reference with an MCP for meetings, recordings, and transcripts.</p>
       <h4>Planning + routing (6)</h4>
       <table><caption class="sr-only">Zoom planning skills</caption><tbody>
-        <tr><td>start / choose-zoom-approach / plan-zoom-product</td><td>Entry points: pick the right Zoom surface for a use case</td></tr>
+        <tr><td>start</td><td>Entry point for any Zoom integration idea - routes into the correct implementation skill</td></tr>
+        <tr><td>choose-zoom-approach</td><td>Decide between REST API, webhooks, WebSockets, SDKs, MCP, Phone, Contact Center, or hybrid</td></tr>
+        <tr><td>plan-zoom-product</td><td>Pick the right Zoom building surface for a product idea, with tradeoffs explained</td></tr>
         <tr><td>plan-zoom-integration</td><td>Idea to implementation plan with milestones and risks</td></tr>
         <tr><td>general</td><td>Cross-product platform guidance, app models, scopes</td></tr>
-        <tr><td>design-mcp-workflow / setup-zoom-mcp / zoom-mcp</td><td>When and how to use Zoom MCP vs REST</td></tr>
+        <tr><td>design-mcp-workflow</td><td>Design a Zoom MCP workflow for Claude; separate MCP vs REST responsibilities</td></tr>
+        <tr><td>setup-zoom-mcp</td><td>When Zoom MCP fits, plus a safe setup plan</td></tr>
+        <tr><td>zoom-mcp</td><td>Guidance for the bundled Zoom MCP connectors: meetings, recordings, transcripts</td></tr>
       </tbody></table>
       <h4>Build surfaces (13)</h4>
       <table><caption class="sr-only">Zoom build skills</caption><tbody>
-        <tr><td>meeting-sdk / build-zoom-meeting-app</td><td>Embed real Zoom meetings; join flows, waiting rooms, bots</td></tr>
-        <tr><td>video-sdk / ui-toolkit</td><td>Fully custom video sessions; prebuilt React UI</td></tr>
+        <tr><td>meeting-sdk</td><td>Embed real Zoom meetings: auth and join flows, waiting rooms, meeting bot patterns</td></tr>
+        <tr><td>build-zoom-meeting-app</td><td>Meeting SDK joins, web/mobile embeds, lifecycle flows; Meeting SDK vs Video SDK decision</td></tr>
+        <tr><td>video-sdk</td><td>Fully custom video sessions when a real Zoom meeting isn't wanted</td></tr>
+        <tr><td>ui-toolkit</td><td>Prebuilt React UI for Video SDK instead of building custom</td></tr>
         <tr><td>zoom-apps-sdk</td><td>Web apps running inside the Zoom client</td></tr>
-        <tr><td>build-zoom-bot / rtms</td><td>Meeting bots; real-time audio/video/transcript streams</td></tr>
+        <tr><td>build-zoom-bot</td><td>Meeting bots, recorders, and real-time media workflows combining SDK + RTMS + backend</td></tr>
+        <tr><td>rtms</td><td>Real-time audio/video/chat/transcript/screen-share streams</td></tr>
         <tr><td>scribe</td><td>Transcription of uploaded/stored media, batch jobs</td></tr>
-        <tr><td>team-chat / phone / contact-center / virtual-agent / cobrowse-sdk</td><td>Chat bots, Phone APIs/dialers, CC integrations, KB-synced virtual agents, co-browsing</td></tr>
+        <tr><td>team-chat</td><td>Team Chat messaging integrations: chatbots, rich cards, slash commands, webhooks</td></tr>
+        <tr><td>phone</td><td>Zoom Phone: OAuth, Phone APIs, webhooks, Smart Embed, CRM/CTI dialers</td></tr>
+        <tr><td>contact-center</td><td>Contact Center app/web/native integrations, engagement context, campaigns, callbacks</td></tr>
+        <tr><td>virtual-agent</td><td>Virtual Agent web embeds, mobile wrappers, knowledge-base sync, lifecycle</td></tr>
+        <tr><td>cobrowse-sdk</td><td>Browser co-browsing: annotation, privacy masking, PIN-based session sharing</td></tr>
       </tbody></table>
       <h4>Plumbing + debugging (11)</h4>
       <table><caption class="sr-only">Zoom plumbing skills</caption><tbody>
-        <tr><td>oauth / setup-zoom-oauth</td><td>Credentials, grant types, scopes, token refresh</td></tr>
-        <tr><td>rest-api / webhooks / websockets / rivet-sdk</td><td>Endpoints and rate limits; events via webhook, WebSocket, or Rivet server SDK</td></tr>
+        <tr><td>oauth</td><td>App credentials, grant types, scopes, token refresh, OAuth failure debugging</td></tr>
+        <tr><td>setup-zoom-oauth</td><td>Implement Zoom authentication correctly end to end</td></tr>
+        <tr><td>rest-api</td><td>Endpoint selection, resource management, rate limits, API error debugging</td></tr>
+        <tr><td>webhooks</td><td>Event subscriptions, signature verification, delivery handling, retries</td></tr>
+        <tr><td>websockets</td><td>Persistent low-latency event delivery when webhooks aren't enough</td></tr>
+        <tr><td>rivet-sdk</td><td>Rivet server SDK: auth handling, webhook consumers, API wrappers, Lambda receivers</td></tr>
         <tr><td>probe-sdk</td><td>Preflight device/network readiness checks</td></tr>
-        <tr><td>debug-zoom / debug-zoom-integration</td><td>Isolate failures across auth, API, SDK, MCP layers</td></tr>
+        <tr><td>debug-zoom</td><td>Ranked hypothesis list + verification steps for a broken Zoom integration</td></tr>
+        <tr><td>debug-zoom-integration</td><td>Isolate the failing layer - auth, API, webhook, SDK, or MCP - before proposing a fix</td></tr>
       </tbody></table>
     </div></details>
 
@@ -423,20 +479,30 @@
     <details class="plug"><summary>Slack by Salesforce - 7 skills, full detail</summary><div class="inner">
       <p class="conn">Slack MCP connected (read, search, send, canvases, scheduled messages).</p>
       <table><caption class="sr-only">Slack skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
-        <tr><td>channel-digest / summarize-channel</td><td>Activity digests across channels or one channel</td></tr>
+        <tr><td>channel-digest</td><td>Digest of recent activity across multiple channels</td></tr>
+        <tr><td>summarize-channel</td><td>Summary of recent activity in one channel</td></tr>
         <tr><td>find-discussions</td><td>Topic search across channels</td></tr>
         <tr><td>draft-announcement</td><td>Well-formatted announcement saved as draft</td></tr>
         <tr><td>standup</td><td>Standup update from your recent Slack activity</td></tr>
-        <tr><td>slack-messaging / slack-search</td><td>mrkdwn formatting craft; effective search syntax</td></tr>
+        <tr><td>slack-messaging</td><td>mrkdwn formatting craft for effective Slack messages</td></tr>
+        <tr><td>slack-search</td><td>Search syntax guidance for finding messages, files, channels, people</td></tr>
       </tbody></table>
     </div></details>
 
     <details class="plug"><summary>PDF Viewer, Airtable, Qodo, Fluent, Desktop Commander, Postiz - 14 skills</summary><div class="inner">
       <table><caption class="sr-only">Smaller tool plugin skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
-        <tr><td>pdf-viewer: view-pdf / open / annotate / fill-form / sign</td><td>Interactive PDF viewing, collaborative markup, form fill, signatures</td></tr>
-        <tr><td>airtable: cli / filters / overview</td><td>Base/table/record CRUD, filtering patterns, data-model explainer</td></tr>
-        <tr><td>qodo: get-rules / pr-resolver</td><td>Load org coding rules; review and resolve PR feedback</td></tr>
-        <tr><td>fluent: now-sdk-explain / now-sdk-setup</td><td>ServiceNow Fluent SDK docs and environment setup</td></tr>
+        <tr><td>pdf-viewer: view-pdf</td><td>Interactive PDF viewer for visual collaboration - annotate, highlight, review markup</td></tr>
+        <tr><td>pdf-viewer: open</td><td>Open a PDF in the interactive viewer</td></tr>
+        <tr><td>pdf-viewer: annotate</td><td>Collaboratively annotate: propose markup, review together, iterate</td></tr>
+        <tr><td>pdf-viewer: fill-form</td><td>Fill PDF form fields interactively with live visual feedback</td></tr>
+        <tr><td>pdf-viewer: sign</td><td>Place a signature or initials image on a PDF</td></tr>
+        <tr><td>airtable: airtable-cli</td><td>Base/table/record CRUD, field management, search via the airtable-mcp CLI</td></tr>
+        <tr><td>airtable: airtable-filters</td><td>Find and narrow records by field values - filtering patterns</td></tr>
+        <tr><td>airtable: airtable-overview</td><td>Airtable data-model explainer: bases, tables, fields, views, automations</td></tr>
+        <tr><td>qodo: qodo-get-rules</td><td>Load the org coding rules most relevant to the current coding task</td></tr>
+        <tr><td>qodo: qodo-pr-resolver</td><td>Review Qodo PR feedback, apply fixes, reply to inline comments</td></tr>
+        <tr><td>fluent: now-sdk-explain</td><td>ServiceNow Fluent SDK documentation via now-sdk explain</td></tr>
+        <tr><td>fluent: now-sdk-setup</td><td>Configure the environment so now-sdk explain works</td></tr>
         <tr><td>desktop-commander-overview</td><td>Persistent shells/REPLs, filesystem beyond workspace, SSH (26-tool MCP)</td></tr>
         <tr><td>postiz</td><td>Schedule social/chat posts to 28+ channels (X, LinkedIn, Reddit, Discord...)</td></tr>
       </tbody></table>
@@ -464,19 +530,23 @@
         <tr><td>nimble-agent-builder</td><td>Build reusable extraction workflows for sites you scrape repeatedly</td></tr>
         <tr><td>search</td><td>Default web search command, 8 focus modes</td></tr>
         <tr><td>company-deep-dive</td><td>Sourced 360 report on any company: funding, leadership, product, news</td></tr>
-        <tr><td>competitor-intel / competitor-positioning</td><td>Business-signal briefings; messaging/pricing/positioning teardowns</td></tr>
+        <tr><td>competitor-intel</td><td>Business-signal briefings: news, launches, hiring, funding - only what's new since last check</td></tr>
+        <tr><td>competitor-positioning</td><td>Messaging/pricing/positioning teardowns from competitor sites, with before/after shift tracking</td></tr>
         <tr><td>market-finder</td><td>Find all businesses of a type in a geography; audit your list against it</td></tr>
         <tr><td>local-places</td><td>Discover and score local businesses with reviews and a map</td></tr>
         <tr><td>meeting-prep</td><td>Attendee + company research before any meeting</td></tr>
         <tr><td>seo-intel</td><td>Keywords, rank tracking, site audits, AI-visibility across 5 platforms</td></tr>
         <tr><td>talent-sourcing</td><td>Ranked candidate lists from LinkedIn/Indeed/GitHub</td></tr>
-        <tr><td>healthcare-providers extract / enrich / verify</td><td>Practitioner data extraction, gap-filling, NPI credential validation</td></tr>
+        <tr><td>healthcare-providers-extract</td><td>Structured practitioner data from healthcare practice websites</td></tr>
+        <tr><td>healthcare-providers-enrich</td><td>Fill gaps in existing provider lists: phones, credentials, specialties, reviews</td></tr>
+        <tr><td>healthcare-providers-verify</td><td>Validate credentials and license status against the NPI registry</td></tr>
       </tbody></table>
     </div></details>
 
     <details class="plug"><summary>Enterprise Search + VPAI - 6 skills, full detail</summary><div class="inner">
       <table><caption class="sr-only">Enterprise search and VPAI skills</caption><thead><tr><th scope="col">Skill</th><th scope="col">What it does</th></tr></thead><tbody>
-        <tr><td>search / search-strategy</td><td>One query across all connected sources; query decomposition per source</td></tr>
+        <tr><td>search</td><td>One query across all connected sources - chat, email, cloud storage, trackers</td></tr>
+        <tr><td>search-strategy</td><td>Query decomposition per source, source-specific syntax, relevance ranking, fallbacks</td></tr>
         <tr><td>knowledge-synthesis</td><td>Deduplicated answers with confidence scoring and attribution</td></tr>
         <tr><td>digest</td><td>Daily/weekly activity digest across sources</td></tr>
         <tr><td>source-management</td><td>Detect, connect, and prioritize search sources</td></tr>
@@ -487,22 +557,27 @@
     <details class="plug"><summary>Productivity, Brand Voice, Product Tracking, Plugin Mgmt - 18 skills, full detail</summary><div class="inner">
       <h4>Productivity (4) - connectors: Notion, Linear, Atlassian, ClickUp, Monday, MS365, Slack</h4>
       <table><caption class="sr-only">Productivity skills</caption><tbody>
-        <tr><td>start / update</td><td>Initialize the system + dashboard; sync tasks and refresh memory</td></tr>
+        <tr><td>start</td><td>Initialize the productivity system and open the dashboard; bootstrap working memory</td></tr>
+        <tr><td>update</td><td>Sync tasks from trackers, triage stale/overdue items, fill memory gaps, scan chat + email for todos</td></tr>
         <tr><td>task-management</td><td>Shared TASKS.md task tracking</td></tr>
         <tr><td>memory-management</td><td>Two-tier memory: decodes your shorthand, acronyms, nicknames</td></tr>
       </tbody></table>
       <h4>Brand Voice (5) - connectors: Box, Gong, Granola, Figma; ships 5 subagents</h4>
       <table><caption class="sr-only">Brand voice skills</caption><tbody>
         <tr><td>discover-brand</td><td>Search connected platforms for scattered brand materials</td></tr>
-        <tr><td>guideline-generation / generate-guidelines</td><td>Brand voice guidelines from docs, transcripts, call recordings</td></tr>
-        <tr><td>brand-voice-enforcement / enforce-voice</td><td>Apply guidelines to any content: emails, decks, posts</td></tr>
+        <tr><td>guideline-generation</td><td>Generate brand voice guidelines from documents, transcripts, and meeting recordings</td></tr>
+        <tr><td>generate-guidelines</td><td>Slash-command variant: guidelines from docs, transcripts, or discovery reports</td></tr>
+        <tr><td>brand-voice-enforcement</td><td>Apply brand guidelines to any content request - emails, proposals, decks, posts</td></tr>
+        <tr><td>enforce-voice</td><td>Slash-command variant: apply brand guidelines to content creation</td></tr>
       </tbody></table>
       <h4>Product Tracking (7) + watchdog agent</h4>
       <table><caption class="sr-only">Product tracking skills</caption><tbody>
         <tr><td>model-product</td><td>Entry point: structured product model from codebase + interview</td></tr>
         <tr><td>audit-current-tracking</td><td>Reverse-engineer what analytics already exist in a codebase</td></tr>
-        <tr><td>design-tracking-plan / generate-implementation-guide</td><td>Target event plan + SDK-specific instrumentation guide (24 destinations)</td></tr>
-        <tr><td>implement-tracking / instrument-new-feature</td><td>Generate typed wrapper code; keep the plan current as features ship</td></tr>
+        <tr><td>design-tracking-plan</td><td>Opinionated target tracking plan + explicit delta from current state</td></tr>
+        <tr><td>generate-implementation-guide</td><td>SDK-specific instrumentation guide with template code - 24 analytics destinations</td></tr>
+        <tr><td>implement-tracking</td><td>Generate typed SDK wrapper code and identity management from the plan</td></tr>
+        <tr><td>instrument-new-feature</td><td>Keep the tracking plan current as features ship - versioned mini-deltas + changelog</td></tr>
         <tr><td>business-case</td><td>Stakeholder-ready case for adding telemetry</td></tr>
       </tbody></table>
       <h4>Cowork Plugin Management (2)</h4>
@@ -559,6 +634,40 @@
     </div></details>
 
     <p>A <strong>deep-research</strong> harness (fan-out search, adversarial verification, cited reports) is also available as a built-in, outside the stock-skill count.</p>
+
+    <h2>The full STA tech stack - everything the AI layer plugs into</h2>
+    <p>The company-wide tool inventory the plugins and connectors above integrate with. Source: <strong>context-org-tech-stack.md</strong> (the shared STA tech-stack context file) plus live deployment facts as of 2026-06-07.</p>
+    <table>
+      <caption>STA tech stack by category, with AI-connection status</caption>
+      <thead><tr><th scope="col">Category</th><th scope="col">Tool</th><th scope="col">What it does / AI status</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="5">Core business</td><td>Salesforce</td><td>Primary CRM + customer ops + full financials. Installed packages: Salesforce CPQ, Accounting Seed Financial Suite, Accounting Seed Orders &amp; Inventory, DBSync QuickBooks Integration, DevOps Center. <span class="st g">AI-connected</span> (plugin; Salesforce Admin Assistant + Cohort live)</td></tr>
+        <tr><td>Google Workspace</td><td>Gmail, Drive, Calendar, Chat - email, file storage, scheduling, internal messaging. <span class="st w">Partial</span>: Gmail MCP connected (draft-only); Calendar used by the rd-time-tracking scheduled task; Drive/Chat not connected (Drive holds sensitive files - treat with care)</td></tr>
+        <tr><td>QuickBooks</td><td>Accounting, synced from Salesforce via DBSync. <span class="st b">Not AI-connected</span></td></tr>
+        <tr><td>Skyward (SMS 2.0 / Qmlativ)</td><td>Customers' SIS/ERP - STA integrates with it, does not run it. <span class="st w">Monitoring only</span> (Skyward Friday Digest automation)</td></tr>
+        <tr><td>ISCorp</td><td>Hosting for SchoolTRAK. <span class="st b">Not AI-connected</span></td></tr>
+        <tr><td rowspan="5">Communication</td><td>Google Chat</td><td>Primary internal messaging. <span class="st b">Not AI-connected</span> (identified future target)</td></tr>
+        <tr><td>Slack</td><td>AI-output channel - adopted for its AI integration ease; System Monitor health reports post here. <span class="st g">AI-connected</span> (MCP)</td></tr>
+        <tr><td>Zoom</td><td>Meetings. <span class="st b">Not AI-connected</span> (post-meeting case notes are a named pain point; Zoom plugin installed for future builds)</td></tr>
+        <tr><td>Salesforce Chatter</td><td>Case-related in-platform messaging. <span class="st g">Via Salesforce</span></td></tr>
+        <tr><td>Intercom / HubSpot</td><td>Customer-facing comms. <span class="st w">Plugin-connected</span>; HubSpot's relationship to Salesforce as system of record not fully defined - flag in any CRM-adjacent design</td></tr>
+        <tr><td rowspan="5">Content &amp; knowledge</td><td>Salesforce Knowledge (Help Center)</td><td>Customer-facing KB in a strict HTML format. <span class="st g">AI-integrated</span> (Help Center Article skill, Help Center Advisor agent, GA4 help-center reporting)</td></tr>
+        <tr><td>Guru / Notion / Atlassian</td><td>Knowledge management and project tracking. <span class="st w">Plugin-connected</span></td></tr>
+        <tr><td>WordPress (k12sta.com)</td><td>Public website - podcast, newsletters, blog, user stories. <span class="st w">Content archived to KB</span> (k12sta-web-content-archive)</td></tr>
+        <tr><td>Mailchimp</td><td>B2B email marketing. <span class="st b">Not AI-connected</span> (STA-specific KB module exists)</td></tr>
+        <tr><td>Adobe / Camtasia / Snagit / Dropbox</td><td>Content creation, screen recording, capture; secondary file storage. <span class="st b">Not AI-connected</span></td></tr>
+        <tr><td rowspan="2">Support &amp; remote</td><td>GoToAssist</td><td>Remote access during customer support sessions. <span class="st b">Not AI-connected</span></td></tr>
+        <tr><td>Granola</td><td>AI meeting notes/transcripts. <span class="st g">AI-connected</span> (feeds the rd-time-tracking-weekly task)</td></tr>
+        <tr><td rowspan="5">AI &amp; dev infrastructure</td><td>Claude (Anthropic)</td><td>claude.ai Projects (staff tools), Cowork desktop (agents + skills on this PC), Claude Code (repo work, PRs). <span class="st g">The AI layer itself</span></td></tr>
+        <tr><td>GitHub</td><td>Repos for the training hub, BwB web apps, and the weekly full-system backup. Protected main; PR-based deploys. <span class="st g">AI-connected</span> (Claude Code + weekly-github-backup)</td></tr>
+        <tr><td>Cloudflare Pages (+ D1)</td><td>Hosts the STA Training Hub and the Help Center Index app's Projects tab (D1-backed tracker); deploys from origin/main on PR merge. <span class="st g">AI-maintained</span></td></tr>
+        <tr><td>Netlify</td><td>Hosts the STA Help Center Index single-page app. <span class="st g">AI-maintained</span></td></tr>
+        <tr><td>Google Analytics 4</td><td>Help Center traffic analytics. <span class="st g">AI-connected</span> (ga4-helpcenter connector + help-center-report skill)</td></tr>
+        <tr><td rowspan="2">Security</td><td>Bullphish / Webroot / Spanning</td><td>Phishing training, endpoint protection, Salesforce backup. <span class="st w">Monitored</span> via STA Security Advisor (CIS v8.1 evidence tracking)</td></tr>
+        <tr><td>Google Admin Console</td><td>Workspace administration, MFA enforcement, security events. <span class="st w">Monitored</span> via STA Security Advisor</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>Source of truth:</strong> the canonical stack doc is <strong>context-files/outputs/context-org-tech-stack.md</strong> in The Architect workspace (last updated 2026-05-07). When a tool is added, dropped, or newly AI-connected, update that file first, then regenerate this section.</div>
 
     <div class="callout"><strong>Excluded by design:</strong> the ~30 custom-built skills (garage-sale-scanner, prompt-evaluator, sta-html-report, time-clock-diagnostics, training-doc-auditor, and the rest of the pipeline tooling). They are all installed alongside everything above and documented on their own hub cards.</div>
 
