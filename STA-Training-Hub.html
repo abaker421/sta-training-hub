@@ -441,7 +441,7 @@ window.TRAINING_DATA = {
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
         { heading: 'Tool briefs', docs: ['ai-advisor', 'support-chat-brief', 'cohort-getting-started'] },
-        { heading: 'Internal agents (Adam-only)', docs: ['work-assistant', 'deep-research', 'sf-admin-assistant', 'sta-support-expert', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
+        { heading: 'Internal agents &amp; tools (admin)', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'sta-support-expert', 'security-advisor', 'help-center-advisor', 'system-monitor-tool', 'project-tracker-tool'] },
         { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides'] },
         { heading: 'Skills - Support & Troubleshooting', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
@@ -643,6 +643,26 @@ window.TRAINING_DATA = {
     },
 
     // ===== Internal agents (Adam-only Cowork tools) =====
+    'the-architect-tool': {
+      title: 'The Architect',
+      desc: 'The build engine for the whole AI system - takes a project from idea to production-ready output (discovery, blueprint, system prompt, test cases, registry entry, handoff). Four modes; never ships scaffold. For the deep walk-through see the case study under Build pipeline.',
+      file: 'docs/the-architect.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-07', updated: '2026-06-07',
+      check: 'What are The Architect\'s four modes, and what is its hard rule about placeholder content?'
+    },
+    'project-tracker-tool': {
+      title: 'STA Project Tracker',
+      desc: 'Shared internal tracker for STA product/dev work, delivered as the Projects tab in the Help Center Index app (Cloudflare Pages). A built web app, not a chat agent. Phase A read-only is live; Phase B collaborative editing (D1-backed) is deferred. Shared with Adam, Chris, Tyler, Andy.',
+      file: 'docs/sta-project-tracker.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-07', updated: '2026-06-07',
+      check: 'Is the Project Tracker a chat agent or a web app, and what is the difference between its Phase A and Phase B?'
+    },
     'work-assistant': {
       title: 'Work Personal Assistant',
       desc: 'Adam\'s day-to-day School Tech work assistant in Cowork - email rewrites in his voice, drafts, summaries, Today\'s Agenda, and the Skyward weekly scan.',

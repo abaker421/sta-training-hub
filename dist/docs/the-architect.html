@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Architect - Tool Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:var(--blue); color:#fff; padding:28px 32px; border-bottom:3px solid var(--green); }
+  .badge { display:inline-block; background:#e6f0f6; color:var(--blue-dark); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:rgba(255,255,255,0.75); font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  .note { background:#fdeeee; border-left:4px solid var(--red); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:var(--red); }
+  .prompts { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:16px 18px; margin-top:8px; }
+  .prompts p { margin-bottom:8px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Live &middot; Admin (Adam only)</span>
+      <h1>The Architect</h1>
+      <div class="tagline">The build engine for the whole AI system - takes a project from idea to production-ready output.</div>
+    </div>
+    <div class="body">
+      <h2>What it is</h2>
+      <p>A Cowork assistant that designs and writes new AI projects end to end: discovery, blueprint, the production system prompt, test cases, registry entry, and the pipeline handoff. Every other agent in this hub was built through The Architect. It is collaborative and assertive - it asks probing questions, pushes back on vague scope, and never ships a placeholder or scaffold.</p>
+
+      <h2>What it does</h2>
+      <ul>
+        <li>Runs four modes: <strong>Full Pipeline</strong> (new project from scratch, all four phases), <strong>Polish Existing</strong> (bring an existing prompt up to standard), <strong>Quick Prompt</strong> (a fast one-off system prompt), and <strong>Test Case Update</strong> (refresh tests after an instructions change).</li>
+        <li>Produces the full file set: <code>instructions.md</code>, <code>blueprint-summary.md</code>, context files, <code>test-cases.md</code>, <code>registry-entry.md</code>, <code>project-launch.md</code>, and <code>handoff.md</code>.</li>
+        <li>Decides the deployment target (Cowork vs Claude.ai Project) with a decision tree, and assesses which tools and skills the project needs.</li>
+        <li>Maintains the agent registry and keeps the training docs honest (drift checks, final-version audits).</li>
+      </ul>
+
+      <div class="note">
+        <strong>Hard rule - never ship scaffold.</strong> No file leaves The Architect with placeholder text, TODOs, vague "best practices," or unconfirmed markers. If a fact is missing, it asks rather than filling a gap.
+      </div>
+
+      <h2>What it does not do</h2>
+      <ul>
+        <li>Does not run multi-source web research &rarr; Deep Research.</li>
+        <li>Does not score prompts or run test cases itself &rarr; Prompt Evaluator and Run Test Cases.</li>
+        <li>Does not diagnose live-project bugs &rarr; Project Feedback.</li>
+      </ul>
+
+      <h2>How to access it</h2>
+      <p>Lives in Adam's Cowork workspace. Cowork-only; the engine behind every build in this hub.</p>
+
+      <h2>Try starting with</h2>
+      <div class="prompts">
+        <p>"I want to build an agent that helps the support team draft customer replies."</p>
+        <p>"Polish this existing instructions.md to standard."</p>
+        <p>"Give me a quick system prompt for a meeting-notes summarizer."</p>
+      </div>
+    </div>
+    <div class="foot">School Technology Associates &middot; The Architect &middot; Tool Brief</div>
+  </div>
+</body>
+</html>
