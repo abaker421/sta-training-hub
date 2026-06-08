@@ -441,7 +441,7 @@ window.TRAINING_DATA = {
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
         { heading: 'Tool briefs', docs: ['ai-advisor', 'support-chat-brief', 'cohort-getting-started'] },
-        { heading: 'Internal agents (Adam-only)', docs: ['work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
+        { heading: 'Internal agents (Adam-only)', docs: ['work-assistant', 'deep-research', 'sf-admin-assistant', 'sta-support-expert', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
         { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides'] },
         { heading: 'Skills - Support & Troubleshooting', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
@@ -453,7 +453,7 @@ window.TRAINING_DATA = {
         { heading: 'Planned builds (in scoping)', docs: ['google-ai-employee-sow', 'salesforce-integration-sow'] },
         { heading: 'Security checklists', docs: ['google-security', 'sf-security'] },
         { heading: 'Operational procedures', docs: ['drift-check', 'formatting-standards', 'write-verification'] },
-        { heading: 'Knowledge base', docs: ['kb-module-catalog'] }
+        { heading: 'Knowledge base', docs: ['kb-module-catalog', 'creative-snippet-gallery'] }
       ]
     }
   ],
@@ -470,21 +470,30 @@ window.TRAINING_DATA = {
     // ===== AI Admin system inventory =====
     'ai-admin-pc-installed-inventory': {
       title: 'AI Admin PC - Installed Plugins & Skills Inventory',
-      desc: 'Everything installed on the AI Admin PC: 27 plugins, ~276 non-custom skills, and ~55 MCP connectors - with click-to-expand skill-by-skill detail for every plugin.',
+      desc: 'Everything installed on the AI Admin PC: 27 plugins, ~276 non-custom skills, ~55 MCP connectors - every individual skill listed - plus the full STA tech stack the AI layer plugs into, with per-tool AI-connection status.',
       file: 'docs/ai-admin-pc-installed-inventory.html',
       type: 'html',
       priority: 'admin',
       tags: ['Admin', 'Inventory'],
-      added: '2026-06-06', updated: '2026-06-06'
+      added: '2026-06-06', updated: '2026-06-07'
     },
     'project-export-snapshot-audit': {
       title: 'Project Export-Snapshot Audit',
-      desc: 'Per-project export snapshots for all 22 Active/Draft Cowork agents and Claude.ai Projects - context files, skills used, KB modules, and install requirements. All 22 export-ready; six gaps found and closed 2026-06-06.',
+      desc: 'Per-project export snapshots for all 20 Active/Draft Cowork agents and Claude.ai Projects (BwB-suite projects out of scope) - context files, skills used, KB modules, and install requirements. All 20 export-ready; six gaps found and closed 2026-06-06.',
       file: 'docs/project-export-snapshot-audit.html',
       type: 'html',
       priority: 'admin',
       tags: ['Admin', 'Audit'],
       added: '2026-06-06', updated: '2026-06-06'
+    },
+    'creative-snippet-gallery': {
+      title: 'Creative Snippet Gallery - 48 Live HTML/CSS/JS Effects',
+      desc: 'Interactive gallery of the creative-html-css-js-techniques KB library: 48 zero-dependency, brand-themeable snippets (S01-S48) rendered live, one per tab - report charts, scroll effects, micro-interactions, 3D, controls, theming, and loaders, each with embeddability tags and browser support notes. Paste-ready code lives in KB modules 8 and 18.',
+      file: 'docs/creative-snippet-gallery.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Admin', 'Library'],
+      added: '2026-06-08', updated: '2026-06-08'
     },
     // ===== Policies =====
     'aup': {
@@ -510,13 +519,13 @@ window.TRAINING_DATA = {
 
     // ===== Staff core =====
     'getting-started': {
-      title: 'Getting Started Guide',
-      desc: 'Your first stop: login, what is live, the one data rule, and your first conversations. Read this before anything else.',
+      title: 'Quick Start Guide',
+      desc: 'Your first stop: login, what is live, the one data rule, and your first conversations. The self-serve read-it-yourself version of the kickoff slides.',
       file: 'docs/getting-started-guide.html',
       type: 'html',
       priority: 'required',
       tags: ['Onboarding'],
-      added: '2026-05-21', updated: '2026-06-01',
+      added: '2026-05-21', updated: '2026-06-07',
       check: 'In Step 4, the guide names three categories you must never paste into an AI tool, even though everything else in the guide is just a tip - what are those three categories?'
     },
     'quick-ref': {
@@ -541,13 +550,13 @@ window.TRAINING_DATA = {
     },
     'tools-reference': {
       title: 'Staff AI Tools Reference',
-      desc: 'The full rundown of the three live tools plus what is coming, with a routing table for which to use when.',
+      desc: 'The full rundown of the four live tools plus what is coming, with a routing table for which to use when.',
       file: 'docs/staff-ai-tools-reference.html',
       type: 'html',
       priority: 'recommended',
       tags: ['Reference'],
-      added: '2026-05-21', updated: '2026-05-22',
-      check: 'Which three named AI tools does the reference list as live right now, and which staff members have access to each?'
+      added: '2026-05-21', updated: '2026-06-07',
+      check: 'Which four named AI tools does the reference list as live right now, and which staff members have access to each?'
     },
     'platforms': {
       title: 'Chat vs Project vs Cowork',
@@ -663,6 +672,16 @@ window.TRAINING_DATA = {
       tags: ['Tool Brief', 'Admin'],
       added: '2026-06-04', updated: '2026-06-04',
       check: 'What two hard rules govern this assistant, and how does it differ from the shared School Tech Salesforce Cohort?'
+    },
+    'sta-support-expert': {
+      title: 'STA Support Expert',
+      desc: 'Adam\'s internal diagnostic reference for School Tech product issues - Help Center-grounded causes and fixes, drafted customer replies, and Skyward navigation answers with cited click-paths. 19 context files across the full product line.',
+      file: 'docs/sta-support-expert.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Tool Brief', 'Admin'],
+      added: '2026-06-07', updated: '2026-06-07',
+      check: 'What did STA Support Expert absorb at v2.0, and what does it cite when answering a Skyward navigation question?'
     },
     'security-advisor': {
       title: 'STA Security Advisor',
@@ -1038,17 +1057,17 @@ window.TRAINING_DATA = {
     },
     'kb-module-catalog': {
       title: 'STA Knowledge Base Module Catalog',
-      desc: 'Every STA-scope KB module grouped by area with a one-line summary of each - the domain expertise The Architect draws from. STA scope only.',
+      desc: 'Every STA-scope KB topic grouped by area - click any row to expand the full module list with one-line summaries. 79 topics across 10 areas; the domain expertise The Architect draws from.',
       file: 'docs/sta-kb-module-catalog.html',
       type: 'html',
       priority: 'admin',
       tags: ['Knowledge Base', 'Admin'],
-      added: '2026-06-03', updated: '2026-06-03',
-      check: 'How many STA-scope modules and how many grouped areas does the catalog list, and which scope of the knowledge base does it deliberately leave out?'
+      added: '2026-06-03', updated: '2026-06-07',
+      check: 'How many STA-scope topics and how many grouped areas does the catalog list, and what does clicking a topic row reveal?'
     },
     'onboarding-deck': {
       title: 'AI Tools Getting Started - Slides',
-      desc: '12-slide deck for a live 40-minute kickoff. Grab this when you are running a team walkthrough.',
+      desc: '12-slide deck for a live 40-minute kickoff - the presenter companion to the Quick Start Guide. Grab this when you are running a team walkthrough.',
       file: 'files/ai-tools-getting-started.pdf',
       type: 'pdf',
       priority: 'recommended',

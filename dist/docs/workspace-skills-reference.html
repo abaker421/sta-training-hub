@@ -180,7 +180,7 @@
 
   <!-- SECTION 4 -->
   <div class="section-title" id="sec-4">4 — Every Custom Skill</div>
-  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code> in <code class="inline">_Backups/skills/INDEX.md</code>) — 14 currently installed. Anthropic-shipped skills (docx, pptx, xlsx, pdf, schedule, skill-creator, etc.) are not listed here. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
+  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code> in <code class="inline">_Backups/skills/INDEX.md</code>) — 22 currently installed. Anthropic-shipped skills (docx, pptx, xlsx, pdf, schedule, skill-creator, etc.) are not listed here. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
 
   <div class="grp">Build pipeline — designing &amp; validating agents</div>
 
@@ -204,6 +204,18 @@
     <div class="skill-desc">Verifies that training docs still reflect what agents actually do, cross-checking against the registry and handoff files.</div>
     <div class="skill-trig"><strong>Say:</strong> "audit training docs", "is training accurate"</div></div>
 
+  <div class="skill-card"><div class="skill-name">skill-evaluator</div>
+    <div class="skill-desc">Scores a <code class="inline">SKILL.md</code> against Anthropic's skill-authoring frameworks — description quality, triggering accuracy, structure, skill-vs-inline placement.</div>
+    <div class="skill-trig"><strong>Say:</strong> "evaluate this skill", "is this skill production-ready"</div></div>
+
+  <div class="skill-card"><div class="skill-name">wcag-audit</div>
+    <div class="skill-desc">Audits a web page, HTML/CSS file, PDF, Word doc, or PPTX deck against WCAG 2.2 AA; severity-ranked findings with verifiable evidence. Standalone or handoff to The Test Master.</div>
+    <div class="skill-trig"><strong>Say:</strong> "run an accessibility audit", "check WCAG 2.2 AA"</div></div>
+
+  <div class="skill-card"><div class="skill-name">prompt-override-guard</div>
+    <div class="skill-desc">Intercepts jailbreak and instruction-override attempts ("ignore your instructions", "act as DAN", "developer mode"). Fires automatically inside every agent.</div>
+    <div class="skill-trig"><strong>Auto-fires</strong> on any override attempt</div></div>
+
   <div class="grp">Knowledge base &amp; research</div>
 
   <div class="skill-card"><div class="skill-name">deep-research-prompt-builder</div>
@@ -211,8 +223,16 @@
     <div class="skill-trig"><strong>Say:</strong> "craft a deep research prompt", "build a research commission"</div></div>
 
   <div class="skill-card"><div class="skill-name">knowledge-base-context-builder</div>
-    <div class="skill-desc">Turns existing KB modules into an uploadable project context file with a structured intake and quality gate. (The renamed <code class="inline">cowork-context-packager</code>.)</div>
+    <div class="skill-desc">Turns existing KB modules into an uploadable project context file with a structured intake and quality gate.</div>
     <div class="skill-trig"><strong>Say:</strong> "build a context file from [topic]", "package the [topic] research"</div></div>
+
+  <div class="skill-card"><div class="skill-name">cowork-context-packager</div>
+    <div class="skill-desc">Formats content as an on-demand Cowork context file — applies the on-demand loading model, writes the routing trigger, and proposes the <code class="inline">instructions.md</code> edit.</div>
+    <div class="skill-trig"><strong>Say:</strong> "package this for Cowork", "make a Cowork context file"</div></div>
+
+  <div class="skill-card"><div class="skill-name">project-context-packager</div>
+    <div class="skill-desc">Formats content as an always-loads Claude.ai Projects context file — token economy, XML section tags, primacy foregrounding, upload-order recommendation.</div>
+    <div class="skill-trig"><strong>Say:</strong> "package this for a Project", "format this for Claude.ai Projects"</div></div>
 
   <div class="skill-card"><div class="skill-name">kb-freshness-auditor</div>
     <div class="skill-desc">Scores KB modules by staleness and priority, then outputs paste-ready Deep Research prompts for the ones that need refreshing.</div>
@@ -238,9 +258,21 @@
     <div class="skill-desc">Logs an agent quality issue (wrong tone, ignored constraint, fabrication) so it surfaces in the Monday health report and routes to Project Feedback.</div>
     <div class="skill-trig"><strong>Say:</strong> "log this feedback", "the agent messed up"</div></div>
 
-  <div class="skill-card"><div class="skill-name">garage-sale-scanner</div>
-    <div class="skill-desc">Runs the Garage Sale Monitor scan for Ashland, WI — fetches sources, ranks finds, and saves a dated HTML digest.</div>
-    <div class="skill-trig"><strong>Say:</strong> "run a garage sale scan", "do a rummage check"</div></div>
+  <div class="skill-card"><div class="skill-name">time-clock-error-log-review</div>
+    <div class="skill-desc">Diagnoses STA time clock issues (TT3/TT7/TT10) from uploaded log files — asks for account name, issue description, and logs, then produces a structured root-cause analysis.</div>
+    <div class="skill-trig"><strong>Say:</strong> upload clock logs, "review these time clock errors"</div></div>
+
+  <div class="skill-card"><div class="skill-name">cowork-snapshot-exporter</div>
+    <div class="skill-desc">Packages a Cowork project into a timestamped, shareable ZIP — system prompt, setup guide, training guide, and every referenced context file.</div>
+    <div class="skill-trig"><strong>Say:</strong> "snapshot this project", "package this for the team"</div></div>
+
+  <div class="skill-card"><div class="skill-name">backup-verifier</div>
+    <div class="skill-desc">Read-only drift report over <code class="inline">_Backups/</code> — verifies every skill, project, and archive backup is current; surfaces stale <code class="inline">.skill</code> packages as click-installable.</div>
+    <div class="skill-trig"><strong>Say:</strong> "verify all backups", "backup drift check"</div></div>
+
+  <div class="skill-card"><div class="skill-name">weekly-github-backup</div>
+    <div class="skill-desc">Backs up all Claude projects and skills to GitHub every Sunday at 7:00 AM; also runs on demand as a scheduled task.</div>
+    <div class="skill-trig"><strong>Scheduled</strong> (Sundays); or "run the GitHub backup"</div></div>
 
   <div class="skill-card"><div class="skill-name">session-closeout</div>
     <div class="skill-desc">Wraps up a chat: skim-ready summary, pending manual tasks, pending in-chat work, and an optional one-click handoff prompt for a new chat.</div>

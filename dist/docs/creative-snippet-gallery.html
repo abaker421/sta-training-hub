@@ -1,0 +1,2208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative HTML/CSS/JS Snippet Gallery - 24 Live Effects</title>
+<style>
+  /* ---- Page chrome (gallery only - snippets are scoped under .fx-*) ---- */
+  :root {
+    --accent: #4f46e5;
+    --accent-2: #06b6d4;
+    --nav-w: 252px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: #f5f6fa; color: #1a1a2e; line-height: 1.5;
+  }
+  /* ---- Sidebar ---- */
+  .nav {
+    position: fixed; inset: 0 auto 0 0; width: var(--nav-w); z-index: 50;
+    background: #14172e; color: #c6c9e0; overflow-y: auto;
+    padding: 1rem 0 2rem; display: flex; flex-direction: column; gap: .25rem;
+  }
+  .nav-title { padding: .25rem 1.1rem .6rem; color: #fff; font-weight: 700; font-size: .95rem; border-bottom: 1px solid #262a4a; }
+  .nav h3 {
+    margin: 1rem 0 .2rem; padding: 0 1.1rem; font-size: .68rem; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase; color: #7c81a8;
+  }
+  .nav a {
+    display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+    padding: .32rem 1.1rem; color: #c6c9e0; text-decoration: none; font-size: .82rem;
+    border-left: 3px solid transparent;
+  }
+  .nav a:hover { background: #1d2140; color: #fff; }
+  .nav a.active { background: #232852; color: #fff; border-left-color: var(--accent); }
+  .nav a .dot { inline-size: 8px; aspect-ratio: 1; border-radius: 50%; flex-shrink: 0; }
+  .dot.dropin { background: #4ade80; }
+  .dot.section { background: #fbbf24; }
+  .nav-theme { margin-top: auto; padding: 1rem 1.1rem 0; border-top: 1px solid #262a4a; font-size: .72rem; color: #7c81a8; }
+  .nav-theme .sw { display: flex; gap: .45rem; margin-top: .5rem; }
+  .pg-swatch {
+    inline-size: 24px; aspect-ratio: 1; border-radius: 50%; cursor: pointer;
+    border: 2px solid #14172e; box-shadow: 0 0 0 1px #3a3f6b;
+  }
+  /* ---- Main ---- */
+  main { margin-left: var(--nav-w); padding: 1.5rem 2rem 4rem; max-width: 980px; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .p-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-top: .5rem; }
+  .p-sec { font-size: .7rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #8a8fa8; }
+  .p-head h2 { margin: .15rem 0 0; font-size: 1.45rem; }
+  .p-desc { color: #555a77; max-width: 75ch; }
+  .p-stage {
+    margin-top: 1.25rem; padding: 2rem 1.5rem; border: 1px solid #e3e5f0;
+    border-radius: 14px; background: #fff;
+  }
+  .p-stage.dark { background: #0f1226; }
+  .p-meta { font-size: .8rem; color: #8a8fa8; margin-top: 1rem; }
+  .p-meta code { background: #ecedf6; padding: .05rem .35rem; border-radius: 4px; }
+  .p-footer { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2.5rem; }
+  .p-footer a {
+    text-decoration: none; color: var(--accent); font-weight: 600; font-size: .85rem;
+    padding: .5rem .9rem; border: 1px solid #e3e5f0; border-radius: 10px; background: #fff;
+  }
+  .p-footer a:hover { border-color: var(--accent); }
+  .tag {
+    flex-shrink: 0; font-size: .68rem; font-weight: 700; letter-spacing: .05em;
+    padding: .25rem .6rem; border-radius: 999px; white-space: nowrap;
+  }
+  .tag.dropin { background: #dcfce7; color: #166534; }
+  .tag.section { background: #fef3c7; color: #92400e; }
+  .pg-note { font-size: .78rem; color: #8a8fa8; }
+  .p-spacer {
+    height: 45vh; display: grid; place-items: center;
+    color: #b7bbd1; font-size: .8rem; letter-spacing: .05em;
+  }
+  .pg-mini {
+    padding: 1.6rem 1.4rem; margin-block: .6rem; border-radius: 12px;
+    background: #fff; border: 1px solid #e3e5f0; font-size: 1.1rem; font-weight: 700;
+    box-shadow: 0 6px 18px rgb(20 23 46 / .08);
+  }
+  .pg-scrollpct {
+    position: sticky; top: 38vh; text-align: center;
+    font-size: 4rem; font-weight: 800; color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  /* Home panel cards */
+  .home-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+  .home-card { background: #fff; border: 1px solid #e3e5f0; border-radius: 12px; padding: 1rem 1.1rem; font-size: .85rem; }
+  .home-card h3 { margin: 0 0 .35rem; font-size: .95rem; }
+  .home-card a { color: var(--accent); }
+  /* ---- Mobile drawer ---- */
+  .nav-toggle {
+    display: none; position: fixed; top: .75rem; left: .75rem; z-index: 60;
+    padding: .5rem .8rem; border: none; border-radius: 10px; cursor: pointer;
+    background: #14172e; color: #fff; font: inherit; font-size: .85rem;
+  }
+  @media (max-width: 900px) {
+    .nav { transform: translateX(-100%); transition: transform .25s ease; }
+    .nav.open { transform: none; box-shadow: 0 0 40px rgb(0 0 0 / .4); }
+    .nav-toggle { display: block; }
+    main { margin-left: 0; padding: 3.5rem 1.25rem 4rem; }
+  }
+  /* Gallery scoping: the S11 progress bar only shows on its own tab */
+  .fx-progress { visibility: hidden; }
+  body.on-s11 .fx-progress { visibility: visible; }
+</style>
+</head>
+<body>
+
+<!-- S11 - Reading progress bar (global page chrome, demoed on its own tab) -->
+<div class="fx-progress" aria-hidden="true"></div>
+<style>
+.fx-progress {
+  position: fixed; inset: 0 0 auto 0; block-size: 7px; z-index: 99;
+  background: var(--accent, #4f46e5);
+  box-shadow: 0 0 8px var(--accent, #4f46e5);
+  transform-origin: left; transform: scaleX(0);
+}
+@supports (animation-timeline: scroll()) {
+  .fx-progress { animation: fx-progress-grow linear both; animation-timeline: scroll(root block); }
+}
+@keyframes fx-progress-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .fx-progress { display: none; } }
+</style>
+
+<button class="nav-toggle" aria-label="Open snippet menu">☰ Snippets</button>
+
+<aside class="nav" id="nav">
+  <div class="nav-title">Creative Snippet Gallery</div>
+  <a href="#home">Overview</a>
+  <h3>A - Headers &amp; backgrounds</h3>
+  <a href="#s01">S01 Constellation header <span class="dot section"></span></a>
+  <a href="#s02">S02 10-print maze <span class="dot dropin"></span></a>
+  <a href="#s03">S03 Stripe divider <span class="dot dropin"></span></a>
+  <a href="#s04">S04 Aurora wash <span class="dot dropin"></span></a>
+  <a href="#s05">S05 Gradient headline <span class="dot dropin"></span></a>
+  <a href="#s21">S21 Shine sweep <span class="dot dropin"></span></a>
+  <h3>B - KPI blocks</h3>
+  <a href="#s06">S06 Counter roll-up <span class="dot dropin"></span></a>
+  <a href="#s07">S07 Progress ring <span class="dot dropin"></span></a>
+  <a href="#s08">S08 Sparkline draw-in <span class="dot dropin"></span></a>
+  <a href="#s09">S09 Anchor tooltip <span class="dot dropin"></span></a>
+  <a href="#s15">S15 Spotlight card <span class="dot dropin"></span></a>
+  <h3>C - Transitions &amp; scroll</h3>
+  <a href="#s10">S10 Reveal on scroll <span class="dot dropin"></span></a>
+  <a href="#s11">S11 Progress bar <span class="dot dropin"></span></a>
+  <a href="#s12">S12 Parallax divider <span class="dot section"></span></a>
+  <a href="#s13">S13 View-transition tabs <span class="dot dropin"></span></a>
+  <h3>D - Interactive moments</h3>
+  <a href="#s14">S14 3D tilt card <span class="dot dropin"></span></a>
+  <a href="#s16">S16 Magnetic button <span class="dot dropin"></span></a>
+  <a href="#s17">S17 Spring toggle <span class="dot dropin"></span></a>
+  <a href="#s18">S18 Button ripple <span class="dot dropin"></span></a>
+  <a href="#s19">S19 Confetti burst <span class="dot dropin"></span></a>
+  <a href="#s20">S20 Scramble decode <span class="dot dropin"></span></a>
+  <h3>E - Loaders</h3>
+  <a href="#s22">S22 Dot loader <span class="dot dropin"></span></a>
+  <a href="#s23">S23 Ring spinner <span class="dot dropin"></span></a>
+  <a href="#s24">S24 Path draw loader <span class="dot dropin"></span></a>
+  <h3>F - Report charts (wave 2)</h3>
+  <a href="#s25">S25 Animated bar chart <span class="dot dropin"></span></a>
+  <a href="#s26">S26 Conic donut KPI <span class="dot dropin"></span></a>
+  <a href="#s27">S27 SVG line chart <span class="dot dropin"></span></a>
+  <a href="#s28">S28 OKLCH heatmap <span class="dot dropin"></span></a>
+  <a href="#s29">S29 Bullet chart row <span class="dot dropin"></span></a>
+  <h3>G - Section architecture</h3>
+  <a href="#s30">S30 Turbulence divider <span class="dot dropin"></span></a>
+  <a href="#s31">S31 Depth-stacked hero <span class="dot section"></span></a>
+  <a href="#s32">S32 Sticky chapter scene <span class="dot section"></span></a>
+  <a href="#s33">S33 Snap story dots <span class="dot section"></span></a>
+  <h3>H - Interactive (wave 2)</h3>
+  <a href="#s34">S34 Goo blob cluster <span class="dot section"></span></a>
+  <a href="#s35">S35 Draw-on illustration <span class="dot section"></span></a>
+  <a href="#s36">S36 Accessible flip card <span class="dot dropin"></span></a>
+  <a href="#s37">S37 Cube spinner <span class="dot section"></span></a>
+  <a href="#s38">S38 FLIP reorder grid <span class="dot dropin"></span></a>
+  <a href="#s39">S39 Springy drag card <span class="dot section"></span></a>
+  <a href="#s40">S40 Squash button <span class="dot dropin"></span></a>
+  <h3>I - Controls</h3>
+  <a href="#s41">S41 Range + bubble <span class="dot dropin"></span></a>
+  <a href="#s42">S42 Segmented control <span class="dot dropin"></span></a>
+  <a href="#s43">S43 Validation UX <span class="dot dropin"></span></a>
+  <h3>J - Theming</h3>
+  <a href="#s44">S44 Theme swap reveal <span class="dot section"></span></a>
+  <a href="#s45">S45 OKLCH ramp block <span class="dot dropin"></span></a>
+  <a href="#s46">S46 Gradient border card <span class="dot dropin"></span></a>
+  <h3>K - Reactive</h3>
+  <a href="#s47">S47 Audio visualizer <span class="dot section"></span></a>
+  <a href="#s48">S48 Tilt parallax card <span class="dot dropin"></span></a>
+  <div class="nav-theme">
+    Theme - every snippet recolors via <code>--accent</code>:
+    <div class="sw">
+      <button class="pg-swatch" style="background:#4f46e5" data-a="#4f46e5" data-b="#06b6d4" aria-label="Indigo theme"></button>
+      <button class="pg-swatch" style="background:#0d8a4f" data-a="#0d8a4f" data-b="#84cc16" aria-label="Green theme"></button>
+      <button class="pg-swatch" style="background:#be185d" data-a="#be185d" data-b="#f59e0b" aria-label="Magenta theme"></button>
+      <button class="pg-swatch" style="background:#0369a1" data-a="#0369a1" data-b="#14b8a6" aria-label="Blue theme"></button>
+    </div>
+  </div>
+</aside>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<section class="panel" id="home">
+  <div class="p-head">
+    <div><span class="p-sec">Modules 8 + 18 - creative-html-css-js-techniques</span>
+    <h2>48 live effects, one per tab</h2></div>
+  </div>
+  <p class="p-desc">Every snippet is zero-dependency, scoped under an <code>.fx-*</code> wrapper, themeable via CSS custom properties, and carries <code>prefers-reduced-motion</code> handling. Wave 1 (S01-S24, sections A-E) lives in <code>module-08</code>; Wave 2 (S25-S48, sections F-K) in <code>module-18</code> - report charts, scrollytelling, 3D, physics, controls, theming, and reactive pieces. Pick from the sidebar; theme swatches at the bottom of the menu recolor everything live.</p>
+  <div class="home-grid">
+    <div class="home-card"><h3><span class="tag dropin">DROP-IN</span></h3>Pastes into an existing styled report without fighting the page - scoped styles, graceful degradation, no body-level takeover. 22 of 24 snippets.</div>
+    <div class="home-card"><h3><span class="tag section">SECTION-PIECE</span></h3>Works in a real deliverable but needs its own dedicated container and sizing: <a href="#s01">S01 constellation</a> and <a href="#s12">parallax divider</a>.</div>
+    <div class="home-card"><h3>Browser notes</h3><a href="#s09">S09</a> (anchor positioning), <a href="#s10">S10</a>/<a href="#s12">S12</a> (scroll-driven), and <a href="#s13">S13</a> (view transitions) want a current Chrome/Edge - all degrade gracefully elsewhere.</div>
+    <div class="home-card"><h3>Start here</h3>Crowd-pleasers: <a href="#s14">S14 tilt card</a>, <a href="#s19">S19 confetti</a>, <a href="#s04">S04 aurora</a>, <a href="#s20">S20 scramble</a>, <a href="#s17">S17 spring toggle</a>.</div>
+  </div>
+</section>
+
+<!-- ================= S01 ================= -->
+<section class="panel" id="s01">
+  <div class="p-head">
+    <div><span class="p-sec">A - Headers &amp; backgrounds</span><h2>S01 - Constellation canvas header</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">Drifting particles with proximity-linked lines behind header content. Pauses when offscreen via IntersectionObserver, caps devicePixelRatio at 2, renders a static frame under reduced motion.</p>
+  <div class="p-stage dark" style="padding:0;">
+    <header class="fx-constellation">
+      <canvas aria-hidden="true"></canvas>
+      <div class="fx-constellation-content"><h1 style="margin:0; font-size:1.8rem;">Quarterly Report</h1></div>
+    </header>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (sampled at load), <code>--bg</code>, <code>--text</code> · Support: universal (Canvas 2D) · Module 5</p>
+</section>
+<style>
+.fx-constellation { position: relative; min-height: 240px; background: var(--bg, #0f1226); overflow: hidden; border-radius: 14px; }
+.fx-constellation canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fx-constellation-content { position: relative; z-index: 1; padding: 3rem 2rem; color: var(--text, #fff); }
+</style>
+<script>
+window.fxInit = window.fxInit || {};
+(() => {
+  const wrap = document.querySelector('.fx-constellation');
+  const cv = wrap.querySelector('canvas'), ctx = cv.getContext('2d');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let pts = [], raf = null, dpr = Math.min(devicePixelRatio || 1, 2), ready = false;
+  const accent = () => (getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#7c8cff').trim();
+  function size() {
+    if (!wrap.clientWidth) return;
+    cv.width = wrap.clientWidth * dpr; cv.height = wrap.clientHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.min(70, Math.floor(wrap.clientWidth / 14));
+    pts = Array.from({ length: n }, () => ({
+      x: Math.random() * wrap.clientWidth, y: Math.random() * wrap.clientHeight,
+      vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35
+    }));
+    ready = true;
+  }
+  function frame() {
+    if (!ready) { raf = null; return; }
+    const w = wrap.clientWidth, h = wrap.clientHeight, col = accent();
+    ctx.clearRect(0, 0, w, h);
+    for (const p of pts) {
+      if (!reduced) { p.x += p.vx; p.y += p.vy; }
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+      ctx.fillStyle = col; ctx.globalAlpha = .8;
+      ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+    }
+    for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+      const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = dx * dx + dy * dy;
+      if (d < 110 * 110) {
+        ctx.globalAlpha = (1 - d / (110 * 110)) * .35;
+        ctx.strokeStyle = col; ctx.beginPath();
+        ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+    raf = reduced ? null : requestAnimationFrame(frame);
+  }
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !raf && !reduced && ready) raf = requestAnimationFrame(frame);
+    else if (!e.isIntersecting && raf) { cancelAnimationFrame(raf); raf = null; }
+  }).observe(wrap);
+  addEventListener('resize', () => { size(); if (reduced) frame(); });
+  window.fxInit.s01 = () => { size(); if (!raf) frame(); };
+})();
+</script>
+
+<!-- ================= S02 ================= -->
+<section class="panel" id="s02">
+  <div class="p-head">
+    <div><span class="p-sec">A - Headers &amp; backgrounds</span><h2>S02 - 10-print generative maze</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Seeded diagonal-line maze drawn once to a canvas - no animation loop, zero cost after first paint. The same seed always produces the same pattern, so it is stable across report regenerations. Switch themes to re-ink it.</p>
+  <div class="p-stage">
+    <div class="fx-tenprint" aria-hidden="true"><canvas></canvas></div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, plus <code>seed</code>, cell size, and wrapper opacity in code · Support: universal · Module 5</p>
+</section>
+<style>
+.fx-tenprint { height: 140px; overflow: hidden; opacity: .55; }
+.fx-tenprint canvas { width: 100%; height: 100%; display: block; }
+</style>
+<script>
+(() => {
+  const wrap = document.querySelector('.fx-tenprint'), cv = wrap.querySelector('canvas');
+  const ctx = cv.getContext('2d'), dpr = Math.min(devicePixelRatio || 1, 2);
+  function draw() {
+    if (!wrap.clientWidth) return;
+    let seed = 1337;
+    const rnd = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 2 ** 32;
+    cv.width = wrap.clientWidth * dpr; cv.height = wrap.clientHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.strokeStyle = (getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#4f46e5').trim();
+    ctx.lineWidth = 1.5; ctx.lineCap = 'round';
+    const s = 16;
+    for (let y = 0; y < wrap.clientHeight; y += s)
+      for (let x = 0; x < wrap.clientWidth; x += s) {
+        ctx.beginPath();
+        if (rnd() > .5) { ctx.moveTo(x, y); ctx.lineTo(x + s, y + s); }
+        else { ctx.moveTo(x + s, y); ctx.lineTo(x, y + s); }
+        ctx.stroke();
+      }
+  }
+  window.fxInit = window.fxInit || {};
+  window.fxInit.s02 = draw;
+  window.fxRedrawMaze = draw; /* re-ink on theme change */
+})();
+</script>
+
+<!-- ================= S03 ================= -->
+<section class="panel" id="s03">
+  <div class="p-head">
+    <div><span class="p-sec">A - Headers &amp; backgrounds</span><h2>S03 - Gradient pattern divider</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A pure-CSS candy-stripe separator band built from one repeating-linear-gradient - no images, recolors instantly with the theme.</p>
+  <div class="p-stage">
+    <p style="margin:0;">...end of one report section.</p>
+    <div class="fx-stripes" role="separator" aria-hidden="true"></div>
+    <p style="margin:0;">Start of the next...</p>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> · Swap to a repeating-conic-gradient for a checkerboard variant · Support: universal · Module 2</p>
+</section>
+<style>
+.fx-stripes {
+  height: 10px; border-radius: 999px; margin-block: 2rem;
+  background: repeating-linear-gradient(-45deg,
+    var(--accent, #4f46e5) 0 12px,
+    color-mix(in oklch, var(--accent, #4f46e5) 35%, transparent) 12px 24px);
+}
+</style>
+
+<!-- ================= S04 ================= -->
+<section class="panel" id="s04">
+  <div class="p-head">
+    <div><span class="p-sec">A - Headers &amp; backgrounds</span><h2>S04 - Aurora header wash</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Soft layered radial gradients drifting slowly behind header content via an animated registered @property - the premium-SaaS look at zero bytes of JS.</p>
+  <div class="p-stage dark" style="padding:0;">
+    <header class="fx-aurora"><h1 style="margin:0; font-size:1.6rem;">Build with Baker</h1><p style="margin:.4rem 0 0; opacity:.8;">Watch the color blobs drift.</p></header>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--accent-2</code>, <code>--bg</code>, <code>--text</code> · Support: @property Baseline 2024; without it the wash renders static · Module 1 + 2</p>
+</section>
+<style>
+@property --fx-aurora-shift { syntax: "<percentage>"; initial-value: 0%; inherits: false; }
+.fx-aurora {
+  padding: 3.5rem 2rem; border-radius: 14px; color: var(--text, #fff);
+  background:
+    radial-gradient(60% 80% at calc(20% + var(--fx-aurora-shift)) 20%, color-mix(in oklch, var(--accent, #4f46e5) 55%, transparent), transparent 70%),
+    radial-gradient(50% 70% at calc(80% - var(--fx-aurora-shift)) 70%, color-mix(in oklch, var(--accent-2, #06b6d4) 45%, transparent), transparent 70%),
+    var(--bg, #0f1226);
+  animation: fx-aurora-drift 14s ease-in-out infinite alternate;
+}
+@keyframes fx-aurora-drift { to { --fx-aurora-shift: 18%; } }
+@media (prefers-reduced-motion: reduce) { .fx-aurora { animation: none; } }
+</style>
+
+<!-- ================= S05 ================= -->
+<section class="panel" id="s05">
+  <div class="p-head">
+    <div><span class="p-sec">A - Headers &amp; backgrounds</span><h2>S05 - Animated gradient headline</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Brand-gradient text with a continuous slow hue sweep via background-clip: text. Both gradient colors must individually pass contrast against the page background.</p>
+  <div class="p-stage">
+    <h2 class="fx-gradtext" style="margin:.5rem 0; font-size:2rem;">Pipeline grew 38% this quarter</h2>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--accent-2</code> · Support: universal with -webkit- prefix · Module 3</p>
+</section>
+<style>
+.fx-gradtext {
+  background: linear-gradient(90deg,
+    var(--accent, #4f46e5), var(--accent-2, #06b6d4), var(--accent, #4f46e5)) 0 0 / 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: fx-gradtext-pan 6s linear infinite;
+}
+@keyframes fx-gradtext-pan { to { background-position: 200% 0; } }
+@media (prefers-reduced-motion: reduce) { .fx-gradtext { animation: none; } }
+</style>
+
+<!-- ================= S21 ================= -->
+<section class="panel" id="s21" data-restart>
+  <div class="p-head">
+    <div><span class="p-sec">A - Headers &amp; backgrounds</span><h2>S21 - Shine sweep headline</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A single light glint across a headline - quieter than S05's continuous pan. Replays each time you open this tab.</p>
+  <div class="p-stage">
+    <h2 class="fx-shine" style="margin:.5rem 0; font-size:2rem;">Build with Baker</h2>
+  </div>
+  <p class="p-meta">Theming: <code>--text</code> (via <code>--base</code>) · Change iteration count to <code>infinite</code> for a recurring glint - sparingly · Support: universal with -webkit- prefix · Module 3</p>
+</section>
+<style>
+.fx-shine {
+  --base: var(--text, #1a1a2e);
+  background: linear-gradient(110deg,
+    var(--base) 40%, color-mix(in oklch, var(--base) 30%, white) 50%, var(--base) 60%) 200% 0 / 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: fx-shine-sweep 1.8s ease-out .4s 1 both;
+}
+@keyframes fx-shine-sweep { to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .fx-shine { animation: none; background-position: 0 0; } }
+</style>
+
+<!-- ================= S06 ================= -->
+<section class="panel" id="s06" data-restart>
+  <div class="p-head">
+    <div><span class="p-sec">B - KPI blocks</span><h2>S06 - CSS-only counter roll-up</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A KPI number that counts up from 0 with zero JS - a registered integer @property animated into a CSS counter. The aria-label carries the real value for screen readers. Replays each time you open this tab.</p>
+  <div class="p-stage">
+    <div class="fx-count" style="--target: 1284;" aria-label="1,284 closed tickets">
+      <span class="fx-count-num" aria-hidden="true"></span>
+      <span class="fx-count-label">closed tickets</span>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--target</code> (the number, inline), <code>--text-muted</code> · Support: @property Baseline 2024; older browsers show the final number instantly · Module 1 + 4</p>
+</section>
+<style>
+@property --fx-n { syntax: "<integer>"; initial-value: 0; inherits: false; }
+.fx-count-num {
+  font-size: 3rem; font-weight: 800; font-variant-numeric: tabular-nums;
+  color: var(--accent, #4f46e5);
+  --fx-n: var(--target, 0);
+  counter-reset: fxn var(--fx-n);
+  animation: fx-count-up 1.4s cubic-bezier(.2,.7,.3,1) both;
+}
+.fx-count-num::after { content: counter(fxn); }
+@keyframes fx-count-up { from { --fx-n: 0; } }
+.fx-count-label { display: block; font-size: .85rem; color: var(--text-muted, #667); }
+@media (prefers-reduced-motion: reduce) { .fx-count-num { animation: none; } }
+</style>
+
+<!-- ================= S07 ================= -->
+<section class="panel" id="s07" data-restart>
+  <div class="p-head">
+    <div><span class="p-sec">B - KPI blocks</span><h2>S07 - SVG progress ring</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A percentage ring that draws in on load. <code>pathLength="100"</code> keeps the dash math "out of 100" at any radius. Replays each time you open this tab.</p>
+  <div class="p-stage">
+    <div class="fx-ring" style="--value: 72;" role="img" aria-label="72% complete">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="fx-ring-track" cx="50" cy="50" r="44" pathLength="100"/>
+        <circle class="fx-ring-fill" cx="50" cy="50" r="44" pathLength="100"/>
+      </svg>
+      <span class="fx-ring-text" aria-hidden="true">72%</span>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--value</code> (0-100, inline), size via <code>inline-size</code> · Support: universal · Module 4</p>
+</section>
+<style>
+.fx-ring { position: relative; inline-size: 120px; aspect-ratio: 1; }
+.fx-ring svg { transform: rotate(-90deg); }
+.fx-ring circle { fill: none; stroke-width: 10; stroke-linecap: round; }
+.fx-ring-track { stroke: color-mix(in oklch, var(--accent, #4f46e5) 15%, transparent); }
+.fx-ring-fill {
+  stroke: var(--accent, #4f46e5);
+  stroke-dasharray: var(--value) 100;
+  animation: fx-ring-in 1.2s cubic-bezier(.2,.7,.3,1) both;
+}
+@keyframes fx-ring-in { from { stroke-dasharray: 0 100; } }
+.fx-ring-text {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-weight: 700; font-size: 1.2rem; color: var(--text, #1a1a2e);
+}
+@media (prefers-reduced-motion: reduce) { .fx-ring-fill { animation: none; } }
+</style>
+
+<!-- ================= S08 ================= -->
+<section class="panel" id="s08" data-restart>
+  <div class="p-head">
+    <div><span class="p-sec">B - KPI blocks</span><h2>S08 - Sparkline draw-in</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">An inline SVG sparkline whose line draws itself left to right via stroke-dashoffset - made for KPI cards. Replays each time you open this tab.</p>
+  <div class="p-stage">
+    <svg class="fx-spark" viewBox="0 0 120 36" role="img" aria-label="Trend: rising">
+      <polyline pathLength="100" fill="none"
+        points="0,30 15,26 30,28 45,20 60,22 75,14 90,16 105,8 120,10"/>
+    </svg>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>; replace <code>points</code> with real data scaled to the viewBox · Support: universal · Module 4</p>
+</section>
+<style>
+.fx-spark { inline-size: 240px; block-size: 72px; overflow: visible; }
+.fx-spark polyline {
+  stroke: var(--accent, #4f46e5); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 100; stroke-dashoffset: 100;
+  animation: fx-spark-draw 1.6s ease-out forwards;
+}
+@keyframes fx-spark-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .fx-spark polyline { animation: none; stroke-dashoffset: 0; } }
+</style>
+
+<!-- ================= S09 ================= -->
+<section class="panel" id="s09">
+  <div class="p-head">
+    <div><span class="p-sec">B - KPI blocks</span><h2>S09 - Anchor-positioned KPI tooltip</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A methodology note pinned to a KPI with CSS anchor positioning plus the Popover API - zero positioning JS, top-layer rendering, auto-flips near viewport edges. Click the "i".</p>
+  <div class="p-stage">
+    <div class="fx-kpi" style="font-size:2rem; font-weight:800;">
+      $1.2M
+      <button class="fx-note-btn" popovertarget="fx-note-1" aria-label="Methodology note">i</button>
+      <div id="fx-note-1" class="fx-note" popover>Excludes renewals signed before 2026-01-01.</div>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--bg-card</code>, <code>--text</code> · Support: anchor positioning Baseline 2026 (Chrome 125+, Safari 26+, Firefox 147+); @supports gate falls back to an inline footnote · Module 1</p>
+</section>
+<style>
+.fx-note-btn {
+  anchor-name: --fx-note-1;
+  inline-size: 1.3rem; aspect-ratio: 1; border-radius: 50%; border: none;
+  background: color-mix(in oklch, var(--accent, #4f46e5) 20%, transparent);
+  color: var(--accent, #4f46e5); font-weight: 700; cursor: pointer; font-size: .85rem; vertical-align: middle;
+}
+.fx-note {
+  margin: 0; padding: .6rem .8rem; max-inline-size: 28ch;
+  border: 1px solid color-mix(in oklch, var(--accent, #4f46e5) 30%, transparent);
+  border-radius: 8px; background: var(--bg-card, #fff); color: var(--text, #1a1a2e);
+  font-size: .85rem; font-weight: 400; box-shadow: 0 6px 24px rgb(0 0 0 / .12);
+}
+@supports (anchor-name: --a) {
+  .fx-note {
+    position: fixed;
+    position-anchor: --fx-note-1;
+    position-area: block-start;
+    position-try-fallbacks: flip-block;
+    margin-block-end: 6px;
+  }
+}
+</style>
+
+<!-- ================= S15 ================= -->
+<section class="panel" id="s15">
+  <div class="p-head">
+    <div><span class="p-sec">B - KPI blocks</span><h2>S15 - Spotlight border card</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A card whose border glows where the pointer is - subtler than the tilt card, built for grids of KPI cards. Move your cursor across it. No motion runs without deliberate pointer movement, so no reduced-motion block is needed.</p>
+  <div class="p-stage">
+    <div class="fx-spot" style="max-width:340px;"><h3 style="margin:0 0 .3rem;">Active users</h3><p style="margin:0; font-size:1.6rem; font-weight:800;">12,940</p></div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--bg-card</code>, <code>--text</code> · Support: universal · Module 2 + 4 (double-background border trick + pointer-tracking custom properties)</p>
+</section>
+<style>
+.fx-spot {
+  --mx: 50%; --my: 50%;
+  padding: 1.5rem; border-radius: 14px; border: 1px solid transparent;
+  color: var(--text, #1a1a2e);
+  background:
+    linear-gradient(var(--bg-card, #fff), var(--bg-card, #fff)) padding-box,
+    radial-gradient(180px at var(--mx) var(--my),
+      var(--accent, #4f46e5), rgb(0 0 0 / .08) 70%) border-box;
+}
+</style>
+<script>
+document.querySelectorAll('.fx-spot').forEach(card => {
+  card.addEventListener('pointermove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
+</script>
+
+<!-- ================= S10 ================= -->
+<section class="panel" id="s10">
+  <div class="p-head">
+    <div><span class="p-sec">C - Transitions &amp; scroll</span><h2>S10 - Reveal-on-scroll cards</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Cards fade and rise as they enter the viewport - pure CSS scroll-driven animation (<code>animation-timeline: view()</code>), no JS, no observers. Scroll down through this tab and watch each card animate in; scroll back up and re-enter them.</p>
+  <div class="p-spacer">↓ scroll ↓</div>
+  <div class="fx-reveal pg-mini">Revenue up 12% QoQ</div>
+  <div class="p-spacer">↓ keep going ↓</div>
+  <div class="fx-reveal pg-mini">Support volume flat</div>
+  <div class="p-spacer">↓ one more ↓</div>
+  <div class="fx-reveal pg-mini">Churn at 1.1%</div>
+  <div class="p-spacer">↑ scroll back up to replay ↑</div>
+  <p class="p-meta">Theming: none needed - inherits everything · Support: Chrome 115+, Safari 26; not yet Baseline - the @supports gate is mandatory (unsupported browsers just show the cards) · Module 1</p>
+</section>
+<style>
+.fx-reveal { opacity: 1; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fx-reveal {
+      animation: fx-reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
+}
+@keyframes fx-reveal-in {
+  from { opacity: 0; transform: translateY(70px) scale(.95); }
+  to { opacity: 1; transform: none; }
+}
+</style>
+
+<!-- ================= S11 ================= -->
+<section class="panel" id="s11">
+  <div class="p-head">
+    <div><span class="p-sec">C - Transitions &amp; scroll</span><h2>S11 - Reading progress bar</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A glowing brand-colored bar pinned to the very top edge of the window (shown only on this tab in the gallery; in a real report it runs page-wide). Tracks scroll position via <code>animation-timeline: scroll()</code> (with a JS shadow driver in this gallery). Scroll this tab: the bar grows and the big percentage below mirrors it.</p>
+  <div class="p-spacer">↓ scroll and watch the top edge ↓</div>
+  <div class="pg-scrollpct" aria-hidden="true">0%</div>
+  <div class="p-spacer">· halfway - bar and counter at ~50% ·</div>
+  <div class="p-spacer">↑ bottom - bar fully grown, 100% ↑</div>
+  <p class="p-meta">Theming: <code>--accent</code> · The one fixed-position exception in the library - 4px tall, aria-hidden, hidden entirely under reduced motion · Support: same gate as S10; unsupported browsers show nothing · Module 1</p>
+</section>
+
+<!-- ================= S12 ================= -->
+<section class="panel" id="s12">
+  <div class="p-head">
+    <div><span class="p-sec">C - Transitions &amp; scroll</span><h2>S12 - Scroll-scrubbed parallax divider</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">A full-width band whose layers move at different rates as you scroll past - scrubbed by scroll position, not a clock. Two mountain ridges slide apart, the sun rises, and the word flies the opposite direction; the "scrub %" readout in the corner mirrors your exact scroll position. Scroll up and down across it slowly.</p>
+  <div class="p-spacer">↓ scroll - watch the mountains slide apart ↓</div>
+  <div class="fx-parallax" aria-hidden="true">
+    <div class="fx-parallax-sun"></div>
+    <div class="fx-parallax-back"></div>
+    <div class="fx-parallax-label">PARALLAX</div>
+    <div class="fx-parallax-front"></div>
+    <div class="fx-parallax-pct">scrub 0%</div>
+  </div>
+  <div class="p-spacer">↑ scrub back and forth - sun, ridges, and word travel at different speeds ↑</div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--accent-2</code>, <code>--bg</code> · Needs its own fixed-height container - hence SECTION-PIECE · Support: same gate as S10; degrades to a static layered band · Module 1</p>
+</section>
+<style>
+.fx-parallax { position: relative; block-size: 320px; overflow: hidden; border-radius: 12px;
+  background: linear-gradient(to bottom, #0f1226, #2a2356 75%, #3d2a63); }
+.fx-parallax-sun { position: absolute; left: 18%; top: 100%; width: 90px; aspect-ratio: 1;
+  border-radius: 50%; background: var(--accent-2, #06b6d4);
+  box-shadow: 0 0 60px 18px color-mix(in oklch, var(--accent-2, #06b6d4) 55%, transparent); }
+.fx-parallax-back { position: absolute; inset: auto 0 0 0; height: 75%;
+  background: color-mix(in oklch, var(--accent, #4f46e5) 45%, #0f1226);
+  clip-path: polygon(0 62%, 12% 38%, 25% 55%, 40% 25%, 55% 52%, 70% 30%, 84% 50%, 100% 34%, 100% 100%, 0 100%); }
+.fx-parallax-front { position: absolute; inset: auto -2% -2% -2%; height: 70%;
+  background: color-mix(in oklch, var(--accent, #4f46e5) 80%, black);
+  clip-path: polygon(0 75%, 10% 52%, 22% 70%, 38% 40%, 52% 66%, 68% 44%, 82% 64%, 100% 48%, 100% 100%, 0 100%); }
+.fx-parallax-label { position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 800; letter-spacing: .35em;
+  color: rgb(255 255 255 / .95); text-shadow: 0 2px 24px rgb(0 0 0 / .7); }
+.fx-parallax-pct { position: absolute; right: .9rem; bottom: .7rem; font-size: .75rem; font-weight: 700;
+  letter-spacing: .06em; color: rgb(255 255 255 / .85); font-variant-numeric: tabular-nums; }
+</style>
+
+<!-- ================= S13 ================= -->
+<section class="panel" id="s13">
+  <div class="p-head">
+    <div><span class="p-sec">C - Transitions &amp; scroll</span><h2>S13 - View-transition panel switcher</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Tab panels that cross-fade and morph when switched via the View Transitions API - app-quality motion in a single-file dashboard. Click between the tabs. Fully keyboard-accessible.</p>
+  <div class="p-stage">
+    <div class="fx-vt">
+      <nav role="tablist">
+        <button role="tab" aria-selected="true" data-panel="fx-p1">Summary</button>
+        <button role="tab" aria-selected="false" data-panel="fx-p2">Detail</button>
+      </nav>
+      <section id="fx-p1" role="tabpanel">Q2 closed at 104% of plan. Three deals slipped to July; all three have signed LOIs.</section>
+      <section id="fx-p2" role="tabpanel" hidden>Largest slip: Northfield district ($84K) - board vote moved to 7/14. Pipeline coverage for Q3 sits at 3.1x with 22 qualified opportunities.</section>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--text-muted</code> · Only one visible element per page may hold a given view-transition-name · Support: Chrome 111+, Safari 18+; feature check makes unsupported browsers switch instantly · Module 1</p>
+</section>
+<style>
+.fx-vt section { view-transition-name: fx-panel; padding: 1rem 0; font-size: .9rem; }
+.fx-vt [role="tab"] {
+  border: none; background: none; padding: .5rem 1rem; cursor: pointer;
+  border-bottom: 2px solid transparent; color: var(--text-muted, #667); font: inherit;
+}
+.fx-vt [role="tab"][aria-selected="true"] { color: var(--accent, #4f46e5); border-color: var(--accent, #4f46e5); }
+::view-transition-old(fx-panel) { animation-duration: .18s; }
+::view-transition-new(fx-panel) { animation-duration: .25s; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(fx-panel), ::view-transition-new(fx-panel) { animation: none; }
+}
+</style>
+<script>
+document.querySelectorAll('.fx-vt [role="tab"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const swap = () => {
+      const vt = btn.closest('.fx-vt');
+      vt.querySelectorAll('[role="tab"]').forEach(b => b.setAttribute('aria-selected', b === btn));
+      vt.querySelectorAll('[role="tabpanel"]').forEach(p => p.hidden = p.id !== btn.dataset.panel);
+    };
+    document.startViewTransition ? document.startViewTransition(swap) : swap();
+  });
+});
+</script>
+
+<!-- ================= S14 ================= -->
+<section class="panel" id="s14">
+  <div class="p-head">
+    <div><span class="p-sec">D - Interactive moments</span><h2>S14 - 3D tilt card with glare</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">The "Apple TV card": tilts toward the pointer with a moving sheen. One pointermove handler writing custom properties - no layout reads in the loop. Hover and move around it. Keep tilt under 12deg in data-dense layouts.</p>
+  <div class="p-stage">
+    <div class="fx-tilt" style="max-width:340px;">
+      <h3 style="margin:0 0 .3rem;">Conversion rate</h3><p style="margin:0; font-size:1.5rem; font-weight:800;">4.8% <span style="font-size:.9rem; color:#0d8a4f;">(+0.6 pts)</span></p>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--bg-card</code>, <code>--text</code> · Tilt strength is the <code>* 10</code> factor · Support: universal; transform disabled under reduced motion · Module 4</p>
+</section>
+<style>
+.fx-tilt {
+  --rx: 0deg; --ry: 0deg; --mx: 50%; --my: 50%;
+  position: relative; padding: 1.5rem; border-radius: 14px; overflow: hidden;
+  background: var(--bg-card, #fff); color: var(--text, #1a1a2e);
+  border: 1px solid rgb(0 0 0 / .08);
+  transform: perspective(700px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform .15s ease-out;
+}
+.fx-tilt::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(220px at var(--mx) var(--my), rgb(255 255 255 / .35), transparent 70%);
+  opacity: 0; transition: opacity .2s;
+}
+.fx-tilt:hover::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .fx-tilt { transform: none !important; } }
+</style>
+<script>
+document.querySelectorAll('.fx-tilt').forEach(card => {
+  card.addEventListener('pointermove', e => {
+    const r = card.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    card.style.setProperty('--ry', ((px - .5) * 10).toFixed(2) + 'deg');
+    card.style.setProperty('--rx', ((.5 - py) * 10).toFixed(2) + 'deg');
+    card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+    card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+  });
+  card.addEventListener('pointerleave', () => {
+    card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg');
+  });
+});
+</script>
+
+<!-- ================= S16 ================= -->
+<section class="panel" id="s16">
+  <div class="p-head">
+    <div><span class="p-sec">D - Interactive moments</span><h2>S16 - Magnetic button</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A CTA that leans toward the pointer within a proximity field and springs back on leave. The padded wrapper around the button IS the proximity zone. Disables itself entirely under reduced motion.</p>
+  <div class="p-stage">
+    <span class="fx-mag-field"><button class="fx-mag">Download report</button></span>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> · Pull strength is the <code>.3</code> factor · Support: universal · Module 4</p>
+</section>
+<style>
+.fx-mag-field { display: inline-block; padding: 22px; }
+.fx-mag {
+  padding: .7rem 1.4rem; border: none; border-radius: 10px; cursor: pointer;
+  background: var(--accent, #4f46e5); color: #fff; font-weight: 600; font: inherit;
+  transform: translate(var(--tx, 0), var(--ty, 0));
+  transition: transform .25s cubic-bezier(.2,.7,.3,1.3);
+}
+</style>
+<script>
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches)
+  document.querySelectorAll('.fx-mag-field').forEach(field => {
+    const btn = field.querySelector('.fx-mag');
+    field.addEventListener('pointermove', e => {
+      const r = field.getBoundingClientRect();
+      btn.style.setProperty('--tx', ((e.clientX - r.left - r.width / 2) * .3).toFixed(1) + 'px');
+      btn.style.setProperty('--ty', ((e.clientY - r.top - r.height / 2) * .3).toFixed(1) + 'px');
+    });
+    field.addEventListener('pointerleave', () => {
+      btn.style.setProperty('--tx', '0px'); btn.style.setProperty('--ty', '0px');
+    });
+  });
+</script>
+
+<!-- ================= S17 ================= -->
+<section class="panel" id="s17">
+  <div class="p-head">
+    <div><span class="p-sec">D - Interactive moments</span><h2>S17 - Spring toggle with linear() easing</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">The knob overshoots and settles like a physical spring - pure CSS via a hand-tuned <code>linear()</code> curve. Click it. The 1.12 peak in the curve is the bounce - widen it for more.</p>
+  <div class="p-stage">
+    <label class="fx-toggle">
+      <input type="checkbox"><span class="fx-toggle-track" aria-hidden="true"></span> Include archived
+    </label>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--text</code> · Support: linear() Baseline 2023; older browsers get the fallback ease · Module 4</p>
+</section>
+<style>
+.fx-toggle { display: inline-flex; align-items: center; gap: .6rem; cursor: pointer; color: var(--text, #1a1a2e); }
+.fx-toggle input { position: absolute; opacity: 0; }
+.fx-toggle-track {
+  inline-size: 46px; block-size: 26px; border-radius: 999px; position: relative;
+  background: color-mix(in oklch, var(--text, #1a1a2e) 25%, transparent);
+  transition: background .25s;
+}
+.fx-toggle-track::after {
+  content: ""; position: absolute; inset: 3px auto 3px 3px; inline-size: 20px;
+  border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgb(0 0 0 / .3);
+  transition: translate .5s linear(0, .3, .7, 1.08, 1.12, 1.04, .99, .98, 1);
+}
+.fx-toggle input:checked + .fx-toggle-track { background: var(--accent, #4f46e5); }
+.fx-toggle input:checked + .fx-toggle-track::after { translate: 20px 0; }
+.fx-toggle input:focus-visible + .fx-toggle-track { outline: 2px solid var(--accent, #4f46e5); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .fx-toggle-track::after { transition-duration: .01s; } }
+</style>
+
+<!-- ================= S18 ================= -->
+<section class="panel" id="s18">
+  <div class="p-head">
+    <div><span class="p-sec">D - Interactive moments</span><h2>S18 - Button ripple</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Material-style ripple from the exact click point - Web Animations API, ripple element self-removes when finished. Click it a few times in different spots.</p>
+  <div class="p-stage">
+    <button class="fx-ripple">Apply filters</button>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> · Works on any element with <code>position: relative; overflow: hidden</code> · Support: universal (WAAPI Baseline 2020) · Module 4</p>
+</section>
+<style>
+.fx-ripple {
+  position: relative; overflow: hidden; padding: .7rem 1.4rem; border: none;
+  border-radius: 10px; cursor: pointer; font: inherit; font-weight: 600;
+  background: var(--accent, #4f46e5); color: #fff;
+}
+</style>
+<script>
+document.querySelectorAll('.fx-ripple').forEach(btn => {
+  btn.addEventListener('click', e => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const r = btn.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2;
+    const dot = document.createElement('span');
+    Object.assign(dot.style, {
+      position: 'absolute', borderRadius: '50%', pointerEvents: 'none',
+      background: 'rgb(255 255 255 / .45)', width: d + 'px', height: d + 'px',
+      left: e.clientX - r.left - d / 2 + 'px', top: e.clientY - r.top - d / 2 + 'px'
+    });
+    btn.appendChild(dot);
+    dot.animate(
+      [{ transform: 'scale(0)', opacity: 1 }, { transform: 'scale(1)', opacity: 0 }],
+      { duration: 500, easing: 'ease-out' }
+    ).finished.then(() => dot.remove());
+  });
+});
+</script>
+
+<!-- ================= S19 ================= -->
+<section class="panel" id="s19">
+  <div class="p-head">
+    <div><span class="p-sec">D - Interactive moments</span><h2>S19 - Confetti burst</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Canvas-free celebration: ~30 fixed-position particles animated with the Web Animations API, self-removing when done. The vanilla answer to canvas-confetti. Click it.</p>
+  <div class="p-stage">
+    <button class="fx-confetti">Goal reached</button>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--accent-2</code> (first two confetti colors) · The only snippet that appends to body - fixed-position, pointer-events: none, self-removing · Support: universal · Module 4</p>
+</section>
+<style>
+.fx-confetti {
+  padding: .7rem 1.4rem; border: none; border-radius: 10px; cursor: pointer;
+  font: inherit; font-weight: 600; background: var(--accent, #4f46e5); color: #fff;
+}
+</style>
+<script>
+document.querySelectorAll('.fx-confetti').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const r = btn.getBoundingClientRect();
+    const rootStyle = getComputedStyle(document.documentElement);
+    const colors = [
+      rootStyle.getPropertyValue('--accent').trim() || '#4f46e5',
+      rootStyle.getPropertyValue('--accent-2').trim() || '#06b6d4',
+      '#f59e0b', '#ec4899'
+    ];
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('span');
+      Object.assign(p.style, {
+        position: 'fixed', left: r.left + r.width / 2 + 'px', top: r.top + 'px',
+        width: '8px', height: '12px', pointerEvents: 'none', zIndex: 999,
+        background: colors[i % colors.length], borderRadius: '2px'
+      });
+      document.body.appendChild(p);
+      const ang = Math.random() * Math.PI - Math.PI, v = 80 + Math.random() * 140;
+      p.animate([
+        { transform: 'translate(0,0) rotate(0)', opacity: 1 },
+        { transform: `translate(${Math.cos(ang) * v}px, ${Math.sin(ang) * v - 60}px) rotate(${Math.random() * 540 - 270}deg)`, opacity: 1, offset: .6 },
+        { transform: `translate(${Math.cos(ang) * v * 1.2}px, ${Math.sin(ang) * v + 160}px) rotate(${Math.random() * 720 - 360}deg)`, opacity: 0 }
+      ], { duration: 900 + Math.random() * 500, easing: 'cubic-bezier(.2,.7,.4,1)' })
+        .finished.then(() => p.remove());
+    }
+  });
+});
+</script>
+
+<!-- ================= S20 ================= -->
+<section class="panel" id="s20">
+  <div class="p-head">
+    <div><span class="p-sec">D - Interactive moments</span><h2>S20 - Scramble-decode headline</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Text resolves from random characters left to right - the terminal decode effect. Runs each time you open this tab; the real text is held in an aria-label while scrambling so screen readers never see noise.</p>
+  <div class="p-stage">
+    <h2 class="fx-scramble" style="margin:.25rem 0; font-size:1.8rem;">Q2 Performance Review</h2>
+  </div>
+  <p class="p-meta">Theming: none - inherits the heading's styles · Speed is the <code>/ 3</code> divisor (frames per character) · Support: universal; reduced motion shows the text immediately · Module 3</p>
+</section>
+<script>
+(() => {
+  const el = document.querySelector('.fx-scramble');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const text = el.textContent, chars = '!<>-_\\/[]{}*^?#';
+  let running = false;
+  function run() {
+    if (reduced || running) return;
+    running = true;
+    let frame = 0;
+    el.setAttribute('aria-label', text);
+    (function tick() {
+      frame++;
+      const resolved = Math.floor(frame / 3);
+      el.textContent = text.split('').map((c, i) =>
+        i < resolved || c === ' ' ? c : chars[Math.floor(Math.random() * chars.length)]
+      ).join('');
+      if (resolved < text.length) requestAnimationFrame(tick);
+      else { el.textContent = text; el.removeAttribute('aria-label'); running = false; }
+    })();
+  }
+  window.fxInit = window.fxInit || {};
+  window.fxInit.s20 = run;
+})();
+</script>
+
+<!-- ================= S22 ================= -->
+<section class="panel" id="s22">
+  <div class="p-head">
+    <div><span class="p-sec">E - Loaders</span><h2>S22 - Staggered dot loader</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Three dots breathing in sequence - the workhorse loader. Under reduced motion the scale pulse swaps for a slow opacity fade: still signals "working" without movement.</p>
+  <div class="p-stage">
+    <div class="fx-dots" role="status" aria-label="Loading">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> · Pattern family popularized by Temani Afif's css-loaders.com; code written fresh · Support: universal · Module 4</p>
+</section>
+<style>
+.fx-dots { display: inline-flex; gap: 8px; }
+.fx-dots span {
+  inline-size: 12px; aspect-ratio: 1; border-radius: 50%;
+  background: var(--accent, #4f46e5);
+  animation: fx-dots-pulse 1s ease-in-out infinite;
+}
+.fx-dots span:nth-child(2) { animation-delay: .15s; }
+.fx-dots span:nth-child(3) { animation-delay: .3s; }
+@keyframes fx-dots-pulse { 0%, 100% { transform: scale(.6); opacity: .4; } 40% { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .fx-dots span { animation: fx-dots-fade 2s ease-in-out infinite; transform: none; }
+}
+@keyframes fx-dots-fade { 0%, 100% { opacity: .4; } 50% { opacity: 1; } }
+</style>
+
+<!-- ================= S23 ================= -->
+<section class="panel" id="s23">
+  <div class="p-head">
+    <div><span class="p-sec">E - Loaders</span><h2>S23 - Conic ring spinner</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A tapered-tail ring spinner from a single element: a conic-gradient punched into a ring with a CSS mask. Reduced motion slows the rotation rather than freezing it - a frozen partial ring reads as broken.</p>
+  <div class="p-stage">
+    <div class="fx-spin" role="status" aria-label="Loading"></div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> · Ring thickness is the 5px/4px pair in the mask · Support: mask Baseline 2023 · Module 2</p>
+</section>
+<style>
+.fx-spin {
+  inline-size: 44px; aspect-ratio: 1; border-radius: 50%;
+  background: conic-gradient(transparent 10%, var(--accent, #4f46e5));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+  animation: fx-spin-rotate .8s linear infinite;
+}
+@keyframes fx-spin-rotate { to { rotate: 1turn; } }
+@media (prefers-reduced-motion: reduce) { .fx-spin { animation-duration: 2.4s; } }
+</style>
+
+<!-- ================= S24 ================= -->
+<section class="panel" id="s24">
+  <div class="p-head">
+    <div><span class="p-sec">E - Loaders</span><h2>S24 - SVG path draw loader</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A line that draws and undraws along a path - swap the <code>d</code> attribute for your logo mark. <code>pathLength="100"</code> keeps the dash math constant for any path.</p>
+  <div class="p-stage">
+    <svg class="fx-pathload" viewBox="0 0 64 32" role="status" aria-label="Loading">
+      <path pathLength="100" fill="none"
+        d="M16,16 C16,7 28,7 32,16 C36,25 48,25 48,16 C48,7 36,7 32,16 C28,25 16,25 16,16 Z"/>
+    </svg>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> · Support: universal · Module 4</p>
+</section>
+<style>
+.fx-pathload { inline-size: 96px; }
+.fx-pathload path {
+  stroke: var(--accent, #4f46e5); stroke-width: 3; stroke-linecap: round;
+  stroke-dasharray: 40 60;
+  animation: fx-pathload-run 1.6s linear infinite;
+}
+@keyframes fx-pathload-run { to { stroke-dashoffset: -100; } }
+@media (prefers-reduced-motion: reduce) { .fx-pathload path { animation-duration: 4s; } }
+</style>
+
+<!-- ================= S25 ================= -->
+<section class="panel" id="s25">
+  <div class="p-head">
+    <div><span class="p-sec">F - Report charts</span><h2>S25 - Animated bar chart with count-up labels</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Grid-layout bars scale in staggered on first view while labels count to value. Pure CSS bars + a small IntersectionObserver trigger. One-shot: it plays the first time it enters view.</p>
+  <div class="p-stage">
+    <div class="fx-bars" role="img" aria-label="Tickets by quarter: Q1 320, Q2 480, Q3 410, Q4 560">
+      <div class="bar" style="--v:320;--i:0"><b>320</b><i></i><span>Q1</span></div>
+      <div class="bar" style="--v:480;--i:1"><b>480</b><i></i><span>Q2</span></div>
+      <div class="bar" style="--v:410;--i:2"><b>410</b><i></i><span>Q3</span></div>
+      <div class="bar" style="--v:560;--i:3"><b>560</b><i></i><span>Q4</span></div>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--text</code>, <code>--muted</code>; <code>--max</code> = axis ceiling · Support: @property Baseline 2024, IO universal · Module 11</p>
+</section>
+<style>
+.fx-bars { --max: 600; display: grid; grid-auto-flow: column; gap: 1rem; align-items: end;
+  height: 220px; padding: 1rem; font-variant-numeric: tabular-nums; }
+.fx-bars .bar { display: grid; grid-template-rows: 1fr auto auto; height: 100%; gap: .35rem;
+  justify-items: center; align-items: end; }
+.fx-bars i { width: 100%; border-radius: 6px 6px 2px 2px; align-self: end;
+  height: calc(var(--v) / var(--max) * 100%);
+  background: linear-gradient(to top, var(--accent, #4f46e5), color-mix(in oklch, var(--accent, #4f46e5), white 25%)); }
+.fx-bars b { font-size: .85rem; color: var(--text, #1f2937); }
+.fx-bars span { font-size: .75rem; color: var(--muted, #6b7280); }
+@media (prefers-reduced-motion: no-preference) {
+  .fx-bars.fx-armed i { transform-origin: bottom; scale: 1 0;
+    transition: scale .6s cubic-bezier(.2,.7,.3,1) calc(var(--i) * 90ms); }
+  .fx-bars.fx-go i { scale: 1 1; }
+}
+@media print { .fx-bars i { scale: 1 1 !important; transition: none !important; } }
+</style>
+<script>
+(() => {
+  const el = document.querySelector('.fx-bars:not([data-init])'); if (!el) return;
+  el.dataset.init = 1;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  el.classList.add('fx-armed');
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { el.classList.add('fx-go'); o.disconnect();
+    el.querySelectorAll('.bar').forEach(b => {
+      const t = +b.style.getPropertyValue('--v'), out = b.querySelector('b'), t0 = performance.now();
+      const d = 600 + (+b.style.getPropertyValue('--i')) * 90;
+      (function tick(n) { const p = Math.min((n - t0) / d, 1);
+        out.textContent = Math.round(t * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick); })(t0);
+    }); } }, { threshold: .4 }).observe(el);
+})();
+</script>
+
+<!-- ================= S26 ================= -->
+<section class="panel" id="s26">
+  <div class="p-head">
+    <div><span class="p-sec">F - Report charts</span><h2>S26 - Conic donut KPI ring</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Single-value donut sweeping to its percentage via @property interpolation of the conic-gradient stop - the value sits in the hole as real text. One-shot on first view.</p>
+  <div class="p-stage">
+    <div class="fx-donut2" style="--p:72">
+      <div class="ring" aria-hidden="true"></div>
+      <div class="val"><b>72%</b><span>resolved</span></div>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (sweep), <code>--track</code> (rail), <code>--p</code> inline per KPI · Support: @property + conic + mask all Baseline; falls back to instant render · Module 11</p>
+</section>
+<style>
+@property --fx-p2 { syntax: "<number>"; inherits: true; initial-value: 0; }
+.fx-donut2 { position: relative; width: 140px; aspect-ratio: 1; display: grid; place-items: center;
+  font-variant-numeric: tabular-nums; }
+.fx-donut2 .ring { position: absolute; inset: 0; border-radius: 50%; --fx-p2: 0;
+  background: conic-gradient(var(--accent, #4f46e5) calc(var(--fx-p2) * 1%), var(--track, #e5e7eb) 0);
+  mask: radial-gradient(closest-side, transparent calc(100% - 14px), #000 calc(100% - 13.5px)); }
+.fx-donut2.fx-go .ring { --fx-p2: var(--p); transition: --fx-p2 1s cubic-bezier(.2,.7,.3,1); }
+@media (prefers-reduced-motion: reduce), print { .fx-donut2 .ring { --fx-p2: var(--p) !important; transition: none !important; } }
+.fx-donut2 .val { text-align: center; color: var(--text, #1f2937); }
+.fx-donut2 b { display: block; font-size: 1.5rem; }
+.fx-donut2 span { font-size: .72rem; color: var(--muted, #6b7280); }
+</style>
+<script>
+(() => { const el = document.querySelector('.fx-donut2:not([data-init])'); if (!el) return;
+  el.dataset.init = 1;
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { el.classList.add('fx-go'); o.disconnect(); } },
+    { threshold: .5 }).observe(el);
+})();
+</script>
+
+<!-- ================= S27 ================= -->
+<section class="panel" id="s27">
+  <div class="p-head">
+    <div><span class="p-sec">F - Report charts</span><h2>S27 - SVG line chart with draw-in and area fill</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Hand-rolled polyline from a data array: draw-on entrance, gradient area fade, focusable dots with native tooltips (hover or Tab to them). Data lives in data-attributes - regenerate-friendly for templated reports.</p>
+  <div class="p-stage">
+    <figure class="fx-line" data-values="12,18,14,22,26,21,30,34" data-labels="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug">
+      <svg viewBox="0 0 600 200" preserveAspectRatio="none" role="img" aria-label="Monthly trend, rising from 12 in Jan to 34 in Aug"></svg>
+    </figure>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (line, area, dots) · Support: universal SVG · Module 11 + 9 · Note: gallery uses the corrected CSS (the module's original had an invalid nested @media - now patched)</p>
+</section>
+<style>
+.fx-line { margin: 0; }
+.fx-line svg { width: 100%; height: auto; display: block; }
+.fx-line .l { fill: none; stroke: var(--accent, #4f46e5); stroke-width: 2.5;
+  vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.fx-line .a { fill: url(#fxlg); opacity: 0; }
+.fx-line .d { fill: var(--accent, #4f46e5); }
+.fx-line .d:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .fx-line.fx-go .l { stroke-dasharray: 1; stroke-dashoffset: 1; animation: fx-line-draw 1.1s ease-out forwards; }
+  .fx-line.fx-go .a { animation: fx-line-area .5s ease-out .7s forwards; }
+}
+.fx-line:not(.fx-go) .a { opacity: .35; }
+@media (prefers-reduced-motion: reduce) { .fx-line .a { opacity: .35; } }
+@keyframes fx-line-draw { to { stroke-dashoffset: 0; } }
+@keyframes fx-line-area { to { opacity: .35; } }
+@media print { .fx-line .l { animation: none !important; stroke-dasharray: none !important; }
+  .fx-line .a { opacity: .35 !important; animation: none !important; } }
+</style>
+<script>
+(() => {
+  const f = document.querySelector('.fx-line:not([data-init])'); if (!f) return; f.dataset.init = 1;
+  const svg = f.querySelector('svg'), W = 600, H = 200, P = 8;
+  const v = f.dataset.values.split(',').map(Number), lb = (f.dataset.labels || '').split(',');
+  const min = Math.min(...v), max = Math.max(...v);
+  const X = i => P + i / (v.length - 1) * (W - 2 * P);
+  const Y = n => H - P - (n - min) / (max - min) * (H - 2 * P);
+  const pts = v.map((n, i) => `${X(i)},${Y(n)}`).join(' ');
+  svg.innerHTML = `
+    <defs><linearGradient id="fxlg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--accent, #4f46e5)" stop-opacity=".8"/>
+      <stop offset="1" stop-color="var(--accent, #4f46e5)" stop-opacity="0"/></linearGradient></defs>
+    <polygon class="a" points="${X(0)},${H - P} ${pts} ${X(v.length - 1)},${H - P}"/>
+    <polyline class="l" pathLength="1" points="${pts}"/>` +
+    v.map((n, i) => `<circle class="d" r="4" cx="${X(i)}" cy="${Y(n)}" tabindex="0" role="img"
+      aria-label="${lb[i] || i}: ${n}"><title>${lb[i] || i}: ${n}</title></circle>`).join('');
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { f.classList.add('fx-go'); o.disconnect(); } },
+    { threshold: .4 }).observe(f);
+})();
+</script>
+
+<!-- ================= S28 ================= -->
+<section class="panel" id="s28">
+  <div class="p-head">
+    <div><span class="p-sec">F - Report charts</span><h2>S28 - Heatmap cells with OKLCH scale</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Grid heatmap colored by color-mix in OKLCH from the single accent - switch theme swatches and the whole scale re-derives. Staggered fade entrance, values readable in every cell.</p>
+  <div class="p-stage">
+    <div class="fx-heat" role="img" aria-label="Activity by weekday and week, darker is busier">
+      <div style="--v:15">15</div><div style="--v:40">40</div><div style="--v:75">75</div><div style="--v:90">90</div>
+      <div style="--v:30">30</div><div style="--v:65">65</div><div style="--v:55">55</div><div style="--v:20">20</div>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (scale hue), <code>--bg</code>, <code>--text</code> · Support: color-mix Baseline 2023 · Module 11 + 16</p>
+</section>
+<style>
+.fx-heat { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; max-width: 420px;
+  font: .78rem/1.6 system-ui, sans-serif; font-variant-numeric: tabular-nums; }
+.fx-heat > div { aspect-ratio: 1.4; display: grid; place-items: center; border-radius: 6px;
+  background: color-mix(in oklch, var(--accent, #4f46e5), var(--bg, #fff) calc(100% - var(--v) * 1%));
+  color: color-mix(in oklch, var(--text, #1f2937), var(--bg, #fff) calc(var(--v) * 1% - 20%)); }
+.fx-heat > div[style*="--v:9"], .fx-heat > div[style*="--v:8"], .fx-heat > div[style*="--v:7"]
+  { color: var(--bg, #fff); }
+@media (prefers-reduced-motion: no-preference) {
+  .fx-heat.fx-armed > div { opacity: 0; transition: opacity .4s ease-out calc(var(--i, 0) * 30ms); }
+  .fx-heat.fx-go > div { opacity: 1; }
+}
+@media print { .fx-heat > div { opacity: 1 !important; } }
+</style>
+<script>
+(() => { const el = document.querySelector('.fx-heat:not([data-init])'); if (!el) return; el.dataset.init = 1;
+  [...el.children].forEach((c, i) => c.style.setProperty('--i', i));
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  el.classList.add('fx-armed');
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { el.classList.add('fx-go'); o.disconnect(); } },
+    { threshold: .3 }).observe(el);
+})();
+</script>
+
+<!-- ================= S29 ================= -->
+<section class="panel" id="s29">
+  <div class="p-head">
+    <div><span class="p-sec">F - Report charts</span><h2>S29 - Bullet chart KPI row</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Stephen Few's bullet form: range band, animated measure bar, target tick - three KPIs in a compact row. The densest value-vs-target display there is.</p>
+  <div class="p-stage">
+    <div class="fx-bullets">
+      <div class="b" style="--v:68;--t:80"><span>Resolution rate</span><i></i><b>68%</b></div>
+      <div class="b" style="--v:92;--t:75"><span>CSAT</span><i></i><b>92%</b></div>
+      <div class="b" style="--v:45;--t:60"><span>Self-service</span><i></i><b>45%</b></div>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (measure), band grays derived from <code>--text</code>/<code>--bg</code>; <code>--v</code> measure, <code>--t</code> target per row · Support: universal · Module 11</p>
+</section>
+<style>
+.fx-bullets { display: grid; gap: .8rem; font-variant-numeric: tabular-nums; }
+.fx-bullets .b { display: grid; grid-template-columns: 9rem 1fr 3.2rem; align-items: center; gap: .75rem;
+  font-size: .85rem; color: var(--text, #1f2937); }
+.fx-bullets span { color: var(--muted, #6b7280); }
+.fx-bullets i { position: relative; height: 14px; border-radius: 4px;
+  background: linear-gradient(to right,
+    color-mix(in oklch, var(--text, #333), var(--bg, #fff) 78%) 0 60%,
+    color-mix(in oklch, var(--text, #333), var(--bg, #fff) 86%) 0 85%,
+    color-mix(in oklch, var(--text, #333), var(--bg, #fff) 93%) 0); }
+.fx-bullets i::before { content: ""; position: absolute; inset: 4px auto 4px 0; width: calc(var(--v) * 1%);
+  border-radius: 2px; background: var(--accent, #4f46e5); }
+.fx-bullets i::after { content: ""; position: absolute; inset: 0 auto 0 calc(var(--t) * 1% - 1px);
+  width: 2px; background: var(--text, #1f2937); }
+@media (prefers-reduced-motion: no-preference) {
+  .fx-bullets i::before { width: 0; transition: width .7s cubic-bezier(.2,.7,.3,1) .1s; }
+  .fx-bullets.fx-go i::before { width: calc(var(--v) * 1%); }
+}
+@media print { .fx-bullets i::before { width: calc(var(--v) * 1%) !important; transition: none !important; } }
+</style>
+<script>
+(() => { const el = document.querySelector('.fx-bullets:not([data-init])'); if (!el) return; el.dataset.init = 1;
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { el.classList.add('fx-go'); o.disconnect(); } },
+    { threshold: .4 }).observe(el);
+})();
+</script>
+
+<!-- ================= S30 ================= -->
+<section class="panel" id="s30">
+  <div class="p-head">
+    <div><span class="p-sec">G - Section architecture</span><h2>S30 - Turbulence wavy divider</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A section divider with an organic turbulence-displaced edge - feTurbulence + feDisplacementMap instead of the usual wave-path SVG. Static filter: zero runtime cost. Same seed = same waveline every render.</p>
+  <div class="p-stage">
+    <p style="margin:0;">...end of one section.</p>
+    <div class="fx-wavy" aria-hidden="true"></div>
+    <p style="margin:0;">Start of the next...</p>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--accent-2</code> (gradient ends); <code>seed</code> in the filter · Support: SVG filters universal · Module 9</p>
+</section>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="fx-wavy-f" x="-5%" y="-20%" width="110%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="2" seed="11" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="14"/>
+  </filter>
+</svg>
+<style>
+.fx-wavy { height: 46px; margin-block: 1.5rem;
+  background: linear-gradient(to right, var(--accent, #4f46e5), var(--accent-2, #06b6d4));
+  filter: url(#fx-wavy-f); opacity: .85; }
+@media (forced-colors: active) { .fx-wavy { background: CanvasText; filter: none; height: 2px; } }
+@media print { .fx-wavy { filter: none; height: 3px; } }
+</style>
+
+<!-- ================= S31 ================= -->
+<section class="panel" id="s31">
+  <div class="p-head">
+    <div><span class="p-sec">G - Section architecture</span><h2>S31 - Depth-stacked hero (pseudo-3D diorama)</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">Cover band with three layers at different translateZ depths, tilting gently toward the pointer with scale compensation so nothing shifts size. Move your cursor across it. Flat at rest, flat in print, disabled on touch.</p>
+  <div class="p-stage dark" style="padding:0;">
+    <header class="fx-diorama">
+      <div class="scene">
+        <div class="layer back" aria-hidden="true"></div>
+        <div class="layer mid"><h1>Annual Technology Report</h1></div>
+        <div class="layer front"><p>School Technology Associates - 2026</p></div>
+      </div>
+    </header>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--accent-2</code> (glow layers), <code>--bg</code>, <code>--text</code> · Event-driven, zero idle cost · Support: 3D transforms universal · Module 10 + 4</p>
+</section>
+<style>
+.fx-diorama { --p: 900; perspective: calc(var(--p) * 1px); background: var(--bg, #14141c);
+  overflow: hidden; border-radius: 12px; }
+.fx-diorama .scene { position: relative; min-height: 260px; transform-style: preserve-3d;
+  transform: rotateX(calc(var(--ry, 0) * -4deg)) rotateY(calc(var(--rx, 0) * 4deg));
+  transition: transform .25s ease-out; display: grid; place-items: center; padding: 2.5rem; }
+.fx-diorama .layer { grid-area: 1 / 1; }
+.fx-diorama .back { position: absolute; inset: -8%; transform: translateZ(-60px) scale(calc((var(--p) + 60) / var(--p)));
+  background: radial-gradient(circle at 30% 20%, color-mix(in oklch, var(--accent, #4f46e5), transparent 55%), transparent 60%),
+              radial-gradient(circle at 80% 80%, color-mix(in oklch, var(--accent-2, #06b6d4), transparent 65%), transparent 55%); }
+.fx-diorama .mid { transform: translateZ(40px) scale(calc((var(--p) - 40) / var(--p)));
+  color: var(--text, #fff); text-align: center; }
+.fx-diorama .mid h1 { margin: 0; font-size: clamp(1.6rem, 4vw, 2.6rem); }
+.fx-diorama .front { transform: translateZ(80px) scale(calc((var(--p) - 80) / var(--p)));
+  align-self: end; color: color-mix(in oklch, var(--text, #fff), transparent 30%); font-size: .9rem; }
+@media print { .fx-diorama .scene, .fx-diorama .layer { transform: none !important; } }
+</style>
+<script>
+(() => {
+  const d = document.querySelector('.fx-diorama:not([data-init])'); if (!d) return; d.dataset.init = 1;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(pointer: coarse)').matches) return;
+  d.addEventListener('pointermove', e => {
+    const r = d.getBoundingClientRect();
+    d.style.setProperty('--rx', ((e.clientX - r.left) / r.width - .5) * 2);
+    d.style.setProperty('--ry', ((e.clientY - r.top) / r.height - .5) * 2);
+  });
+  d.addEventListener('pointerleave', () => { d.style.setProperty('--rx', 0); d.style.setProperty('--ry', 0); });
+})();
+</script>
+
+<!-- ================= S32 ================= -->
+<section class="panel" id="s32">
+  <div class="p-head">
+    <div><span class="p-sec">G - Section architecture</span><h2>S32 - Sticky chapter scene (scrollytelling stepper)</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">The scrollytelling atom: a sticky stage + scrolling steps. As each step enters the reading band, the stage swaps state. Scroll through it - the left panel stays put while Phase 1/2/3 crossfade. Pattern popularized by The Pudding. Owns ~225vh of page by design.</p>
+  <section class="fx-scene2">
+    <div class="stage" aria-hidden="true"><div class="s s1">Phase 1</div><div class="s s2">Phase 2</div><div class="s s3">Phase 3</div></div>
+    <div class="steps">
+      <div class="step" data-n="1"><h3>Discovery</h3><p>Audit and inventory across all sites.</p></div>
+      <div class="step" data-n="2"><h3>Rollout</h3><p>Staged deployment, training first.</p></div>
+      <div class="step" data-n="3"><h3>Adoption</h3><p>Support load drops as self-service rises.</p></div>
+    </div>
+  </section>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--bg</code> · Swap the stage text for S25/S27 charts per step for a data story · Support: sticky + IO universal · Module 13</p>
+</section>
+<style>
+.fx-scene2 { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.fx-scene2 .stage { position: sticky; top: 10vh; height: 80vh; display: grid; place-items: center;
+  border-radius: 14px; background: color-mix(in oklch, var(--accent, #4f46e5), var(--bg, #fff) 92%); }
+.fx-scene2 .s { grid-area: 1 / 1; font-size: 2rem; font-weight: 700; color: var(--accent, #4f46e5);
+  opacity: 0; translate: 0 12px; transition: opacity .35s ease, translate .35s ease; }
+.fx-scene2[data-step="1"] .s1, .fx-scene2[data-step="2"] .s2, .fx-scene2[data-step="3"] .s3
+  { opacity: 1; translate: 0 0; }
+.fx-scene2 .step { min-height: 75vh; display: grid; align-content: center; }
+@media (prefers-reduced-motion: reduce) { .fx-scene2 .s { transition: none; } }
+@media (max-width: 760px) { .fx-scene2 { grid-template-columns: 1fr; } .fx-scene2 .stage { height: 38vh; top: 0; } }
+@media print { .fx-scene2 .stage { position: static; height: auto; padding: 1rem; }
+  .fx-scene2 .s { opacity: 1 !important; position: static; translate: none; } }
+</style>
+<script>
+(() => {
+  const sc = document.querySelector('.fx-scene2:not([data-init])'); if (!sc) return; sc.dataset.init = 1;
+  sc.dataset.step = "1";
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) sc.dataset.step = e.target.dataset.n; }),
+    { rootMargin: "-40% 0px -50%" });
+  sc.querySelectorAll('.step').forEach(s => io.observe(s));
+})();
+</script>
+
+<!-- ================= S33 ================= -->
+<section class="panel" id="s33">
+  <div class="p-head">
+    <div><span class="p-sec">G - Section architecture</span><h2>S33 - Snap-section story nav dots</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">Scroll-snap chapter deck with native CSS scroll-marker dots where supported, anchor-link fallback elsewhere. Scroll inside the box - sections snap, the active dot tracks. Snap is contained to the component's own scroller, never the page.</p>
+  <div class="fx-story">
+    <section id="ch1"><h2>Where we started</h2></section>
+    <section id="ch2"><h2>What changed</h2></section>
+    <section id="ch3"><h2>Where this goes</h2></section>
+    <nav class="fallback" aria-label="Chapters"><a href="#ch1">1</a><a href="#ch2">2</a><a href="#ch3">3</a></nav>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--surface</code>, <code>--text</code> · Support: scroll-marker Chrome/Edge 135+, Safari 18.2+ (@supports-gated, fast-moving) · Module 13</p>
+</section>
+<style>
+.fx-story { height: 70vh; overflow-y: auto; scroll-snap-type: y mandatory; border-radius: 12px;
+  background: var(--surface, #fff); border: 1px solid #e3e5f0; position: relative; }
+.fx-story section { height: 100%; scroll-snap-align: start; scroll-snap-stop: always;
+  display: grid; place-items: center; color: var(--text, #1f2937); }
+.fx-story .fallback { position: sticky; bottom: 1rem; display: flex; gap: .5rem; justify-content: center; }
+.fx-story .fallback a { width: 1.4rem; height: 1.4rem; border-radius: 50%; display: grid; place-items: center;
+  font-size: .7rem; text-decoration: none; color: var(--text, #1f2937);
+  background: color-mix(in oklch, var(--accent, #4f46e5), transparent 85%); }
+@supports (scroll-marker-group: after) {
+  .fx-story { scroll-marker-group: after; }
+  .fx-story .fallback { display: none; }
+  .fx-story::scroll-marker-group { position: sticky; bottom: 1rem; align-self: center;
+    display: flex; gap: .55rem; }
+  .fx-story section::scroll-marker { content: ""; width: .65rem; aspect-ratio: 1; border-radius: 50%;
+    background: color-mix(in oklch, var(--accent, #4f46e5), transparent 70%); }
+  .fx-story section::scroll-marker:target-current { background: var(--accent, #4f46e5); }
+  .fx-story section::scroll-marker:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 2px; }
+}
+@media print { .fx-story { height: auto; overflow: visible; } .fx-story section { height: auto; padding: 2rem; } }
+</style>
+
+<!-- ================= S34 ================= -->
+<section class="panel" id="s34">
+  <div class="p-head">
+    <div><span class="p-sec">H - Interactive (wave 2)</span><h2>S34 - Goo blob cluster</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">Three drifting blobs fusing metaball-style via the classic blur + alpha-crush SVG filter. Pattern popularized by Lucas Bebber. Pauses entirely when offscreen.</p>
+  <div class="p-stage">
+    <div class="fx-goo" aria-hidden="true"><i></i><i></i><i></i></div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--accent-2</code> (colors mix where blobs fuse) · Keep the container padded - the blur samples beyond the blobs · Support: SVG filters universal · Module 9</p>
+</section>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="fx-goo-f"><feGaussianBlur in="SourceGraphic" stdDeviation="10" result="b"/>
+  <feColorMatrix in="b" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"/></filter>
+</svg>
+<style>
+.fx-goo { position: relative; height: 180px; filter: url(#fx-goo-f); }
+.fx-goo i { position: absolute; top: 50%; left: 50%; width: 70px; aspect-ratio: 1; border-radius: 50%;
+  background: var(--accent, #4f46e5); }
+.fx-goo i:nth-child(2) { background: color-mix(in oklch, var(--accent, #4f46e5), var(--accent-2, #06b6d4) 50%); }
+.fx-goo i:nth-child(3) { background: var(--accent-2, #06b6d4); }
+@media (prefers-reduced-motion: no-preference) {
+  .fx-goo.fx-run i:nth-child(1) { animation: fx-goo-a 5s ease-in-out infinite alternate; }
+  .fx-goo.fx-run i:nth-child(2) { animation: fx-goo-b 6.4s ease-in-out infinite alternate; }
+  .fx-goo.fx-run i:nth-child(3) { animation: fx-goo-c 7.1s ease-in-out infinite alternate; }
+}
+@keyframes fx-goo-a { from { translate: -90px -12px; } to { translate: 30px 8px; } }
+@keyframes fx-goo-b { from { translate: -10px 10px; } to { translate: 60px -16px; } }
+@keyframes fx-goo-c { from { translate: 40px -6px; } to { translate: -60px 14px; } }
+@media (prefers-reduced-motion: reduce) {
+  .fx-goo i:nth-child(1) { translate: -60px -8px; } .fx-goo i:nth-child(3) { translate: 50px 8px; } }
+@media print { .fx-goo { display: none; } }
+</style>
+<script>
+(() => { const g = document.querySelector('.fx-goo:not([data-init])'); if (!g) return; g.dataset.init = 1;
+  new IntersectionObserver(es => g.classList.toggle('fx-run', es[0].isIntersecting)).observe(g);
+})();
+</script>
+
+<!-- ================= S35 ================= -->
+<section class="panel" id="s35">
+  <div class="p-head">
+    <div><span class="p-sec">H - Interactive (wave 2)</span><h2>S35 - Multi-path draw-on illustration</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">Staggered draw-in across the paths of a line-art diagram - nodes and connectors sketch themselves in sequence on first view. Swap the paths for any traced diagram; keep pathLength="1" and a --i per path.</p>
+  <div class="p-stage">
+    <svg class="fx-drawon" viewBox="0 0 300 120" role="img" aria-label="Three connected nodes diagram">
+      <g fill="none" stroke="var(--accent, #4f46e5)" stroke-width="2" stroke-linecap="round">
+        <circle pathLength="1" style="--i:0" cx="50" cy="60" r="24"/>
+        <path pathLength="1" style="--i:1" d="M74 60 H 126"/>
+        <circle pathLength="1" style="--i:2" cx="150" cy="60" r="24"/>
+        <path pathLength="1" style="--i:3" d="M174 60 H 226"/>
+        <circle pathLength="1" style="--i:4" cx="250" cy="60" r="24"/>
+      </g>
+    </svg>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (stroke) · Support: universal · Module 9</p>
+</section>
+<style>
+.fx-drawon { width: min(100%, 420px); display: block; }
+@media (prefers-reduced-motion: no-preference) {
+  .fx-drawon.fx-armed [pathLength] { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .fx-drawon.fx-go [pathLength] { animation: fx-draw .7s ease-out forwards;
+    animation-delay: calc(var(--i) * 180ms); }
+}
+@keyframes fx-draw { to { stroke-dashoffset: 0; } }
+@media print { .fx-drawon [pathLength] { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; animation: none !important; } }
+</style>
+<script>
+(() => { const s = document.querySelector('.fx-drawon:not([data-init])'); if (!s) return; s.dataset.init = 1;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  s.classList.add('fx-armed');
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { s.classList.add('fx-go'); o.disconnect(); } },
+    { threshold: .5 }).observe(s);
+})();
+</script>
+
+<!-- ================= S36 ================= -->
+<section class="panel" id="s36">
+  <div class="p-head">
+    <div><span class="p-sec">H - Interactive (wave 2)</span><h2>S36 - Accessible flip card</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Two-sided KPI card flipping on button click with honest aria-expanded + inert state management. Click "How is this measured?". Crossfades instead of flipping under reduced motion; front face prints.</p>
+  <div class="p-stage">
+    <div class="fx-flip">
+      <button aria-expanded="false">How is this measured?</button>
+      <div class="card">
+        <div class="face front"><b>94%</b><span>uptime this term</span></div>
+        <div class="face back"><p>Uptime = monitored minutes online / total school-hours minutes, all sites.</p></div>
+      </div>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--surface</code>, <code>--track</code>, <code>--text</code>, <code>--muted</code> · Support: 3D transforms universal · Module 10</p>
+</section>
+<style>
+.fx-flip { --d: .5s; width: 240px; perspective: 900px; display: grid; gap: .5rem; }
+.fx-flip button { font-size: .75rem; padding: .35rem .6rem; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--track, #e5e7eb); background: var(--surface, #fff); color: var(--muted, #6b7280); }
+.fx-flip button:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 2px; }
+.fx-flip .card { position: relative; height: 130px; transform-style: preserve-3d;
+  transition: transform var(--d) cubic-bezier(.4,.1,.2,1.1); }
+.fx-flip:has([aria-expanded="true"]) .card { transform: rotateY(180deg); }
+.fx-flip .face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 12px;
+  display: grid; place-content: center; text-align: center; padding: 1rem;
+  background: var(--surface, #fff); border: 1px solid var(--track, #e5e7eb); color: var(--text, #1f2937); }
+.fx-flip .front b { font-size: 2rem; color: var(--accent, #4f46e5); }
+.fx-flip .back { transform: rotateY(180deg); font-size: .82rem; }
+@media (prefers-reduced-motion: reduce) {
+  .fx-flip .card { transition: none; transform: none !important; }
+  .fx-flip .back { transform: none; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .fx-flip:has([aria-expanded="true"]) .back { opacity: 1; pointer-events: auto; }
+  .fx-flip:has([aria-expanded="true"]) .front { opacity: 0; } }
+@media print { .fx-flip .back { display: none; } .fx-flip .card { transform: none !important; } }
+</style>
+<script>
+(() => { const f = document.querySelector('.fx-flip:not([data-init])'); if (!f) return; f.dataset.init = 1;
+  const b = f.querySelector('button'), back = f.querySelector('.back');
+  back.inert = true;
+  b.addEventListener('click', () => {
+    const open = b.getAttribute('aria-expanded') === 'true';
+    b.setAttribute('aria-expanded', String(!open));
+    back.inert = open; f.querySelector('.front').inert = !open;
+  });
+})();
+</script>
+
+<!-- ================= S37 ================= -->
+<section class="panel" id="s37">
+  <div class="p-head">
+    <div><span class="p-sec">H - Interactive (wave 2)</span><h2>S37 - Cube spinner</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">A six-face CSS cube built from divs, rotating a half-turn on hover/focus - not continuously, so idle cost is zero. Faces are OKLCH-darkened from one accent for fake lighting. Hover it (or Tab to it).</p>
+  <div class="p-stage">
+    <div class="fx-cube-wrap"><div class="fx-cube" tabindex="0" role="img" aria-label="Decorative rotating cube">
+      <div>STA</div><div>2026</div><div>K-12</div><div>Tech</div><div>+</div><div>=</div>
+    </div></div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (face color), <code>--s</code> (size) · A permanently looping version is DEMO-ONLY per Module 7 idle rules · Support: universal · Module 10</p>
+</section>
+<style>
+.fx-cube-wrap { perspective: 700px; width: max-content; padding: 2rem; }
+.fx-cube { --s: 110px; width: var(--s); aspect-ratio: 1; position: relative; transform-style: preserve-3d;
+  transform: rotateX(-18deg) rotateY(24deg); transition: transform 1.1s cubic-bezier(.3,.7,.3,1); }
+.fx-cube:hover, .fx-cube:focus-visible { transform: rotateX(-18deg) rotateY(204deg); }
+.fx-cube:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 6px; }
+.fx-cube > div { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 700;
+  color: var(--bg, #fff); border-radius: 8px;
+  background: color-mix(in oklch, var(--accent, #4f46e5), black calc(var(--f) * 6%)); }
+.fx-cube > div:nth-child(1) { --f: 0; transform: translateZ(calc(var(--s) / 2)); }
+.fx-cube > div:nth-child(2) { --f: 5; transform: rotateY(180deg) translateZ(calc(var(--s) / 2)); }
+.fx-cube > div:nth-child(3) { --f: 2; transform: rotateY(90deg) translateZ(calc(var(--s) / 2)); }
+.fx-cube > div:nth-child(4) { --f: 3; transform: rotateY(-90deg) translateZ(calc(var(--s) / 2)); }
+.fx-cube > div:nth-child(5) { --f: 1; transform: rotateX(90deg) translateZ(calc(var(--s) / 2)); }
+.fx-cube > div:nth-child(6) { --f: 4; transform: rotateX(-90deg) translateZ(calc(var(--s) / 2)); }
+@media (prefers-reduced-motion: reduce) { .fx-cube { transition: none; } }
+@media print { .fx-cube { transform: none; } .fx-cube > div:not(:first-child) { display: none; } }
+</style>
+
+<!-- ================= S38 ================= -->
+<section class="panel" id="s38">
+  <div class="p-head">
+    <div><span class="p-sec">H - Interactive (wave 2)</span><h2>S38 - FLIP reorder grid</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Click A-Z or By value - cards glide to their new positions via the FLIP technique (measure, reorder, invert, animate with WAAPI). Pattern popularized by Paul Lewis. Event-driven, zero idle cost.</p>
+  <div class="p-stage">
+    <div class="fx-flipgrid">
+      <div class="bar"><button data-sort="az">A-Z</button><button data-sort="val">By value</button></div>
+      <div class="grid">
+        <div class="c" data-v="42">Delta<span>42</span></div><div class="c" data-v="91">Alpha<span>91</span></div>
+        <div class="c" data-v="17">Echo<span>17</span></div><div class="c" data-v="68">Bravo<span>68</span></div>
+        <div class="c" data-v="55">Charlie<span>55</span></div><div class="c" data-v="80">Foxtrot<span>80</span></div>
+      </div>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--surface</code>, <code>--track</code>, <code>--text</code> · Support: WAAPI universal; reduced motion = instant reorder · Module 14</p>
+</section>
+<style>
+.fx-flipgrid .bar { display: flex; gap: .5rem; margin-bottom: .75rem; }
+.fx-flipgrid button { padding: .35rem .8rem; border-radius: 8px; cursor: pointer; font: inherit; font-size: .85rem;
+  border: 1px solid var(--track, #e5e7eb); background: var(--surface, #fff); color: var(--text, #1f2937); }
+.fx-flipgrid button:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 2px; }
+.fx-flipgrid .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+.fx-flipgrid .c { padding: .9rem; border-radius: 10px; background: var(--surface, #fff);
+  border: 1px solid var(--track, #e5e7eb); color: var(--text, #1f2937); display: flex; justify-content: space-between; gap: .5rem; }
+.fx-flipgrid .c span { color: var(--accent, #4f46e5); font-weight: 700; font-variant-numeric: tabular-nums; }
+</style>
+<script>
+(() => {
+  const w = document.querySelector('.fx-flipgrid:not([data-init])'); if (!w) return; w.dataset.init = 1;
+  const grid = w.querySelector('.grid');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  w.querySelector('.bar').addEventListener('click', e => {
+    const mode = e.target.dataset.sort; if (!mode) return;
+    const first = new Map([...grid.children].map(el => [el, el.getBoundingClientRect()]));
+    [...grid.children]
+      .sort((a, b) => mode === 'val' ? b.dataset.v - a.dataset.v : a.textContent.localeCompare(b.textContent))
+      .forEach(el => grid.appendChild(el));
+    if (reduced.matches) return;
+    for (const el of grid.children) {
+      const f = first.get(el), l = el.getBoundingClientRect();
+      const dx = f.left - l.left, dy = f.top - l.top;
+      if (dx || dy) el.animate(
+        [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }],
+        { duration: 320, easing: 'cubic-bezier(.2,.7,.3,1)' });
+    }
+  });
+})();
+</script>
+
+<!-- ================= S39 ================= -->
+<section class="panel" id="s39">
+  <div class="p-head">
+    <div><span class="p-sec">H - Interactive (wave 2)</span><h2>S39 - Springy drag card</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">Grab the card, throw it, let go - it springs home carrying your release velocity. Real spring physics in ~20 lines: pointer capture, velocity sampling, stiffness + damping integration. The loop only runs post-release until settled.</p>
+  <div class="p-stage">
+    <div class="fx-dragzone"><div class="fx-dragcard" tabindex="0">Drag me, then let go</div></div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (zone tint), <code>--surface</code>, <code>--track</code>, <code>--text</code> · Stiffness/damping are the 170/16 constants · Support: Pointer Events universal · Module 14</p>
+</section>
+<style>
+.fx-dragzone { height: 200px; display: grid; place-items: center; border-radius: 12px;
+  background: color-mix(in oklch, var(--accent, #4f46e5), var(--bg, #fff) 94%); }
+.fx-dragcard { padding: 1.2rem 1.8rem; border-radius: 12px; cursor: grab; user-select: none;
+  touch-action: none; background: var(--surface, #fff); color: var(--text, #1f2937);
+  border: 1px solid var(--track, #e5e7eb); box-shadow: 0 4px 14px #0002;
+  translate: var(--x, 0px) var(--y, 0px); will-change: translate; }
+.fx-dragcard:active { cursor: grabbing; }
+.fx-dragcard:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 3px; }
+</style>
+<script>
+(() => {
+  const c = document.querySelector('.fx-dragcard:not([data-init])'); if (!c) return; c.dataset.init = 1;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let x = 0, y = 0, vx = 0, vy = 0, raf = null, samples = [];
+  const set = () => { c.style.setProperty('--x', x + 'px'); c.style.setProperty('--y', y + 'px'); };
+  c.addEventListener('pointerdown', e => {
+    c.setPointerCapture(e.pointerId); cancelAnimationFrame(raf); samples = [];
+    const sx = e.clientX - x, sy = e.clientY - y;
+    const move = ev => { x = ev.clientX - sx; y = ev.clientY - sy; set();
+      samples.push({ x, y, t: ev.timeStamp }); if (samples.length > 5) samples.shift(); };
+    const up = () => {
+      c.removeEventListener('pointermove', move); c.removeEventListener('pointerup', up);
+      if (reduced || samples.length < 2) { x = y = 0; set(); return; }
+      const a = samples[0], b = samples[samples.length - 1], dt = (b.t - a.t) / 1000 || .016;
+      vx = (b.x - a.x) / dt; vy = (b.y - a.y) / dt;
+      let last = performance.now();
+      (function spring(now) {
+        const d = Math.min((now - last) / 1000, 1 / 30); last = now;
+        vx += (-170 * x - 16 * vx) * d; vy += (-170 * y - 16 * vy) * d;
+        x += vx * d; y += vy * d; set();
+        if (Math.hypot(vx, vy) > 2 || Math.hypot(x, y) > .5) raf = requestAnimationFrame(spring);
+        else { x = y = 0; set(); }
+      })(last);
+    };
+    c.addEventListener('pointermove', move); c.addEventListener('pointerup', up);
+  });
+})();
+</script>
+
+<!-- ================= S40 ================= -->
+<section class="panel" id="s40">
+  <div class="p-head">
+    <div><span class="p-sec">H - Interactive (wave 2)</span><h2>S40 - Squash-and-stretch button</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Asymmetric tactile press: instant squash on mousedown, springy overshoot release via a linear() spring curve. Press and hold it, then release. Pure CSS, compositor-only - the cheapest game-feel win in the library.</p>
+  <div class="p-stage">
+    <button class="fx-squash">Submit assessment</button>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--bg</code> · Support: linear() Baseline 2023; older engines get plain ease-out · Module 14 + 8 (S17)</p>
+</section>
+<style>
+.fx-squash { padding: .8rem 1.6rem; border: 0; border-radius: 10px; cursor: pointer; font: inherit; font-weight: 600;
+  background: var(--accent, #4f46e5); color: var(--bg, #fff);
+  transition: scale .35s ease-out;
+  transition-timing-function: linear(0, 1.18 35%, .94 60%, 1.03 80%, 1);
+  scale: 1; }
+.fx-squash:active { scale: .94 .9; transition-duration: .06s; transition-timing-function: ease-out; }
+.fx-squash:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 3px; }
+.fx-squash:hover { translate: 0 -1px; }
+@media (prefers-reduced-motion: reduce) { .fx-squash { transition: none; } .fx-squash:hover { translate: none; } }
+</style>
+
+<!-- ================= S41 ================= -->
+<section class="panel" id="s41">
+  <div class="p-head">
+    <div><span class="p-sec">I - Controls</span><h2>S41 - Styled range with output bubble</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Filled-track slider with a value bubble that follows the thumb (hover or focus to see it). Cross-browser via the dual-pseudo thumb pattern; the fill is one gradient driven by a custom property.</p>
+  <div class="p-stage">
+    <label class="fx-range">Devices per classroom
+      <input type="range" min="0" max="40" value="24" oninput="this.parentNode.style.setProperty('--p', (this.value - this.min) / (this.max - this.min) * 100 + '%'); this.nextElementSibling.value = this.value">
+      <output>24</output>
+    </label>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (fill, thumb), <code>--track</code>, <code>--text</code>, <code>--bg</code> · Support: universal · Module 12</p>
+</section>
+<style>
+.fx-range { --p: 60%; display: grid; gap: .4rem; position: relative; max-width: 320px;
+  font-size: .85rem; color: var(--muted, #6b7280); }
+.fx-range input { appearance: none; height: 6px; border-radius: 999px; margin-block: .7rem; cursor: pointer;
+  background: linear-gradient(to right, var(--accent, #4f46e5) var(--p), var(--track, #e5e7eb) 0); }
+.fx-range input::-webkit-slider-thumb { appearance: none; width: 20px; aspect-ratio: 1; border-radius: 50%;
+  background: var(--accent, #4f46e5); border: 3px solid var(--bg, #fff); box-shadow: 0 1px 4px #0003; }
+.fx-range input::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent, #4f46e5); border: 3px solid var(--bg, #fff); box-shadow: 0 1px 4px #0003; }
+.fx-range input:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 4px; }
+.fx-range output { position: absolute; top: -.4rem; left: calc(var(--p) * .92 + 4%); translate: -50% 0;
+  padding: .15rem .5rem; border-radius: 6px; font-size: .75rem; font-variant-numeric: tabular-nums;
+  background: var(--text, #1f2937); color: var(--bg, #fff); opacity: 0; transition: opacity .2s; }
+.fx-range:focus-within output, .fx-range:hover output { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .fx-range output { transition: none; } }
+</style>
+
+<!-- ================= S42 ================= -->
+<section class="panel" id="s42">
+  <div class="p-head">
+    <div><span class="p-sec">I - Controls</span><h2>S42 - Segmented control (radio group)</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Real radios styled as a connected pill row - arrow keys, focus, and screen-reader behavior come free because it never stopped being a radio group. <code>:has()</code> drives the active fill. Click or arrow-key between options.</p>
+  <div class="p-stage">
+    <fieldset class="fx-seg"><legend>Report period</legend>
+      <label><input type="radio" name="fxper" checked><span>Month</span></label>
+      <label><input type="radio" name="fxper"><span>Quarter</span></label>
+      <label><input type="radio" name="fxper"><span>Year</span></label>
+    </fieldset>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (focus), <code>--surface</code>, <code>--track</code>, <code>--text</code>, <code>--muted</code> · Never rebuild this with divs · Support: :has() Baseline 2023 · Module 12</p>
+</section>
+<style>
+.fx-seg { display: inline-flex; padding: 4px; gap: 2px; border: 1px solid var(--track, #e5e7eb);
+  border-radius: 12px; background: color-mix(in oklch, var(--track, #e5e7eb), var(--bg, #fff) 55%); }
+.fx-seg legend { font-size: .72rem; color: var(--muted, #6b7280); padding-inline: .3rem; }
+.fx-seg label { position: relative; cursor: pointer; }
+.fx-seg input { position: absolute; inset: 0; opacity: 0; cursor: inherit; }
+.fx-seg span { display: grid; place-items: center; padding: .45rem 1rem; border-radius: 9px;
+  font-size: .85rem; color: var(--muted, #6b7280); transition: background .18s ease, color .18s ease; }
+.fx-seg label:has(:checked) span { background: var(--surface, #fff); color: var(--text, #1f2937);
+  box-shadow: 0 1px 3px #0002; font-weight: 600; }
+.fx-seg label:has(:focus-visible) span { outline: 2px solid var(--accent, #4f46e5); outline-offset: 1px; }
+@media (prefers-reduced-motion: reduce) { .fx-seg span { transition: none; } }
+@media (forced-colors: active) { .fx-seg label:has(:checked) span { border: 2px solid Highlight; } }
+</style>
+
+<!-- ================= S43 ================= -->
+<section class="panel" id="s43">
+  <div class="p-head">
+    <div><span class="p-sec">I - Controls</span><h2>S43 - Validation shake + success tick</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Type something invalid and Tab away: border flips, error slides open, field shakes once. Type a valid email: a check draws itself in. All driven by <code>:user-invalid</code>/<code>:user-valid</code> - no validation JS at all.</p>
+  <div class="p-stage">
+    <div class="fx-field">
+      <label for="fxe">Work email</label>
+      <div class="row">
+        <input id="fxe" type="email" required placeholder="you@district.org">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 12.5 10 18 20 6" fill="none" stroke-width="3" stroke-linecap="round"/></svg>
+      </div>
+      <div class="errwrap"><small>Enter a valid email address.</small></div>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--danger</code>, <code>--ok</code>, <code>--surface</code>, <code>--track</code> · Color never carries state alone · Support: :user-invalid Baseline 2023 · Module 12 + 9</p>
+</section>
+<style>
+.fx-field { display: grid; gap: .35rem; max-width: 320px; font-size: .85rem; color: var(--muted, #6b7280); }
+.fx-field .row { position: relative; }
+.fx-field input { width: 100%; box-sizing: border-box; padding: .65rem .8rem; border-radius: 10px;
+  border: 1.5px solid var(--track, #e5e7eb); background: var(--surface, #fff); color: var(--text, #1f2937); font: inherit; }
+.fx-field input:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 2px; }
+.fx-field svg { position: absolute; right: .6rem; top: 50%; translate: 0 -50%; width: 18px;
+  stroke: var(--ok, #16a34a); }
+.fx-field svg path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.fx-field:has(:user-valid) svg path { stroke-dashoffset: 0; }
+.fx-field:has(:user-invalid) input { border-color: var(--danger, #dc2626); }
+.fx-field .errwrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .25s ease-out; }
+.fx-field .errwrap small { overflow: hidden; color: var(--danger, #dc2626); }
+.fx-field:has(:user-invalid) .errwrap { grid-template-rows: 1fr; }
+@media (prefers-reduced-motion: no-preference) {
+  .fx-field svg path { transition: stroke-dashoffset .3s ease-out .1s; }
+  .fx-field:has(:user-invalid) .row { animation: fx-shake .3s ease-out 1; }
+}
+@keyframes fx-shake { 25% { translate: -5px 0; } 50% { translate: 4px 0; } 75% { translate: -2px 0; } }
+@media (prefers-reduced-motion: reduce) { .fx-field .errwrap { transition: none; } }
+</style>
+
+<!-- ================= S44 ================= -->
+<section class="panel" id="s44">
+  <div class="p-head">
+    <div><span class="p-sec">J - Theming</span><h2>S44 - Theme-swap control with view-transition reveal</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">Light/dark toggle that persists to localStorage and reveals the new theme as an expanding circle from the click point (View Transitions). Click it - in this gallery only native controls and form fields respond, because the gallery's own palette is fixed; in a real report every light-dark() token flips.</p>
+  <div class="p-stage">
+    <button class="fx-theme" aria-pressed="false" title="Toggle dark mode">&#9681;</button>
+  </div>
+  <p class="p-meta">Theming: flips the axis for any light-dark() token set (Module 16 contract) · SECTION-PIECE: owns a root attribute + the root transition · Support: view transitions Baseline Newly Available; instant swap elsewhere · Module 16</p>
+</section>
+<style>
+:root { color-scheme: light dark; }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+.fx-theme { width: 2.4rem; aspect-ratio: 1; border-radius: 50%; cursor: pointer; font-size: 1.1rem;
+  border: 1px solid var(--track, #e5e7eb); background: var(--surface, #fff); color: var(--text, #1f2937); }
+.fx-theme:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 2px; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+</style>
+<script>
+(() => {
+  const b = document.querySelector('.fx-theme:not([data-init])'); if (!b) return; b.dataset.init = 1;
+  const root = document.documentElement;
+  const saved = localStorage.getItem('fx-theme');
+  if (saved) { root.dataset.theme = saved; b.setAttribute('aria-pressed', String(saved === 'dark')); }
+  b.addEventListener('click', e => {
+    const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+    const cur = root.dataset.theme || (dark ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    const apply = () => { root.dataset.theme = next; localStorage.setItem('fx-theme', next);
+      b.setAttribute('aria-pressed', String(next === 'dark')); };
+    if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) return apply();
+    const t = document.startViewTransition(apply);
+    t.ready.then(() => {
+      const r = Math.hypot(Math.max(e.clientX, innerWidth - e.clientX), Math.max(e.clientY, innerHeight - e.clientY));
+      root.animate(
+        { clipPath: [`circle(0 at ${e.clientX}px ${e.clientY}px)`, `circle(${r}px at ${e.clientX}px ${e.clientY}px)`] },
+        { duration: 450, easing: 'ease-in', pseudoElement: '::view-transition-new(root)' });
+    });
+  });
+})();
+</script>
+
+<!-- ================= S45 ================= -->
+<section class="panel" id="s45">
+  <div class="p-head">
+    <div><span class="p-sec">J - Theming</span><h2>S45 - OKLCH ramp generator block</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">One <code>--brand</code> input derives a six-step lightness ramp, hover/active states, and a wash - via relative color syntax. The swatch strip IS the unit test. Move the token block to :root and it becomes the page's color system.</p>
+  <div class="p-stage">
+    <div class="fx-ramp" style="--brand: #1d4ed8">
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <p class="pg-note" style="margin:.75rem 0 0;">This strip uses STA blue (#1d4ed8) as input - edit <code>--brand</code> inline to re-derive everything.</p>
+  </div>
+  <p class="p-meta">Theming: <code>--brand</code> is the single input · Support: relative color syntax + color-mix, Baseline 2024 · Module 16</p>
+</section>
+<style>
+.fx-ramp {
+  --brand-50:  oklch(from var(--brand, #4f46e5) 97% calc(c * .25) h);
+  --brand-100: oklch(from var(--brand, #4f46e5) 93% calc(c * .45) h);
+  --brand-300: oklch(from var(--brand, #4f46e5) 80% calc(c * .8) h);
+  --brand-500: oklch(from var(--brand, #4f46e5) 62% c h);
+  --brand-700: oklch(from var(--brand, #4f46e5) 48% c h);
+  --brand-900: oklch(from var(--brand, #4f46e5) 32% calc(c * .7) h);
+  --brand-companion: oklch(from var(--brand, #4f46e5) l c calc(h + 40));
+  --brand-hover:  color-mix(in oklch, var(--brand-500), white 12%);
+  --brand-active: color-mix(in oklch, var(--brand-500), black 14%);
+  --brand-wash:   color-mix(in oklch, var(--brand-500), transparent 92%);
+  display: flex; height: 44px; border-radius: 10px; overflow: hidden; }
+.fx-ramp i { flex: 1; }
+.fx-ramp i:nth-child(1) { background: var(--brand-50); }
+.fx-ramp i:nth-child(2) { background: var(--brand-100); }
+.fx-ramp i:nth-child(3) { background: var(--brand-300); }
+.fx-ramp i:nth-child(4) { background: var(--brand-500); }
+.fx-ramp i:nth-child(5) { background: var(--brand-700); }
+.fx-ramp i:nth-child(6) { background: var(--brand-900); }
+@media (forced-colors: active) { .fx-ramp { forced-color-adjust: none; } }
+</style>
+
+<!-- ================= S46 ================= -->
+<section class="panel" id="s46">
+  <div class="p-head">
+    <div><span class="p-sec">J - Theming</span><h2>S46 - Animated gradient border card</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">A conic gradient ring orbits the card border on hover via a registered angle property. Hover it. Hover-gated = zero idle cost; a permanently spinning version demotes to SECTION-PIECE.</p>
+  <div class="p-stage">
+    <div class="fx-gborder" style="max-width:380px;"><h3>Featured finding</h3><p style="margin-bottom:0;">Help Center deflection rose 18% after the search revamp.</p></div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--accent-2</code>, <code>--surface</code>, <code>--text</code> · Support: @property Baseline 2024; static gradient border elsewhere · Module 15</p>
+</section>
+<style>
+@property --fx-ga { syntax: "<angle>"; inherits: false; initial-value: 35deg; }
+.fx-gborder { padding: 1.2rem 1.4rem; border: 2px solid transparent; border-radius: 14px;
+  color: var(--text, #1f2937);
+  background: linear-gradient(var(--surface, #fff), var(--surface, #fff)) padding-box,
+    conic-gradient(from var(--fx-ga), var(--accent, #4f46e5), var(--accent-2, #06b6d4), var(--accent, #4f46e5)) border-box; }
+.fx-gborder h3 { margin-top: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .fx-gborder:hover { animation: fx-ga-spin 2.4s linear infinite; }
+}
+@keyframes fx-ga-spin { to { --fx-ga: 395deg; } }
+@media (forced-colors: active) { .fx-gborder { border-color: ButtonText; background: Canvas; } }
+@media print { .fx-gborder { animation: none !important; } }
+</style>
+
+<!-- ================= S47 ================= -->
+<section class="panel" id="s47">
+  <div class="p-head">
+    <div><span class="p-sec">K - Reactive</span><h2>S47 - Audio-bar visualizer with gesture gate</h2></div>
+    <span class="tag section">SECTION-PIECE</span>
+  </div>
+  <p class="p-desc">Canvas bar spectrum fed by an AnalyserNode. The module snippet wires it to an <code>&lt;audio&gt;</code> element (the play button IS the autoplay-policy gesture gate); this gallery demo synthesizes a 5-second test tone instead so it works without an audio file. Click play.</p>
+  <div class="p-stage">
+    <div class="fx-audiobars">
+      <button class="fx-audiobtn">▶ Play 5s test tone</button>
+      <canvas height="80" aria-hidden="true"></canvas>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code> (bars), <code>--bg</code> (canvas wash) · Loop runs only while playing; pauses on tab hide · Support: Web Audio universal · Module 17</p>
+</section>
+<style>
+.fx-audiobars { display: grid; gap: .6rem; }
+.fx-audiobtn { justify-self: start; padding: .55rem 1.1rem; border: none; border-radius: 10px; cursor: pointer;
+  font: inherit; font-weight: 600; background: var(--accent, #4f46e5); color: #fff; }
+.fx-audiobars canvas { width: 100%; height: 80px; border-radius: 10px;
+  background: color-mix(in oklch, var(--accent, #4f46e5), var(--bg, #fff) 94%); }
+</style>
+<script>
+(() => {
+  const w = document.querySelector('.fx-audiobars:not([data-init])'); if (!w) return; w.dataset.init = 1;
+  const btn = w.querySelector('.fx-audiobtn'), cv = w.querySelector('canvas'), ctx2 = cv.getContext('2d');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let actx, an, bins, raf = null, playing = false;
+  const accent = () => (getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#4f46e5').trim();
+  function draw() {
+    cv.width = cv.clientWidth * devicePixelRatio; cv.height = 80 * devicePixelRatio;
+    ctx2.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+    an.getByteFrequencyData(bins);
+    const n = 32, bw = cv.clientWidth / n;
+    ctx2.clearRect(0, 0, cv.clientWidth, 80); ctx2.fillStyle = accent();
+    for (let i = 0; i < n; i++) {
+      const v = bins[Math.floor(i * bins.length / n)] / 255;
+      const h = Math.max(3, v * 72);
+      ctx2.beginPath(); ctx2.roundRect(i * bw + 2, 80 - h - 4, bw - 4, h, 3); ctx2.fill();
+    }
+    if (playing) raf = requestAnimationFrame(draw);
+  }
+  btn.addEventListener('click', () => {
+    if (playing) return;
+    actx = actx || new AudioContext();
+    an = an || actx.createAnalyser(); an.fftSize = 128; an.smoothingTimeConstant = .78;
+    bins = new Uint8Array(an.frequencyBinCount);
+    const g = actx.createGain(); g.gain.value = .12;
+    const lfo = actx.createOscillator(), lg = actx.createGain();
+    lfo.frequency.value = .8; lg.gain.value = .08; lfo.connect(lg); lg.connect(g.gain);
+    [196, 247, 294, 392].forEach(f => {
+      const o = actx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f;
+      o.connect(g); o.start(); o.stop(actx.currentTime + 5);
+    });
+    g.connect(an); an.connect(actx.destination); lfo.start(); lfo.stop(actx.currentTime + 5);
+    playing = true; btn.textContent = '♪ playing...';
+    if (reduced) { setTimeout(() => an.getByteFrequencyData(bins), 300); setTimeout(draw, 350); }
+    else { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); }
+    setTimeout(() => { playing = false; btn.textContent = '▶ Play 5s test tone'; cancelAnimationFrame(raf); }, 5100);
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf);
+    else if (playing && !reduced) raf = requestAnimationFrame(draw); });
+})();
+</script>
+
+<!-- ================= S48 ================= -->
+<section class="panel" id="s48">
+  <div class="p-head">
+    <div><span class="p-sec">K - Reactive</span><h2>S48 - Tilt/pointer parallax card</h2></div>
+    <span class="tag dropin">DROP-IN</span>
+  </div>
+  <p class="p-desc">Layered parallax driven by pointer on desktop and (after a tap-to-enable gesture) device tilt on mobile - background and foreground translate opposite directions. Move your cursor across it. Note: renamed to <code>.fx-tiltcard</code> in this gallery (the module's <code>.fx-parallax</code> collides with S12's demo class).</p>
+  <div class="p-stage">
+    <div class="fx-tiltcard" tabindex="0">
+      <div class="bg" aria-hidden="true"></div>
+      <div class="fg"><b>14 schools</b><span>migrated this summer</span></div>
+    </div>
+  </div>
+  <p class="p-meta">Theming: <code>--accent</code>, <code>--accent-2</code>, <code>--surface</code>, <code>--track</code>, <code>--text</code>, <code>--muted</code> · Event-driven; tilt fails closed to pointer/static · Support: Pointer Events universal · Module 17 + 4</p>
+</section>
+<style>
+.fx-tiltcard { position: relative; width: 260px; height: 160px; border-radius: 14px; overflow: hidden;
+  background: var(--surface, #fff); border: 1px solid var(--track, #e5e7eb); display: grid; place-items: center; }
+.fx-tiltcard:focus-visible { outline: 2px solid var(--accent, #4f46e5); outline-offset: 2px; }
+.fx-tiltcard .bg { position: absolute; inset: -14%; border-radius: inherit;
+  background: radial-gradient(circle at 30% 30%, color-mix(in oklch, var(--accent, #4f46e5), transparent 75%), transparent 60%),
+              radial-gradient(circle at 75% 75%, color-mix(in oklch, var(--accent-2, #06b6d4), transparent 80%), transparent 55%);
+  translate: calc(var(--rx, 0) * -8px) calc(var(--ry, 0) * -8px); }
+.fx-tiltcard .fg { position: relative; text-align: center; color: var(--text, #1f2937);
+  translate: calc(var(--rx, 0) * 6px) calc(var(--ry, 0) * 6px); }
+.fx-tiltcard .fg b { display: block; font-size: 1.4rem; color: var(--accent, #4f46e5); }
+.fx-tiltcard .fg span { font-size: .8rem; color: var(--muted, #6b7280); }
+@media (prefers-reduced-motion: no-preference) {
+  .fx-tiltcard .bg, .fx-tiltcard .fg { transition: translate .2s ease-out; } }
+</style>
+<script>
+(() => {
+  const p = document.querySelector('.fx-tiltcard:not([data-init])'); if (!p) return; p.dataset.init = 1;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const set = (rx, ry) => { p.style.setProperty('--rx', Math.max(-1, Math.min(1, rx)));
+    p.style.setProperty('--ry', Math.max(-1, Math.min(1, ry))); };
+  p.addEventListener('pointermove', e => {
+    const r = p.getBoundingClientRect();
+    set(((e.clientX - r.left) / r.width - .5) * 2, ((e.clientY - r.top) / r.height - .5) * 2);
+  });
+  p.addEventListener('pointerleave', () => set(0, 0));
+  if (matchMedia('(pointer: coarse)').matches) p.addEventListener('click', async () => {
+    try {
+      if (typeof DeviceOrientationEvent?.requestPermission === 'function' &&
+          await DeviceOrientationEvent.requestPermission() !== 'granted') return;
+      addEventListener('deviceorientation', ev => set((ev.gamma || 0) / 30, (ev.beta || 0) / 45));
+    } catch {}
+  }, { once: true });
+})();
+</script>
+
+<footer style="margin-top:3rem; padding-top:1.25rem; border-top:1px solid #e3e5f0; font-size:.8rem; color:#8a8fa8;">
+  Source: <code>module-08</code> (S01-S24) and <code>module-18</code> (S25-S48), same folder - full paste-ready code, theming hooks, support notes, and attribution for all 48 snippets. Techniques: Modules 1-5 and 9-17 · Embeddability gates: Module 7 · Theming contract: Module 16. Gallery rename: S48 uses .fx-tiltcard here (module uses .fx-parallax, taken by S12's demo). Updated 2026-06-08.
+</footer>
+
+</main>
+
+<script>
+/* ---- Gallery-only fallbacks + support notices (not part of the snippets) ---- */
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasScrollTL = CSS.supports('animation-timeline: scroll()');
+  const hasViewTL = CSS.supports('animation-timeline: view()');
+  const hasAnchor = CSS.supports('anchor-name: --a');
+  const hasVT = typeof document.startViewTransition === 'function';
+
+  /* Inline notice on tabs whose native feature is missing */
+  const notices = [
+    ['s09', hasAnchor, 'CSS anchor positioning', 'the note still opens via the Popover API, just without smart positioning'],
+    ['s10', hasViewTL, 'scroll-driven animations (animation-timeline)', 'a JS IntersectionObserver fallback is animating the cards instead'],
+    ['s11', hasScrollTL, 'scroll-driven animations (animation-timeline)', 'a JS scroll-listener fallback is driving the top bar instead'],
+    ['s12', hasViewTL, 'scroll-driven animations (animation-timeline)', 'a JS scroll-listener fallback is sliding the layers instead'],
+    ['s13', hasVT, 'the View Transitions API', 'tabs switch instantly without the morph']
+  ];
+  notices.forEach(([id, ok, feature, fallback]) => {
+    if (ok) return;
+    const panel = document.getElementById(id);
+    const note = document.createElement('p');
+    note.style.cssText = 'background:#fef3c7;color:#92400e;padding:.6rem .9rem;border-radius:10px;font-size:.82rem;';
+    note.textContent = '⚠ This browser does not support ' + feature + ' - ' + fallback + '. Open in current Chrome/Edge for the native CSS version.';
+    panel.insertBefore(note, panel.querySelector('.p-desc').nextSibling);
+  });
+
+  /* Visible driver status on the three scroll tabs - instant diagnosis */
+  ['s10', 's11', 's12'].forEach(id => {
+    const panel = document.getElementById(id);
+    const native = id === 's11' ? hasScrollTL : hasViewTL;
+    const line = document.createElement('p');
+    line.className = 'pg-note';
+    line.style.fontWeight = '700';
+    line.textContent = reduced
+      ? '⚠ Driver: NONE - this system has "prefers-reduced-motion" enabled (Windows Settings > Accessibility > Visual effects > Animation effects), so all motion is intentionally off.'
+      : 'Driver: ' + (id === 's12'
+          ? 'JS scrubber (gallery demo; the module snippet documents the pure-CSS animation-timeline version)'
+          : (native ? 'native CSS animation-timeline + JS shadow driver' : 'JS fallback'));
+    panel.insertBefore(line, panel.querySelector('.p-desc').nextSibling);
+  });
+
+  if (reduced) return; /* fallbacks below are motion - respect the preference */
+
+  /* The three scroll demos run a JS driver UNCONDITIONALLY. CSS animations sit
+     above inline styles in the cascade, so where native animation-timeline is
+     working the native version wins automatically; where it is not (other
+     browsers, embedded webviews, preview panes), the inline styles drive the
+     same effect. Belt and suspenders - the demo is never silently dead. */
+
+  /* S11 - progress bar + big percentage readout via scroll listener */
+  const bar = document.querySelector('.fx-progress');
+  const pct = document.querySelector('.pg-scrollpct');
+  const driveBar = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const p = max > 0 ? Math.min(1, scrollY / max) : 0;
+    bar.style.transform = 'scaleX(' + p + ')';
+    if (pct) pct.textContent = Math.round(p * 100) + '%';
+  };
+  addEventListener('scroll', driveBar, { passive: true });
+  addEventListener('hashchange', () => setTimeout(driveBar, 50));
+  driveBar();
+
+  /* S10 - reveal cards via IntersectionObserver */
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    en.target.style.transition = 'opacity .55s ease-out, transform .55s ease-out';
+    en.target.style.opacity = en.isIntersecting ? '1' : '0';
+    en.target.style.transform = en.isIntersecting ? 'none' : 'translateY(70px) scale(.95)';
+  }), { threshold: .15 });
+  document.querySelectorAll('.fx-reveal').forEach(el => io.observe(el));
+
+  /* S12 - parallax scrubber (JS-driven in the gallery for identical behavior
+     everywhere; the module-08/18 snippets document the pure-CSS view() version) */
+  const par = document.querySelector('.fx-parallax');
+  if (par) {
+    const sun = par.querySelector('.fx-parallax-sun');
+    const back = par.querySelector('.fx-parallax-back');
+    const front = par.querySelector('.fx-parallax-front');
+    const label = par.querySelector('.fx-parallax-label');
+    const readout = par.querySelector('.fx-parallax-pct');
+    const drivePar = () => {
+      const r = par.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > innerHeight + 100) return;
+      const p = Math.min(1, Math.max(0, 1 - (r.top + r.height) / (innerHeight + r.height)));
+      if (sun) sun.style.transform = 'translateY(' + (-(p * 260)).toFixed(1) + 'px)';   /* sun rises */
+      if (back) back.style.transform = 'translateY(' + ((1 - p) * 90 - 20).toFixed(1) + 'px)';  /* slow ridge */
+      if (front) front.style.transform = 'translateY(' + ((1 - p) * 200 - 40).toFixed(1) + 'px)'; /* fast ridge */
+      if (label) label.style.transform = 'translateY(' + ((0.5 - p) * 340).toFixed(1) + 'px)';  /* word flies opposite */
+      if (readout) readout.textContent = 'scrub ' + Math.round(p * 100) + '%';
+    };
+    addEventListener('scroll', drivePar, { passive: true });
+    addEventListener('hashchange', () => setTimeout(drivePar, 60));
+    drivePar();
+  }
+})();
+</script>
+
+<script>
+/* ---- Router: one snippet per tab ---- */
+(() => {
+  window.fxInit = window.fxInit || {};
+  const order = ['home','s01','s02','s03','s04','s05','s21','s06','s07','s08','s09','s15','s10','s11','s12','s13','s14','s16','s17','s18','s19','s20','s22','s23','s24','s25','s26','s27','s28','s29','s30','s31','s32','s33','s34','s35','s36','s37','s38','s39','s40','s41','s42','s43','s44','s45','s46','s47','s48'];
+  const titles = {};
+  document.querySelectorAll('.nav a').forEach(a => { titles[a.hash.slice(1)] = a.textContent.trim(); });
+  const panels = document.querySelectorAll('.panel');
+  const nav = document.getElementById('nav');
+
+  /* prev/next footer per panel */
+  panels.forEach(p => {
+    const i = order.indexOf(p.id);
+    if (i < 0) return;
+    const foot = document.createElement('div');
+    foot.className = 'p-footer';
+    const prev = order[i - 1], next = order[i + 1];
+    foot.innerHTML =
+      (prev ? `<a href="#${prev}">← ${titles[prev] || 'Overview'}</a>` : '<span></span>') +
+      (next ? `<a href="#${next}">${titles[next] || ''} →</a>` : '<span></span>');
+    p.appendChild(foot);
+  });
+
+  function show(id) {
+    /* Ignore hashes that aren't panels (e.g. S33's internal #ch1-#ch3 chapter anchors) */
+    if (id && !order.includes(id)) return;
+    const target = order.includes(id) ? id : 'home';
+    panels.forEach(p => p.classList.toggle('active', p.id === target));
+    document.querySelectorAll('.nav a').forEach(a => a.classList.toggle('active', a.hash === '#' + target));
+    nav.classList.remove('open');
+    document.body.classList.toggle('on-s11', target === 's11');
+    scrollTo(0, 0);
+    const panel = document.getElementById(target);
+    /* restart one-shot CSS animations on tab open */
+    if (panel.hasAttribute('data-restart')) {
+      requestAnimationFrame(() => {
+        panel.getAnimations({ subtree: true }).forEach(a => {
+          try { a.cancel(); a.play(); } catch (e) {}
+        });
+      });
+    }
+    /* canvas / JS init hooks */
+    if (window.fxInit[target]) requestAnimationFrame(() => window.fxInit[target]());
+  }
+
+  addEventListener('hashchange', () => show(location.hash.slice(1)));
+  show(location.hash.slice(1) || 'home');
+
+  /* mobile drawer */
+  document.querySelector('.nav-toggle').addEventListener('click', () => nav.classList.toggle('open'));
+
+  /* theme switcher */
+  document.querySelectorAll('.pg-swatch').forEach(sw => {
+    sw.addEventListener('click', () => {
+      document.documentElement.style.setProperty('--accent', sw.dataset.a);
+      document.documentElement.style.setProperty('--accent-2', sw.dataset.b);
+      if (window.fxRedrawMaze) window.fxRedrawMaze();
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

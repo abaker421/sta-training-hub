@@ -94,8 +94,8 @@
 <main>
   <header>
     <p class="eyebrow">School Technology Associates &middot; AI Admin Export-Snapshot Audit</p>
-    <h1>All 22 Active/Draft projects are export-ready - 6 gaps found and closed same-day</h1>
-    <p class="meta">Generated 2026-06-06 &nbsp;&middot;&nbsp; Source: agent registry + per-blueprint folder sweep &nbsp;&middot;&nbsp; Scope: every Active and Draft Cowork agent and Claude.ai Project; skills and Parked/Deprecated entries noted but not snapshotted</p>
+    <h1>All 20 Active/Draft projects are export-ready - 6 gaps found and closed same-day</h1>
+    <p class="meta">Generated 2026-06-06 &nbsp;&middot;&nbsp; Source: agent registry + per-blueprint folder sweep &nbsp;&middot;&nbsp; Scope: every Active and Draft Cowork agent and Claude.ai Project in STA/personal scope; BwB-suite, skills, and Parked/Deprecated entries noted but not snapshotted</p>
   </header>
 
   <div class="body">
@@ -103,14 +103,14 @@
     <p class="verdict good">Result: CLEAN - every Active/Draft project is export-ready</p>
     <section class="bluf" role="note" aria-label="Bottom line">
       <div class="hero">
-        <div class="big" style="color:var(--good)">22<small>/22</small></div>
+        <div class="big" style="color:var(--good)">20<small>/20</small></div>
         <div class="lab">Export-ready</div>
       </div>
       <div class="txt"><p><strong>Bottom line:</strong> each project below has a full export snapshot - what the cowork-snapshot-exporter would package: context files and their purposes, skills used, KB modules referenced, and install requirements (instructions text excluded per spec). The initial sweep found 6 projects blocked from export; all 6 were fixed the same day (2026-06-06) and every project now exports cleanly. The fix table below records what was backfilled.</p></div>
     </section>
 
     <div class="kpis">
-      <div class="kpi"><div class="num">18</div><div class="label">Cowork agents (incl. 1 Both)</div></div>
+      <div class="kpi"><div class="num">16</div><div class="label">Cowork agents (incl. 1 Both)</div></div>
       <div class="kpi"><div class="num">4</div><div class="label">Claude.ai Projects</div></div>
       <div class="kpi"><div class="num">6</div><div class="label">Gaps closed 2026-06-06</div></div>
     </div>
@@ -129,15 +129,15 @@
       </tbody>
     </table>
     <div class="callout"><strong>Note on Block 1 format:</strong> the four backfilled launch files for live, self-maintained agents use a pointer-style Block 1 ("paste the contents of instructions.md, drop the version comment") instead of duplicating the full instructions text. Deliberate deviation from the launch template's verbatim rule: these agents version-bump in place, and a second full copy would silently drift on every bump.</div>
-    <h2>Cowork agents - 18 snapshots (click any to expand)</h2>
+    <h2>Cowork agents - 16 snapshots (click any to expand)</h2>
 
     <details class="plug"><summary>Adam's Personal Assistant - v2.6 <span class="tag ok">Export-ready</span></summary><div class="inner">
       <table><caption class="sr-only">Personal Assistant snapshot</caption><tbody>
         <tr><th scope="row">Version / target</th><td>v2.6 (5/24/26) &middot; Cowork &middot; Active &middot; Personal scope</td></tr>
-        <tr><th scope="row">Context files</th><td>context-adam-style (tone for rewrites); context-adam-contacts (recipients); context-adam-identity (background, home purchase, finances); context-adam-projects (side projects); context-org-team + context-org-identity (shared - personal-relevance trigger only); context-doc-design-standards (shared); report-design-spec.md + report-template.html + palette.css (shared from build-with-baker/shared - BwB visual deliverables)</td></tr>
+        <tr><th scope="row">Context files</th><td>context-adam-style (tone for rewrites); context-adam-contacts (recipients); context-adam-identity (background, home purchase, finances); context-adam-projects (side projects); context-org-team + context-org-identity (shared - personal-relevance trigger only); context-doc-design-standards (shared); report-design-spec.md + report-template.html + palette.css (shared report/visual assets from build-with-baker/shared)</td></tr>
         <tr><th scope="row">Skills used</th><td>None referenced (skill prompt guard only)</td></tr>
         <tr><th scope="row">KB modules</th><td>adam/context-adam-* files only; no topic modules</td></tr>
-        <tr><th scope="row">Install needs</th><td>project-launch.md created 2026-06-06: mount workspace, paste instructions, verify 8 files. [RECOMMENDED] BwB report assets, WebSearch/WebFetch</td></tr>
+        <tr><th scope="row">Install needs</th><td>project-launch.md created 2026-06-06: mount workspace, paste instructions, verify 8 files. [RECOMMENDED] shared report assets, WebSearch/WebFetch</td></tr>
         <tr><th scope="row">Gaps</th><td>Closed 2026-06-06 (launch file backfilled). Still open as nice-to-haves: blueprint-summary.md, registry-entry.md</td></tr>
       </tbody></table>
     </div></details>
@@ -285,28 +285,6 @@
       </tbody></table>
     </div></details>
 
-    <details class="plug"><summary>The Tutor - v1.1 (BwB suite) <span class="tag ok">Export-ready</span></summary><div class="inner">
-      <table><caption class="sr-only">The Tutor snapshot</caption><tbody>
-        <tr><th scope="row">Version / target</th><td>v1.1 (5/28/26) &middot; Cowork &middot; Active &middot; BwB suite - customer-deployable</td></tr>
-        <tr><th scope="row">Context files</th><td>context-subject-type-routing (4-type taxonomy + per-type moves); context-dialogue-moves (feedback/repair/worked-example rules); context-tutor-voice (banned vocabulary + pre-send audit). Plus 4 persistent learner-state files created at runtime</td></tr>
-        <tr><th scope="row">Skills used</th><td>None - fully self-contained (by suite design)</td></tr>
-        <tr><th scope="row">KB modules</th><td>None - zero KB references (portable by design)</td></tr>
-        <tr><th scope="row">Install needs</th><td>[REQUIRED] upload 3 context files, set R/W workspace, confirm Read/Write/Edit. [RECOMMENDED] present_files</td></tr>
-        <tr><th scope="row">Gaps</th><td>registry-entry.md missing from folder (registry row exists); minor</td></tr>
-      </tbody></table>
-    </div></details>
-
-    <details class="plug"><summary>Build with Baker - v1.4 (Draft) <span class="tag ok">Export-ready</span></summary><div class="inner">
-      <table><caption class="sr-only">Build with Baker snapshot</caption><tbody>
-        <tr><th scope="row">Version / target</th><td>v1.4 (6/3/26) &middot; Cowork &middot; Draft &middot; Personal/BwB scope</td></tr>
-        <tr><th scope="row">Context files</th><td>brand-strategy (positioning, pillars, roadmap); brand-voice (voice baseline + captured signals); brand-state (asset/state Q&amp;A); context-adam-style + context-adam-identity (shared with Personal Assistant); context-ai-cost-estimator-funnel; shared/report-design-spec + report-template.html + palette.css (shared into Personal Assistant); H:\ brand image library</td></tr>
-        <tr><th scope="row">Skills used</th><td>docx, pptx, xlsx, project-feedback, prompt-evaluator, run-test-cases</td></tr>
-        <tr><th scope="row">KB modules</th><td>unistyle-project (authoritative UniStyle state), x-creator-strategy-ai-educator, context-adam-*</td></tr>
-        <tr><th scope="row">Install needs</th><td>[REQUIRED] create project, workspace = Architect root, paste Block 1, verify Read/Write/Edit. [RECOMMENDED] WebSearch, WebFetch</td></tr>
-        <tr><th scope="row">Core tools</th><td>File tools &middot; Recommended: WebSearch, WebFetch</td></tr>
-      </tbody></table>
-    </div></details>
-
     <details class="plug"><summary>Project Tester (Deep) - v1.2 (Draft) <span class="tag ok">Export-ready</span></summary><div class="inner">
       <table><caption class="sr-only">Project Tester snapshot</caption><tbody>
         <tr><th scope="row">Version / target</th><td>v1.2 (5/21/26) &middot; Cowork &middot; Draft &middot; STA scope &middot; supersedes run-test-cases for deep structured testing</td></tr>
@@ -318,9 +296,9 @@
       </tbody></table>
     </div></details>
 
-    <details class="plug"><summary>The Customer - v1.3 (Draft, BwB suite) <span class="tag ok">Export-ready</span></summary><div class="inner">
+    <details class="plug"><summary>The Customer - v1.3 (Draft, STA sales practice) <span class="tag ok">Export-ready</span></summary><div class="inner">
       <table><caption class="sr-only">The Customer snapshot</caption><tbody>
-        <tr><th scope="row">Version / target</th><td>v1.3 (6/6/26) &middot; Cowork &middot; Draft &middot; BwB suite (generic engine + swappable STA layer) &middot; prompt-evaluator 99/100</td></tr>
+        <tr><th scope="row">Version / target</th><td>v1.3 (6/6/26) &middot; Cowork &middot; Draft &middot; generic role-play engine + swappable STA layer (STA deployment is the working instance) &middot; prompt-evaluator 99/100</td></tr>
         <tr><th scope="row">Context files</th><td>persona-pack-sta (four K-12 personas with skill floors); district-operations-sta (org chart, business-office mindset); coaching-reference-sta (GROW debrief + nine-item rubric); scenario-bank-sta (six practice scenarios); sta-company-profile (shared, synced copy)</td></tr>
         <tr><th scope="row">Skills used</th><td>None in instructions; run-test-cases gates Draft to Active</td></tr>
         <tr><th scope="row">KB modules</th><td>KB index on demand; grounded by the three sales-enablement modules</td></tr>
@@ -381,6 +359,7 @@
       <tbody>
         <tr><td>STA Project Tracker (Hub Tab)</td><td class="st g">Active</td><td>Web app on Cloudflare Pages, not a Cowork/Project deployment - nothing for the exporter to package</td></tr>
         <tr><td>STA Main Chat</td><td class="st w">Parked</td><td>Context files pre-built, instructions pending - snapshot when build resumes</td></tr>
+        <tr><td>BwB-suite projects (The Tutor, The Wordsmith, Build with Baker)</td><td class="st g">Active / Draft</td><td>Out of staff-hub scope - personal product-suite work, removed from this audit 2026-06-07; tracked in the registry only</td></tr>
         <tr><td>Prompt Maker, Task Scheduler, Document Maker, Skyward Advisor, Garage Sale Monitor</td><td class="st b">Deprecated</td><td>Retired or absorbed; Garage Sale Monitor archived to _Archived/ (frozen)</td></tr>
         <tr><td>~25 custom skills</td><td class="st g">Active</td><td>Skills install via .skill files, not project export - tracked in _Backups/skills/INDEX.md</td></tr>
       </tbody>

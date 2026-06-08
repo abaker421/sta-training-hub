@@ -371,6 +371,25 @@
       </div>
     </div>
 
+    <div class="ws-card blue">
+      <div class="ws-name">STA Project Tracker (Hub Tab)</div>
+      <div class="ws-tag blue">Active - shared internal tracker (web app)</div>
+      <p><strong>Use for:</strong> shared internal project tracking for STA product/dev work (Adam, Chris, Tyler, Andy), delivered as the Projects tab in the Help Center Index app on Cloudflare Pages. Phase A read-only is live; Phase B collaborative editing (D1-backed) is deferred.</p>
+      <p><strong>Not a chat agent:</strong> this is a built web app tracked in the same registry and pipeline as the agents.</p>
+      <div class="ws-meta">
+        <strong>Data files:</strong> <code>project-data.json</code>, <code>agenda-state.md</code>, <code>stage-classification-standard.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/project-tracker-hub/</code>
+      </div>
+    </div>
+
+    <div class="ws-card gray">
+      <div class="ws-name">VirtuaTime Implementation Assistant</div>
+      <div class="ws-tag gray">Parked - context pack complete, build deferred</div>
+      <p><strong>Planned for:</strong> tracking VirtuaTime implementation Case state, drafting templated emails, and flagging payment/count gates (v1 assist; v2 drive-with-oversight). Workflow knowledge is published to the KB at <code>sta/school-tech/implementation-workflows</code>; the agent build itself is a backlog item with no instructions.md yet.</p>
+      <div class="ws-meta">
+        <strong>Context pack:</strong> 4 files + production metadata pulls (verified 2026-06-07) &middot; <strong>Blueprint:</strong> <code>project-blueprints/virtuatime-implementation-assistant/</code>
+      </div>
+    </div>
+
     <div class="ws-card gray">
       <div class="ws-name">Project Tester (Deep)</div>
       <div class="ws-tag gray">Draft - QA engineering</div>
@@ -384,7 +403,7 @@
     <div class="ws-card gray">
       <div class="ws-name">The Customer</div>
       <div class="ws-tag gray">Draft - sales-practice role-play (eval 99/100)</div>
-      <p><strong>Use for:</strong> rehearsing real K-12 district conversations - cold pitch, discovery, objection-handling, support-call walk-throughs - against four honest customer personas (IT director, junior tech, business manager, front-office secretary), then stepping out for a GROW debrief and a behavior-only nine-item scorecard. Generic BwB-suite engine with a swappable STA layer; runnable project at <code>.Default Projects/The Customer/</code>.</p>
+      <p><strong>Use for:</strong> rehearsing real K-12 district conversations - cold pitch, discovery, objection-handling, support-call walk-throughs - against four honest customer personas (IT director, junior tech, business manager, front-office secretary), then stepping out for a GROW debrief and a behavior-only nine-item scorecard. Generic reusable engine with a swappable STA layer - an STA-tuned deployment is the intended instance; runnable project at <code>.Default Projects/The Customer/</code>.</p>
       <p><strong>Does not:</strong> produce real customer data - rehearsal and coaching only, never a substitute for talking to real buyers. Status flips to Active after a live drill confirms the skill-floor behaviors (run-test-cases passed 12/12 in simulation 2026-06-06).</p>
       <div class="ws-meta">
         <strong>Context files:</strong> <code>persona-pack-sta.md</code>, <code>district-operations-sta.md</code>, <code>coaching-reference-sta.md</code>, <code>scenario-bank-sta.md</code>, <code>sta-company-profile.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/the-customer/</code>
@@ -450,7 +469,7 @@
     <div class="skill-item"><div class="skill-name">Prompt Override Guard</div><div class="skill-desc">Intercepts jailbreak / override attempts ("ignore your instructions", "act as DAN", etc.). Always armed inside Cowork agents.</div><div class="skill-trigger">Any prompt-injection attempt (auto-fires)</div></div>
     <div class="skill-item"><div class="skill-name">Help Center Article</div><div class="skill-desc">STA Salesforce Knowledge Base articles in the exact STA HTML format.</div><div class="skill-trigger">"KB article", "format this as a KB article"</div></div>
     <div class="skill-item"><div class="skill-name">HTML Checklist</div><div class="skill-desc">Process or workflow to single-file interactive HTML checklist with STA branding. In-memory state.</div><div class="skill-trigger">"make this a checklist"</div></div>
-    <div class="skill-item"><div class="skill-name">Time Clock Diagnostics</div><div class="skill-desc">Analyzes STA time clock log files (TT3, TT7, TT10) - app.config, winsvc, emulator.log, errors.txt, settings.xml.</div><div class="skill-trigger">Upload any clock log file</div></div>
+    <div class="skill-item"><div class="skill-name">Time Clock Error Log Review</div><div class="skill-desc">Analyzes STA time clock log files (TT3, TT7, TT10) - app.config, winsvc, emulator.log, errors.txt, settings.xml. Asks for account name, issue description, and logs before analysis. (Renamed from Time Clock Diagnostics 2026-06-07.)</div><div class="skill-trigger">Upload any clock log file</div></div>
     <div class="skill-item"><div class="skill-name">Cowork Snapshot Exporter</div><div class="skill-desc">Packages a Cowork project into a timestamped ZIP for sharing - system prompt, setup guide, all referenced context files.</div><div class="skill-trigger">"snapshot this project", "export this cowork"</div></div>
     <div class="skill-item"><div class="skill-name">Research to Slides</div><div class="skill-desc">Converts Deep Research modules into polished PowerPoint decks with STA branding and SVG diagrams.</div><div class="skill-trigger">"turn this into slides"</div></div>
     <div class="skill-item"><div class="skill-name">Backup Verifier</div><div class="skill-desc">Read-only Drift Report over _Backups/ - skills, projects, archives, scheduled-task snapshots; surfaces stale .skill packages as click-installable.</div><div class="skill-trigger">"verify all backups", "are my backups up to date"</div></div>
