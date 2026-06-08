@@ -156,9 +156,24 @@ window.TRAINING_DATA = {
 1. **Name the file as a URL-safe slug** before adding to dist. Use kebab-case, lowercase, no spaces, no special characters except hyphen and dot. Example: `customer-renewal-workflow.html`, not `Customer Renewal Workflow.html`. **This is mandatory** - Cloudflare Pages drag-and-drop uploads silently fail partway through batches when filenames contain spaces. The 2026-05-21 deploy attempt confirmed this empirically (uploads stopped at 3/4 with spaced filenames; succeeded fully after rename to slugs).
 2. Add the file to `dist/docs/` (HTML and markdown) or `dist/files/` (binaries like docx, pptx, xlsx, pdf).
 3. Add a new entry to `window.TRAINING_DATA.docs` in `STA-Training-Hub.html`. Use a kebab-case id that matches the filename slug (without extension). The `file:` value should be `'docs/your-slug.html'` or `'files/your-slug.docx'` - no spaces, no capitals.
-4. Add the doc id to one or more `audiences[].sections[].docs` arrays.
+4. Add the doc id to one or more `audiences[].sections[].docs` arrays. **For an agent or tool card in the AI Admin tab, file it by deployment type per the next section - never drop it into a single mixed bucket.**
 5. `cp "STA-Training-Hub.html" "dist/index.html"` to sync.
 6. Deploy (drag-and-drop `dist/` to Cloudflare Pages or push if git-based).
+
+---
+
+## Agent / Tool Card Placement in AI Admin (MANDATORY)
+
+This rule exists because agent cards were repeatedly dropped into one undifferentiated "Internal agents & tools" list, which kept mixing Claude.ai Projects in with Coworks (e.g. the Internal R&D Tracker landed in the Cowork pile) and forced manual re-sorting. Do not recreate a single mixed bucket.
+
+The AI Admin tab has exactly two internal-tool sections, in this fixed order:
+
+1. **`Internal tools - Claude.ai Projects`** (TOP) - every agent whose registry **Deployment Target** is `Claude.ai Project` or `Both`.
+2. **`Internal tools - Coworks`** (BOTTOM) - every agent whose Deployment Target is `Cowork`.
+
+Built **web apps** (e.g. the STA Project Tracker hub tab - "a web app, not a chat agent") are neither: they belong under **`System reference`**, not the agent buckets.
+
+**Procedure before adding any agent/tool card:** open `context-agent-registry.md`, find the agent's row, read its **Deployment Target** column, and place the card in the matching bucket above. Projects on top, Coworks on bottom, web apps in System reference. If the deployment type is unclear, resolve it against the registry first - never guess and never use a catch-all "agents & tools" heading.
 
 ---
 
