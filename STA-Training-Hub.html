@@ -396,8 +396,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F44B}',
       sub: 'Everyone reads these first. Day 1 onboarding for the AI program, no matter your role.',
       sections: [
-        { heading: 'Required before first use', docs: ['aup', 'restricted-data', 'getting-started'] },
-        { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results', 'onboarding-deck'] },
+        { heading: 'Required before first use', docs: ['aup', 'restricted-data', 'getting-started', 'onboarding-deck'] },
+        { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results'] },
         { heading: 'Org-wide skills - available to everyone, right now', docs: ['skill-wcag-audit', 'skill-html-checklist', 'skill-session-closeout', 'skill-skill-evaluator', 'skill-help-center-article', 'skill-prompt-override-guard', 'time-clock', 'skill-agent-quality-logger', 'skill-cowork-context-packager'] },
         { heading: 'Reading the files we send you', docs: ['open-html', 'open-markdown'] },
         { heading: 'Tool briefs', docs: ['ai-advisor', 'behind-the-bell'] },
@@ -473,7 +473,7 @@ window.TRAINING_DATA = {
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
         { heading: 'Internal tools - Claude.ai Projects', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool'] },
-        { heading: 'Internal tools - Coworks', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'sta-support-expert', 'security-advisor', 'help-center-advisor', 'system-monitor-tool', 'project-tester-tool', 'the-customer', 'virtuatime-tool'] },
+        { heading: 'Internal tools - Coworks', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'sta-support-expert', 'security-advisor', 'help-center-advisor', 'system-monitor-tool', 'the-customer'] },
         { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides'] },
         { heading: 'Skills - Support & Troubleshooting', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
@@ -574,11 +574,11 @@ window.TRAINING_DATA = {
     // ===== Staff core =====
     'getting-started': {
       title: 'Quick Start Guide',
-      desc: 'Your first stop: login, what is live, the one data rule, and your first conversations. The self-serve read-it-yourself version of the kickoff slides.',
+      desc: 'Two formats, same content: this is the fast, read-it-yourself text version - login, what is live, the one data rule, and your first conversations. The AI Tools Slides deck next to it covers the exact same material as a live walkthrough.',
       file: 'docs/getting-started-guide.html',
       type: 'html',
       priority: 'required',
-      tags: ['Onboarding'],
+      tags: ['Onboarding', 'Two formats'],
       added: '2026-05-21', updated: '2026-06-07',
       check: 'In Step 4, the guide names three categories you must never paste into an AI tool, even though everything else in the guide is just a tip - what are those three categories?'
     },
@@ -837,13 +837,6 @@ window.TRAINING_DATA = {
       title: 'Behind the Bell Assistant',
       desc: 'Shared Claude.ai Project: production assistant for the Behind the Bell podcast - guest research, prep packages, interview questions, scripts, outreach emails; Confirmed/Unverified sourcing.',
       file: 'docs/behind-the-bell-tool.html',
-      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
-      added: '2026-06-08', updated: '2026-06-08'
-    },
-    'project-tester-tool': {
-      title: 'Project Tester (Deep)',
-      desc: 'Deep QA engineer for Cowork projects, agents, and code - behavioral compliance, adversarial red-team, code execution, regression. Draft; the run-test-cases skill covers quick checks.',
-      file: 'docs/project-tester-tool.html',
       type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
     },
@@ -1209,11 +1202,11 @@ window.TRAINING_DATA = {
     },
     'onboarding-deck': {
       title: 'AI Tools Getting Started - Slides',
-      desc: '12-slide deck for a live 40-minute kickoff - the presenter companion to the Quick Start Guide. Grab this when you are running a team walkthrough.',
+      desc: 'Two formats, same content: this is the full 12-slide deck for a live 40-minute kickoff walkthrough - the exact same material as the Quick Start Guide next to it, in presenter form. Grab this when you are running a team session.',
       file: 'files/ai-tools-getting-started.pdf',
       type: 'pdf',
       priority: 'recommended',
-      tags: ['Presentation', 'Onboarding'],
+      tags: ['Presentation', 'Onboarding', 'Two formats'],
       added: '2026-05-22', updated: '2026-05-22',
       check: 'Which Claude model does the onboarding deck tell staff to use instead of Opus?'
     },
