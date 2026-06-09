@@ -151,6 +151,14 @@ window.TRAINING_DATA = {
 
 ---
 
+## Card Standards (locked 2026-06-09)
+
+**Fixed card size + 5-line descriptions.** Every card renders at one fixed height (`.card { height: 212px; overflow: hidden }`) with its description clamped to a 5-line maximum (`-webkit-line-clamp: 5`). All cards are the same size whether or not they fill five lines. When adding or editing a doc, keep `desc` to roughly 200 characters / 5 lines - text past the clamp is truncated with an ellipsis, so rewrite the description rather than rely on the clamp.
+
+**Deployment bubbles (Project vs Cowork).** Agent docs carry a `deployment: 'project' | 'cowork'` field. A `project` doc renders an indigo (`#3f51b5`) top-border, a light-indigo card background, and a "Project" pill; a `cowork` doc renders a bronze (`#795548`) top-border, a light-bronze card background, and a "Cowork" pill (dark-mode tints handled in both theme blocks). The in-doc header band matches the card via `DEPLOY_ACCENT`. Built web apps (e.g. the Project Tracker) get NO deployment field - they live under System reference, not the agent buckets.
+
+**Redundant-tag dedup.** The card renderer auto-hides any tag that merely duplicates the priority (e.g. a `priority: 'admin'` card no longer shows a second "Admin" tag). List real, informative tags only.
+
 ## Adding a New Doc
 
 1. **Name the file as a URL-safe slug** before adding to dist. Use kebab-case, lowercase, no spaces, no special characters except hyphen and dot. Example: `customer-renewal-workflow.html`, not `Customer Renewal Workflow.html`. **This is mandatory** - Cloudflare Pages drag-and-drop uploads silently fail partway through batches when filenames contain spaces. The 2026-05-21 deploy attempt confirmed this empirically (uploads stopped at 3/4 with spaced filenames; succeeded fully after rename to slugs).

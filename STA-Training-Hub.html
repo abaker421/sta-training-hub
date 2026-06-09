@@ -97,7 +97,15 @@
   /* CARD GRID */
   .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
 
-  .card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; transition: border-color .12s, box-shadow .12s, transform .12s; cursor: pointer; position: relative; min-height: 152px; }
+  /* RECOMMENDED DAY 1 - "pick one" split layout */
+  .day1-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-start; }
+  .day1-normal { flex: 1 1 380px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; align-content: start; }
+  .day1-pick { flex: 1 1 320px; display: flex; gap: 10px; align-items: center; border: 1px dashed var(--green); border-radius: 10px; padding: 12px; background: rgba(107,192,75,0.06); }
+  .day1-pick-cards { display: flex; flex-direction: column; gap: 12px; flex: 1 1 auto; min-width: 0; }
+  .day1-pick-note { flex: 0 0 auto; display: flex; align-items: center; gap: 6px; color: var(--green-dark); font-size: 9pt; font-weight: 700; line-height: 1.3; }
+  .day1-arrow { font-size: 18pt; line-height: 1; }
+
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; transition: border-color .12s, box-shadow .12s, transform .12s; cursor: pointer; position: relative; height: 212px; overflow: hidden; }
   .card:hover { border-color: var(--card-accent, var(--blue)); box-shadow: 0 4px 12px rgba(0,0,0,0.13); transform: translateY(-1px); }
   .card-required { border-top: 3px solid var(--blue); --card-accent: var(--blue); }
   .card-recommended { border-top: 3px solid var(--green); --card-accent: var(--green); }
@@ -105,6 +113,8 @@
   .card-admin { border-top: 3px solid var(--orange); --card-accent: var(--orange); }
   .card-wip { border-top: 3px solid #6c3dbf; --card-accent: #6c3dbf; }
   .card-skill { border-top: 3px solid #0d7d8c; --card-accent: #0d7d8c; }
+  .card-project { border-top: 3px solid #3f51b5; --card-accent: #3f51b5; background: #eef0fb; }
+  .card-cowork { border-top: 3px solid #795548; --card-accent: #795548; background: #f4f1ec; }
   .card-required-unread { }
 
   .card-head { display: flex; align-items: flex-start; gap: 10px; }
@@ -114,7 +124,7 @@
   .card-fav:hover { color: #f0b429; background: rgba(240,180,41,0.1); }
   .card-fav.active { color: #f0b429; }
 
-  .card-desc { font-size: 9pt; color: #555; line-height: 1.55; flex: 1; }
+  .card-desc { font-size: 9pt; color: #555; line-height: 1.55; flex: 1; display: -webkit-box; -webkit-line-clamp: 5; line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
 
   .card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); }
   .pill { font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
@@ -126,6 +136,8 @@
   .pill-wip { background: #f0eafd; color: #6c3dbf; border: 1px solid #d0b8f0; }
   .pill-skill { background: #e0f3f5; color: #0a6470; border: 1px solid #b3dfe5; }
   .pill-admin { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .pill-project { background: #e8eaf6; color: #283593; border: 1px solid #c5cae9; }
+  .pill-cowork { background: #efebe9; color: #4e342e; border: 1px solid #d7ccc8; }
   .pill-html { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
   .pill-docx { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
   .pill-md { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
@@ -217,11 +229,11 @@
   .link-group-header-label { font-size: 10pt; font-weight: 700; color: #fff; letter-spacing: 0.2px; }
   .link-group-header-icon { font-size: 15pt; line-height: 1; }
   .link-group-items { padding: 4px 0; }
-  .link-group-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 9px 16px; text-decoration: none; color: var(--dark); border-bottom: 1px solid var(--border); transition: background .1s; }
+  .link-group-item { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 64px; text-align: center; padding: 9px 16px; text-decoration: none; color: var(--dark); border-bottom: 1px solid var(--border); transition: background .1s; }
   .link-group-item:last-child { border-bottom: none; }
   .link-group-item:hover { background: #f0f5fb; }
   .link-group-item-name { font-size: 10pt; font-weight: 600; color: var(--blue); display: flex; align-items: center; justify-content: center; gap: 5px; margin-bottom: 2px; }
-  .link-group-item-desc { font-size: 8.5pt; color: #666; line-height: 1.45; text-align: center; }
+  .link-group-item-desc { font-size: 8.5pt; color: #666; line-height: 1.45; text-align: center; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .link-arrow { font-size: 9pt; opacity: 0.65; }
   .link-group-card--wide { grid-column: 1 / -1; }
   .link-group-card--wide .link-group-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
@@ -244,6 +256,9 @@
     .content { padding: 20px 16px 60px; }
     .aud-title { font-size: 18pt; }
     .card-grid { grid-template-columns: 1fr; }
+    .day1-normal { grid-template-columns: 1fr; }
+    .day1-pick { flex-direction: column; align-items: stretch; }
+    .day1-pick-note { flex-direction: row; justify-content: center; }
   }
 
   /* DARK MODE - three-state theme.
@@ -286,6 +301,8 @@
   :root[data-theme="dark"] .progress-track { background: #2a313b; }
   :root[data-theme="dark"] .viewer-footer { background: #20262e; }
   :root[data-theme="dark"] .link-group-item:hover { background: #262c35; }
+  :root[data-theme="dark"] .card-project { background: #232842; }
+  :root[data-theme="dark"] .card-cowork { background: #2b2620; }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) { --bg: #15181d; --white: #1e232b; --border: #333b45; --light: #262c35; --gray: #9aa3ad; }
@@ -323,6 +340,8 @@
     :root:not([data-theme="light"]) .progress-track { background: #2a313b; }
     :root:not([data-theme="light"]) .viewer-footer { background: #20262e; }
     :root:not([data-theme="light"]) .link-group-item:hover { background: #262c35; }
+    :root:not([data-theme="light"]) .card-project { background: #232842; }
+    :root:not([data-theme="light"]) .card-cowork { background: #2b2620; }
   }
 
   /* REDUCED MOTION */
@@ -396,8 +415,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F44B}',
       sub: 'Everyone reads these first. Day 1 onboarding for the AI program, no matter your role.',
       sections: [
-        { heading: 'Required before first use', docs: ['aup', 'restricted-data', 'getting-started', 'onboarding-deck'] },
-        { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results'] },
+        { heading: 'Required before first use', docs: ['aup', 'restricted-data'] },
+        { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results', 'getting-started', 'onboarding-deck'] },
         { heading: 'Org-wide skills - available to everyone, right now', docs: ['skill-wcag-audit', 'skill-html-checklist', 'skill-session-closeout', 'skill-skill-evaluator', 'skill-help-center-article', 'skill-prompt-override-guard', 'time-clock', 'skill-agent-quality-logger', 'skill-cowork-context-packager'] },
         { heading: 'Reading the files we send you', docs: ['open-html', 'open-markdown'] },
         { heading: 'Tool briefs', docs: ['ai-advisor', 'behind-the-bell'] },
@@ -451,7 +470,7 @@ window.TRAINING_DATA = {
       icon: '\u{1F501}',
       sub: 'For Renewals - Jessie. Renewal-call practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Tool briefs', docs: ['ai-advisor', 'the-customer'] },
+        { heading: 'Tool briefs', docs: ['ai-advisor', 'the-customer', 'behind-the-bell'] },
         { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
       ]
     },
@@ -503,7 +522,7 @@ window.TRAINING_DATA = {
     // ===== AI Admin system inventory =====
     'ai-admin-pc-installed-inventory': {
       title: 'AI Admin PC - Installed Plugins & Skills Inventory',
-      desc: 'Everything installed on the AI Admin PC: 27 plugins, ~276 non-custom skills, ~55 MCP connectors - every individual skill listed - plus the full STA tech stack the AI layer plugs into, with per-tool AI-connection status.',
+      desc: 'Everything installed on the AI Admin PC: 27 plugins, ~276 skills, ~55 MCP connectors - each listed - plus the full STA tech stack the AI layer plugs into, with per-tool connection status.',
       file: 'docs/ai-admin-pc-installed-inventory.html',
       type: 'html',
       priority: 'admin',
@@ -512,7 +531,7 @@ window.TRAINING_DATA = {
     },
     'project-export-snapshot-audit': {
       title: 'Project Export-Snapshot Audit',
-      desc: 'Per-project export snapshots for all 20 Active/Draft Cowork agents and Claude.ai Projects (BwB-suite projects out of scope) - context files, skills used, KB modules, and install requirements. All 20 export-ready; six gaps found and closed 2026-06-06.',
+      desc: 'Per-project export snapshots for all 20 Active/Draft agents and Projects - context files, skills, KB modules, and install requirements. All export-ready; six gaps found and closed 2026-06-06.',
       file: 'docs/project-export-snapshot-audit.html',
       type: 'html',
       priority: 'admin',
@@ -521,7 +540,7 @@ window.TRAINING_DATA = {
     },
     'creative-snippet-gallery': {
       title: 'Creative Snippet Gallery - 48 Live HTML/CSS/JS Effects',
-      desc: 'Interactive gallery of the creative-html-css-js-techniques KB library: 48 zero-dependency, brand-themeable snippets (S01-S48) rendered live, one per tab - report charts, scroll effects, micro-interactions, 3D, controls, theming, and loaders, each with embeddability tags and browser support notes. Paste-ready code lives in KB modules 8 and 18.',
+      desc: 'Interactive gallery of the creative-html-css-js KB library: 48 zero-dependency, brand-themeable effects (S01-S48) rendered live, one per tab. Paste-ready code lives in KB modules 8 and 18.',
       file: 'docs/creative-snippet-gallery.html',
       type: 'html',
       priority: 'admin',
@@ -577,7 +596,7 @@ window.TRAINING_DATA = {
       desc: 'Two formats, same content: this is the fast, read-it-yourself text version - login, what is live, the one data rule, and your first conversations. The AI Tools Slides deck next to it covers the exact same material as a live walkthrough.',
       file: 'docs/getting-started-guide.html',
       type: 'html',
-      priority: 'required',
+      priority: 'recommended',
       tags: ['Onboarding', 'Two formats'],
       added: '2026-05-21', updated: '2026-06-07',
       check: 'In Step 4, the guide names three categories you must never paste into an AI tool, even though everything else in the guide is just a tip - what are those three categories?'
@@ -699,7 +718,8 @@ window.TRAINING_DATA = {
     // ===== Internal agents (Adam-only Cowork tools) =====
     'the-architect-tool': {
       title: 'The Architect',
-      desc: 'The build engine for the whole AI system - takes a project from idea to production-ready output (discovery, blueprint, system prompt, test cases, registry entry, handoff). Four modes; never ships scaffold. For the deep walk-through see the case study under Build pipeline.',
+      desc: 'The build engine for the whole AI system - takes a project from idea to production-ready output: discovery, blueprint, system prompt, test cases, registry, handoff. Four modes; never ships scaffold.',
+      deployment: 'cowork',
       file: 'docs/the-architect.html',
       type: 'html',
       priority: 'admin',
@@ -709,7 +729,7 @@ window.TRAINING_DATA = {
     },
     'project-tracker-tool': {
       title: 'STA Project Tracker',
-      desc: 'Shared internal tracker for STA product/dev work, delivered as the Projects tab in the Help Center Index app (Cloudflare Pages). A built web app, not a chat agent. Phase A read-only is live; Phase B collaborative editing (D1-backed) is deferred. Shared with Adam, Chris, Tyler, Andy.',
+      desc: 'Shared internal tracker for STA product/dev work - the Projects tab in the Help Center Index app. A built web app, not a chat agent. Phase A read-only is live; Phase B collaborative editing is deferred.',
       file: 'docs/sta-project-tracker.html',
       type: 'html',
       priority: 'admin',
@@ -720,6 +740,7 @@ window.TRAINING_DATA = {
     'work-assistant': {
       title: 'Work Personal Assistant',
       desc: 'Adam\'s day-to-day School Tech work assistant in Cowork - email rewrites in his voice, drafts, summaries, Today\'s Agenda, and the Skyward weekly scan.',
+      deployment: 'cowork',
       file: 'docs/work-personal-assistant.html',
       type: 'html',
       priority: 'admin',
@@ -730,6 +751,7 @@ window.TRAINING_DATA = {
     'deep-research': {
       title: 'Deep Research',
       desc: 'Turns a research request or uploaded source into structured knowledge-base modules other AI projects draw from. Three output shapes; never-fabricate hard rule.',
+      deployment: 'cowork',
       file: 'docs/deep-research.html',
       type: 'html',
       priority: 'admin',
@@ -740,6 +762,7 @@ window.TRAINING_DATA = {
     'sf-admin-assistant': {
       title: 'Salesforce Admin Assistant',
       desc: 'Adam\'s personal Salesforce reference and build partner - Flows, formulas, CPQ, Spanning. Reference-only (no org access); warns before any destructive operation.',
+      deployment: 'cowork',
       file: 'docs/salesforce-admin-assistant.html',
       type: 'html',
       priority: 'admin',
@@ -749,7 +772,8 @@ window.TRAINING_DATA = {
     },
     'sta-support-expert': {
       title: 'STA Support Expert',
-      desc: 'Adam\'s internal diagnostic reference for School Tech product issues - Help Center-grounded causes and fixes, drafted customer replies, and Skyward navigation answers with cited click-paths. 19 context files across the full product line.',
+      desc: 'Adam\'s internal diagnostic reference for STA product issues - Help Center-grounded causes and fixes, drafted customer replies, and Skyward navigation answers with cited click-paths. 19 context files.',
+      deployment: 'cowork',
       file: 'docs/sta-support-expert.html',
       type: 'html',
       priority: 'admin',
@@ -760,6 +784,7 @@ window.TRAINING_DATA = {
     'security-advisor': {
       title: 'STA Security Advisor',
       desc: 'CIS Controls v8.1 compliance repository and monitoring partner for Salesforce and Google Workspace. Confirmed / Inferred / Unknown evidence states; never assumes compliant.',
+      deployment: 'cowork',
       file: 'docs/sta-security-advisor.html',
       type: 'html',
       priority: 'admin',
@@ -770,6 +795,7 @@ window.TRAINING_DATA = {
     'help-center-advisor': {
       title: 'Help Center Advisor',
       desc: 'Structure and content strategy for the STA Salesforce Knowledge help center - eight task types, three audit dimensions, impact-tier ranked recommendations.',
+      deployment: 'cowork',
       file: 'docs/help-center-advisor.html',
       type: 'html',
       priority: 'admin',
@@ -780,6 +806,7 @@ window.TRAINING_DATA = {
     'system-monitor-tool': {
       title: 'System Monitor',
       desc: 'Operations layer for the whole AI system - weekly Slack health report (Monitor mode) plus live system Q&A and routing (Navigator mode). Read-only; does not build or fix.',
+      deployment: 'cowork',
       file: 'docs/system-monitor.html',
       type: 'html',
       priority: 'admin',
@@ -789,16 +816,18 @@ window.TRAINING_DATA = {
     },
     'the-customer': {
       title: 'The Customer',
-      desc: 'Sales-practice role-play agent. Plays four K-12 district personas - IT director, junior tech, business manager, front-office secretary - across STA’s product line for cold-pitch, discovery, objection-handling, support-call, and renewal reps, then steps out of character to coach with a GROW debrief and a behavior-based scorecard. Hard rules: it is not a real customer, and the scorecard is practice feedback, not data.',
+      desc: 'Role-play practice agent: plays four K-12 district personas for pitch, discovery, objection-handling, support, and renewal reps, then coaches with a GROW debrief and a behavior-based scorecard.',
       file: 'docs/the-customer.html',
       type: 'html',
       priority: 'admin',
+      deployment: 'cowork',
       tags: ['Tool Brief', 'Admin'],
-      added: '2026-06-08', updated: '2026-06-08'
+      added: '2026-06-08', updated: '2026-06-09'
     },
     'rd-tracker': {
       title: 'Internal R&D Tracker',
-      desc: 'A Claude.ai Project that classifies STA’s software-development costs and staff time by R&D stage and assembles a CPA-ready package for the federal IRC §41 credit and MN/WI/AZ state credits (2026+). Advisory only - it organizes and documents, it does not file. Backed by seven context files.',
+      desc: 'Classifies STA software-development costs and staff time by R&D stage and assembles a CPA-ready package for the federal IRC §41 credit plus MN/WI/AZ state credits. Advisory only - it documents, it does not file.',
+      deployment: 'project',
       file: 'docs/internal-rd-tracker.html',
       type: 'html',
       priority: 'admin',
@@ -808,6 +837,7 @@ window.TRAINING_DATA = {
     'ai-advisor-tool': {
       title: 'AI Advisor',
       desc: 'Shared Claude.ai Project that helps any staff member explore where AI fits their workflows, see what is already live, and frame an idea to bring to Adam; routes implementation to IT.',
+      deployment: 'project',
       file: 'docs/ai-advisor-tool.html',
       type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
@@ -815,6 +845,7 @@ window.TRAINING_DATA = {
     'support-chat-tool': {
       title: 'STA Support Chat',
       desc: 'Shared Claude.ai Project for the support team - Help-Center-grounded product troubleshooting and customer-email drafts across 16 product context files; never-fabricate hard rule.',
+      deployment: 'project',
       file: 'docs/sta-support-chat-tool.html',
       type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
@@ -822,6 +853,7 @@ window.TRAINING_DATA = {
     'cohort-tool': {
       title: 'STA Salesforce Cohort',
       desc: 'Shared Claude.ai Project: Salesforce reference and build guidance for the 4-person admin cohort; heavy Flow work routes to the Salesforce Admin Assistant.',
+      deployment: 'project',
       file: 'docs/sta-salesforce-cohort-tool.html',
       type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
@@ -829,6 +861,7 @@ window.TRAINING_DATA = {
     'main-chat-tool': {
       title: 'STA Main Chat',
       desc: 'Planned company-wide base brain (org knowledge, products, processes) that department brains extend from. Parked until department workflow docs are collected.',
+      deployment: 'project',
       file: 'docs/sta-main-chat-tool.html',
       type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
@@ -836,6 +869,7 @@ window.TRAINING_DATA = {
     'behind-the-bell-tool': {
       title: 'Behind the Bell Assistant',
       desc: 'Shared Claude.ai Project: production assistant for the Behind the Bell podcast - guest research, prep packages, interview questions, scripts, outreach emails; Confirmed/Unverified sourcing.',
+      deployment: 'project',
       file: 'docs/behind-the-bell-tool.html',
       type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
@@ -927,7 +961,7 @@ window.TRAINING_DATA = {
     },
     'skill-prompt-evaluator': {
       title: 'Prompt Evaluator',
-      desc: 'Scores a project\'s instructions before launch - role clarity, what-it-does vs what-it-never-does, uncertainty rules, response format, and the common prompt anti-patterns - graded against named frameworks, not gut feel. Output: a versioned HTML report with a 0-100 score and a prioritized fix list.',
+      desc: 'Scores a project\'s instructions before launch against named frameworks - role clarity, do-vs-never, uncertainty rules, format, anti-patterns. Output: a versioned HTML report with a 0-100 score and fix list.',
       file: 'docs/skill-prompt-evaluator.html',
       type: 'html',
       priority: 'skill',
@@ -1236,7 +1270,7 @@ window.TRAINING_DATA = {
     // ===== In Dev (server / infrastructure) =====
     'sta-server-proposal': {
       title: 'Company Cloud Server + STA Shared Brain - Proposal',
-      desc: 'In dev. The case for a small always-on company cloud server (about $15/month) to host STA’s shared AI infrastructure - the always-current shared brain every assistant reads from, plus the collaborative project-tracker backend. Argues it pays for itself in saved staff time.',
+      desc: 'In dev. The case for a small always-on company cloud server (~$15/mo) to host STA shared AI infrastructure - the shared brain every assistant reads from, plus the project-tracker backend.',
       file: 'docs/sta-server-proposal.html',
       type: 'html',
       priority: 'wip',
@@ -1338,7 +1372,7 @@ const DATA = window.TRAINING_DATA;
 const LINKS = window.HELPFUL_LINKS;
 
 const LS = { aud: 'sta_training_aud', favs: 'sta_training_favs', read: 'sta_training_read' };
-const VALID_AUDS = ['start', 'support', 'sf-admins', 'admin', 'favorites'];
+const VALID_AUDS = ['start', 'sales', 'support', 'marketing', 'operations', 'renewals', 'sf-admins', 'admin', 'favorites'];
 
 const MARKED = { src: 'https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js', sri: 'sha384-zbcZAIxlvJtNE3Dp5nxLXdXtXyxwOdnILY1TDPVmKFhl4r4nSUG1r8bcFXGVa4Te' };
 const MAMMOTH = { src: 'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js', sri: 'sha384-nFoSjZIoH3CCp8W639jJyQkuPHinJ2NHe7on1xvlUA7SuGfJAfvMldrsoAVm6ECz' };
@@ -1539,13 +1573,15 @@ function freshnessChip(doc) {
 function cardHTML(id, doc) {
   const fav = state.favorites.includes(id);
   const isRead = state.read.has(id);
-  const pclass = 'card-' + (doc.priority || 'optional');
+  let pclass = 'card-' + (doc.priority || 'optional');
+  if (doc.deployment) pclass += ' card-' + doc.deployment;
   const reqUnread = doc.priority === 'required' && !isRead;
-  const tags = (doc.tags || []).slice(0, 2);
+  const tags = (doc.tags || []).filter(t => t.toLowerCase() !== (doc.priority || '').toLowerCase()).slice(0, 2);
   let meta = '';
   meta += freshnessChip(doc);
   if (doc.priority && doc.priority !== 'recommended') meta += '<span class="pill pill-' + esc(doc.priority) + '">' + esc(doc.priority) + '</span>';
   if (doc.org) meta += '<span class="pill pill-org" tabindex="0" title="Org-wide skill - available to everyone, right now." aria-label="Org-wide skill, available to everyone now">Org-wide</span>';
+  if (doc.deployment) meta += '<span class="pill pill-' + esc(doc.deployment) + '" title="' + (doc.deployment === 'project' ? 'Claude.ai Project' : 'Cowork project') + '">' + (doc.deployment === 'project' ? 'Project' : 'Cowork') + '</span>';
   meta += tags.map(t => '<span class="pill pill-optional">' + esc(t) + '</span>').join('');
   if (reqUnread) meta += '<span class="req-unread">Required - not yet read</span>';
   meta += '<button class="card-read' + (isRead ? ' is-read' : '') + '" type="button" data-action="read" data-doc="' + esc(id) + '"'
@@ -1581,6 +1617,16 @@ function viewAudience(aud) {
     }
     if (aud.id === 'start' && sec.heading === 'Recommended Day 1') {
       html += progressBar('Day 1 articles read', sec.docs);
+      // Last two docs are the "pick one - same content" pair (Quick Start Guide + Slides),
+      // stacked at the right with a margin note. The rest render as a normal grid on the left.
+      const normalIds = sec.docs.slice(0, Math.max(0, sec.docs.length - 2));
+      const pickIds = sec.docs.slice(-2);
+      html += '<div class="day1-row"><div class="day1-normal">';
+      normalIds.forEach(id => { const d = DATA.docs[id]; if (d) html += cardHTML(id, d); });
+      html += '</div><div class="day1-pick"><div class="day1-pick-cards">';
+      pickIds.forEach(id => { const d = DATA.docs[id]; if (d) html += cardHTML(id, d); });
+      html += '</div><div class="day1-pick-note"><span class="day1-arrow" aria-hidden="true">←</span><span>Same content,<br>pick one</span></div></div></div></section>';
+      return;
     }
     html += '<div class="card-grid">';
     sec.docs.forEach(id => { const d = DATA.docs[id]; if (d) html += cardHTML(id, d); });
@@ -1674,11 +1720,12 @@ const DOC_ACCENT = {
   wip: '#6c3dbf',
   skill: '#0d7d8c'
 };
+const DEPLOY_ACCENT = { project: '#3f51b5', cowork: '#795548' };
 function applyDocAccent(frame, doc) {
   try {
     const d = frame.contentDocument;
     if (!d || !d.documentElement || !d.head) return;
-    const accent = DOC_ACCENT[doc.priority] || '#006098';
+    const accent = (doc.deployment && DEPLOY_ACCENT[doc.deployment]) || DOC_ACCENT[doc.priority] || '#006098';
     d.documentElement.style.setProperty('--doc-accent', accent);
     let s = d.getElementById('hub-doc-accent');
     if (!s) { s = d.createElement('style'); s.id = 'hub-doc-accent'; d.head.appendChild(s); }
