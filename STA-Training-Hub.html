@@ -412,10 +412,9 @@ window.TRAINING_DATA = {
       sub: 'Everyone reads these first. Day 1 onboarding for the AI program, no matter your role.',
       sections: [
         { heading: 'Required before first use', docs: ['aup', 'restricted-data'] },
-        { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results', 'onboarding-deck'] },
+        { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results', 'onboarding-deck', 'ai-advisor'] },
         { heading: 'Reading the files we send you', docs: ['open-html', 'open-markdown'] },
-        { heading: 'Tool briefs', docs: ['ai-advisor'] },
-        { heading: 'Go further', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork'] }
+        { heading: 'Go further', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'ai-basics'] }
       ]
     },
     {
@@ -425,7 +424,7 @@ window.TRAINING_DATA = {
       sub: 'For the Sales team - Pat and Jessie. Pitch and renewal practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
       ]
     },
     {
@@ -436,7 +435,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
         { heading: 'Getting started', docs: ['support-chat-brief'] },
-        { heading: 'Skills', docs: ['time-clock', 'skill-help-center-article', 'skill-html-checklist', 'skill-agent-quality-logger', 'skill-session-closeout'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
       ]
     },
     {
@@ -445,9 +444,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F4E3}',
       sub: 'For Marketing and content - newsletters, the blog, and the Behind the Bell podcast. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', docs: ['ai-advisor-tool'] },
-        { heading: 'Getting started', docs: ['behind-the-bell'] },
-        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-session-closeout', 'skill-agent-quality-logger', 'skill-wcag-audit'] }
+        { heading: 'Projects', docs: ['ai-advisor-tool', 'behind-the-bell-tool'] },
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
       ]
     },
     {
@@ -458,7 +456,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool'] },
         { heading: 'Getting started', docs: ['cohort-getting-started'] },
-        { heading: 'Skills', docs: ['skill-wcag-audit', 'skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
       ]
     },
     {
@@ -469,7 +467,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
         { heading: 'Getting started', docs: ['behind-the-bell'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
       ]
     },
     {
@@ -478,9 +476,9 @@ window.TRAINING_DATA = {
       icon: '\u{1F4CA}',
       sub: 'For the Salesforce admin team. Your School Tech Salesforce Cohort kit. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Cohort kit', docs: ['cohort-getting-started', 'sf-org-intake'] },
         { heading: 'Projects', docs: ['ai-advisor-tool'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-agent-quality-logger', 'skill-session-closeout'] }
+        { heading: 'Cohort kit', docs: ['cohort-getting-started', 'sf-org-intake'] },
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
       ]
     },
     {
@@ -490,17 +488,17 @@ window.TRAINING_DATA = {
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
         { heading: 'Internal tools - Claude.ai Projects', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool', 'the-customer'] },
-        { heading: 'Internal tools - Coworks', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'sta-support-expert', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
+        { heading: 'Internal tools - Coworks', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
         { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides'] },
         { heading: 'Skills - Support & Troubleshooting', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
         { heading: 'Skills - Knowledge & Research', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
         { heading: 'Skills - Safety & Guardrails', docs: ['skill-prompt-override-guard'] },
-        { heading: 'Skills - Maintenance & Ops', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter'] },
+        { heading: 'Skills - Maintenance & Ops', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter', 'skill-truncation-checker'] },
         { heading: 'System reference', docs: ['system-overview', 'project-tracker-tool', 'ai-admin-pc-installed-inventory', 'project-export-snapshot-audit', 'workspace-skills', 'user-management', 'maintenance-sop'] },
-        { heading: 'Build pipeline', docs: ['rollout-plan', 'build-guide', 'architect-case-study'] },
+        { heading: 'Build pipeline', docs: ['build-guide', 'architect-case-study'] },
         { heading: 'Planned builds (in scoping)', docs: ['google-ai-employee-sow', 'salesforce-integration-sow'] },
-        { heading: 'In Dev', docs: ['sta-server-proposal', 'sta-shared-brain', 'tracker-phase-b-sow'] },
+        { heading: 'In Dev', docs: ['sta-server-proposal', 'sta-shared-brain'] },
         { heading: 'Security checklists', docs: ['google-security', 'sf-security'] },
         { heading: 'Operational procedures', docs: ['drift-check', 'formatting-standards', 'write-verification'] },
         { heading: 'Knowledge base', docs: ['kb-module-catalog', 'creative-snippet-gallery'] }
@@ -513,7 +511,7 @@ window.TRAINING_DATA = {
       desc: 'Step-by-step build guide for power users: scope the job, write instructions, pick the folder, add context files with routing rules, install skills, and run a first-chat verification.',
       file: 'docs/creating-your-first-cowork.html',
       type: 'html',
-      priority: 'recommended',
+      priority: 'optional',
       tags: ['Guide', 'Intermediate'],
       added: '2026-06-06', updated: '2026-06-06'
     },
@@ -589,15 +587,24 @@ window.TRAINING_DATA = {
     },
 
     // ===== Staff core =====
-    'getting-started': {
-      title: 'Quick Start Guide',
-      desc: 'Two formats, same content: this is the fast, read-it-yourself text version - login, what is live, the one data rule, and your first conversations. The AI Tools Slides deck next to it covers the exact same material as a live walkthrough.',
-      file: 'docs/getting-started-guide.html',
+    'ai-basics': {
+      title: 'AI Basics & Common Questions',
+      desc: 'New to AI? Eleven plain-language concepts - chat vs search box, context, memory, hallucinations, Project vs Chat vs Cowork, Markdown, Skills - plus the most common questions, with School Tech examples. Optional deeper reading.',
+      file: 'docs/ai-basics.html',
       type: 'html',
       priority: 'recommended',
-      tags: ['Onboarding', 'Two formats'],
-      added: '2026-05-21', updated: '2026-06-07',
-      check: 'In Step 4, the guide names three categories you must never paste into an AI tool, even though everything else in the guide is just a tip - what are those three categories?'
+      tags: ['Reference', 'Go further'],
+      added: '2026-06-12', updated: '2026-06-12'
+    },
+    'skill-truncation-checker': {
+      title: 'Truncation Checker',
+      desc: 'Daily workspace-wide sweep that finds files clipped mid-write (mid-word tails, missing closers, empty files, NUL padding), auto-fixes the safe cases, and reports the rest for manual fixing.',
+      file: 'docs/skill-truncation-checker.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Maintenance'],
+      added: '2026-06-08', updated: '2026-06-08',
+      check: 'What does the Truncation Checker fix automatically versus report for manual fixing?'
     },
     'quick-ref': {
       title: 'Quick Reference Card',
@@ -767,17 +774,6 @@ window.TRAINING_DATA = {
       tags: ['Tool Brief', 'Admin'],
       added: '2026-06-04', updated: '2026-06-04',
       check: 'What two hard rules govern this assistant, and how does it differ from the shared School Tech Salesforce Cohort?'
-    },
-    'sta-support-expert': {
-      title: 'STA Support Expert',
-      desc: 'Adam\'s internal diagnostic reference for STA product issues - Help Center-grounded causes and fixes, drafted customer replies, and Skyward navigation answers with cited click-paths. 19 context files.',
-      deployment: 'cowork',
-      file: 'docs/sta-support-expert.html',
-      type: 'html',
-      priority: 'admin',
-      tags: ['Tool Brief', 'Admin'],
-      added: '2026-06-07', updated: '2026-06-07',
-      check: 'What did STA Support Expert absorb at v2.0, and what does it cite when answering a Skyward navigation question?'
     },
     'security-advisor': {
       title: 'STA Security Advisor',
@@ -1102,16 +1098,6 @@ window.TRAINING_DATA = {
     },
 
     // ===== Rollout & admin =====
-    'rollout-plan': {
-      title: 'AI Rollout Plan v2.0',
-      desc: 'Where the AI rollout actually stands and what comes next. Read for the big-picture phase plan.',
-      file: 'docs/ai-rollout-plan.html',
-      type: 'html',
-      priority: 'admin',
-      tags: ['Planning', 'Admin'],
-      added: '2026-05-21', updated: '2026-05-21',
-      check: 'What is the Power User track designed to reduce over time?'
-    },
     'system-overview': {
       title: 'AI System Overview',
       desc: 'The canonical map of every AI tool, project, and automation. Start here to see how the whole system fits together.',
@@ -1280,15 +1266,6 @@ window.TRAINING_DATA = {
       desc: 'In dev. One update reaches every STA assistant: a single shared knowledge layer the agents read from, so a fact is changed in one place instead of in every project separately. Rides the same server as the proposal above.',
       file: 'docs/sta-shared-brain-scope.html',
       type: 'html',
-      priority: 'wip',
-      tags: ['In Dev', 'Admin'],
-      added: '2026-06-08', updated: '2026-06-08'
-    },
-    'tracker-phase-b-sow': {
-      title: 'Project Tracker Phase B - Collaborative (SOW)',
-      desc: 'In dev. Turns the read-only Projects tab into a shared, writable tracker that STA staff edit directly and that multiple AI agents read from and write to through one defined interface (Cloudflare D1 backend). Draft scope for review.',
-      file: 'docs/sow-phase-b-collaborative-tracker.md',
-      type: 'md',
       priority: 'wip',
       tags: ['In Dev', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
@@ -1576,7 +1553,6 @@ function cardHTML(id, doc) {
   const reqUnread = doc.priority === 'required' && !isRead;
   const tags = (doc.tags || []).filter(t => t.toLowerCase() !== (doc.priority || '').toLowerCase()).slice(0, 2);
   let meta = '';
-  meta += freshnessChip(doc);
   if (doc.priority && doc.priority !== 'recommended') meta += '<span class="pill pill-' + esc(doc.priority) + '">' + esc(doc.priority) + '</span>';
   if (doc.org) meta += '<span class="pill pill-org" tabindex="0" title="Org-wide skill - available to everyone, right now." aria-label="Org-wide skill, available to everyone now">Org-wide</span>';
   if (doc.deployment) meta += '<span class="pill pill-' + esc(doc.deployment) + '" title="' + (doc.deployment === 'project' ? 'Claude.ai Project' : 'Cowork project') + '">' + (doc.deployment === 'project' ? 'Project' : 'Cowork') + '</span>';
@@ -1615,16 +1591,6 @@ function viewAudience(aud) {
     }
     if (aud.id === 'start' && sec.heading === 'Recommended Day 1') {
       html += progressBar('Day 1 articles read', sec.docs);
-      // Last two docs are the "pick one - same content" pair (Quick Start Guide + Slides),
-      // stacked at the right with a margin note. The rest render as a normal grid on the left.
-      const normalIds = sec.docs.slice(0, Math.max(0, sec.docs.length - 2));
-      const pickIds = sec.docs.slice(-2);
-      html += '<div class="day1-row"><div class="day1-normal">';
-      normalIds.forEach(id => { const d = DATA.docs[id]; if (d) html += cardHTML(id, d); });
-      html += '</div><div class="day1-pick"><div class="day1-pick-cards">';
-      pickIds.forEach(id => { const d = DATA.docs[id]; if (d) html += cardHTML(id, d); });
-      html += '</div><div class="day1-pick-note"><span class="day1-arrow" aria-hidden="true">←</span><span>Same content,<br>pick one</span></div></div></div></section>';
-      return;
     }
     html += '<div class="card-grid">';
     sec.docs.forEach(id => { const d = DATA.docs[id]; if (d) html += cardHTML(id, d); });

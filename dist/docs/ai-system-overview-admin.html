@@ -116,7 +116,7 @@
     <div class="badges">
       <div class="badge">Admin / Power Users Only</div>
       <div class="badge blue">Training - Admin</div>
-      <div class="badge green">Updated 2026-06-06 (The Customer added to Cowork workspaces)</div>
+      <div class="badge green">Updated 2026-06-12 (STA Support Expert + Project Tester deprecated; The Customer now a Claude.ai Project)</div>
     </div>
   </div>
 </div>
@@ -144,7 +144,7 @@
   <!-- SYSTEM ARCHITECTURE -->
   <div id="arch"></div>
   <div class="section-title">System Architecture</div>
-  <div class="section-intro">Two parallel deployment layers. <strong>Claude.ai Projects</strong> are the staff-facing tools - four are Active (AI Advisor, STA Support Chat, STA Salesforce Cohort, Behind the Bell Assistant) and one is Draft (STA Main Chat). <strong>Cowork workspaces</strong> are the build, ops, and personal layer - primarily Adam's, with one (System Monitor) handling automated health monitoring. The Architect handles all project builds across both deployment types. The shared file system lives in the The Architect workspace folder, auto-backed up to GitHub every 30 min via Obsidian Git.</div>
+  <div class="section-intro">Two parallel deployment layers. <strong>Claude.ai Projects</strong> are the staff-facing tools - five are Active (AI Advisor, STA Support Chat, STA Salesforce Cohort, Behind the Bell Assistant, The Customer) and one is Draft (STA Main Chat). <strong>Cowork workspaces</strong> are the build, ops, and personal layer - primarily Adam's, with one (System Monitor) handling automated health monitoring. The Architect handles all project builds across both deployment types. The shared file system lives in the The Architect workspace folder, auto-backed up to GitHub every 30 min via Obsidian Git.</div>
 
   <svg class="arch-svg" viewBox="0 0 960 420" xmlns="http://www.w3.org/2000/svg">
     <!-- STAFF-FACING ROW -->
@@ -200,7 +200,7 @@
 
     <rect x="696" y="150" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
     <text x="805" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">Work Personal Assistant</text>
-    <text x="805" y="184" text-anchor="middle" font-size="9.5" fill="#006098">Email, docs, research</text>
+    <text x="805" y="184" text-anchor="middle" font-size="9.5" fill="#006098">v3.0 - email, docs, support diag</text>
     <text x="805" y="198" text-anchor="middle" font-size="9" fill="#006098">Adam's day-to-day</text>
 
     <!-- COWORK STA DOMAIN ROW -->
@@ -210,9 +210,9 @@
     <text x="109" y="268" text-anchor="middle" font-size="9" fill="#006098">Routed-to from Cohort</text>
 
     <rect x="232" y="220" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
-    <text x="341" y="240" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">STA Support Expert</text>
-    <text x="341" y="254" text-anchor="middle" font-size="9.5" fill="#006098">v2.0 - 20 context files</text>
-    <text x="341" y="268" text-anchor="middle" font-size="9" fill="#006098">Adam's diagnostic tool</text>
+    <text x="341" y="240" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">STA Project Tracker</text>
+    <text x="341" y="254" text-anchor="middle" font-size="9.5" fill="#006098">Shared internal tracker (web app)</text>
+    <text x="341" y="268" text-anchor="middle" font-size="9" fill="#006098">Projects tab, Help Center Index</text>
 
     <rect x="464" y="220" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
     <text x="573" y="240" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">Help Center Advisor</text>
@@ -285,6 +285,16 @@
         <strong>8 context files:</strong> <code>context-podcast-profile.md</code>, <code>context-prep-doc-format.md</code>, <code>context-prep-doc-template.docx</code>, <code>context-script-format.md</code>, <code>context-guest-list.md</code>, <code>context-email-templates.md</code>, <code>context-sta-company-proj.md</code>, <code>context-podcast-best-practices.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/_Claude-Projects/behind-the-bell-assistant/</code>
       </div>
     </div>
+
+    <div class="ws-card green">
+      <div class="ws-name">The Customer</div>
+      <div class="ws-tag green">Active v2.0 (eval 99/100)</div>
+      <p><strong>For:</strong> sales and support reps. A shared Claude.ai Project (converted from a Cowork on 2026-06-11) that reps chat with directly to rehearse real K-12 district conversations - cold pitch, discovery, objection-handling, support-call walk-throughs - against four honest customer personas (IT director, junior tech, business manager, front-office secretary), then steps out for a GROW debrief and a behavior-only nine-item scorecard.</p>
+      <p><strong>Does not:</strong> produce real customer data - rehearsal and coaching only, never a substitute for talking to real buyers.</p>
+      <div class="ws-meta">
+        <strong>Context files:</strong> <code>persona-pack-sta.md</code>, <code>district-operations-sta.md</code>, <code>coaching-reference-sta.md</code>, <code>scenario-bank-sta.md</code>, <code>sta-company-profile.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/_Claude-Projects/the-customer/</code>
+      </div>
+    </div>
   </div>
 
   <!-- STA COWORK WORKSPACES -->
@@ -325,8 +335,9 @@
 
     <div class="ws-card blue">
       <div class="ws-name">Work Personal Assistant</div>
-      <div class="ws-tag blue">Active - Adam's day-to-day</div>
+      <div class="ws-tag blue">Active v3.0 - Adam's day-to-day</div>
       <p><strong>Use for:</strong> email rewrites, web lookups, quick research, document creation, anything outside the build system. Connected to Gmail for drafting.</p>
+      <p><strong>v3.0 absorbed STA Support Expert:</strong> now also handles product troubleshooting, Skyward navigation click-paths, and remote-access / SQL Server diagnostics.</p>
       <p><strong>Replication template:</strong> the per-user staff Work Assistant deployments in Phase 3 will be replicated from this template.</p>
       <div class="ws-meta">
         <strong>Context files:</strong> <code>style-profile.md</code> (shared), <code>contacts.md</code> (shared), <code>work-standing-context.md</code>, <code>context-org-team.md</code>, <code>context-org-identity.md</code>
@@ -340,15 +351,6 @@
       <p><strong>V2 with MCP org access:</strong> in backlog, pending Phase 3.</p>
       <div class="ws-meta">
         <strong>Context files:</strong> <code>context-salesforce-org.md</code>, <code>sta-company-profile.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/salesforce-admin-assistant/</code>
-      </div>
-    </div>
-
-    <div class="ws-card blue">
-      <div class="ws-name">STA Support Expert</div>
-      <div class="ws-tag blue">Active v2.0 - Adam's diagnostic tool</div>
-      <p><strong>Use for:</strong> Admin diagnostic reference for product troubleshooting and customer email drafts. Heavier-context counterpart to the staff-shared STA Support Chat. Absorbed Skyward Advisor on 2026-05-18.</p>
-      <div class="ws-meta">
-        <strong>20 context files</strong> spanning every product (with how-tos for the four highest-volume), Skyward compatibility, product mechanics, remote access, SQL Server, plus the platform-detection and coverage-routing modules from the former Skyward Advisor. <strong>Blueprint:</strong> <code>project-blueprints/sta-support-expert/</code>
       </div>
     </div>
 
@@ -390,25 +392,6 @@
       </div>
     </div>
 
-    <div class="ws-card gray">
-      <div class="ws-name">Project Tester (Deep)</div>
-      <div class="ws-tag gray">Draft - QA engineering</div>
-      <p><strong>Planned for:</strong> Adam's QA engineer for Architect-built projects - behavioral compliance testing (LLM-as-judge, temperature=0), adversarial red-team (OWASP LLM Top 10), code artifact execution, regression comparison across versions.</p>
-      <p><strong>Supersedes:</strong> the Run Test Cases skill for deep structured testing; skill remains for quick simulation checks.</p>
-      <div class="ws-meta">
-        <strong>Context files:</strong> <code>context-behavioral-testing.md</code>, <code>context-adversarial-testing.md</code>, <code>context-qa-engineering.md</code>, <code>context-test-harness.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/project-tester/</code>
-      </div>
-    </div>
-
-    <div class="ws-card gray">
-      <div class="ws-name">The Customer</div>
-      <div class="ws-tag gray">Draft - sales-practice role-play (eval 99/100)</div>
-      <p><strong>Use for:</strong> rehearsing real K-12 district conversations - cold pitch, discovery, objection-handling, support-call walk-throughs - against four honest customer personas (IT director, junior tech, business manager, front-office secretary), then stepping out for a GROW debrief and a behavior-only nine-item scorecard. Generic reusable engine with a swappable STA layer - an STA-tuned deployment is the intended instance; runnable project at <code>.Default Projects/The Customer/</code>.</p>
-      <p><strong>Does not:</strong> produce real customer data - rehearsal and coaching only, never a substitute for talking to real buyers. Status flips to Active after a live drill confirms the skill-floor behaviors (run-test-cases passed 12/12 in simulation 2026-06-06).</p>
-      <div class="ws-meta">
-        <strong>Context files:</strong> <code>persona-pack-sta.md</code>, <code>district-operations-sta.md</code>, <code>coaching-reference-sta.md</code>, <code>scenario-bank-sta.md</code>, <code>sta-company-profile.md</code> &middot; <strong>Blueprint:</strong> <code>project-blueprints/the-customer/</code>
-      </div>
-    </div>
   </div>
 
   <!-- BUILD PIPELINE -->
@@ -473,6 +456,7 @@
     <div class="skill-item"><div class="skill-name">Cowork Snapshot Exporter</div><div class="skill-desc">Packages a Cowork project into a timestamped ZIP for sharing - system prompt, setup guide, all referenced context files.</div><div class="skill-trigger">"snapshot this project", "export this cowork"</div></div>
     <div class="skill-item"><div class="skill-name">Research to Slides</div><div class="skill-desc">Converts Deep Research modules into polished PowerPoint decks with STA branding and SVG diagrams.</div><div class="skill-trigger">"turn this into slides"</div></div>
     <div class="skill-item"><div class="skill-name">Backup Verifier</div><div class="skill-desc">Read-only Drift Report over _Backups/ - skills, projects, archives, scheduled-task snapshots; surfaces stale .skill packages as click-installable.</div><div class="skill-trigger">"verify all backups", "are my backups up to date"</div></div>
+    <div class="skill-item"><div class="skill-name">Truncation Checker</div><div class="skill-desc">Token-minimal daily workspace-wide truncation sweep - finds files clipped mid-write (mid-word tails, missing <code>&lt;/html&gt;</code>/JSON/Python closers, empty files, trailing NUL padding). Auto-fixes lossless NUL padding, reports lossy truncation for manual rewrite. Wraps <code>verify-write.py --scan</code>; drives the daily 4 PM truncation-daily-scan task.</div><div class="skill-trigger">Scheduled (daily 4 PM); or "run a truncation scan"</div></div>
     <div class="skill-item"><div class="skill-name">WCAG Audit</div><div class="skill-desc">Audits a web page, HTML/CSS, PDF, Word, or PPTX for WCAG 2.2 AA conformance; severity-ranked findings with evidence. Standalone or handoff to The Test Master.</div><div class="skill-trigger">"run an accessibility audit", "check WCAG 2.2 AA"</div></div>
     <div class="skill-item"><div class="skill-name">Deep Research Prompt Builder</div><div class="skill-desc">Crafts a deep research commission prompt as one .md for the knowledge base, then returns a one-click kickoff prompt.</div><div class="skill-trigger">"craft a deep research prompt", "build a research commission"</div></div>
     <div class="skill-item"><div class="skill-name">Session Closeout</div><div class="skill-desc">Wraps up a chat - summary, pending manual tasks, pending in-chat items; optional one-click handoff prompt for a new chat.</div><div class="skill-trigger">"end chat", "wrap up", "close out"</div></div>
@@ -633,12 +617,27 @@
       <tr>
         <td><strong>Skyward Advisor</strong></td>
         <td>2026-05-18</td>
-        <td>Absorbed into STA Support Expert v2.0. Skyward navigation click-path capability now lives in STA Support Expert.</td>
+        <td>Absorbed into STA Support Expert v2.0 (2026-05-18); when STA Support Expert was itself deprecated on 2026-06-08, the Skyward navigation click-path capability moved to Work Personal Assistant v3.0.</td>
       </tr>
       <tr>
         <td><strong>STA Support Bot</strong> (planned name)</td>
         <td>n/a (renamed)</td>
         <td>Renamed to STA Support Chat before launch. Same tool, current naming.</td>
+      </tr>
+      <tr>
+        <td><strong>STA Support Expert</strong></td>
+        <td>2026-06-08</td>
+        <td>Absorbed into Work Personal Assistant v3.0. Product troubleshooting, Skyward navigation click-paths, and remote-access / SQL Server diagnostics now live in the Work Personal Assistant. (The staff-shared STA Support Chat Project is a separate, still-Active tool.)</td>
+      </tr>
+      <tr>
+        <td><strong>Project Tester (Deep)</strong></td>
+        <td>2026-06-08</td>
+        <td>Deprecated. Testing is covered by the Run Test Cases skill (quick checks) and The Test Master (web / app / extension audits, a separate Active project).</td>
+      </tr>
+      <tr>
+        <td><strong>Garage Sale Monitor</strong></td>
+        <td>2026-06-08</td>
+        <td>Deprecated / archived.</td>
       </tr>
     </tbody>
   </table>
@@ -646,7 +645,7 @@
 </div>
 
 <div class="footer">
-  <strong>School Technology Associates</strong> &nbsp;|&nbsp; The AI System - Operational Reference &nbsp;|&nbsp; Updated 2026-06-06 (The Customer added to Cowork workspaces)
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; The AI System - Operational Reference &nbsp;|&nbsp; Updated 2026-06-12
 </div>
 
 <div style="margin: 60px 0 20px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">

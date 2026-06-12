@@ -51,7 +51,7 @@ cp "../Training - Staff/Getting Started Guide.html" "dist/docs/Getting Started G
 **The Architect provides a paste-ready prompt at the end of every hub-modifying session** per RESTATED HARD RULES rule 13. Paste it into Claude Code to execute. The prompt template:
 
 ```bash
-cd "C:\Users\Adam\Documents\Claude\Projects\The Architect\Training Materials\training-kit-hub"
+cd "C:\Users\Adam\source\repos\training-kit-hub"
 git status
 git add -A
 git commit -m "[concrete descriptive message of what changed]"
