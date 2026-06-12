@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Basics &amp; Common Questions</title>
+<style>
+  :root {
+    --blue: #006098;
+    --green: #6bc04b;
+    --orange: #F4A300;
+    --red: #c0392b;
+    --gray: #8a8d8e;
+    --light: #f4f6f8;
+    --dark: #1e2a35;
+    --white: #ffffff;
+    --border: #dde3e8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+  .header { background: #006098; color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--green); }
+  .header-inner { max-width: 900px; margin: 0 auto; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.82; margin-top: 6px; max-width: 620px; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 36px 60px 80px; }
+
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  .section-intro { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.65; }
+
+  .callout { border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+  .callout.blue { background: #e8f2f8; border-left: 4px solid var(--blue); }
+  .callout.green { background: #edf7e6; border-left: 4px solid var(--green); }
+
+  /* ===== AI Basics ===== */
+  .basics-grid { display: flex; flex-direction: column; gap: 14px; max-width: 640px; }
+  .basics-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.08); padding: 20px 22px; }
+  .basics-card h4 { margin: 0 0 7px; font-size: 1.05rem; font-weight: 700; color: var(--blue); }
+  .basics-card p { margin: 0; color: var(--dark); line-height: 1.6; }
+  .basics-eg { margin-top: 10px !important; font-size: .9rem; color: var(--gray); }
+  .basics-card { transition: box-shadow .18s ease, transform .18s ease; }
+  .basics-card:hover { transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(16,24,40,.10), 0 2px 4px rgba(16,24,40,.08); }
+  .basics-card h4 { display:flex; align-items:center; gap:11px; font-size:1.1rem; }
+  .basics-badge { flex:none; width:26px; height:26px; border-radius:50%; background:var(--blue);
+    color:#fff; font-size:13px; font-weight:500; display:flex; align-items:center;
+    justify-content:center; }
+  .basics-eg strong { color:#1f9d55; font-weight:500; }   /* accessible STA-family green */
+  @media (prefers-reduced-motion:reduce){ .basics-card,.faq-item { transition:none; }
+    .basics-card:hover,.faq-item:hover { transform:none; } }
+
+  /* FAQ */
+  .faq-item { background: white; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 14px 18px; font-size: 13px; font-weight: 700; border-bottom: 1px solid var(--border); }
+  .faq-a { padding: 12px 18px; font-size: 13px; color: #444; line-height: 1.6; }
+
+  .footer { background: var(--dark); color: rgba(255,255,255,0.5); text-align: center; padding: 20px; font-size: 12px; margin-top: 60px; }
+  .footer strong { color: rgba(255,255,255,0.8); }
+
+  @media (max-width: 800px) {
+    .page { padding: 20px 16px 60px; }
+    .header { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body id="top">
+
+<div class="header">
+  <div class="header-inner">
+    <h1>AI Basics &amp; Common Questions</h1>
+    <div class="sub">Foundational concepts and FAQs for anyone who wants to go deeper — part of the Go Further section.</div>
+    <div class="badge">Go Further · Reference</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="callout green" style="margin-top: 4px;">
+    <strong>What this is:</strong> The core concepts behind working with AI at School Tech, plus the questions people ask most. Read it once and everything else in the kit makes more sense.
+  </div>
+
+  <!-- AI BASICS -->
+  <div class="section-title">AI basics</div>
+  <p class="section-intro">New to working with AI? Start here. Eleven quick concepts that make everything else make sense.</p>
+  <div class="basics-grid">
+    <div class="basics-card"><h4><span class="basics-badge">1</span>How to actually use AI chat</h4>
+      <p>It's a conversation, not a search box. Don't type keywords, talk to it in full sentences: give it the task and the material, then refine with follow-ups like "make it shorter" or "you missed X."</p>
+      <p class="basics-eg"><strong>STA example:</strong> instead of "customer refund angry," say "Draft a reply to this upset customer asking for a refund" and paste the actual email.</p></div>
+    <div class="basics-card"><h4><span class="basics-badge">2</span>What an AI can and can't do</h4>
+      <p>Strong at drafting, rewriting, summarizing, explaining, and brainstorming. Weak at exact facts, math, dates, and anything current, and it can sound confident while being wrong. Use it for the first draft, then you check the facts.</p>
+      <p class="basics-eg"><strong>STA example:</strong> great for drafting a KB article; double-check any version numbers or specs it states.</p></div>
+    <div class="basics-card"><h4><span class="basics-badge">3</span>What a prompt is</h4>
+      <p>A prompt is just what you type to the AI, your request plus whatever it needs to do the job. Better prompts get better answers, which is what the Three-Ingredient Formula (what + context + format) is for.</p>
+      <p class="basics-eg"><strong>STA example:</strong> "what" = draft a reply; "context" = the pasted email; "format" = under five sentences.</p></div>
+    <div class="basics-card"><h4><span class="basics-badge">4</span>What is context</h4>
+      <p>Context is everything the AI can see right now: your messages, anything you've pasted, and the project's setup files. It knows nothing outside that window. If it didn't see it, it doesn't know it.</p>
+      <p class="basics-eg"><strong>STA example:</strong> pasting the actual time-clock error gets a far better answer than describing it from memory.</p></div>
+    <div class="basics-card"><h4><span class="basics-badge">5</span>How AI memory works</h4>
+      <p>A plain chat doesn't remember past conversations, each new chat starts blank. A Project keeps its setup files loaded every time, so the tool always knows STA basics, but it still won't recall what you typed yesterday unless it's saved in the project. That's why you re-paste the email or case each time.</p>
+      <p class="basics-eg"><strong>STA example:</strong> STA Support Chat always knows the never-fabricate rule, but won't remember last week's ticket.</p></div>
+    <div class="basics-card"><h4><span class="basics-badge">6</span>When to start a new chat vs keep going</h4>
+      <p>Keep going while you're on the same task, the AI uses the whole conversation as context. Start a fresh chat when you switch topics, or when it gets confused and keeps repeating a mistake. A clean chat clears the clutter.</p>
+      <p class="basics-eg"><strong>STA example:</strong> finished a customer reply and moving to a time-clock issue? Start a new chat.</p></div>
+    <div class="basics-card"><h4><span class="basics-badge">7</span>Why it sometimes makes things up</h4>
+      <p>When an AI doesn't know something, it can fill the gap with a confident-sounding guess, this is called a "hallucination." It's why every STA tool has the NEVER FABRICATE rule, and why you verify facts before sending.</p>
+      <p class="basics-eg"><strong>STA example:</strong> if it cites a setting or price you can't confirm, treat it as a guess until you check.</p></div>
+    <div class="basics-card"><h4><span class="basics-badge">8</span>How to give feedback or fix a bad answer</h4>
+      <p>If an answer misses, just tell it what's wrong and it'll redo it: "that's too formal" or "wrong product name, it's X." You can also thumbs-down a response. Don't start over from scratch, correcting in place is faster and usually works.</p>
+      <p class="basics-eg"><strong>STA example:</strong> "Good, but cut the apology paragraph and make it friendlier."</p></div>
+    <div class="basics-card"><h4><span class="basics-badge">9</span>Project vs chat vs Cowork</h4>
+      <p>A plain chat is a one-off conversation with no setup, fine for a quick personal question. A Project is a chat pre-loaded with STA instructions and reference files, so it already knows how we work, this is what you use daily (AI Advisor, STA Support Chat, the Salesforce Cohort). Cowork is the advanced desktop app that can work with files on your computer and run automations; it's limited to admins and power users.</p>
+      <p class="basics-eg"><strong>STA example:</strong> ask a quick wording question in a plain chat, but do real support work in the STA Support Chat Project.</p></div>
+    <div class="basics-card"><h4><span class="basics-badge">10</span>What Markdown (.md) files are</h4>
+      <p>Markdown is plain text with light formatting, # for headings, dashes for bullets, **bold**, and it opens in any text editor with no special program. AI tools read and write it because it's clean and simple.</p>
+      <p class="basics-eg"><strong>STA example:</strong> a Project's context/setup files are .md files, and some skills hand back .md output.</p></div>
+    <div class="basics-card"><h4><span class="basics-badge">11</span>What are Skills</h4>
+      <p>A skill is a small add-on that teaches a tool to do one specific job a set way, and it kicks in automatically when your request matches it. You don't install or trigger them by hand, the tool knows when to use one.</p>
+      <p class="basics-eg"><strong>STA example:</strong> ask STA Support Chat to write a help article and the Help Center Article skill formats it in our exact Salesforce style.</p></div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section-title" id="faq">Common Questions</div>
+
+  <div class="faq-item">
+    <div class="faq-q">Do I need to explain what School Tech does every time I ask something?</div>
+    <div class="faq-a">No. Each project is already loaded with School Tech context — products, customers, processes, and tone. Just ask your actual question. If you're getting generic responses, it usually means the question is missing a specific detail (which customer, which product, what outcome you want), not that it needs more company background.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">It remembered what I said earlier in the conversation but forgot it next time I opened it. Is that normal?</div>
+    <div class="faq-a">Yes. Within a single conversation, it remembers everything. When you close the conversation and start a new one, it starts fresh. This is by design. If you're building on previous work, paste the relevant context into the new conversation to pick up where you left off.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">The response was wrong — what should I do?</div>
+    <div class="faq-a">Stay in the same conversation and tell it specifically what's wrong. "That's not right" is less useful than "the timeline you gave is wrong — this district is 3 months in, not new." The more specific you are about what missed, the better the next response will be. If a tool is consistently giving bad answers on a topic, let Adam know — tool instructions can be updated.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Can I use it for customer-facing writing?</div>
+    <div class="faq-a">Yes — that's one of the strongest use cases. Draft the response, review it, edit it to match your voice, then send. Don't send the raw output without reading it. You're responsible for everything that goes out under your name.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">I have an idea for a tool that doesn't exist yet. Who do I tell?</div>
+    <div class="faq-a">Adam. Describe the workflow, who would use it, and what a useful result looks like. The AI program grows based on what the team actually needs, and new tools get built from those conversations.</div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div style="margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: #555; line-height: 1.6;">
+    <strong style="color: var(--dark);">Questions or issues?</strong> Contact Adam — <a href="mailto:adamb@k12sta.com" style="color: var(--blue);">adamb@k12sta.com</a>.
+    For data questions, see the <a href="ai-restricted-data-reference-guide.html" style="color:#0a66c2;text-decoration:underline;">AI Restricted Data Reference Guide</a>. For prompting tips, see <a href="getting-better-results.html" style="color:#0a66c2;text-decoration:underline;">Getting Better Results</a>.
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>School Technology Associates</strong> &nbsp;·&nbsp; AI Tools for Staff &nbsp;·&nbsp; Go Further: AI Basics &amp; Common Questions
+</div>
+
+</body>
+</html>

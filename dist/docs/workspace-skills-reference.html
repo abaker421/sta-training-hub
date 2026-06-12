@@ -111,7 +111,7 @@
 
   <table class="ref">
     <tr><th>Folder</th><th>What's in it</th></tr>
-    <tr><td>[project-name]/</td><td>A live project blueprint (e.g. <code class="inline">sta-support-expert/</code>, <code class="inline">help-center-advisor/</code>, <code class="inline">the-architect/</code>).</td></tr>
+    <tr><td>[project-name]/</td><td>A live project blueprint (e.g. <code class="inline">help-center-advisor/</code>, <code class="inline">sta-security-advisor/</code>, <code class="inline">the-architect/</code>).</td></tr>
     <tr><td>templates/</td><td>Canonical templates only — instructions example, blueprint-summary, handoff, project-launch, eval, case-study, scheduled-task procedure.</td></tr>
     <tr><td>_Skills/</td><td>Skill blueprint folders + staged <code class="inline">[skill]-SKILL-updated.md</code> files awaiting install.</td></tr>
     <tr><td>_Claude-Projects/</td><td>Blueprints for Claude.ai Project deployments (never <code class="inline">_Projects/</code>).</td></tr>
@@ -128,7 +128,7 @@
   <div class="section-title" id="sec-2">2 — Anatomy of a Project Blueprint</div>
   <div class="section-intro">Every project gets a folder at <code class="inline">project-blueprints/[project-name]/</code>. The Architect produces these files in two waves — Wave 1 (the prompt) before sign-off, Wave 2 (downstream) only after the instructions are confirmed final.</div>
 
-<pre class="tree">project-blueprints/sta-support-expert/
+<pre class="tree">project-blueprints/help-center-advisor/
 ├── <span class="b">instructions.md</span>          <span class="c"># Wave 1 · the production system prompt</span>
 ├── <span class="b">blueprint-summary.md</span>     <span class="c"># Wave 1 · overview, KB modules used, tool assessment, decisions</span>
 ├── <span class="b">backlog.md</span>               <span class="c"># Wave 1 · future-enhancement tracker (Active / Implemented)</span>
@@ -165,13 +165,13 @@
   </div>
 
   <h3 class="sub-h">Recommended base layout for a new live folder</h3>
-<pre class="tree"><span class="g">STA Support Expert/</span>            <span class="c"># the live Cowork project home</span>
+<pre class="tree"><span class="g">Help Center Advisor/</span>            <span class="c"># the live Cowork project home</span>
 ├── <span class="b">context-*.md</span>             <span class="c"># optional local state/context the agent reads</span>
 ├── <span class="g">outputs/</span>                 <span class="c"># generated reports, drafts, digests</span>
 ├── <span class="g">images/</span>                  <span class="c"># any image assets the work uses</span>
 └── <span class="g">archive/</span>                 <span class="c"># superseded files kept for reference</span></pre>
 
-  <div class="section-intro">In practice these folders are freeform. A real example (STA Support Expert) holds working documents and dated output subfolders — e.g. <code class="inline">Error Log Reviews/</code>, <code class="inline">2026-Q2 Documents/</code>, a process-guide <code class="inline">.docx</code>, and diagnostic <code class="inline">.html</code> reports — rather than a fixed scaffold.</div>
+  <div class="section-intro">In practice these folders are freeform. A real example (Help Center Advisor) holds working documents and dated output subfolders — e.g. audit reports, <code class="inline">2026-Q2 Documents/</code>, a process-guide <code class="inline">.docx</code>, and diagnostic <code class="inline">.html</code> reports — rather than a fixed scaffold.</div>
 
   <div class="callout orange">
     <strong>Hygiene:</strong> the same root and outputs conventions apply — keep generated runs in <code class="inline">outputs/</code>, delete stray unnamed artifacts (random-character files with no extension) as soon as they appear, and don't let working files pile up at the folder root.
@@ -180,7 +180,7 @@
 
   <!-- SECTION 4 -->
   <div class="section-title" id="sec-4">4 — Every Custom Skill</div>
-  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code> in <code class="inline">_Backups/skills/INDEX.md</code>) — 22 currently installed. Anthropic-shipped skills (docx, pptx, xlsx, pdf, schedule, skill-creator, etc.) are not listed here. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
+  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code> in <code class="inline">_Backups/skills/INDEX.md</code>) — 23 currently installed. Anthropic-shipped skills (docx, pptx, xlsx, pdf, schedule, skill-creator, etc.) are not listed here. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
 
   <div class="grp">Build pipeline — designing &amp; validating agents</div>
 
@@ -269,6 +269,10 @@
   <div class="skill-card"><div class="skill-name">backup-verifier</div>
     <div class="skill-desc">Read-only drift report over <code class="inline">_Backups/</code> — verifies every skill, project, and archive backup is current; surfaces stale <code class="inline">.skill</code> packages as click-installable.</div>
     <div class="skill-trig"><strong>Say:</strong> "verify all backups", "backup drift check"</div></div>
+
+  <div class="skill-card"><div class="skill-name">truncation-checker</div>
+    <div class="skill-desc">Token-minimal daily workspace-wide truncation sweep — finds files clipped mid-write (mid-word tails, missing <code class="inline">&lt;/html&gt;</code>/JSON/Python closers, empty files, trailing NUL padding). Auto-fixes lossless NUL padding and reports lossy truncation for manual rewrite. Wraps the root <code class="inline">verify-write.py --scan</code> engine and drives the daily 4 PM truncation-daily-scan task.</div>
+    <div class="skill-trig"><strong>Scheduled</strong> (daily 4 PM); or "run a truncation scan", "check for truncated files"</div></div>
 
   <div class="skill-card"><div class="skill-name">weekly-github-backup</div>
     <div class="skill-desc">Backs up all Claude projects and skills to GitHub every Sunday at 7:00 AM; also runs on demand as a scheduled task.</div>

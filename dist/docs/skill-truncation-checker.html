@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truncation Checker - Skill Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  :root { --dark:#1A1A2E; --teal:#0d7d8c; --teal-dark:#0a6470; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#0a6571; color:#fff; padding:28px 32px; border-bottom:3px solid var(--teal); }
+  .badge { display:inline-block; background:#e0f3f5; color:var(--teal-dark); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:rgba(255,255,255,0.7); font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--teal-dark); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Maintenance &middot; AI Admin</span>
+      <h1>Truncation Checker</h1>
+      <div class="tagline">Catch files that got clipped mid-write.</div>
+    </div>
+    <div class="body">
+      <h2>What it does</h2>
+      <p>Runs a token-minimal, workspace-wide sweep for files that were truncated mid-write - clipped before the write finished. It is the detection backstop to the write-time prevention sweep: where prevention tries to stop a bad write from landing, this skill finds the ones that slipped through and tells you exactly which files need attention.</p>
+      <h2>What it catches</h2>
+      <ul>
+        <li>Mid-word tails - text that stops abruptly partway through a word or sentence.</li>
+        <li>Missing structural closers - no <code>&lt;/html&gt;</code>, an unterminated JSON object/array, or an incomplete Python file.</li>
+        <li>Empty files that should have content.</li>
+        <li>Trailing NUL padding left behind by an interrupted write.</li>
+      </ul>
+      <h2>Auto-fix vs. report</h2>
+      <p>It auto-fixes the lossless case on its own: trailing NUL padding is stripped, since no real content is lost. Lossy truncation - where actual content was cut off and cannot be recovered - is reported, not silently patched, so you can rewrite the affected file by hand.</p>
+      <h2>How it runs</h2>
+      <p>It wraps the root <code>verify-write.py --scan</code> engine and drives the daily 4 PM <code>truncation-daily-scan</code> task. You can also trigger it on demand any time you suspect a file landed incomplete.</p>
+      <h2>When to use it</h2>
+      <p>After a large batch of writes, after an interrupted or crashed session, or whenever a file looks like it ends in the wrong place. The daily scheduled scan covers routine coverage; trigger it manually for spot checks.</p>
+      <h2>How to trigger it</h2>
+      <div class="trigger"><p>"run a truncation scan"</p><p>"check for truncated files"</p><p>"did anything get clipped mid-write"</p></div>
+    </div>
+    <div class="foot">School Technology Associates &middot; Truncation Checker &middot; Custom Skill</div>
+  </div>
+</body>
+</html>
