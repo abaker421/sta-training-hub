@@ -1679,9 +1679,9 @@ function viewViewer(doc) {
 // the card category changes. Injected into the doc iframe on load (same-origin).
 const DOC_ACCENT = {
   required: '#006098',
-  recommended: '#3a8a1e',
-  optional: '#5a6470',
-  admin: '#b06a00',
+  recommended: '#6bc04b',
+  optional: '#8a8d8e',
+  admin: '#F4A300',
   wip: '#6c3dbf',
   skill: '#0d7d8c'
 };
@@ -1695,7 +1695,6 @@ function applyDocAccent(frame, doc) {
     let s = d.getElementById('hub-doc-accent');
     if (!s) { s = d.createElement('style'); s.id = 'hub-doc-accent'; d.head.appendChild(s); }
     s.textContent =
-      '.head,.header,header,.hero,.masthead,.page-header,.brief-head{background:' + accent + ' !important;color:#fff;}' +
       '.header,body>header,.hero,.masthead{max-width:880px;margin-left:auto;margin-right:auto;border-radius:12px;}';
   } catch (e) { /* cross-origin/sandboxed: leave the doc's own styling in place */ }
 }
