@@ -10,7 +10,9 @@
   :root { --dark:#1A1A2E; --teal:#0d7d8c; --teal-dark:#0a6470; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
   body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
   .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-  .head { background:#fff; color:#1e2a35; padding:24px 30px; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #0a6571); border-radius:10px; }
+  .head { background:#fff; color:#1e2a35; padding:24px 30px; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #0a6571); border-radius:10px;  overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent,#0a6571) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#0a6571) 35%, #fff); color:var(--doc-accent,#0a6571); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+
   .head h1 { color:#1e2a35; }
   .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent, #0a6571); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
   h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
@@ -31,6 +33,7 @@
       <span class="badge">Maintenance &middot; AI Admin</span>
       <h1>Backup Verifier</h1>
       <div class="tagline">Verify every backup is current.</div>
+      <div class="head-strip">SKILL &middot; RUNS AUTOMATICALLY WHEN IT APPLIES</div>
     </div>
     <div class="body">
       <h2>What it does</h2>

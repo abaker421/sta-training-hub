@@ -22,7 +22,9 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
 
-  .header { background:#fff; color:#1e2a35; padding:28px 40px; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #3a8a1e); border-radius:10px; }
+  .header { background:#fff; color:#1e2a35; padding:28px 40px; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #3a8a1e); border-radius:10px;  overflow:hidden; }
+  .header-strip { margin:18px -40px 0; padding:9px 40px; background:color-mix(in srgb, var(--doc-accent,#3a8a1e) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#3a8a1e) 35%, #fff); color:var(--doc-accent,#3a8a1e); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+
   .header-inner { max-width: 940px; margin: 0 auto; }
   .header h1 { color:#1e2a35; font-size: 26px; font-weight: 700; }
   .header .sub { color:#5f6b76; opacity:1; font-size: 14px; margin-top: 6px; max-width: 640px; }
@@ -128,6 +130,7 @@
       <div class="header-badge">Updated: 2026-06-03</div>
     </div>
   </div>
+  <div class="header-strip">STAFF REFERENCE</div>
 </div>
 
 <div class="page">

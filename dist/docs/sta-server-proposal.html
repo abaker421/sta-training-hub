@@ -11,7 +11,9 @@
 html,body{margin:0;}
 body{color:var(--ink);background:#f3f5f7;font:15px/1.5 "Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;}
 .shell{max-width:1120px;margin:0 auto;background:var(--bg);box-shadow:0 1px 4px rgba(0,0,0,.10);min-height:100vh;}
-header.pkg{background:#fff;color:#1e2a35;padding:22px 36px 18px;border:1px solid #dde3e8;border-top:6px solid var(--doc-accent, #006098);border-radius:10px;}
+header.pkg{background:#fff;color:#1e2a35;padding:22px 36px 18px;border:1px solid #dde3e8;border-top:6px solid var(--doc-accent, #006098);border-radius:10px; overflow:hidden; }
+  .header-strip { margin:18px -36px 0; padding:9px 36px; background:color-mix(in srgb, var(--doc-accent,#006098) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#006098) 35%, #fff); color:var(--doc-accent,#006098); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+
 .pkg .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#006098;font-weight:600;margin:0 0 6px;}
 .pkg h1{font-size:1.5rem;line-height:1.2;margin:0;font-weight:800;letter-spacing:-.01em;color:#1e2a35;}
 .pkg .meta{margin:9px 0 0;font-size:.8rem;color:#5f6b76;}
@@ -41,7 +43,7 @@ footer.pkg{padding:12px 36px;border-top:3px solid var(--green);background:var(--
   .frame{min-height:0;}
 }
 </style></head><body><div class="shell">
-<header class="pkg"><p class="eyebrow">School Technology Associates &middot; IT Infrastructure</p><h1>Company Cloud Server + STA Shared Brain - Proposal</h1><p class="meta">Prepared for Andy Hoerl &middot; 2026-06-06, revised 2026-06-11 &middot; Four tabs: Pitch, Shared Brain, Setup Steps, Technical Plan</p></header>
+<header class="pkg"><p class="eyebrow">School Technology Associates &middot; IT Infrastructure</p><h1>Company Cloud Server + STA Shared Brain - Proposal</h1><p class="meta">Prepared for Andy Hoerl &middot; 2026-06-06, revised 2026-06-11 &middot; Four tabs: Pitch, Shared Brain, Setup Steps, Technical Plan</p><div class="header-strip">INTERNAL &middot; ADMIN REFERENCE</div></header>
 <div class="tablist" role="tablist" aria-label="Report sections">
 <button role="tab" id="tab-pitch" class="tab" aria-selected="true" aria-controls="panel-pitch" tabindex="0" data-tid="pitch"><span class="tlab">The Pitch</span><span class="tsub">Why, cost, and the ask</span></button>
 <button role="tab" id="tab-brain" class="tab" aria-selected="false" aria-controls="panel-brain" tabindex="-1" data-tid="brain"><span class="tlab">STA Shared Brain</span><span class="tsub">What the server unlocks for staff AI</span></button>
