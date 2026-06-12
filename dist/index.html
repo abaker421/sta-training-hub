@@ -115,6 +115,8 @@
   .card-skill { border-top: 3px solid #0d7d8c; --card-accent: #0d7d8c; }
   .card-project { border: 1px solid #3f51b5; border-top: 3px solid #3f51b5; --card-accent: #3f51b5; }
   .card-cowork { border: 1px solid #795548; border-top: 3px solid #795548; --card-accent: #795548; }
+  .section-time { font-size: 8.5pt; font-weight: 600; color: var(--blue); background: #e8f2f8; border-radius: 20px; padding: 2px 10px; margin-left: 10px; vertical-align: middle; }
+  .section-accent .card { border-top: 3px solid var(--section-accent); --card-accent: var(--section-accent); }
   .card-required-unread { }
 
   .card-head { display: flex; align-items: flex-start; gap: 10px; }
@@ -412,9 +414,8 @@ window.TRAINING_DATA = {
       sub: 'Everyone reads these first. Day 1 onboarding for the AI program, no matter your role.',
       sections: [
         { heading: 'Required before first use', docs: ['aup', 'restricted-data'] },
-        { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results', 'onboarding-deck', 'ai-advisor'] },
-        { heading: 'Reading the files we send you', docs: ['open-html', 'open-markdown'] },
-        { heading: 'Go further', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'ai-basics'] }
+        { heading: 'Recommended Day 1', time: 'about 50 min', docs: ['quick-ref', 'better-results', 'onboarding-deck', 'ai-advisor', 'open-html', 'open-markdown'] },
+        { heading: 'Go further', accent: '#c2185b', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'ai-basics'] }
       ]
     },
     {
@@ -433,9 +434,9 @@ window.TRAINING_DATA = {
       icon: '\u{1F3A7}',
       sub: 'For the Support team - Chris and Tyler. Your tool briefs and the skills you use most. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
+        { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer', 'support-chat-tool'] },
         { heading: 'Getting started', docs: ['support-chat-brief'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'time-clock'] }
       ]
     },
     {
@@ -455,7 +456,6 @@ window.TRAINING_DATA = {
       sub: 'For Operations - Tanya, Kelsey, and Joni. The Salesforce/ops kit, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool'] },
-        { heading: 'Getting started', docs: ['cohort-getting-started'] },
         { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
       ]
     },
@@ -465,8 +465,7 @@ window.TRAINING_DATA = {
       icon: '\u{1F501}',
       sub: 'For Renewals - Jessie. Renewal-call practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
-        { heading: 'Getting started', docs: ['behind-the-bell'] },
+        { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer', 'behind-the-bell-tool'] },
         { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
       ]
     },
@@ -476,7 +475,7 @@ window.TRAINING_DATA = {
       icon: '\u{1F4CA}',
       sub: 'For the Salesforce admin team. Your School Tech Salesforce Cohort kit. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', docs: ['ai-advisor-tool'] },
+        { heading: 'Projects', docs: ['ai-advisor-tool', 'cohort-tool'] },
         { heading: 'Cohort kit', docs: ['cohort-getting-started', 'sf-org-intake'] },
         { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
       ]
@@ -1584,7 +1583,9 @@ function viewAudience(aud) {
   let html = '<div class="aud-header"><h1 class="aud-title">' + esc(aud.title) + '</h1>'
     + '<div class="aud-sub">' + esc(aud.sub) + '</div></div>';
   aud.sections.forEach(sec => {
-    html += '<section class="section"><div class="section-title">' + esc(sec.heading)
+    const _secAcc = sec.accent ? ' style="--section-accent:' + sec.accent + '"' : '';
+    html += '<section class="section' + (sec.accent ? ' section-accent' : '') + '"' + _secAcc + '><div class="section-title">' + esc(sec.heading)
+      + (sec.time ? '<span class="section-time">' + esc(sec.time) + '</span>' : '')
       + '<span class="section-count">' + sec.docs.length + ' ' + (sec.docs.length === 1 ? 'doc' : 'docs') + '</span></div>';
     if (aud.id === 'start' && sec.heading === 'Required before first use') {
       html += progressBar('required articles read', sec.docs);

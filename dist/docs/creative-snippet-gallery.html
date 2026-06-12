@@ -9,6 +9,11 @@
   :root {
     --accent: #4f46e5;
     --accent-2: #06b6d4;
+    /* Gallery-owned theme tokens: pin the light defaults so nothing external can
+       leak in (e.g. an inherited amber --bg/--text). Dark demos (.fx-constellation,
+       .fx-aurora, .fx-diorama) override --bg/--text locally to dark navy. */
+    --bg: #ffffff;
+    --text: #1a1a2e;
     --nav-w: 252px;
   }
   * { box-sizing: border-box; }
@@ -234,7 +239,7 @@
   <p class="p-meta">Theming: <code>--accent</code> (sampled at load), <code>--bg</code>, <code>--text</code> · Support: universal (Canvas 2D) · Module 5</p>
 </section>
 <style>
-.fx-constellation { position: relative; min-height: 240px; background: var(--bg, #0f1226); overflow: hidden; border-radius: 14px; }
+.fx-constellation { --bg: #0f1226; --text: #ffffff; position: relative; min-height: 240px; background: var(--bg, #0f1226); overflow: hidden; border-radius: 14px; }
 .fx-constellation canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .fx-constellation-content { position: relative; z-index: 1; padding: 3rem 2rem; color: var(--text, #fff); }
 </style>
@@ -369,6 +374,7 @@ window.fxInit = window.fxInit || {};
 <style>
 @property --fx-aurora-shift { syntax: "<percentage>"; initial-value: 0%; inherits: false; }
 .fx-aurora {
+  --bg: #0f1226; --text: #ffffff;
   padding: 3.5rem 2rem; border-radius: 14px; color: var(--text, #fff);
   background:
     radial-gradient(60% 80% at calc(20% + var(--fx-aurora-shift)) 20%, color-mix(in oklch, var(--accent, #4f46e5) 55%, transparent), transparent 70%),
@@ -1313,7 +1319,7 @@ document.querySelectorAll('.fx-confetti').forEach(btn => {
   <p class="p-meta">Theming: <code>--accent</code>, <code>--accent-2</code> (glow layers), <code>--bg</code>, <code>--text</code> · Event-driven, zero idle cost · Support: 3D transforms universal · Module 10 + 4</p>
 </section>
 <style>
-.fx-diorama { --p: 900; perspective: calc(var(--p) * 1px); background: var(--bg, #14141c);
+.fx-diorama { --bg: #14141c; --text: #ffffff; --p: 900; perspective: calc(var(--p) * 1px); background: var(--bg, #14141c);
   overflow: hidden; border-radius: 12px; }
 .fx-diorama .scene { position: relative; min-height: 260px; transform-style: preserve-3d;
   transform: rotateX(calc(var(--ry, 0) * -4deg)) rotateY(calc(var(--rx, 0) * 4deg));
