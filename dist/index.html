@@ -412,11 +412,9 @@ window.TRAINING_DATA = {
       sub: 'Everyone reads these first. Day 1 onboarding for the AI program, no matter your role.',
       sections: [
         { heading: 'Required before first use', docs: ['aup', 'restricted-data'] },
-        { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results', 'getting-started', 'onboarding-deck'] },
-        { heading: 'Org-wide skills - available to everyone, right now', docs: ['skill-wcag-audit', 'skill-html-checklist', 'skill-session-closeout', 'skill-skill-evaluator', 'skill-help-center-article', 'skill-prompt-override-guard', 'time-clock', 'skill-agent-quality-logger', 'skill-cowork-context-packager'] },
+        { heading: 'Recommended Day 1', docs: ['quick-ref', 'better-results', 'onboarding-deck'] },
         { heading: 'Reading the files we send you', docs: ['open-html', 'open-markdown'] },
-        { heading: 'Tool briefs', docs: ['ai-advisor', 'behind-the-bell'] },
-        { heading: 'Coming Soon', docs: ['sta-main-chat'] },
+        { heading: 'Tool briefs', docs: ['ai-advisor'] },
         { heading: 'Go further', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork'] }
       ]
     },
@@ -426,8 +424,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F4BC}',
       sub: 'For the Sales team - Pat and Jessie. Pitch and renewal practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Tool briefs', docs: ['ai-advisor', 'the-customer'] },
-        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
+        { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
       ]
     },
     {
@@ -436,7 +434,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F3A7}',
       sub: 'For the Support team - Chris and Tyler. Your tool briefs and the skills you use most. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Tool briefs', docs: ['support-chat-brief', 'ai-advisor'] },
+        { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
+        { heading: 'Getting started', docs: ['support-chat-brief'] },
         { heading: 'Skills', docs: ['time-clock', 'skill-help-center-article', 'skill-html-checklist', 'skill-agent-quality-logger', 'skill-session-closeout'] }
       ]
     },
@@ -446,8 +445,9 @@ window.TRAINING_DATA = {
       icon: '\u{1F4E3}',
       sub: 'For Marketing and content - newsletters, the blog, and the Behind the Bell podcast. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Tool briefs', docs: ['ai-advisor', 'behind-the-bell'] },
-        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-session-closeout', 'skill-agent-quality-logger'] }
+        { heading: 'Projects', docs: ['ai-advisor-tool'] },
+        { heading: 'Getting started', docs: ['behind-the-bell'] },
+        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-session-closeout', 'skill-agent-quality-logger', 'skill-wcag-audit'] }
       ]
     },
     {
@@ -456,8 +456,9 @@ window.TRAINING_DATA = {
       icon: '\u{1F5C2}\u{FE0F}',
       sub: 'For Operations - Tanya, Kelsey, and Joni. The Salesforce/ops kit, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Tool briefs', docs: ['ai-advisor', 'cohort-getting-started'] },
-        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
+        { heading: 'Projects', docs: ['ai-advisor-tool'] },
+        { heading: 'Getting started', docs: ['cohort-getting-started'] },
+        { heading: 'Skills', docs: ['skill-wcag-audit', 'skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
       ]
     },
     {
@@ -466,8 +467,9 @@ window.TRAINING_DATA = {
       icon: '\u{1F501}',
       sub: 'For Renewals - Jessie. Renewal-call practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Tool briefs', docs: ['ai-advisor', 'the-customer', 'behind-the-bell'] },
-        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
+        { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
+        { heading: 'Getting started', docs: ['behind-the-bell'] },
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-agent-quality-logger'] }
       ]
     },
     {
@@ -477,8 +479,8 @@ window.TRAINING_DATA = {
       sub: 'For the Salesforce admin team. Your School Tech Salesforce Cohort kit. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Cohort kit', docs: ['cohort-getting-started', 'sf-org-intake'] },
-        { heading: 'Tool brief', docs: ['ai-advisor'] },
-        { heading: 'Skills', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-agent-quality-logger', 'skill-session-closeout'] }
+        { heading: 'Projects', docs: ['ai-advisor-tool'] },
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-agent-quality-logger', 'skill-session-closeout'] }
       ]
     },
     {
@@ -487,8 +489,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F527}',
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
-        { heading: 'Internal tools - Claude.ai Projects', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool'] },
-        { heading: 'Internal tools - Coworks', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'sta-support-expert', 'security-advisor', 'help-center-advisor', 'system-monitor-tool', 'the-customer'] },
+        { heading: 'Internal tools - Claude.ai Projects', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool', 'the-customer'] },
+        { heading: 'Internal tools - Coworks', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'sta-support-expert', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
         { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides'] },
         { heading: 'Skills - Support & Troubleshooting', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
@@ -511,7 +513,7 @@ window.TRAINING_DATA = {
       desc: 'Step-by-step build guide for power users: scope the job, write instructions, pick the folder, add context files with routing rules, install skills, and run a first-chat verification.',
       file: 'docs/creating-your-first-cowork.html',
       type: 'html',
-      priority: 'optional',
+      priority: 'recommended',
       tags: ['Guide', 'Intermediate'],
       added: '2026-06-06', updated: '2026-06-06'
     },
