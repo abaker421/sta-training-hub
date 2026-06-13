@@ -1694,8 +1694,7 @@ function applyDocAccent(frame, doc) {
     d.documentElement.style.setProperty('--doc-accent', accent);
     let s = d.getElementById('hub-doc-accent');
     if (!s) { s = d.createElement('style'); s.id = 'hub-doc-accent'; d.head.appendChild(s); }
-    s.textContent =
-      '.header,body>header,.hero,.masthead{max-width:880px;margin-left:auto;margin-right:auto;border-radius:12px;}';
+    s.textContent = '';
   } catch (e) { /* cross-origin/sandboxed: leave the doc's own styling in place */ }
 }
 
