@@ -425,7 +425,7 @@ window.TRAINING_DATA = {
       sub: 'For the Sales team - Pat and Jessie. Pitch and renewal practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -436,7 +436,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer', 'support-chat-tool'] },
         { heading: 'Getting started', docs: ['support-chat-brief'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'time-clock'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'time-clock', 'skill-sta-html-report', 'skill-help-center-report'] }
       ]
     },
     {
@@ -446,7 +446,7 @@ window.TRAINING_DATA = {
       sub: 'For Marketing and content - newsletters, the blog, and the Behind the Bell podcast. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'behind-the-bell-tool'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -456,7 +456,7 @@ window.TRAINING_DATA = {
       sub: 'For Operations - Tanya, Kelsey, and Joni. The Salesforce/ops kit, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -466,7 +466,7 @@ window.TRAINING_DATA = {
       sub: 'For Renewals - Jessie. Renewal-call practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer', 'behind-the-bell-tool'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -477,7 +477,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'cohort-tool'] },
         { heading: 'Cohort kit', docs: ['cohort-getting-started', 'sf-org-intake'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout'] }
+        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -488,7 +488,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Internal tools - Claude.ai Projects', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool', 'the-customer'] },
         { heading: 'Internal tools - Coworks', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
-        { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides'] },
+        { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report'] },
         { heading: 'Skills - Support & Troubleshooting', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
         { heading: 'Skills - Knowledge & Research', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
@@ -886,6 +886,28 @@ window.TRAINING_DATA = {
       tags: ['Documentation'],
       added: '2026-06-01', updated: '2026-06-01',
       check: 'Besides KB articles and troubleshooting guides, what two kinds of workflows does this skill say it can format for the STA Help Center?'
+    },
+    'skill-sta-html-report': {
+      title: 'STA HTML Report',
+      desc: 'Turn findings or data into a single, self-contained, STA-branded HTML report - a digest, status update, diagnostic, scan summary, or analysis - that leads with the bottom line and picks the right charts, KPIs, and status indicators for the content. Can also combine several reports into one tabbed package.',
+      file: 'docs/skill-sta-html-report.html',
+      org: true,
+      type: 'html',
+      priority: 'skill',
+      tags: ['Content & Output'],
+      added: '2026-06-13', updated: '2026-06-13',
+      check: 'By default, are STA HTML Reports styled for internal or customer-facing use, and what do you have to do to get the accessible customer-facing version?'
+    },
+    'skill-help-center-report': {
+      title: 'Help Center Report',
+      desc: 'Pull live GA4 analytics for STA\'s Salesforce Help Center, score it against the five effectiveness metrics (case deflection, search success, zero-results, article ratings, time-to-resolution), and deliver a branded HTML report that answers one question: is the Help Center deflecting support load? Folds in Salesforce Knowledge CSV exports when provided.',
+      file: 'docs/skill-help-center-report.html',
+      org: true,
+      type: 'html',
+      priority: 'skill',
+      tags: ['Analytics'],
+      added: '2026-06-13', updated: '2026-06-13',
+      check: 'What single question is the Help Center Report built to answer, and which live data source does it pull from?'
     },
     'skill-html-checklist': {
       title: 'HTML Checklist',

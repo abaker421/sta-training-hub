@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STA HTML Report - Skill Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  :root { --dark:#1A1A2E; --teal:#0d7d8c; --teal-dark:#0a6470; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#fff; color:#1e2a35; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #0a6571); border-radius:10px;  overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent,#0a6571) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#0a6571) 35%, #fff); color:var(--doc-accent,#0a6571); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+
+  .head h1 { color:#1e2a35; }
+  .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent, #0a6571); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--teal-dark); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  .note { background:#fff8ec; border:1px solid #f0d9a8; border-radius:8px; padding:12px 16px; font-size:10.5pt; color:#5a4a25; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">All Staff</span>
+      <h1>STA HTML Report</h1>
+      <div class="tagline">Turn findings into a polished, shareable report you can read in 30 seconds.</div>
+      <div class="head-strip">SKILL &middot; RUNS AUTOMATICALLY WHEN IT APPLIES</div>
+    </div>
+    <div class="body">
+      <h2>What it does</h2>
+      <p>Takes your data or findings and produces a single, self-contained, STA-branded HTML report - a digest, status update, diagnostic, monitoring or scan summary, or analysis. It leads with the bottom line, then picks the right elements for the report type from a rich library (KPI bands, charts, meters, gauges, heatmaps, timelines, and color-plus-shape status indicators) so each report fits its content instead of every report looking the same.</p>
+      <p>It can also assemble several finished reports into one tabbed "package" file for sharing.</p>
+      <h2>When to use it</h2>
+      <p>Any time you want a clean, branded write-up of findings to share or keep - instead of a raw table, a wall of text, or a plain chat answer.</p>
+      <h2>How to trigger it</h2>
+      <div class="trigger"><p>"make an HTML report"</p><p>"turn this into a report"</p><p>"write this up"</p><p>"build a digest"</p><p>"format this as a report"</p></div>
+      <h2>Good to know</h2>
+      <p class="note">Reports default to internal STA styling (full color). If the report is going to a customer or anyone outside STA, say so up front - it will switch to an accessible, customer-facing version before building.</p>
+    </div>
+    <div class="foot">School Technology Associates &middot; STA HTML Report &middot; Custom Skill</div>
+  </div>
+</body>
+</html>
