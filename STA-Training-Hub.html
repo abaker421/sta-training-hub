@@ -93,7 +93,7 @@
   .section { margin-bottom: 36px; }
   .section-title { font-size: 9pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.1px; color: var(--gray); padding-bottom: 8px; border-bottom: 2px solid var(--border); margin-bottom: 16px; display: flex; align-items: baseline; gap: 10px; }
   .section-count { font-size: 8pt; font-weight: 400; color: #aaa; background: #f0f0f0; border-radius: 10px; padding: 1px 8px; }
-  .section-note { font-size: 10pt; color: var(--gray); line-height: 1.5; max-width: 78ch; margin: -6px 0 16px; }
+  .section-note { font-size: 10pt; color: var(--gray); line-height: 1.5; margin: 0 0 16px; }
 
   /* CARD GRID */
   .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
@@ -425,8 +425,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F4BC}',
       sub: 'For the Sales team - Pat and Jessie. Pitch and renewal practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
-        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'the-customer'] },
+        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -435,9 +435,9 @@ window.TRAINING_DATA = {
       icon: '\u{1F3A7}',
       sub: 'For the Support team - Chris and Tyler. Your tool briefs and the skills you use most. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer', 'support-chat-tool'] },
-        { heading: 'Getting started', docs: ['support-chat-brief'] },
-        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'time-clock', 'skill-sta-html-report', 'skill-help-center-report'] }
+        { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'the-customer', 'support-chat-tool'] },
+        { heading: 'Getting started', note: 'Read this first to get up and running with the Support tools.', docs: ['support-chat-brief'] },
+        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'time-clock', 'skill-sta-html-report', 'skill-help-center-report'] }
       ]
     },
     {
@@ -446,8 +446,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F4E3}',
       sub: 'For Marketing and content - newsletters, the blog, and the Behind the Bell podcast. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', docs: ['ai-advisor-tool', 'behind-the-bell-tool'] },
-        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'behind-the-bell-tool'] },
+        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -456,8 +456,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F5C2}\u{FE0F}',
       sub: 'For Operations - Tanya, Kelsey, and Joni. The Salesforce/ops kit, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', docs: ['ai-advisor-tool'] },
-        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool'] },
+        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -466,8 +466,8 @@ window.TRAINING_DATA = {
       icon: '\u{1F501}',
       sub: 'For Renewals - Jessie. Renewal-call practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer', 'behind-the-bell-tool'] },
-        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'the-customer', 'behind-the-bell-tool'] },
+        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -476,9 +476,9 @@ window.TRAINING_DATA = {
       icon: '\u{1F4CA}',
       sub: 'For the Salesforce admin team. Your School Tech Salesforce Cohort kit. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', docs: ['ai-advisor-tool', 'cohort-tool'] },
-        { heading: 'Cohort kit', docs: ['cohort-getting-started', 'sf-org-intake'] },
-        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'cohort-tool'] },
+        { heading: 'Cohort kit', note: 'Your Salesforce cohort onboarding set - work through these to get started.', docs: ['cohort-getting-started', 'sf-org-intake'] },
+        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -487,21 +487,21 @@ window.TRAINING_DATA = {
       icon: '\u{1F527}',
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
-        { heading: 'Internal tools - Claude.ai Projects', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool', 'the-customer'] },
-        { heading: 'Internal tools - Coworks', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
-        { heading: 'Skills - Content & Output', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report'] },
-        { heading: 'Skills - Support & Troubleshooting', docs: ['time-clock'] },
-        { heading: 'Skills - Agent Building & QA', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
-        { heading: 'Skills - Knowledge & Research', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
-        { heading: 'Skills - Safety & Guardrails', docs: ['skill-prompt-override-guard'] },
-        { heading: 'Skills - Maintenance & Ops', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter', 'skill-truncation-checker'] },
-        { heading: 'System reference', docs: ['system-overview', 'project-tracker-tool', 'ai-admin-pc-installed-inventory', 'project-export-snapshot-audit', 'workspace-skills', 'user-management', 'maintenance-sop'] },
-        { heading: 'Build pipeline', docs: ['build-guide', 'architect-case-study'] },
-        { heading: 'Planned builds (in scoping)', docs: ['google-ai-employee-sow', 'salesforce-integration-sow'] },
-        { heading: 'In Dev', docs: ['sta-server-proposal', 'sta-shared-brain'] },
-        { heading: 'Security checklists', docs: ['google-security', 'sf-security'] },
-        { heading: 'Operational procedures', docs: ['drift-check', 'formatting-standards', 'write-verification'] },
-        { heading: 'Knowledge base', docs: ['kb-module-catalog', 'creative-snippet-gallery'] }
+        { heading: 'Internal tools - Claude.ai Projects', note: 'Project-based agents on claude.ai - shared automatically with project members.', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool', 'the-customer'] },
+        { heading: 'Internal tools - Coworks', note: 'Cowork agents that run on the AI Admin machine with file and tool access.', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
+        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report'] },
+        { heading: 'Skills - Support & Troubleshooting', note: 'Skills for diagnosing and resolving support issues.', docs: ['time-clock'] },
+        { heading: 'Skills - Agent Building & QA', note: 'Skills for building, evaluating, and testing agents.', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
+        { heading: 'Skills - Knowledge & Research', note: 'Skills for building context files and managing the knowledge base.', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
+        { heading: 'Skills - Safety & Guardrails', note: 'Skills that protect agents from misuse and prompt-override attempts.', docs: ['skill-prompt-override-guard'] },
+        { heading: 'Skills - Maintenance & Ops', note: 'Skills that keep the system backed up, synced, and clean.', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter', 'skill-truncation-checker'] },
+        { heading: 'System reference', note: 'How the AI system is wired together - maps, inventories, and references.', docs: ['system-overview', 'project-tracker-tool', 'ai-admin-pc-installed-inventory', 'project-export-snapshot-audit', 'workspace-skills', 'user-management', 'maintenance-sop'] },
+        { heading: 'Build pipeline', note: 'The process for taking an agent from idea to production.', docs: ['build-guide', 'architect-case-study'] },
+        { heading: 'Planned builds (in scoping)', note: 'Agents scoped but not yet built.', docs: ['google-ai-employee-sow', 'salesforce-integration-sow'] },
+        { heading: 'In Dev', note: 'Work in progress - not yet live.', docs: ['sta-server-proposal', 'sta-shared-brain'] },
+        { heading: 'Security checklists', note: 'Security review checklists for Google and Salesforce.', docs: ['google-security', 'sf-security'] },
+        { heading: 'Operational procedures', note: 'Standing procedures for running and maintaining the system.', docs: ['drift-check', 'formatting-standards', 'write-verification'] },
+        { heading: 'Knowledge base', note: 'The research and reference modules behind the AI system.', docs: ['kb-module-catalog', 'creative-snippet-gallery'] }
       ]
     }
   ],
