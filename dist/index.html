@@ -93,6 +93,7 @@
   .section { margin-bottom: 36px; }
   .section-title { font-size: 9pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.1px; color: var(--gray); padding-bottom: 8px; border-bottom: 2px solid var(--border); margin-bottom: 16px; display: flex; align-items: baseline; gap: 10px; }
   .section-count { font-size: 8pt; font-weight: 400; color: #aaa; background: #f0f0f0; border-radius: 10px; padding: 1px 8px; }
+  .section-note { font-size: 10pt; color: var(--gray); line-height: 1.5; max-width: 78ch; margin: -6px 0 16px; }
 
   /* CARD GRID */
   .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
@@ -413,9 +414,9 @@ window.TRAINING_DATA = {
       icon: '\u{1F44B}',
       sub: 'Everyone reads these first. Day 1 onboarding for the AI program, no matter your role.',
       sections: [
-        { heading: 'Required before first use', docs: ['aup', 'restricted-data'] },
-        { heading: 'Recommended Day 1', time: 'about 50 min', docs: ['quick-ref', 'better-results', 'onboarding-deck', 'ai-advisor', 'open-html', 'open-markdown'] },
-        { heading: 'Go further', accent: '#c2185b', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'ai-basics'] }
+        { heading: 'Required before first use', note: 'The ground rules for your role. Read these before you use any AI tool for School Tech work - they cover what is allowed and what data must never go in. Non-negotiable.', docs: ['aup', 'restricted-data'] },
+        { heading: 'Recommended Week 1', time: 'about 50 min', note: 'Getting started with the AI tools. Learn how to get better results from AI and how to work with the tools we already have. Read these in your first week.', docs: ['quick-ref', 'better-results', 'onboarding-deck', 'ai-advisor', 'open-html', 'open-markdown'] },
+        { heading: 'Go further', accent: '#c2185b', note: 'Optional. Once you have played with the AI tools and want to go deeper, these show you more of what AI can do beyond the basics.', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'ai-basics'] }
       ]
     },
     {
@@ -425,7 +426,7 @@ window.TRAINING_DATA = {
       sub: 'For the Sales team - Pat and Jessie. Pitch and renewal practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -436,7 +437,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer', 'support-chat-tool'] },
         { heading: 'Getting started', docs: ['support-chat-brief'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'time-clock', 'skill-sta-html-report', 'skill-help-center-report'] }
+        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'time-clock', 'skill-sta-html-report', 'skill-help-center-report'] }
       ]
     },
     {
@@ -446,7 +447,7 @@ window.TRAINING_DATA = {
       sub: 'For Marketing and content - newsletters, the blog, and the Behind the Bell podcast. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'behind-the-bell-tool'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -456,7 +457,7 @@ window.TRAINING_DATA = {
       sub: 'For Operations - Tanya, Kelsey, and Joni. The Salesforce/ops kit, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -466,7 +467,7 @@ window.TRAINING_DATA = {
       sub: 'For Renewals - Jessie. Renewal-call practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'the-customer', 'behind-the-bell-tool'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -477,7 +478,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Projects', docs: ['ai-advisor-tool', 'cohort-tool'] },
         { heading: 'Cohort kit', docs: ['cohort-getting-started', 'sf-org-intake'] },
-        { heading: 'Skills', docs: ['skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Skills', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
     {
@@ -657,10 +658,11 @@ window.TRAINING_DATA = {
     },
     'claude-skills': {
       title: 'Claude Skills',
-      desc: 'The deeper look at skills - what they are, how they auto-trigger, and when a repeatable task should become one.',
+      desc: 'The deeper look at skills - what they are, how they auto-trigger, and when a repeatable task should become one. Start here to understand what the cards below are.',
       file: 'docs/claude-skills.html',
       type: 'html',
       priority: 'recommended',
+      accent: '#c2185b',
       tags: ['Reference', 'Intermediate'],
       check: 'What makes a skill trigger at the right time, and when should a behavior be a skill instead of staying in the instructions?',
       added: '2026-06-02', updated: '2026-06-02'
@@ -1582,7 +1584,8 @@ function cardHTML(id, doc) {
   meta += '<button class="card-read' + (isRead ? ' is-read' : '') + '" type="button" data-action="read" data-doc="' + esc(id) + '"'
     + ' aria-pressed="' + isRead + '" aria-label="' + (isRead ? 'Mark as unread' : 'Mark as read') + '">'
     + (isRead ? '✓ Read' : 'Mark read') + '</button>';
-  return '<div class="card ' + pclass + (reqUnread ? ' card-required-unread' : '') + '"'
+  const accentStyle = doc.accent ? ' style="--card-accent:' + doc.accent + ';border-top-color:' + doc.accent + '"' : '';
+  return '<div class="card ' + pclass + (reqUnread ? ' card-required-unread' : '') + '"' + accentStyle
     + ' role="button" tabindex="0" data-action="open" data-doc="' + esc(id) + '" aria-label="Open ' + esc(doc.title) + '">'
     + '<div class="card-head"><div class="card-titleblock"><div class="card-title">' + esc(doc.title) + '</div></div>'
     + '<button class="card-fav' + (fav ? ' active' : '') + '" type="button" data-action="fav" data-doc="' + esc(id) + '"'
@@ -1609,11 +1612,12 @@ function viewAudience(aud) {
     html += '<section class="section' + (sec.accent ? ' section-accent' : '') + '"' + _secAcc + '><div class="section-title">' + esc(sec.heading)
       + (sec.time ? '<span class="section-time">' + esc(sec.time) + '</span>' : '')
       + '<span class="section-count">' + sec.docs.length + ' ' + (sec.docs.length === 1 ? 'doc' : 'docs') + '</span></div>';
+    if (sec.note) html += '<div class="section-note">' + esc(sec.note) + '</div>';
     if (aud.id === 'start' && sec.heading === 'Required before first use') {
       html += progressBar('required articles read', sec.docs);
     }
-    if (aud.id === 'start' && sec.heading === 'Recommended Day 1') {
-      html += progressBar('Day 1 articles read', sec.docs);
+    if (aud.id === 'start' && sec.heading === 'Recommended Week 1') {
+      html += progressBar('Week 1 articles read', sec.docs);
     }
     html += '<div class="card-grid">';
     sec.docs.forEach(id => { const d = DATA.docs[id]; if (d) html += cardHTML(id, d); });
