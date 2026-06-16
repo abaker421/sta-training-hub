@@ -1,10 +1,28 @@
-# CodeRabbit config - STA Training Kit Hub
+# CodeRabbit config - STA Training Kit Hub (static HTML hub + dist mirror)
 # Docs: https://docs.coderabbit.ai/getting-started/configure-coderabbit
+language: en-US
 reviews:
-  profile: chill              # switch to "assertive" if reviews feel too soft
+  profile: assertive          # was "chill"
   high_level_summary: true
-  poem: false                 # skip the novelty poem in review summaries
+  poem: false
+  review_status: true
+  auto_review:
+    enabled: true
+    drafts: false
   path_filters:
     - "!dist/**"              # generated mirror - regenerated from source, never review
+  path_instructions:
+    - path: "STA-Training-Hub.html"
+      instructions: >-
+        Focus on broken internal links/anchors, inline-JS runtime errors, and
+        consistency of card/section markup across department sections. Ignore
+        content and copy wording.
+    - path: "convert-docx-to-html.py"
+      instructions: >-
+        Focus on file-handling safety, subprocess/LibreOffice error handling,
+        and correctness of the base64 image inlining.
+    - path: "**/*"
+      instructions: >-
+        Flag any committed secret, API key, token, or credential in plain text.
 chat:
   auto_reply: true
