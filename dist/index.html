@@ -437,7 +437,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'the-customer', 'support-chat-tool'] },
         { heading: 'Getting started', note: 'Read this first to get up and running with the Support tools.', docs: ['support-chat-brief'] },
-        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'time-clock', 'skill-sta-html-report', 'skill-help-center-report'] }
+        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'time-clock', 'skill-sta-html-report', 'skill-help-center-report', 'skill-salesforce-email-template'] }
       ]
     },
     {
@@ -447,7 +447,7 @@ window.TRAINING_DATA = {
       sub: 'For Marketing and content - newsletters, the blog, and the Behind the Bell podcast. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'behind-the-bell-tool'] },
-        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
+        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report', 'skill-salesforce-email-template'] }
       ]
     },
     {
@@ -489,7 +489,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Internal tools - Claude.ai Projects', note: 'Project-based agents on claude.ai - shared automatically with project members.', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool', 'the-customer'] },
         { heading: 'Internal tools - Coworks', note: 'Cowork agents that run on the AI Admin machine with file and tool access.', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
-        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report'] },
+        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report', 'skill-salesforce-email-template'] },
         { heading: 'Skills - Support & Troubleshooting', note: 'Skills for diagnosing and resolving support issues.', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', note: 'Skills for building, evaluating, and testing agents.', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
         { heading: 'Skills - Knowledge & Research', note: 'Skills for building context files and managing the knowledge base.', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
@@ -910,6 +910,17 @@ window.TRAINING_DATA = {
       tags: ['Analytics'],
       added: '2026-06-13', updated: '2026-06-13',
       check: 'What single question is the Help Center Report built to answer, and which live data source does it pull from?'
+    },
+    'skill-salesforce-email-template': {
+      title: 'Salesforce Email Template Builder',
+      desc: 'Generate on-brand, Outlook-safe Salesforce Lightning email templates in six formats: case reply, step-by-step instructions, case acknowledgement, meeting request, bulk notification, and internal alert. Paste-ready HTML with merge fields and a suggested subject line.',
+      file: 'docs/skill-salesforce-email-template.html',
+      org: true,
+      type: 'html',
+      priority: 'skill',
+      tags: ['Salesforce', 'Email'],
+      added: '2026-06-16', updated: '2026-06-16',
+      check: 'Name three of the six email formats this skill builds, and what it uses instead of a hardcoded recipient name.'
     },
     'skill-html-checklist': {
       title: 'HTML Checklist',
