@@ -31,10 +31,10 @@ Cloudflare Access free tier covers up to 50 users via the Zero Trust dashboard. 
 **Option A - Drag-and-drop (fastest, recommended for v1):**
 
 1. In the Cloudflare dashboard, go to **Workers & Pages** → **Create** → **Pages** → **Upload assets**.
-2. Project name: `sta-training-hub` (this becomes part of the URL: `sta-training-hub.pages.dev`).
+2. Project name: `sta-training-hub` (this becomes part of the URL: `sta-training-hub.adamb-1a4.workers.dev`).
 3. Drag the entire `dist/` folder from `C:\Users\Adam\source\repos\training-kit-hub\dist\` into the upload area.
 4. Click **Deploy site**.
-5. Wait ~30 seconds. You'll get a URL like `https://sta-training-hub.pages.dev`.
+5. Wait ~30 seconds. You'll get a URL like `https://sta-training-hub.adamb-1a4.workers.dev`.
 
 **Option B - Git integration (recommended once stable):**
 
@@ -58,7 +58,7 @@ This is the step that locks the site to `@k12sta.com` emails only. Without it, a
 5. Go to **Access** → **Applications** → **Add an application** → **Self-hosted**.
 6. Application name: `STA Training Hub`
 7. Session duration: `24 hours` (so users don't re-auth every visit)
-8. Application domain: `sta-training-hub.pages.dev` (or your custom domain if you've added one)
+8. Application domain: `sta-training-hub.adamb-1a4.workers.dev` (or your custom domain if you've added one)
 9. Path: leave blank to protect the entire site
 10. Click **Next** → **Add a policy**.
 11. Policy name: `STA staff only`
@@ -70,7 +70,7 @@ That's it. Anyone hitting the URL now sees a Cloudflare Access login screen. The
 
 ### Part 4: Test
 
-1. Open `https://sta-training-hub.pages.dev` in an incognito/private window.
+1. Open `https://sta-training-hub.adamb-1a4.workers.dev` in an incognito/private window.
 2. You should see the Cloudflare Access login.
 3. Enter `adamb@k12sta.com`, get the PIN from your inbox, log in.
 4. The hub should load.
@@ -102,7 +102,7 @@ Just commit and push. Cloudflare auto-deploys on push.
 
 ## Custom Domain (Optional)
 
-If you want `training.k12sta.com` instead of `sta-training-hub.pages.dev`:
+If you want `training.k12sta.com` instead of `sta-training-hub.adamb-1a4.workers.dev`:
 
 1. In Cloudflare Pages → your project → **Custom domains** → **Set up a custom domain**.
 2. Enter `training.k12sta.com` (or whatever subdomain you want).
