@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTML / CSS / JS Effects Lab</title>
+<style>
+  :root{
+    --accent:#4f46e5; --accent2:#06b6d4; --ink:#1f2433; --muted:#6b7180;
+    --line:#e5e7f0; --bg:#f6f7fb; --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  header.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);padding:.75rem 1.25rem;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+  header.top h1{font-size:1.05rem;margin:0;font-weight:800;letter-spacing:-.01em}
+  header.top .sub{font-size:.72rem;color:var(--muted);font-weight:600;margin-top:.1rem}
+  .search{margin-left:auto;display:flex;gap:.6rem;align-items:center}
+  .search input{font:inherit;font-size:.85rem;padding:.45rem .7rem;border:1px solid var(--line);border-radius:9px;width:240px;max-width:46vw}
+  .count{font-size:.72rem;color:var(--muted);white-space:nowrap}
+  .cats{display:flex;flex-wrap:wrap;gap:.4rem;padding:.65rem 1.25rem;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:52px;z-index:19}
+  .cats button{font:inherit;font-size:.74rem;font-weight:700;padding:.3rem .7rem;border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;cursor:pointer}
+  .cats button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  main{padding:1rem 1.25rem 2rem;max-width:1180px;margin:0 auto}
+  .sec-h{font-size:.7rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin:1.7rem .2rem .75rem;padding-bottom:.35rem;border-bottom:2px solid var(--line)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+  .fx{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+  .fx-h{padding:.65rem .85rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--line)}
+  .fx-h .t{font-size:.85rem;font-weight:700}
+  .fx-h .tag{margin-left:auto;font-size:.58rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .45rem;border-radius:999px;background:#eef0f9;color:#4a4f6b;white-space:nowrap}
+  .fx-h .tag.js{background:#fff4e0;color:#92560a}
+  .stage{padding:1.6rem 1rem;display:grid;place-items:center;min-height:128px;background:#fff;gap:.6rem}
+  .stage.dk{background:#10122a}
+  .note{font-size:.72rem;color:var(--muted);padding:0 .85rem .2rem}
+  details.code{border-top:1px solid var(--line);font-size:.78rem}
+  details.code>summary{cursor:pointer;padding:.5rem .85rem;font-weight:700;color:var(--muted);list-style:none;display:flex;align-items:center;gap:.4rem}
+  details.code>summary::-webkit-details-marker{display:none}
+  details.code>summary::before{content:"▸";font-size:.7rem}
+  details.code[open]>summary::before{content:"▾"}
+  .code-wrap{position:relative}
+  .code-wrap pre{margin:0;padding:.85rem 1rem;background:#0f1226;color:#e6e8f5;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.72rem;line-height:1.55;max-height:360px}
+  .copy{position:absolute;top:.5rem;right:.5rem;font:inherit;font-size:.68rem;font-weight:700;padding:.3rem .55rem;border:1px solid #2a2e52;background:#1c1f3d;color:#cfd2ee;border-radius:7px;cursor:pointer}
+  .copy.ok{background:#16a34a;border-color:#16a34a;color:#fff}
+  .empty{padding:3rem 1rem;text-align:center;color:var(--muted);grid-column:1/-1}
+  footer{padding:2rem 1.25rem;text-align:center;color:var(--muted);font-size:.72rem}
+  footer b{color:var(--ink)}
+  .toc{margin:.4rem 0 1.1rem;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+  .toc>summary{cursor:pointer;list-style:none;padding:.7rem .9rem;font-weight:800;font-size:.85rem;display:flex;align-items:center;gap:.4rem}
+  .toc>summary::-webkit-details-marker{display:none}
+  .toc>summary::before{content:"▸";font-size:.7rem;color:var(--muted)}
+  .toc[open]>summary::before{content:"▾"}
+  .toc .tocn{color:var(--muted);font-weight:600}
+  .toc-body{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:.7rem 1.3rem;padding:.2rem 1rem 1.1rem}
+  .toc-h{font-size:.63rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin:.35rem 0 .35rem;padding-bottom:.25rem;border-bottom:1px solid var(--line)}
+  .toc-col a{display:block;font-size:.78rem;color:#3a4060;text-decoration:none;padding:.13rem 0}
+  .toc-col a:hover{color:var(--accent)}
+  .fx.flash{outline:3px solid var(--accent);outline-offset:3px;animation:fxflash 1.3s ease}
+  @keyframes fxflash{0%{outline-color:var(--accent)}100%{outline-color:transparent}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>HTML / CSS / JS Effects Lab</h1>
+    <div class="sub">Basic &amp; utility effects for checklists, reports &amp; sites &mdash; hover the demos, click <b>Show code</b> to copy</div>
+  </div>
+  <div class="search"><input id="q" type="search" placeholder="Filter effects, e.g. underline, ripple, skeleton..."><span class="count" id="count"></span></div>
+</header>
+<div class="cats" id="cats"></div>
+<main id="main"></main>
+<footer>Every demo renders the <b>exact</b> code shown. Basic/utility layer &mdash; companion to the 48-effect creative gallery. Built for Adam.</footer>
+<script>
+const FX = [];
+FX.push(
+{id:'lk1',cat:'Hover · Links & Text',title:'Slide underline (left to right)',code:`<style>
+.lk1{font:600 1rem system-ui;color:#1f2433;text-decoration:none;position:relative}
+.lk1::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;
+  background:#4f46e5;transform:scaleX(0);transform-origin:left;transition:transform .28s ease}
+.lk1:hover::after{transform:scaleX(1)}
+</style>
+<a href="#" class="lk1">Slide underline</a>`},
+
+{id:'lk2',cat:'Hover · Links & Text',title:'Center-out underline',code:`<style>
+.lk2{font:600 1rem system-ui;color:#1f2433;text-decoration:none;position:relative}
+.lk2::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;
+  background:#06b6d4;transform:scaleX(0);transform-origin:center;transition:transform .28s ease}
+.lk2:hover::after{transform:scaleX(1)}
+</style>
+<a href="#" class="lk2">Center-out underline</a>`},
+
+{id:'lk3',cat:'Hover · Links & Text',title:'Highlighter marker sweep',code:`<style>
+.lk3{font:600 1rem system-ui;color:#1f2433;text-decoration:none;padding:0 .1em;
+  background-image:linear-gradient(#ffe27a,#ffe27a);background-repeat:no-repeat;
+  background-position:0 88%;background-size:0% 38%;transition:background-size .3s ease}
+.lk3:hover{background-size:100% 38%}
+</style>
+<a href="#" class="lk3">Highlighter sweep</a>`},
+
+{id:'lk4',cat:'Hover · Links & Text',title:'Color shift + arrow nudge',code:`<style>
+.lk4{font:600 1rem system-ui;color:#4f46e5;text-decoration:none;
+  display:inline-flex;align-items:center;gap:.3em;transition:color .2s}
+.lk4 .ar{transition:transform .2s}
+.lk4:hover{color:#06b6d4}
+.lk4:hover .ar{transform:translateX(5px)}
+</style>
+<a href="#" class="lk4">Learn more <span class="ar">&rarr;</span></a>`},
+
+{id:'lk5',cat:'Hover · Links & Text',title:'Bracket reveal',code:`<style>
+.lk5{font:600 1rem system-ui;color:#1f2433;text-decoration:none;position:relative;padding:0 .35em}
+.lk5::before,.lk5::after{position:absolute;top:0;color:#4f46e5;opacity:0;transition:opacity .2s,transform .2s}
+.lk5::before{content:"[";left:-.15em;transform:translateX(.35em)}
+.lk5::after{content:"]";right:-.15em;transform:translateX(-.35em)}
+.lk5:hover::before,.lk5:hover::after{opacity:1;transform:translateX(0)}
+</style>
+<a href="#" class="lk5">bracket reveal</a>`},
+
+{id:'lk6',cat:'Hover · Links & Text',title:'Thick underline grow',code:`<style>
+.lk6{font:600 1rem system-ui;color:#1f2433;text-decoration:none;
+  box-shadow:inset 0 -2px 0 #e5e7f0;transition:box-shadow .25s ease,color .25s}
+.lk6:hover{box-shadow:inset 0 -11px 0 #c7d2fe;color:#3730a3}
+</style>
+<a href="#" class="lk6">Grow underline</a>`}
+);
+FX.push(
+{id:'bt1',cat:'Hover · Buttons',title:'Fill sweep on hover',code:`<style>
+.bt1{font:600 .9rem system-ui;color:#4f46e5;border:2px solid #4f46e5;background:#fff;
+  padding:.55rem 1.1rem;border-radius:8px;cursor:pointer;position:relative;overflow:hidden;
+  z-index:0;transition:color .3s}
+.bt1::before{content:"";position:absolute;inset:0;background:#4f46e5;transform:scaleX(0);
+  transform-origin:left;transition:transform .3s ease;z-index:-1}
+.bt1:hover{color:#fff}
+.bt1:hover::before{transform:scaleX(1)}
+</style>
+<button class="bt1">Fill sweep</button>`},
+
+{id:'bt2',cat:'Hover · Buttons',title:'Outline pop (offset)',code:`<style>
+.bt2{font:600 .9rem system-ui;color:#fff;background:#4f46e5;border:none;
+  padding:.6rem 1.1rem;border-radius:8px;cursor:pointer;outline:2px solid transparent;
+  outline-offset:0;transition:outline-offset .2s ease,outline-color .2s ease}
+.bt2:hover{outline-color:#4f46e5;outline-offset:4px}
+</style>
+<button class="bt2">Outline pop</button>`},
+
+{id:'bt3',cat:'Hover · Buttons',title:'Lift + soft shadow',code:`<style>
+.bt3{font:600 .9rem system-ui;color:#fff;background:#4f46e5;border:none;
+  padding:.6rem 1.2rem;border-radius:8px;cursor:pointer;
+  transition:transform .2s ease,box-shadow .2s ease}
+.bt3:hover{transform:translateY(-3px);box-shadow:0 12px 22px -8px rgba(79,70,229,.6)}
+.bt3:active{transform:translateY(-1px)}
+</style>
+<button class="bt3">Lift on hover</button>`},
+
+{id:'bt4',cat:'Hover · Buttons',title:'Glow ring',code:`<style>
+.bt4{font:600 .9rem system-ui;color:#fff;background:#10122a;border:none;
+  padding:.6rem 1.2rem;border-radius:8px;cursor:pointer;transition:box-shadow .3s ease}
+.bt4:hover{box-shadow:0 0 0 3px rgba(99,102,241,.25),0 0 20px rgba(99,102,241,.7)}
+</style>
+<button class="bt4">Glow</button>`},
+
+{id:'bt5',cat:'Hover · Buttons',title:'Gradient slide',code:`<style>
+.bt5{font:600 .9rem system-ui;color:#fff;border:none;padding:.6rem 1.2rem;border-radius:8px;
+  cursor:pointer;background:linear-gradient(120deg,#4f46e5,#06b6d4,#4f46e5);
+  background-size:200% 100%;background-position:0 0;transition:background-position .5s ease}
+.bt5:hover{background-position:100% 0}
+</style>
+<button class="bt5">Gradient slide</button>`},
+
+{id:'bt6',cat:'Hover · Buttons',title:'Icon slides in',code:`<style>
+.bt6{font:600 .9rem system-ui;color:#fff;background:#4f46e5;border:none;padding:.6rem 1.1rem;
+  border-radius:8px;cursor:pointer;display:inline-flex;align-items:center}
+.bt6 .ic{max-width:0;opacity:0;transform:translateX(-6px);overflow:hidden;
+  transition:max-width .25s ease,opacity .25s ease,transform .25s ease,margin-left .25s ease}
+.bt6:hover .ic{max-width:1.4em;opacity:1;transform:translateX(0);margin-left:.4em}
+</style>
+<button class="bt6">Continue<span class="ic">&rarr;</span></button>`}
+);
+FX.push(
+{id:'cd1',cat:'Hover · Cards & Media',title:'Card lift',code:`<style>
+.cd1{width:170px;background:#fff;border:1px solid #e5e7f0;border-radius:12px;padding:1rem;
+  transition:transform .25s ease,box-shadow .25s ease}
+.cd1:hover{transform:translateY(-6px);box-shadow:0 16px 30px -12px rgba(31,36,51,.35)}
+.cd1 b{font:700 .9rem system-ui}
+.cd1 p{margin:.3rem 0 0;font:.78rem system-ui;color:#6b7180}
+</style>
+<div class="cd1"><b>Lift card</b><p>Hover to raise.</p></div>`},
+
+{id:'cd2',cat:'Hover · Cards & Media',title:'Accent bar grows',code:`<style>
+.cd2{width:190px;background:#fff;border:1px solid #e5e7f0;border-radius:12px;
+  padding:1rem 1rem 1rem 1.15rem;position:relative;overflow:hidden}
+.cd2::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#4f46e5;
+  transform:scaleY(0);transform-origin:top;transition:transform .25s ease}
+.cd2:hover::before{transform:scaleY(1)}
+.cd2 b{font:700 .9rem system-ui}
+.cd2 p{margin:.3rem 0 0;font:.78rem system-ui;color:#6b7180}
+</style>
+<div class="cd2"><b>Accent bar</b><p>Left rail draws in.</p></div>`},
+
+{id:'cd3',cat:'Hover · Cards & Media',title:'Image zoom in frame',code:`<style>
+.cd3{width:170px;height:110px;border-radius:12px;overflow:hidden;cursor:pointer}
+.cd3 .img{width:100%;height:100%;background:linear-gradient(135deg,#4f46e5,#06b6d4);
+  transition:transform .4s ease}
+.cd3:hover .img{transform:scale(1.14)}
+</style>
+<div class="cd3"><div class="img"></div></div>`},
+
+{id:'cd4',cat:'Hover · Cards & Media',title:'Caption slides up',code:`<style>
+.cd4{width:170px;height:110px;border-radius:12px;overflow:hidden;position:relative;cursor:pointer}
+.cd4 .img{position:absolute;inset:0;background:linear-gradient(135deg,#f59e0b,#ef4444)}
+.cd4 .cap{position:absolute;inset:auto 0 0 0;background:rgba(16,18,42,.85);color:#fff;
+  font:600 .78rem system-ui;padding:.5rem .6rem;transform:translateY(100%);transition:transform .3s ease}
+.cd4:hover .cap{transform:translateY(0)}
+</style>
+<div class="cd4"><div class="img"></div><div class="cap">Caption reveal</div></div>`},
+
+{id:'cd5',cat:'Hover · Cards & Media',title:'Shine sweep',code:`<style>
+.cd5{width:170px;height:90px;border-radius:12px;background:#10122a;position:relative;overflow:hidden;
+  display:grid;place-items:center;color:#cfd2ee;font:700 .85rem system-ui;cursor:pointer}
+.cd5::after{content:"";position:absolute;top:0;left:-60%;width:50%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:skewX(-20deg);transition:left .6s ease}
+.cd5:hover::after{left:120%}
+</style>
+<div class="cd5">Shine</div>`},
+
+{id:'cd6',cat:'Hover · Cards & Media',title:'Hidden action reveals',code:`<style>
+.cd6{width:185px;background:#fff;border:1px solid #e5e7f0;border-radius:12px;padding:1rem;
+  overflow:hidden;cursor:pointer}
+.cd6 b{font:700 .9rem system-ui}
+.cd6 .more{max-height:0;opacity:0;overflow:hidden;
+  transition:max-height .3s ease,opacity .3s ease,margin-top .3s ease}
+.cd6 .more a{font:700 .78rem system-ui;color:#4f46e5;text-decoration:none}
+.cd6:hover .more{max-height:40px;opacity:1;margin-top:.5rem}
+</style>
+<div class="cd6"><b>Project Alpha</b><div class="more"><a href="#">Open &rarr;</a></div></div>`}
+);
+FX.push(
+{id:'tr1',cat:'Transitions & Easing',title:'Fade + rise (hover replays)',note:'Swap :hover for a .visible class toggled on scroll for real entrances.',code:`<style>
+.tr1 .box{width:150px;background:#eef0f9;border-radius:10px;padding:1rem;font:600 .8rem system-ui;
+  opacity:.15;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
+.tr1:hover .box{opacity:1;transform:none}
+</style>
+<div class="tr1"><div class="box">Fades &amp; rises in</div></div>`},
+
+{id:'tr2',cat:'Transitions & Easing',title:'Slide-in from any side',code:`<style>
+.tr2{display:flex;gap:.4rem}
+.tr2 span{width:34px;height:34px;border-radius:8px;background:#4f46e5;color:#fff;display:grid;
+  place-items:center;font:700 .7rem system-ui;transition:transform .4s ease,opacity .4s ease}
+.tr2 .l{transform:translateX(-22px);opacity:.15}
+.tr2 .u{transform:translateY(-22px);opacity:.15}
+.tr2 .d{transform:translateY(22px);opacity:.15}
+.tr2 .r{transform:translateX(22px);opacity:.15}
+.tr2:hover span{transform:none;opacity:1}
+</style>
+<div class="tr2"><span class="l">L</span><span class="u">U</span><span class="d">D</span><span class="r">R</span></div>`},
+
+{id:'tr3',cat:'Transitions & Easing',title:'Easing comparison',note:'Hover to race four timing functions.',code:`<style>
+.tr3{display:flex;flex-direction:column;gap:.45rem;width:100%;max-width:240px}
+.tr3 .row{display:flex;align-items:center;gap:.5rem;font:600 .64rem system-ui;color:#6b7180}
+.tr3 .row span{width:62px}
+.tr3 .track{flex:1;height:10px;background:#eef0f9;border-radius:6px;overflow:hidden}
+.tr3 .fill{height:100%;width:16%;background:#4f46e5;border-radius:6px}
+.tr3:hover .fill{width:100%}
+.tr3 .e1{transition:width .9s linear}
+.tr3 .e2{transition:width .9s ease-in-out}
+.tr3 .e3{transition:width .9s cubic-bezier(.34,1.56,.64,1)}
+.tr3 .e4{transition:width .9s cubic-bezier(.22,1,.36,1)}
+</style>
+<div class="tr3">
+  <div class="row"><span>linear</span><div class="track"><div class="fill e1"></div></div></div>
+  <div class="row"><span>ease-in-out</span><div class="track"><div class="fill e2"></div></div></div>
+  <div class="row"><span>overshoot</span><div class="track"><div class="fill e3"></div></div></div>
+  <div class="row"><span>expo-out</span><div class="track"><div class="fill e4"></div></div></div>
+</div>`},
+
+{id:'tr4',cat:'Transitions & Easing',title:'Staggered list reveal',code:`<style>
+.tr4{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem;width:155px}
+.tr4 li{background:#eef0f9;border-radius:7px;padding:.35rem .6rem;font:600 .75rem system-ui;
+  opacity:.15;transform:translateX(-12px);transition:opacity .35s ease,transform .35s ease}
+.tr4:hover li{opacity:1;transform:none}
+.tr4:hover li:nth-child(2){transition-delay:.08s}
+.tr4:hover li:nth-child(3){transition-delay:.16s}
+.tr4:hover li:nth-child(4){transition-delay:.24s}
+</style>
+<ul class="tr4"><li>First</li><li>Second</li><li>Third</li><li>Fourth</li></ul>`},
+
+{id:'tr5',cat:'Transitions & Easing',title:'Accordion (grid 0fr to 1fr)',note:'Modern height-auto animation - no max-height guessing.',code:`<style>
+.tr5{width:210px;border:1px solid #e5e7f0;border-radius:10px;overflow:hidden}
+.tr5 input{display:none}
+.tr5 label{display:block;padding:.55rem .7rem;font:700 .8rem system-ui;cursor:pointer;background:#f6f7fb}
+.tr5 .panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.tr5 .panel>div{overflow:hidden}
+.tr5 .panel p{margin:0;padding:.6rem .7rem;font:.78rem system-ui;color:#6b7180}
+.tr5 input:checked ~ .panel{grid-template-rows:1fr}
+</style>
+<div class="tr5"><input id="tr5x" type="checkbox"><label for="tr5x">Toggle section &#9662;</label>
+<div class="panel"><div><p>Animates from 0fr to 1fr - true auto height, no fixed max-height hack.</p></div></div></div>`},
+
+{id:'tr6',cat:'Transitions & Easing',title:'Cross-fade swap',code:`<style>
+.tr6{width:155px;height:90px;border-radius:12px;position:relative;overflow:hidden;cursor:pointer;font:700 .85rem system-ui}
+.tr6 .f{position:absolute;inset:0;display:grid;place-items:center;color:#fff;transition:opacity .4s ease}
+.tr6 .a{background:#4f46e5;opacity:1}
+.tr6 .b{background:#06b6d4;opacity:0}
+.tr6:hover .a{opacity:0}
+.tr6:hover .b{opacity:1}
+</style>
+<div class="tr6"><div class="f a">Before</div><div class="f b">After</div></div>`}
+);
+FX.push(
+{id:'ff1',cat:'Focus & Form Feedback',title:'Clean focus ring (focus-visible)',note:'focus-visible shows the ring on keyboard, not mouse clicks.',code:`<style>
+.ff1{font:inherit;font-size:.85rem;padding:.5rem .7rem;border:1px solid #cdd2e3;border-radius:8px;
+  outline:none;transition:box-shadow .15s ease,border-color .15s ease}
+.ff1:focus-visible{border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.22)}
+</style>
+<input class="ff1" placeholder="Tab or click to focus">`},
+
+{id:'ff2',cat:'Focus & Form Feedback',title:'Floating label',code:`<style>
+.ff2{position:relative;width:210px}
+.ff2 input{width:100%;font:inherit;font-size:.9rem;padding:1.1rem .7rem .4rem;
+  border:1px solid #cdd2e3;border-radius:8px;outline:none;transition:.15s ease}
+.ff2 label{position:absolute;left:.6rem;top:.7rem;color:#9aa0b4;font-size:.9rem;pointer-events:none;
+  background:#fff;padding:0 .2rem;transition:.18s ease}
+.ff2 input:focus+label,.ff2 input:not(:placeholder-shown)+label{top:-.5rem;font-size:.7rem;color:#4f46e5}
+.ff2 input:focus{border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.18)}
+</style>
+<div class="ff2"><input id="ff2i" placeholder=" "><label for="ff2i">Email address</label></div>`},
+
+{id:'ff3',cat:'Focus & Form Feedback',title:'Underline grows on focus',code:`<style>
+.ff3{position:relative;width:210px}
+.ff3 input{width:100%;font:inherit;font-size:.9rem;padding:.4rem .1rem;border:none;
+  border-bottom:2px solid #cdd2e3;outline:none;background:transparent}
+.ff3 .bar{position:absolute;left:0;bottom:0;height:2px;width:100%;background:#4f46e5;
+  transform:scaleX(0);transform-origin:center;transition:transform .25s ease}
+.ff3 input:focus ~ .bar{transform:scaleX(1)}
+</style>
+<div class="ff3"><input placeholder="Underline grows"><span class="bar"></span></div>`},
+
+{id:'ff4',cat:'Focus & Form Feedback',title:'Validation shake (:user-invalid)',note:'Pure CSS - turns red and shakes only after the user interacts.',code:`<style>
+.ff4 input{font:inherit;font-size:.85rem;padding:.45rem .6rem;border:1px solid #cdd2e3;
+  border-radius:8px;outline:none}
+.ff4 input:user-invalid{border-color:#ef4444;animation:ff4shake .3s}
+.ff4 input:user-valid{border-color:#16a34a}
+@keyframes ff4shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+</style>
+<form class="ff4" onsubmit="return false"><input type="email" required placeholder="Enter a valid email"></form>`},
+
+{id:'ff5',cat:'Focus & Form Feedback',title:'Success check draw',code:`<style>
+.ff5 svg{width:56px;height:56px}
+.ff5 .c{fill:none;stroke:#16a34a;stroke-width:3;stroke-dasharray:151;stroke-dashoffset:151;animation:ff5c 1.8s ease infinite}
+.ff5 .p{fill:none;stroke:#16a34a;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:ff5p 1.8s ease infinite}
+@keyframes ff5c{0%{stroke-dashoffset:151}40%,100%{stroke-dashoffset:0}}
+@keyframes ff5p{0%,45%{stroke-dashoffset:40}75%,100%{stroke-dashoffset:0}}
+</style>
+<div class="ff5"><svg viewBox="0 0 52 52"><circle class="c" cx="26" cy="26" r="24"/><path class="p" d="M16 27 l7 7 l14 -16"/></svg></div>`},
+
+{id:'ff6',cat:'Focus & Form Feedback',title:'Search expands on focus',code:`<style>
+.ff6 input{width:140px;font:inherit;font-size:.85rem;padding:.45rem .8rem;border:1px solid #cdd2e3;
+  border-radius:999px;outline:none;transition:width .3s ease,box-shadow .15s ease,border-color .15s}
+.ff6 input:focus{width:215px;border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.18)}
+</style>
+<div class="ff6"><input type="search" placeholder="Search..."></div>`}
+);
+FX.push(
+{id:'mi1',cat:'Buttons & Micro-interactions',title:'Material ripple',js:true,note:'Needs the small JS handler at the bottom of this file.',code:`<style>
+.mi1{position:relative;overflow:hidden;font:600 .9rem system-ui;color:#fff;background:#4f46e5;
+  border:none;padding:.6rem 1.3rem;border-radius:8px;cursor:pointer}
+.mi1 .rp{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);
+  transform:translate(-50%,-50%) scale(0);animation:mi1r .6s ease-out;pointer-events:none}
+@keyframes mi1r{to{transform:translate(-50%,-50%) scale(20);opacity:0}}
+</style>
+<button class="mi1">Click for ripple</button>
+<script>
+document.querySelectorAll('.mi1').forEach(b=>b.addEventListener('click',e=>{
+  const s=document.createElement('span');s.className='rp';
+  const r=b.getBoundingClientRect();s.style.left=(e.clientX-r.left)+'px';
+  s.style.top=(e.clientY-r.top)+'px';s.style.width=s.style.height=Math.max(r.width,r.height)+'px';
+  b.appendChild(s);setTimeout(()=>s.remove(),600);
+}));
+<\/script>`},
+
+{id:'mi2',cat:'Buttons & Micro-interactions',title:'Press squash',code:`<style>
+.mi2{font:600 .9rem system-ui;color:#fff;background:#4f46e5;border:none;padding:.6rem 1.3rem;
+  border-radius:8px;cursor:pointer;transition:transform .08s ease}
+.mi2:active{transform:scale(.92)}
+</style>
+<button class="mi2">Press me</button>`},
+
+{id:'mi3',cat:'Buttons & Micro-interactions',title:'Loading button (toggle)',code:`<style>
+.mi3 input{display:none}
+.mi3 label{font:600 .9rem system-ui;color:#fff;background:#4f46e5;padding:.6rem 1.3rem;border-radius:8px;
+  cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;min-width:130px;justify-content:center}
+.mi3 .sp{width:14px;height:14px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;
+  border-radius:50%;display:none;animation:mi3s .7s linear infinite}
+.mi3 .lt2{display:none}
+.mi3 input:checked+label .sp{display:inline-block}
+.mi3 input:checked+label .lt{display:none}
+.mi3 input:checked+label .lt2{display:inline}
+@keyframes mi3s{to{transform:rotate(360deg)}}
+</style>
+<div class="mi3"><input id="mi3x" type="checkbox"><label for="mi3x"><span class="sp"></span><span class="lt">Save</span><span class="lt2">Saving...</span></label></div>`},
+
+{id:'mi4',cat:'Buttons & Micro-interactions',title:'Toggle switch',code:`<style>
+.mi4{display:inline-flex;align-items:center;gap:.5rem;font:600 .8rem system-ui;cursor:pointer}
+.mi4 input{display:none}
+.mi4 .tk{width:44px;height:24px;border-radius:999px;background:#cdd2e3;position:relative;transition:background .25s ease}
+.mi4 .tk::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;
+  background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .25s ease}
+.mi4 input:checked+.tk{background:#4f46e5}
+.mi4 input:checked+.tk::after{transform:translateX(20px)}
+</style>
+<label class="mi4"><input type="checkbox"><span class="tk"></span>Notifications</label>`},
+
+{id:'mi5',cat:'Buttons & Micro-interactions',title:'Copy to clipboard',js:true,note:'Uses navigator.clipboard; handler at file bottom.',code:`<style>
+.mi5{font:600 .85rem system-ui;color:#1f2433;background:#eef0f9;border:1px solid #e5e7f0;
+  padding:.5rem .9rem;border-radius:8px;cursor:pointer;transition:.2s ease}
+.mi5.ok{background:#16a34a;color:#fff;border-color:#16a34a}
+</style>
+<button class="mi5" data-copy="hello@example.com">Copy email</button>
+<script>
+document.querySelectorAll('.mi5').forEach(b=>b.addEventListener('click',()=>{
+  navigator.clipboard.writeText(b.dataset.copy);const t=b.textContent;
+  b.classList.add('ok');b.textContent='Copied!';
+  setTimeout(()=>{b.classList.remove('ok');b.textContent=t;},1200);
+}));
+<\/script>`},
+
+{id:'mi6',cat:'Buttons & Micro-interactions',title:'Segmented control',code:`<style>
+.mi6{display:inline-flex;background:#eef0f9;border-radius:9px;padding:3px}
+.mi6 input{display:none}
+.mi6 label{font:600 .78rem system-ui;padding:.35rem .85rem;border-radius:7px;cursor:pointer;color:#6b7180;transition:.2s ease}
+.mi6 input:checked+label{background:#fff;color:#4f46e5;box-shadow:0 1px 3px rgba(0,0,0,.14)}
+</style>
+<div class="mi6">
+  <input id="mi6a" name="mi6" type="radio" checked><label for="mi6a">Day</label>
+  <input id="mi6b" name="mi6" type="radio"><label for="mi6b">Week</label>
+  <input id="mi6c" name="mi6" type="radio"><label for="mi6c">Month</label>
+</div>`}
+);
+FX.push(
+{id:'ld1',cat:'Loaders & Progress',title:'Ring spinner',code:`<style>
+.ld1{width:32px;height:32px;border:3px solid #eef0f9;border-top-color:#4f46e5;border-radius:50%;
+  animation:ld1s .8s linear infinite}
+@keyframes ld1s{to{transform:rotate(360deg)}}
+</style>
+<div class="ld1"></div>`},
+
+{id:'ld2',cat:'Loaders & Progress',title:'Bouncing dots',code:`<style>
+.ld2{display:flex;gap:.4rem}
+.ld2 span{width:10px;height:10px;border-radius:50%;background:#4f46e5;animation:ld2b 1s ease-in-out infinite}
+.ld2 span:nth-child(2){animation-delay:.15s}
+.ld2 span:nth-child(3){animation-delay:.3s}
+@keyframes ld2b{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-9px);opacity:1}}
+</style>
+<div class="ld2"><span></span><span></span><span></span></div>`},
+
+{id:'ld3',cat:'Loaders & Progress',title:'Skeleton shimmer',code:`<style>
+.ld3{width:205px}
+.ld3 .ln{height:12px;border-radius:6px;margin-bottom:.5rem;
+  background:linear-gradient(90deg,#eef0f9 25%,#dfe3f2 37%,#eef0f9 63%);
+  background-size:400% 100%;animation:ld3 1.4s ease infinite}
+.ld3 .s{width:60%;margin-bottom:0}
+@keyframes ld3{0%{background-position:100% 0}100%{background-position:0 0}}
+</style>
+<div class="ld3"><div class="ln"></div><div class="ln"></div><div class="ln s"></div></div>`},
+
+{id:'ld4',cat:'Loaders & Progress',title:'Determinate bar',code:`<style>
+.ld4{width:205px;height:10px;background:#eef0f9;border-radius:6px;overflow:hidden}
+.ld4 .f{height:100%;width:0;background:linear-gradient(90deg,#4f46e5,#06b6d4);border-radius:6px;
+  animation:ld4 2.5s ease infinite}
+@keyframes ld4{0%{width:0}90%,100%{width:100%}}
+</style>
+<div class="ld4"><div class="f"></div></div>`},
+
+{id:'ld5',cat:'Loaders & Progress',title:'Indeterminate bar',code:`<style>
+.ld5{width:205px;height:6px;background:#eef0f9;border-radius:6px;overflow:hidden;position:relative}
+.ld5::before{content:"";position:absolute;height:100%;width:40%;background:#4f46e5;border-radius:6px;
+  animation:ld5 1.2s ease-in-out infinite}
+@keyframes ld5{0%{left:-40%}100%{left:100%}}
+</style>
+<div class="ld5"></div>`},
+
+{id:'ld6',cat:'Loaders & Progress',title:'Circular progress ring',code:`<style>
+.ld6 svg{width:62px;height:62px;transform:rotate(-90deg)}
+.ld6 .bg{fill:none;stroke:#eef0f9;stroke-width:6}
+.ld6 .fg{fill:none;stroke:#4f46e5;stroke-width:6;stroke-linecap:round;stroke-dasharray:163;
+  stroke-dashoffset:163;animation:ld6 2.4s ease infinite}
+@keyframes ld6{0%{stroke-dashoffset:163}60%,100%{stroke-dashoffset:41}}
+</style>
+<div class="ld6"><svg viewBox="0 0 60 60"><circle class="bg" cx="30" cy="30" r="26"/><circle class="fg" cx="30" cy="30" r="26"/></svg></div>`}
+);
+FX.push(
+{id:'ch1',cat:'Checklist Patterns',title:'Animated checkbox',code:`<style>
+.ch1{display:inline-flex;align-items:center;gap:.55rem;font:600 .85rem system-ui;cursor:pointer}
+.ch1 input{display:none}
+.ch1 .bx{width:22px;height:22px;border:2px solid #cdd2e3;border-radius:6px;position:relative;transition:.2s ease}
+.ch1 .bx::after{content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) scale(0);transition:transform .2s ease}
+.ch1 input:checked+.bx{background:#16a34a;border-color:#16a34a}
+.ch1 input:checked+.bx::after{transform:rotate(45deg) scale(1)}
+</style>
+<label class="ch1"><input type="checkbox"><span class="bx"></span>Mark complete</label>`},
+
+{id:'ch2',cat:'Checklist Patterns',title:'Strike-through on complete',code:`<style>
+.ch2{display:inline-flex;align-items:center;gap:.55rem;font:600 .9rem system-ui;cursor:pointer}
+.ch2 input{accent-color:#16a34a;width:18px;height:18px}
+.ch2 .tx{position:relative;transition:color .25s ease}
+.ch2 .tx::after{content:"";position:absolute;left:0;top:50%;height:2px;width:100%;background:#9aa0b4;
+  transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.ch2 input:checked ~ .tx{color:#9aa0b4}
+.ch2 input:checked ~ .tx::after{transform:scaleX(1)}
+</style>
+<label class="ch2"><input type="checkbox"><span class="tx">Finish the report</span></label>`},
+
+{id:'ch3',cat:'Checklist Patterns',title:'Row highlights when done (:has)',code:`<style>
+.ch3{display:flex;align-items:center;gap:.6rem;width:220px;padding:.55rem .7rem;
+  border:1px solid #e5e7f0;border-radius:9px;font:600 .85rem system-ui;cursor:pointer;transition:.25s ease}
+.ch3:has(input:checked){background:#ecfdf3;border-color:#86e0a6}
+.ch3 input{accent-color:#16a34a;width:18px;height:18px}
+</style>
+<label class="ch3"><input type="checkbox">Submit timesheet</label>`},
+
+{id:'ch4',cat:'Checklist Patterns',title:'Checklist progress meter',js:true,note:'JS recounts checked items; handler at file bottom.',code:`<style>
+.ch4{width:230px;font:600 .8rem system-ui}
+.ch4 .lbl{font-size:.72rem;color:#6b7180}
+.ch4 .bar{height:8px;background:#eef0f9;border-radius:6px;overflow:hidden;margin:.45rem 0}
+.ch4 .bar i{display:block;height:100%;width:0;background:#16a34a;border-radius:6px;transition:width .3s ease}
+.ch4 label{display:flex;gap:.5rem;align-items:center;padding:.12rem 0}
+.ch4 input{accent-color:#16a34a}
+</style>
+<div class="ch4">
+  <div class="lbl"><span class="n">0</span> of 3 done</div>
+  <div class="bar"><i></i></div>
+  <label><input type="checkbox">Step one</label>
+  <label><input type="checkbox">Step two</label>
+  <label><input type="checkbox">Step three</label>
+</div>
+<script>
+document.querySelectorAll('.ch4').forEach(w=>{
+  const boxes=w.querySelectorAll('input'),fill=w.querySelector('i'),n=w.querySelector('.n');
+  w.addEventListener('change',()=>{const d=[...boxes].filter(b=>b.checked).length;
+    n.textContent=d;fill.style.width=(d/boxes.length*100)+'%';});
+});
+<\/script>`},
+
+{id:'ch5',cat:'Checklist Patterns',title:'Collapsible group',code:`<style>
+.ch5{width:230px;border:1px solid #e5e7f0;border-radius:10px;overflow:hidden}
+.ch5 summary{list-style:none;cursor:pointer;padding:.6rem .75rem;font:700 .82rem system-ui;
+  background:#f6f7fb;display:flex;align-items:center;gap:.5rem}
+.ch5 summary::-webkit-details-marker{display:none}
+.ch5 summary::before{content:"▸";transition:transform .2s ease;font-size:.7rem;color:#6b7180}
+.ch5[open] summary::before{transform:rotate(90deg)}
+.ch5 p{margin:0;padding:.6rem .75rem;font:.78rem system-ui;color:#6b7180}
+</style>
+<details class="ch5"><summary>Section 1: Setup</summary><p>Group related checklist items under a collapsible header.</p></details>`},
+
+{id:'ch6',cat:'Checklist Patterns',title:'Attention pulse badge',code:`<style>
+.ch6{display:inline-flex;align-items:center;gap:.5rem;font:700 .8rem system-ui;color:#b91c1c}
+.ch6 .dot{width:10px;height:10px;border-radius:50%;background:#ef4444;position:relative}
+.ch6 .dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:#ef4444;
+  animation:ch6 1.5s ease-out infinite}
+@keyframes ch6{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.8);opacity:0}}
+</style>
+<span class="ch6"><span class="dot"></span>Overdue</span>`}
+);
+FX.push(
+{id:'tx1',cat:'Text Effects',title:'Animated gradient text',code:`<style>
+.tx1{font:800 1.6rem system-ui;background:linear-gradient(90deg,#4f46e5,#06b6d4,#4f46e5);
+  background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:tx1 3s linear infinite}
+@keyframes tx1{to{background-position:200% center}}
+</style>
+<span class="tx1">Gradient text</span>`},
+
+{id:'tx2',cat:'Text Effects',title:'Typewriter caret',code:`<style>
+.tx2{font:600 1rem ui-monospace,Consolas,monospace;white-space:nowrap;overflow:hidden;
+  border-right:2px solid #4f46e5;width:11ch;animation:tx2t 3s steps(11) infinite,tx2c .7s step-end infinite}
+@keyframes tx2t{0%{width:0}60%,100%{width:11ch}}
+@keyframes tx2c{50%{border-color:transparent}}
+</style>
+<span class="tx2">Now loading</span>`},
+
+{id:'tx3',cat:'Text Effects',title:'Count-up number',js:true,note:'Animates when scrolled into view; handler at file bottom.',code:`<style>
+.tx3{font:800 2.1rem system-ui;color:#4f46e5}
+</style>
+<span class="tx3" data-to="1280">0</span>
+<script>
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(!e.isIntersecting)return;o.unobserve(e.target);
+  const el=e.target,to=+el.dataset.to;let s=null;
+  const step=t=>{s=s||t;const p=Math.min((t-s)/1200,1);
+    el.textContent=Math.floor(p*to).toLocaleString();if(p<1)requestAnimationFrame(step);};
+  requestAnimationFrame(step);
+})).observe(document.querySelector('.tx3'));
+<\/script>`},
+
+{id:'tx4',cat:'Text Effects',title:'Line-clamp truncation',code:`<style>
+.tx4{width:205px;font:.85rem system-ui;color:#1f2433;margin:0;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+</style>
+<p class="tx4">This paragraph is clamped to two lines with an ellipsis no matter how long it gets, which keeps cards uniform in height.</p>`},
+
+{id:'tx5',cat:'Text Effects',title:'Letter-spacing on hover',code:`<style>
+.tx5{font:700 1.1rem system-ui;cursor:default;transition:letter-spacing .3s ease,color .3s ease}
+.tx5:hover{letter-spacing:.18em;color:#4f46e5}
+</style>
+<span class="tx5">SPACED HEADING</span>`},
+
+{id:'tx6',cat:'Text Effects',title:'Outline fills on hover',code:`<style>
+.tx6{font:900 1.7rem system-ui;color:transparent;-webkit-text-stroke:1.5px #4f46e5;
+  transition:color .3s ease}
+.tx6:hover{color:#4f46e5}
+</style>
+<span class="tx6">Outline</span>`}
+);
+FX.push(
+{id:'sc1',cat:'Scroll & Feedback',title:'Reveal on scroll',js:true,note:'Scroll inside the box. IntersectionObserver adds .in; handler at file bottom.',code:`<style>
+.sc1{height:130px;overflow:auto;border:1px solid #e5e7f0;border-radius:10px;width:210px;padding:.6rem}
+.sc1 .sp{height:95px}
+.sc1 .it{background:#eef0f9;border-radius:8px;padding:.55rem .7rem;margin-bottom:.5rem;
+  font:600 .78rem system-ui;opacity:0;transform:translateY(14px);transition:.45s ease}
+.sc1 .it.in{opacity:1;transform:none}
+</style>
+<div class="sc1"><div class="sp">scroll down &#8595;</div><div class="it">Reveal 1</div><div class="it">Reveal 2</div><div class="it">Reveal 3</div><div class="it">Reveal 4</div></div>`},
+
+{id:'sc2',cat:'Scroll & Feedback',title:'Tooltip on hover',code:`<style>
+.sc2{position:relative;display:inline-block;font:600 .85rem system-ui;border-bottom:2px dotted #4f46e5;cursor:help}
+.sc2 .tip{position:absolute;bottom:135%;left:50%;transform:translateX(-50%) translateY(4px);
+  background:#10122a;color:#fff;font:600 .72rem system-ui;padding:.35rem .6rem;border-radius:6px;
+  white-space:nowrap;opacity:0;pointer-events:none;transition:.2s ease}
+.sc2 .tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#10122a}
+.sc2:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+<span class="sc2">Hover me<span class="tip">Helpful tooltip</span></span>`},
+
+{id:'sc3',cat:'Scroll & Feedback',title:'Toast notification',js:true,note:'Click triggers a slide-in toast; handler at file bottom.',code:`<style>
+.sc3{position:relative;width:200px;height:96px;border:1px dashed #cdd2e3;border-radius:10px;display:grid;place-items:center}
+.sc3 button{font:600 .82rem system-ui;background:#4f46e5;color:#fff;border:none;padding:.45rem .9rem;border-radius:8px;cursor:pointer}
+.sc3 .toast{position:absolute;right:8px;bottom:8px;background:#16a34a;color:#fff;font:600 .72rem system-ui;
+  padding:.45rem .7rem;border-radius:8px;transform:translateY(140%);opacity:0;transition:.3s ease}
+.sc3 .toast.show{transform:translateY(0);opacity:1}
+</style>
+<div class="sc3"><button>Notify</button><div class="toast">Saved!</div></div>
+<script>
+document.querySelectorAll('.sc3').forEach(w=>{const t=w.querySelector('.toast');
+  w.querySelector('button').addEventListener('click',()=>{t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),1800);});});
+<\/script>`},
+
+{id:'sc4',cat:'Scroll & Feedback',title:'Back-to-top button',note:'Toggle visibility with: window.onscroll => show past ~300px.',code:`<style>
+.sc4{width:46px;height:46px;border-radius:50%;background:#4f46e5;color:#fff;border:none;cursor:pointer;
+  font-size:1.2rem;box-shadow:0 6px 16px -4px rgba(79,70,229,.6);transition:transform .2s ease,background .2s ease}
+.sc4:hover{transform:translateY(-3px);background:#4338ca}
+</style>
+<button class="sc4" title="Back to top">&uarr;</button>`},
+
+{id:'sc5',cat:'Scroll & Feedback',title:'Sticky header shrinks',note:'Scroll-driven animation (Chromium); degrades to a normal sticky header.',code:`<style>
+.sc5{height:120px;overflow:auto;border:1px solid #e5e7f0;border-radius:10px;width:220px}
+.sc5 .hd{position:sticky;top:0;background:#4f46e5;color:#fff;font:700 .9rem system-ui;padding:1rem .8rem;
+  animation:sc5 linear both;animation-timeline:scroll(nearest);animation-range:0 70px}
+@keyframes sc5{to{padding-block:.35rem;font-size:.74rem}}
+.sc5 .bd{height:300px;padding:.7rem .8rem;font:.78rem system-ui;color:#6b7180}
+</style>
+<div class="sc5"><div class="hd">Scroll me &#8595;</div><div class="bd">Header condenses as you scroll this panel.</div></div>`},
+
+{id:'sc6',cat:'Scroll & Feedback',title:'Fancy dividers',code:`<style>
+.sc6{width:220px}
+.sc6 .g{height:3px;border-radius:3px;background:linear-gradient(90deg,transparent,#4f46e5,transparent)}
+.sc6 .lab{display:flex;align-items:center;gap:.6rem;color:#9aa0b4;font:700 .68rem system-ui;
+  letter-spacing:.1em;text-transform:uppercase;margin-top:.9rem}
+.sc6 .lab::before,.sc6 .lab::after{content:"";flex:1;height:1px;background:#e5e7f0}
+</style>
+<div class="sc6"><div class="g"></div><div class="lab">Section</div></div>`}
+);
+FX.push(
+{id:'nu1',cat:'Hover · Links & Text',title:'Wavy underline grow',code:`<style>
+.nu1{font:600 1rem system-ui;color:#1f2433;text-decoration:underline wavy #4f46e5;
+  text-decoration-thickness:2px;text-underline-offset:3px;transition:text-underline-offset .25s ease}
+.nu1:hover{text-underline-offset:7px}
+</style>
+<a href="#" class="nu1">Wavy underline</a>`},
+
+{id:'nb1',cat:'Hover · Buttons',title:'Border draw (corners)',code:`<style>
+.nb1{position:relative;font:600 .9rem system-ui;color:#4f46e5;background:none;border:none;
+  padding:.6rem 1.3rem;cursor:pointer}
+.nb1::before,.nb1::after{content:"";position:absolute;inset:0;border-radius:8px;pointer-events:none;transition:transform .25s ease}
+.nb1::before{border-top:2px solid #4f46e5;border-right:2px solid #4f46e5;transform:scaleX(0);transform-origin:right}
+.nb1::after{border-bottom:2px solid #4f46e5;border-left:2px solid #4f46e5;transform:scaleX(0);transform-origin:left}
+.nb1:hover::before,.nb1:hover::after{transform:scaleX(1)}
+</style>
+<button class="nb1">Border draw</button>`},
+
+{id:'ns1',cat:'Hover · Cards & Media',title:'Spotlight follows cursor',js:true,note:'Pointer sets --x/--y; handler at file bottom.',code:`<style>
+.ns1{position:relative;width:185px;padding:1.3rem;border-radius:12px;background:#10122a;
+  color:#cfd2ee;font:600 .85rem system-ui;overflow:hidden;cursor:pointer;--x:50%;--y:50%}
+.ns1::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(150px circle at var(--x) var(--y),rgba(99,102,241,.45),transparent 60%)}
+.ns1 span{position:relative}
+</style>
+<div class="ns1"><span>Move your cursor over me</span></div>
+<script>
+document.querySelectorAll('.ns1').forEach(c=>c.addEventListener('pointermove',e=>{
+  const r=c.getBoundingClientRect();
+  c.style.setProperty('--x',(e.clientX-r.left)+'px');c.style.setProperty('--y',(e.clientY-r.top)+'px');}));
+<\/script>`},
+
+{id:'nt1',cat:'Hover · Cards & Media',title:'3D tilt to cursor',js:true,note:'Pointer drives rotateX/Y; handler at file bottom.',code:`<style>
+.nt1{width:175px;height:110px;border-radius:12px;background:linear-gradient(135deg,#4f46e5,#06b6d4);
+  display:grid;place-items:center;color:#fff;font:700 .9rem system-ui;
+  transform:perspective(600px) rotateX(0) rotateY(0);transition:transform .12s ease}
+</style>
+<div class="nt1">Tilt me</div>
+<script>
+document.querySelectorAll('.nt1').forEach(c=>{
+  c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();
+    const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
+    c.style.transform='perspective(600px) rotateY('+(px*16)+'deg) rotateX('+(-py*16)+'deg)';});
+  c.addEventListener('pointerleave',()=>c.style.transform='perspective(600px) rotateX(0) rotateY(0)');});
+<\/script>`},
+
+{id:'nf1',cat:'Focus & Form Feedback',title:'Group highlight (focus-within)',code:`<style>
+.nf1{display:flex;gap:.4rem;padding:.45rem;border:1px solid #cdd2e3;border-radius:10px;width:225px;transition:.2s ease}
+.nf1:focus-within{border-color:#4f46e5;box-shadow:0 0 0 3px rgba(79,70,229,.18)}
+.nf1 input{flex:1;border:none;outline:none;font:inherit;font-size:.85rem;background:none}
+.nf1 button{border:none;background:#4f46e5;color:#fff;border-radius:7px;padding:0 .8rem;font:600 .8rem system-ui;cursor:pointer}
+</style>
+<div class="nf1"><input placeholder="Focus the input..."><button>Go</button></div>`},
+
+{id:'nrg',cat:'Focus & Form Feedback',title:'Custom range slider',code:`<style>
+.nrg{width:215px}
+.nrg input{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:6px;outline:none;
+  background:linear-gradient(#4f46e5,#4f46e5) 0/55% 100% no-repeat,#eef0f9}
+.nrg input::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+  background:#4f46e5;box-shadow:0 1px 4px rgba(0,0,0,.3);cursor:pointer}
+.nrg input::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:#4f46e5;cursor:pointer}
+</style>
+<div class="nrg"><input type="range" value="55"></div>`},
+
+{id:'nr1',cat:'Loaders & Progress',title:'Reduced-motion aware spinner',note:'Turn on OS "reduce motion" to see it stop spinning and stay legible.',code:`<style>
+.nr1{width:30px;height:30px;border:3px solid #eef0f9;border-top-color:#4f46e5;border-radius:50%;animation:nr1 .8s linear infinite}
+@keyframes nr1{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.nr1{animation:none;opacity:.7}}
+</style>
+<div class="nr1"></div>`}
+);
+FX.push(
+{id:'nx1',cat:'Buttons & Micro-interactions',title:'Hamburger to X',code:`<style>
+.nx1{display:inline-block;cursor:pointer}
+.nx1 input{display:none}
+.nx1 .bars{display:block;width:30px;height:20px;position:relative}
+.nx1 .bars i{position:absolute;left:0;height:3px;width:100%;background:#1f2433;border-radius:2px;transition:.3s ease}
+.nx1 .bars i:nth-child(1){top:0}
+.nx1 .bars i:nth-child(2){top:8px}
+.nx1 .bars i:nth-child(3){top:16px}
+.nx1 input:checked+.bars i:nth-child(1){top:8px;transform:rotate(45deg)}
+.nx1 input:checked+.bars i:nth-child(2){opacity:0}
+.nx1 input:checked+.bars i:nth-child(3){top:8px;transform:rotate(-45deg)}
+</style>
+<label class="nx1"><input type="checkbox"><span class="bars"><i></i><i></i><i></i></span></label>`},
+
+{id:'npc',cat:'Buttons & Micro-interactions',title:'Add to Added (plus to check)',code:`<style>
+.npc input{display:none}
+.npc label{display:inline-flex;align-items:center;gap:.4rem;font:600 .85rem system-ui;
+  border:2px solid #4f46e5;color:#4f46e5;border-radius:8px;padding:.45rem .95rem;cursor:pointer;transition:.2s ease}
+.npc .ic::before{content:"+"}
+.npc input:checked+label{background:#16a34a;border-color:#16a34a;color:#fff}
+.npc input:checked+label .ic::before{content:"✓"}
+.npc input:checked+label .t::after{content:"ed"}
+</style>
+<span class="npc"><input id="npcx" type="checkbox"><label for="npcx"><span class="ic"></span><span class="t">Add</span></label></span>`},
+
+{id:'npl',cat:'Loaders & Progress',title:'Pulse loader',code:`<style>
+.npl{width:26px;height:26px;border-radius:50%;background:#4f46e5;animation:npl 1.2s ease-in-out infinite}
+@keyframes npl{0%,100%{transform:scale(.55);opacity:.5}50%{transform:scale(1);opacity:1}}
+</style>
+<div class="npl"></div>`},
+
+{id:'ncs',cat:'Loaders & Progress',title:'Conic-gradient spinner',code:`<style>
+.ncs{width:34px;height:34px;border-radius:50%;
+  background:conic-gradient(#4f46e5,rgba(79,70,229,.06));
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 0);
+  mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 0);
+  animation:ncs .9s linear infinite}
+@keyframes ncs{to{transform:rotate(360deg)}}
+</style>
+<div class="ncs"></div>`},
+
+{id:'nac',cat:'Checklist Patterns',title:'Exclusive accordion (name)',note:'Native one-open-at-a-time via the details name attribute.',code:`<style>
+.nac{width:230px}
+.nac details{border:1px solid #e5e7f0;border-radius:8px;margin-bottom:.4rem;overflow:hidden}
+.nac summary{list-style:none;padding:.5rem .7rem;font:700 .8rem system-ui;cursor:pointer;background:#f6f7fb}
+.nac summary::-webkit-details-marker{display:none}
+.nac p{margin:0;padding:.5rem .7rem;font:.76rem system-ui;color:#6b7180}
+</style>
+<div class="nac">
+  <details name="nacg" open><summary>Item A</summary><p>Opening another closes this one.</p></details>
+  <details name="nacg"><summary>Item B</summary><p>Native exclusive accordion - no JS.</p></details>
+  <details name="nacg"><summary>Item C</summary><p>Just the name attribute.</p></details>
+</div>`},
+
+{id:'nrp',cat:'Scroll & Feedback',title:'Reading progress bar (CSS)',note:'Scroll-driven CSS (Chromium); scroll the panel to fill the bar.',code:`<style>
+.nrp{width:220px;height:130px;overflow:auto;border:1px solid #e5e7f0;border-radius:10px;position:relative}
+.nrp .bar{position:sticky;top:0;height:4px;background:#4f46e5;transform-origin:left;transform:scaleX(0);
+  animation:nrp linear;animation-timeline:scroll(nearest)}
+@keyframes nrp{to{transform:scaleX(1)}}
+.nrp .c{padding:.6rem .8rem;font:.78rem system-ui;color:#6b7180;height:330px}
+</style>
+<div class="nrp"><div class="bar"></div><div class="c">Scroll this panel - the top bar fills with your reading progress, no JS.</div></div>`},
+
+{id:'nss',cat:'Scroll & Feedback',title:'Scroll-snap row',code:`<style>
+.nss{display:flex;gap:.5rem;overflow-x:auto;scroll-snap-type:x mandatory;width:220px;padding-bottom:.4rem}
+.nss div{scroll-snap-align:center;flex:0 0 78%;height:80px;border-radius:10px;display:grid;
+  place-items:center;color:#fff;font:700 .9rem system-ui;background:#4f46e5}
+.nss div:nth-child(2){background:#06b6d4}
+.nss div:nth-child(3){background:#f59e0b}
+</style>
+<div class="nss"><div>Slide 1</div><div>Slide 2</div><div>Slide 3</div></div>`},
+
+{id:'ntb',cat:'Text Effects',title:'Balanced headline (text-wrap)',code:`<style>
+.ntb{width:200px;font:700 1.05rem system-ui;color:#1f2433;text-wrap:balance;margin:0}
+</style>
+<p class="ntb">A balanced headline wraps so no single word dangles alone</p>`}
+);
+const main=document.getElementById('main');
+const catsEl=document.getElementById('cats');
+const q=document.getElementById('q');
+const countEl=document.getElementById('count');
+const cats=[...new Set(FX.map(f=>f.cat))];
+let active='All';
+
+function catBtn(name){const b=document.createElement('button');b.textContent=name;
+  if(name===active)b.classList.add('on');
+  b.onclick=()=>{active=name;[...catsEl.children].forEach(c=>c.classList.toggle('on',c.textContent===name));render();};
+  return b;}
+catsEl.appendChild(catBtn('All'));cats.forEach(c=>catsEl.appendChild(catBtn(c)));
+
+function makeCard(f){
+  const card=document.createElement('div');card.className='fx';card.id=f.id;
+  const hh=document.createElement('div');hh.className='fx-h';
+  const t=document.createElement('span');t.className='t';t.textContent=f.title;
+  const tag=document.createElement('span');tag.className='tag'+(f.js?' js':'');tag.textContent=f.js?'HTML+JS':'CSS';
+  hh.append(t,tag);card.appendChild(hh);
+  const stage=document.createElement('div');stage.className='stage';stage.innerHTML=f.code;card.appendChild(stage);
+  if(f.note){const n=document.createElement('div');n.className='note';n.textContent=f.note;card.appendChild(n);}
+  const d=document.createElement('details');d.className='code';
+  const s=document.createElement('summary');s.textContent='Show code';d.appendChild(s);
+  const wrap=document.createElement('div');wrap.className='code-wrap';
+  const pre=document.createElement('pre');pre.textContent=f.code;
+  const cp=document.createElement('button');cp.className='copy';cp.textContent='Copy';
+  cp.onclick=()=>{navigator.clipboard.writeText(f.code);cp.textContent='Copied!';cp.classList.add('ok');
+    setTimeout(()=>{cp.textContent='Copy';cp.classList.remove('ok');},1200);};
+  wrap.append(pre,cp);d.appendChild(wrap);card.appendChild(d);
+  return card;
+}
+function buildTOC(){
+  const wrap=document.createElement('details');wrap.className='toc';wrap.open=true;
+  const sm=document.createElement('summary');
+  sm.innerHTML='All effects by category <span class="tocn">('+FX.length+')</span>';wrap.appendChild(sm);
+  const body=document.createElement('div');body.className='toc-body';
+  cats.forEach(cat=>{
+    const col=document.createElement('div');col.className='toc-col';
+    const hh=document.createElement('div');hh.className='toc-h';hh.textContent=cat;col.appendChild(hh);
+    FX.filter(f=>f.cat===cat).forEach(f=>{
+      const a=document.createElement('a');a.href='#'+f.id;a.textContent=f.title;
+      a.onclick=e=>{e.preventDefault();jumpTo(f.id);};col.appendChild(a);
+    });
+    body.appendChild(col);
+  });
+  wrap.appendChild(body);return wrap;
+}
+function jumpTo(id){
+  active='All';q.value='';
+  [...catsEl.children].forEach(c=>c.classList.toggle('on',c.textContent==='All'));
+  render();
+  const el=document.getElementById(id);
+  if(el){el.scrollIntoView({behavior:'smooth',block:'center'});
+    el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1300);}
+}
+function render(){
+  main.innerHTML='';
+  const term=q.value.trim().toLowerCase();
+  let shown=0;
+  main.appendChild(buildTOC());
+  cats.forEach(cat=>{
+    if(active!=='All'&&active!==cat)return;
+    const items=FX.filter(f=>f.cat===cat&&(!term||(f.title+' '+f.cat+' '+f.code).toLowerCase().includes(term)));
+    if(!items.length)return;
+    const hh=document.createElement('div');hh.className='sec-h';hh.textContent=cat;main.appendChild(hh);
+    const g=document.createElement('div');g.className='grid';
+    items.forEach(f=>{g.appendChild(makeCard(f));shown++;});
+    main.appendChild(g);
+  });
+  if(!shown){const e=document.createElement('div');e.className='empty';e.textContent='No effects match "'+term+'".';main.appendChild(e);}
+  countEl.textContent=shown+' / '+FX.length+' effects';
+  wire();
+}
+q.addEventListener('input',render);
+
+function wire(){
+  document.querySelectorAll('.mi1').forEach(b=>{if(b._w)return;b._w=1;b.addEventListener('click',e=>{
+    const s=document.createElement('span');s.className='rp';const r=b.getBoundingClientRect();
+    s.style.left=(e.clientX-r.left)+'px';s.style.top=(e.clientY-r.top)+'px';
+    s.style.width=s.style.height=Math.max(r.width,r.height)+'px';b.appendChild(s);setTimeout(()=>s.remove(),600);});});
+  document.querySelectorAll('.mi5').forEach(b=>{if(b._w)return;b._w=1;b.addEventListener('click',()=>{
+    navigator.clipboard.writeText(b.dataset.copy);const t=b.textContent;b.classList.add('ok');b.textContent='Copied!';
+    setTimeout(()=>{b.classList.remove('ok');b.textContent=t;},1200);});});
+  document.querySelectorAll('.ch4').forEach(w=>{if(w._w)return;w._w=1;const bx=w.querySelectorAll('input'),fl=w.querySelector('i'),n=w.querySelector('.n');
+    w.addEventListener('change',()=>{const d=[...bx].filter(x=>x.checked).length;n.textContent=d;fl.style.width=(d/bx.length*100)+'%';});});
+  document.querySelectorAll('.tx3').forEach(el=>{if(el._w)return;el._w=1;
+    new IntersectionObserver((es,o)=>es.forEach(en=>{if(!en.isIntersecting)return;o.unobserve(el);
+      const to=+el.dataset.to;let st=null;const step=ti=>{st=st||ti;const p=Math.min((ti-st)/1200,1);
+        el.textContent=Math.floor(p*to).toLocaleString();if(p<1)requestAnimationFrame(step);};requestAnimationFrame(step);})).observe(el);});
+  document.querySelectorAll('.sc1').forEach(c=>{if(c._w)return;c._w=1;
+    const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)en.target.classList.add('in');}),{root:c,threshold:.4});
+    c.querySelectorAll('.it').forEach(it=>io.observe(it));});
+  document.querySelectorAll('.sc3').forEach(w=>{if(w._w)return;w._w=1;const t=w.querySelector('.toast');
+    w.querySelector('button').addEventListener('click',()=>{t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);});});
+  document.querySelectorAll('.ns1').forEach(c=>{if(c._w)return;c._w=1;c.addEventListener('pointermove',e=>{
+    const r=c.getBoundingClientRect();c.style.setProperty('--x',(e.clientX-r.left)+'px');c.style.setProperty('--y',(e.clientY-r.top)+'px');});});
+  document.querySelectorAll('.nt1').forEach(c=>{if(c._w)return;c._w=1;
+    c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
+      c.style.transform='perspective(600px) rotateY('+(px*16)+'deg) rotateX('+(-py*16)+'deg)';});
+    c.addEventListener('pointerleave',()=>c.style.transform='perspective(600px) rotateX(0) rotateY(0)');});
+}
+render();
+</script>
+</body>
+</html>
