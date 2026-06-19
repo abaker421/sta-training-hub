@@ -489,7 +489,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Internal tools - Claude.ai Projects', note: 'Project-based agents on claude.ai - shared automatically with project members.', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool', 'the-customer'] },
         { heading: 'Internal tools - Coworks', note: 'Cowork agents that run on the AI Admin machine with file and tool access.', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
-        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report', 'skill-salesforce-email-template'] },
+        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report', 'skill-site-analytics-report', 'skill-salesforce-email-template'] },
         { heading: 'Skills - Support & Troubleshooting', note: 'Skills for diagnosing and resolving support issues.', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', note: 'Skills for building, evaluating, and testing agents.', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
         { heading: 'Skills - Knowledge & Research', note: 'Skills for building context files and managing the knowledge base.', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
@@ -919,6 +919,17 @@ window.TRAINING_DATA = {
       tags: ['Analytics'],
       added: '2026-06-13', updated: '2026-06-13',
       check: 'What single question is the Help Center Report built to answer, and which live data source does it pull from?'
+    },
+    'skill-site-analytics-report': {
+      title: 'Site Analytics Report',
+      desc: 'Pull live GA4 analytics for k12sta.com (the main marketing site) and produce a leadership-ready, plain-language tabbed HTML report - audience and traffic sources, lead-gen pages, product-page interest, and the online store. Written for a non-expert executive reader and built through the STA HTML Report skill.',
+      file: 'docs/skill-site-analytics-report.html',
+      org: true,
+      type: 'html',
+      priority: 'skill',
+      tags: ['Analytics'],
+      added: '2026-06-19', updated: '2026-06-19',
+      check: 'Which website does the Site Analytics Report cover, and who is the intended reader?'
     },
     'skill-salesforce-email-template': {
       title: 'Salesforce Email Template Builder',
