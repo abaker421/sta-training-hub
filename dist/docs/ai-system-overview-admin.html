@@ -118,7 +118,7 @@
     <div class="badges">
       <div class="badge">Admin / Power Users Only</div>
       <div class="badge blue">Training - Admin</div>
-      <div class="badge green">Updated 2026-06-12 (STA Support Expert + Project Tester deprecated; The Customer now a Claude.ai Project)</div>
+      <div class="badge green">Updated 2026-06-19 (added STA HTML Report, Help Center Report, and Site Analytics Report to the skills catalog)</div>
     </div>
   </div>
   <div class="header-strip">STAFF REFERENCE</div>
@@ -458,6 +458,9 @@
     <div class="skill-item"><div class="skill-name">Time Clock Error Log Review</div><div class="skill-desc">Analyzes STA time clock log files (TT3, TT7, TT10) - app.config, winsvc, emulator.log, errors.txt, settings.xml. Asks for account name, issue description, and logs before analysis. (Renamed from Time Clock Diagnostics 2026-06-07.)</div><div class="skill-trigger">Upload any clock log file</div></div>
     <div class="skill-item"><div class="skill-name">Cowork Snapshot Exporter</div><div class="skill-desc">Packages a Cowork project into a timestamped ZIP for sharing - system prompt, setup guide, all referenced context files.</div><div class="skill-trigger">"snapshot this project", "export this cowork"</div></div>
     <div class="skill-item"><div class="skill-name">Research to Slides</div><div class="skill-desc">Converts Deep Research modules into polished PowerPoint decks with STA branding and SVG diagrams.</div><div class="skill-trigger">"turn this into slides"</div></div>
+    <div class="skill-item"><div class="skill-name">STA HTML Report</div><div class="skill-desc">Generates STA-branded human-facing HTML reports (digests, status updates, diagnostics, scan summaries, analyses) from a locked brand template + rich element library (charts, KPIs, meters, gauges, heatmaps, timelines); leads with the bottom line. Internal/expressive default; opt-in WCAG 2.2 AA customer-facing mode.</div><div class="skill-trigger">"make an HTML report", "write this up"</div></div>
+    <div class="skill-item"><div class="skill-name">Help Center Report</div><div class="skill-desc">Pulls live GA4 data for STA's Salesforce Help Center and scores it against the five effectiveness metrics (case deflection, search success, zero-results, ratings, time-to-resolution); branded HTML via STA HTML Report. Folds in Salesforce Knowledge CSV exports.</div><div class="skill-trigger">"run the Help Center report", "how is the Help Center doing"</div></div>
+    <div class="skill-item"><div class="skill-name">Site Analytics Report</div><div class="skill-desc">Pulls live GA4 data for k12sta.com (main marketing site) and produces a leadership-ready, plain-language tabbed report (audience, traffic sources, lead-gen pages, product interest, store) via STA HTML Report; written for a non-expert executive reader.</div><div class="skill-trigger">"run the site report", "k12sta.com analytics"</div></div>
     <div class="skill-item"><div class="skill-name">Backup Verifier</div><div class="skill-desc">Read-only Drift Report over _Backups/ - skills, projects, archives, scheduled-task snapshots; surfaces stale .skill packages as click-installable.</div><div class="skill-trigger">"verify all backups", "are my backups up to date"</div></div>
     <div class="skill-item"><div class="skill-name">Truncation Checker</div><div class="skill-desc">Token-minimal daily workspace-wide truncation sweep - finds files clipped mid-write (mid-word tails, missing <code>&lt;/html&gt;</code>/JSON/Python closers, empty files, trailing NUL padding). Auto-fixes lossless NUL padding, reports lossy truncation for manual rewrite. Wraps <code>verify-write.py --scan</code>; drives the daily 4 PM truncation-daily-scan task.</div><div class="skill-trigger">Scheduled (daily 4 PM); or "run a truncation scan"</div></div>
     <div class="skill-item"><div class="skill-name">WCAG Audit</div><div class="skill-desc">Audits a web page, HTML/CSS, PDF, Word, or PPTX for WCAG 2.2 AA conformance; severity-ranked findings with evidence. Standalone or handoff to The Test Master.</div><div class="skill-trigger">"run an accessibility audit", "check WCAG 2.2 AA"</div></div>
@@ -648,7 +651,7 @@
 </div>
 
 <div class="footer">
-  <strong>School Technology Associates</strong> &nbsp;|&nbsp; The AI System - Operational Reference &nbsp;|&nbsp; Updated 2026-06-12
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; The AI System - Operational Reference &nbsp;|&nbsp; Updated 2026-06-19
 </div>
 
 <div style="margin: 60px 0 20px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">
