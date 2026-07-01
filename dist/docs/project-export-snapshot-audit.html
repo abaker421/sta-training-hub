@@ -123,7 +123,7 @@
       <caption>Export-readiness backfill, 2026-06-06 - every fix is a file addition; no live behavior changed</caption>
       <thead><tr><th scope="col">Project</th><th scope="col">Gap found</th><th scope="col">Fix applied</th></tr></thead>
       <tbody>
-        <tr><td>The Customer</td><td>No standalone instructions.md; context files only in the runnable instance</td><td>instructions.md (v1.3) + 5 context files synced from .Default Projects into the blueprint folder; changelog.md created</td></tr>
+        <tr><td>The Customer</td><td>No standalone instructions.md; context files only in the runnable instance</td><td>instructions.md (v1.3) + 5 context files synced from Default Projects into the blueprint folder; changelog.md created</td></tr>
         <tr><td>House Monitor</td><td>Pre-pipeline - no instructions.md or launch file</td><td>Slim instructions.md (v1.0) created (identity + context routing; sweep workflow stays in the prompt file) + project-launch.md with the scheduled-task recreation step</td></tr>
         <tr><td>Personal Assistant</td><td>No project-launch.md (or blueprint-summary.md)</td><td>project-launch.md created (Blocks 1-3; blueprint-summary still open as a nice-to-have)</td></tr>
         <tr><td>The Architect</td><td>No project-launch.md</td><td>project-launch.md created, incl. peer-skill install list and template verification</td></tr>
@@ -306,7 +306,7 @@
         <tr><th scope="row">Skills used</th><td>None in instructions; run-test-cases gates Draft to Active</td></tr>
         <tr><th scope="row">KB modules</th><td>KB index on demand; grounded by the three sales-enablement modules</td></tr>
         <tr><th scope="row">Install needs</th><td>[REQUIRED] paste Block 1, place 5 context files, create outputs/scorecards/. [RECOMMENDED] confirm Read/Write</td></tr>
-        <tr><th scope="row">Gaps</th><td>Closed 2026-06-06: instructions.md (v1.3, md5-verified) + all 5 context files synced from the .Default Projects instance into the blueprint folder; changelog.md created with a sync rule (blueprint copy follows the runnable copy on every bump)</td></tr>
+        <tr><th scope="row">Gaps</th><td>Closed 2026-06-06: instructions.md (v1.3, md5-verified) + all 5 context files synced from the Default Projects instance into the blueprint folder; changelog.md created with a sync rule (blueprint copy follows the runnable copy on every bump)</td></tr>
       </tbody></table>
     </div></details>
     <h2>Claude.ai Projects - 4 snapshots, all with file maps</h2>
@@ -372,7 +372,7 @@
 
     <details>
       <summary>Methodology and data sources</summary>
-      <p>Data gathered 2026-06-06 by a per-folder sweep of project-blueprints/ (plus the House Monitor folder under .Adam's Personal Projects): version comments from instructions files, "Context Files and When to Use Them" sections, skill-name greps, knowledge-base/ path greps, project-launch.md Block 2 checklists, and blueprint-summary.md tool assessments. Registry (context-agent-registry.md) used as the project list and status source. "Export-ready" = has instructions.md + project-launch.md + context files resolvable on disk, per the cowork-snapshot-exporter skill's packaging requirements. Instructions text deliberately excluded from every snapshot. Same-day backfill (2026-06-06): 4 launch files created (Personal Assistant, The Architect, Deep Research, System Monitor), House Monitor instructions.md v1.0 + launch file created, The Customer instructions + 5 context files synced into its blueprint folder with a new changelog.md. Point-in-time: any version bump invalidates the affected card.</p>
+      <p>Data gathered 2026-06-06 by a per-folder sweep of project-blueprints/ (plus the House Monitor folder under Adam's Personal Projects): version comments from instructions files, "Context Files and When to Use Them" sections, skill-name greps, knowledge-base/ path greps, project-launch.md Block 2 checklists, and blueprint-summary.md tool assessments. Registry (context-agent-registry.md) used as the project list and status source. "Export-ready" = has instructions.md + project-launch.md + context files resolvable on disk, per the cowork-snapshot-exporter skill's packaging requirements. Instructions text deliberately excluded from every snapshot. Same-day backfill (2026-06-06): 4 launch files created (Personal Assistant, The Architect, Deep Research, System Monitor), House Monitor instructions.md v1.0 + launch file created, The Customer instructions + 5 context files synced into its blueprint folder with a new changelog.md. Point-in-time: any version bump invalidates the affected card.</p>
     </details>
 
   </div>
