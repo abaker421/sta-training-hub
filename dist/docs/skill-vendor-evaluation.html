@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendor Evaluation - Skill Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  :root { --doc-accent:#0a6571; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#fff; color:#1e2a35; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent); border-radius:10px; overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent) 35%, #fff); color:var(--doc-accent); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+  .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; color:#1e2a35; }
+  .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--doc-accent); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Admin</span>
+      <h1>Vendor Evaluation</h1>
+      <div class="tagline">Turn a vendor demo or pitch into a neutral buy / resell / pilot / pass report.</div>
+      <div class="head-strip">SKILL &middot; RUNS AUTOMATICALLY WHEN IT APPLIES</div>
+    </div>
+    <div class="body">
+      <h2>What it does</h2>
+      <p>Takes a vendor demo, pitch, or product and produces a skimmable, neutral STA-branded evaluation. Two modes:</p>
+      <ul>
+        <li><strong>Single-vendor</strong> - one report on an 8-section template: snapshot, the problem it solves, features, fit for STA, pricing, concerns, claims to verify, and recommended next steps.</li>
+        <li><strong>Compare</strong> - 2 to 4 options side by side, one tab each, with a built-in "no change / do nothing" baseline column, a weighted scorecard, and a summary/diff tab.</li>
+      </ul>
+      <p>It renders entirely through the STA HTML Report skill - never hand-rolled HTML.</p>
+      <h2>When to use it</h2>
+      <p>After a vendor demo or pitch, or when weighing whether to buy, resell, pilot, or pass on a product - and for head-to-head comparisons. Not for sales one-pagers sold to customers or help-center how-tos.</p>
+      <h2>How to trigger it</h2>
+      <div class="trigger"><p>"evaluate this vendor"</p><p>"write up the [X] demo"</p><p>"should we resell [X]?"</p><p>"compare these vendors"</p></div>
+    </div>
+    <div class="foot">School Technology Associates &middot; Vendor Evaluation &middot; Custom Skill</div>
+  </div>
+</body>
+</html>
