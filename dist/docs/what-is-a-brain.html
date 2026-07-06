@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What is an AI "Brain"? - and how STA is building one</title>
+<style>
+  :root{
+    --brand:#006098; --brand-d:#004a78; --green:#6bc04b; --doc-accent:#c2185b;
+    --ink:#1a1f24; --muted:#5a5f66; --line:#e3e6ea; --bg:#fff; --band:#fdeef4;
+    --now-bg:#eaf6ec; --now-fg:#1a7f37; --next-bg:#eef4f8; --next-fg:#006098; --later-bg:#f4f0fa; --later-fg:#6d4bb8;
+    --sp-2:8px; --sp-3:16px; --sp-4:24px; --sp-5:40px;
+  }
+  *{box-sizing:border-box;}
+  html,body{overflow-x:hidden;}
+  body{margin:0;color:var(--ink);background:#f3f5f7;font:16px/1.65 "Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;}
+  main{max-width:820px;margin:0 auto;background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.08);}
+  header{background:#fff;color:#1e2a35;padding:var(--sp-5) var(--sp-5) var(--sp-4);border:1px solid #dde3e8;border-top:6px solid var(--doc-accent);border-radius:10px;overflow:hidden;}
+  .header-strip{margin:18px -40px 0;padding:9px 40px;background:color-mix(in srgb,var(--doc-accent) 10%,#fff);border-top:1px solid color-mix(in srgb,var(--doc-accent) 30%,#fff);color:var(--doc-accent);font-size:11px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;}
+  .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--doc-accent);font-weight:600;margin:0 0 var(--sp-2);}
+  header h1{font-size:1.65rem;line-height:1.25;margin:0;font-weight:700;letter-spacing:-.01em;color:#1e2a35;}
+  .meta{margin:var(--sp-3) 0 0;font-size:.82rem;color:#5f6b76;}
+  .body{padding:var(--sp-5);}
+  .bluf{background:var(--band);border:1px solid var(--line);border-left:5px solid var(--doc-accent);border-radius:8px;padding:var(--sp-4);margin:0 0 var(--sp-4);}
+  .bluf p{margin:0;} .bluf strong{color:var(--brand-d);}
+  h2{font-size:1.18rem;line-height:1.3;margin:var(--sp-5) 0 var(--sp-3);color:var(--brand-d);padding-top:var(--sp-4);border-top:1px solid var(--line);}
+  h2:first-of-type{border-top:none;padding-top:0;}
+  p{margin:0 0 var(--sp-3);}
+  .analogy{background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:var(--sp-3) var(--sp-4);margin:0 0 var(--sp-3);font-size:.96rem;}
+  ul.tight{margin:0 0 var(--sp-3);padding-left:22px;} ul.tight li{margin-bottom:6px;}
+  .phase{border:1px solid var(--line);border-radius:10px;padding:var(--sp-3) var(--sp-4);margin:0 0 var(--sp-3);border-left:5px solid var(--line);}
+  .phase.now{border-left-color:var(--now-fg);} .phase.next{border-left-color:var(--next-fg);} .phase.later{border-left-color:var(--later-fg);}
+  .phase .tag{display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 10px;border-radius:10px;margin-bottom:6px;}
+  .phase.now .tag{background:var(--now-bg);color:var(--now-fg);} .phase.next .tag{background:var(--next-bg);color:var(--next-fg);} .phase.later .tag{background:var(--later-bg);color:var(--later-fg);}
+  .phase h3{margin:0 0 4px;font-size:1.03rem;color:var(--ink);}
+  .phase p{margin:0;font-size:.95rem;}
+  .note{font-size:.85rem;color:var(--muted);font-style:italic;}
+  footer{padding:var(--sp-4) var(--sp-5);border-top:3px solid var(--green);background:var(--band);font-size:.8rem;color:var(--muted);}
+  @media print{@page{size:Letter;margin:.7in;}body{background:#fff;font-size:11pt;}main{box-shadow:none;max-width:none;}header,.bluf,.phase{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.phase{break-inside:avoid;}h2{break-after:avoid;}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">School Technology Associates &middot; Go Further</p>
+    <h1>What is an AI "brain" - and how STA is building one</h1>
+    <p class="meta">A plain-language look at where our AI knowledge lives, and where it's headed &nbsp;&middot;&nbsp; Updated 2026-07-06</p>
+    <div class="header-strip">Optional reading &middot; No action needed</div>
+  </header>
+  <div class="body">
+
+    <section class="bluf">
+      <p><strong>The short version:</strong> a "brain" is the shared pile of company knowledge an AI assistant reads so it actually knows School Tech - our products, processes, and answers - instead of guessing. We already have a working <strong>support brain</strong>, and we're now collecting the workflows that will feed a company-wide <strong>main brain</strong> - one every staff assistant draws from, kept in one place so a single update reaches everyone at once.</p>
+    </section>
+    <h2>What "brain" actually means</h2>
+    <p>An AI assistant on its own is smart but generic - it doesn't know our products, our customers, or how we do things. A <strong>brain</strong> fixes that. It's a curated set of company documents (product references, troubleshooting guides, the company profile, how-tos) that the assistant reads before it answers. Give it the brain and it stops guessing about School Tech and starts answering from our real knowledge.</p>
+    <div class="analogy">Think of it like a company handbook the assistant has memorized and never forgets - except instead of one binder on a shelf, it's a living library the assistant checks every time you ask it something about STA.</div>
+    <p>Why it's worth building well:</p>
+    <ul class="tight">
+      <li><strong>Accuracy</strong> - answers come from current company docs, not a stale guess.</li>
+      <li><strong>Consistency</strong> - every assistant that reads the same brain gives the same answer.</li>
+      <li><strong>Less busywork</strong> - update knowledge in one place instead of re-teaching every assistant separately.</li>
+    </ul>
+
+    <h2>The catch we're solving</h2>
+    <p>Right now, when we hand out an assistant it carries its own frozen copy of company knowledge. When a product doc changes, every copy is out of date until someone re-loads it - for every assistant, every time. Five assistants means five update chores. That gets worse with every new person, which is backwards. The fix is to keep the knowledge in <strong>one shared place</strong> that every assistant reads live.</p>
+
+    <h2>How we get there - now, next, later</h2>
+    <p>We're building this in stages, and each stage is useful on its own. No hard dates - the pace follows the company-server approval that the shared brain rides on.</p>
+
+    <div class="phase now">
+      <span class="tag">Now - gathering the raw material</span>
+      <h3>Collect the knowledge + stand up the server</h3>
+      <p>Two things are happening now. First, we're <strong>collecting everyone's workflows</strong> - Tanya is coordinating the department-operations questionnaires that capture how each team actually works. Those answers become the raw material the brain is built from. Second, the <strong>company server</strong> that the shared brain will live on is being set up (targeting the end of this month). The support team's Support Chat already shows what a well-fed brain does for real work.</p>
+    </div>
+
+    <div class="phase next">
+      <span class="tag">Next - get everyone using AI</span>
+      <h3>First shared Cowork assistant</h3>
+      <p>As the workflows come in, the focus shifts to <strong>getting staff comfortable using AI</strong> - the Claude Projects and tools we already have. Then the <strong>Work Assistant</strong> (a Cowork assistant) rolls out to Chris and Tyler first, once it's finished - the first Cowork AI the team gets. Using it day to day feeds real knowledge and workflow detail back into the system.</p>
+    </div>
+
+    <div class="phase later">
+      <span class="tag">Later - the shared brain</span>
+      <h3>One company-wide brain, department brains on top</h3>
+      <p>The collected workflows and shared knowledge consolidate into a company-wide <strong>main brain</strong> hosted on the server. Department brains (support, sales, and others) <strong>extend</strong> it with their own specialist knowledge. Because it's all in one place, a single edit updates every assistant instantly - update a product doc once, and every assistant at STA knows it that second.</p>
+    </div>
+    <p class="note">Sequence: collect workflows + build the server (now) &rarr; get everyone using AI, roll out the Work Assistant to Chris &amp; Tyler (next) &rarr; consolidate into a shared main brain with department brains on top (later). Stages ship value as they land; timing tracks workflow collection and the server build.</p>
+
+    <h2>What this means for you</h2>
+    <ul class="tight">
+      <li>The assistants you use will increasingly <strong>know STA</strong> - fewer confidently-wrong answers about our own products.</li>
+      <li>When company knowledge changes, it updates centrally - <strong>nothing for you to reinstall</strong>.</li>
+      <li>Nothing to do right now. This is background on where the AI program is headed. Ideas for what your team's brain should know are always welcome - bring them to the IT team or the AI Advisor.</li>
+    </ul>
+  </div>
+  <footer>School Technology Associates &middot; What is an AI brain &middot; Go Further reference &middot; 2026-07-06</footer>
+</main>
+</body>
+</html>

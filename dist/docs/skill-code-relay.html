@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Relay - Skill Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  :root { --doc-accent:#795548; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#fff; color:#1e2a35; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent); border-radius:10px; overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent) 35%, #fff); color:var(--doc-accent); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+  .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; color:#1e2a35; }
+  .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--doc-accent); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Admin</span>
+      <h1>Code Relay</h1>
+      <div class="tagline">Hand implementation work to Claude Code and shuttle it back by copy-paste.</div>
+      <div class="head-strip">SKILL &middot; RUNS AUTOMATICALLY WHEN IT APPLIES</div>
+    </div>
+    <div class="body">
+      <h2>What it does</h2>
+      <p>Turns this agent into the "architect" half of a two-way relay with Claude Code (the Code-tab coding agent). It produces a one-click handoff prompt that sets the role split - the architect decides and reviews; Claude Code implements, tests, and pushes - and orders Claude Code to end every reply with a copy-ready status block, so the back-and-forth loop closes on its own.</p>
+      <h2>When to use it</h2>
+      <p>When you want to hand a coding job to Claude Code and pass messages back and forth, or when you paste back a block headed <code>=== FOR THE ARCHITECT ===</code>. Not for writing the code here, running git, or handoffs to anything other than Claude Code.</p>
+      <h2>How to trigger it</h2>
+      <div class="trigger"><p>"hand this to Claude Code"</p><p>"make a Claude Code prompt"</p><p>"relay to Code"</p><p>"start a relay"</p></div>
+    </div>
+    <div class="foot">School Technology Associates &middot; Code Relay &middot; Custom Skill</div>
+  </div>
+</body>
+</html>

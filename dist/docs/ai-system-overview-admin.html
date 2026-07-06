@@ -118,7 +118,7 @@
     <div class="badges">
       <div class="badge">Admin / Power Users Only</div>
       <div class="badge blue">Training - Admin</div>
-      <div class="badge green">Updated 2026-06-19 (added STA HTML Report, Help Center Report, and Site Analytics Report to the skills catalog)</div>
+      <div class="badge green">Updated 2026-07-06 (added AI Tell Cleaner, Vendor Evaluation, and Code Relay to the skills catalog; automations now tracked in full in the Scheduled Tasks Reference)</div>
     </div>
   </div>
   <div class="header-strip">STAFF REFERENCE</div>
@@ -467,6 +467,9 @@
     <div class="skill-item"><div class="skill-name">Deep Research Prompt Builder</div><div class="skill-desc">Crafts a deep research commission prompt as one .md for the knowledge base, then returns a one-click kickoff prompt.</div><div class="skill-trigger">"craft a deep research prompt", "build a research commission"</div></div>
     <div class="skill-item"><div class="skill-name">Session Closeout</div><div class="skill-desc">Wraps up a chat - summary, pending manual tasks, pending in-chat items; optional one-click handoff prompt for a new chat.</div><div class="skill-trigger">"end chat", "wrap up", "close out"</div></div>
     <div class="skill-item"><div class="skill-name">Weekly GitHub Backup</div><div class="skill-desc">Backs up all Claude projects and skills to GitHub on a weekly schedule (also runs as a scheduled task).</div><div class="skill-trigger">Scheduled (Sundays); or "run the GitHub backup"</div></div>
+    <div class="skill-item"><div class="skill-name">AI Tell Cleaner</div><div class="skill-desc">Two modes: (clean) strip AI "tells" from your own writing so it reads human, keeping your voice, plus scrub authorship/tool metadata from .docx/.pdf; (detect) honest, evidence-backed report on whether text of unknown origin was AI-written. Supersedes the old ai-detector (duplicate pending removal).</div><div class="skill-trigger">"remove the AI tells", "humanize this", "is this AI-written?"</div></div>
+    <div class="skill-item"><div class="skill-name">Vendor Evaluation</div><div class="skill-desc">Turns a vendor demo/pitch into a neutral STA-branded buy/resell/pilot/pass report - single-vendor 8-section write-up or a 2-4 way comparison with a do-nothing baseline and weighted scorecard. Renders via STA HTML Report.</div><div class="skill-trigger">"evaluate this vendor", "compare these vendors"</div></div>
+    <div class="skill-item"><div class="skill-name">Code Relay</div><div class="skill-desc">Hands coding work to Claude Code and shuttles it back by copy-paste: a one-click handoff that splits roles (architect decides; Code builds, tests, pushes) and keeps the loop closing itself. Dev/admin tool.</div><div class="skill-trigger">"hand this to Claude Code", "make a Claude Code prompt"</div></div>
   </div>
 
   <h3 style="font-size:13px; margin: 18px 0 8px; color: var(--gray); text-transform:uppercase; letter-spacing:0.7px;">Standard platform skills (Anthropic-bundled with Cowork)</h3>
@@ -482,7 +485,7 @@
   <!-- AUTOMATIONS -->
   <div id="auto"></div>
   <div class="section-title">Scheduled Automations</div>
-  <div class="section-intro">Scheduled tasks live per-project (the central Task Scheduler workspace was retired 2026-05-06). Each project that owns a recurring job manages it through Cowork's scheduled-tasks system. (Adam's personal automations - daily email summary, House Monitor listing scout - are intentionally not listed here.)</div>
+  <div class="section-intro">Scheduled tasks live per-project (the central Task Scheduler workspace was retired 2026-05-06). Each project that owns a recurring job manages it through Cowork's scheduled-tasks system. The STA / AI-system automation set now numbers about 18 recurring jobs - the flagship ones are highlighted below; the full current catalog (daily / weekly / monthly, with on/off status) lives in the <strong>Scheduled Tasks Reference</strong> (AI Admin -> Codebase &amp; maintenance). Adam's personal automations - daily email summary, House Monitor listing scout, civic-campaign scans - are intentionally excluded.</div>
 
   <table>
     <thead>
@@ -519,10 +522,16 @@
         <td>Flags Claude.ai Project context files unchanged 60+/90+ days so stale uploaded context gets refreshed.</td>
       </tr>
       <tr>
-        <td><strong>Chris Customer Meetings Daily Summary</strong></td>
-        <td>Weekdays 7:40 AM</td>
+        <td><strong>Morning Meeting Summary</strong></td>
+        <td>Daily 4:39 PM (Sun-Thu)</td>
         <td>Standalone (Support)</td>
-        <td>Posts a daily summary of Chris's customer meetings to #daily-support-call-summary in Slack (via the Slack connector).</td>
+        <td>Previews tomorrow's meetings for Chris, Tyler, and Adam to #daily-support-call-summary - customer meetings (Calendly reason + prior-session recap) and internal/vendor, split by person.</td>
+      </tr>
+      <tr>
+        <td><strong>Evening Meeting Recap</strong></td>
+        <td>Daily 4:00 PM (Mon-Fri)</td>
+        <td>Standalone (Support)</td>
+        <td>Drafts Salesforce case comments for the day's completed customer meetings (Chris, Tyler, Adam) and posts them to #meeting-comments.</td>
       </tr>
       <tr>
         <td><strong>R&amp;D Time-Tracking Weekly</strong></td>
@@ -531,8 +540,8 @@
         <td>Pulls the prior week's product-dev meetings from Granola + Calendar + Zoom; updates the Word notes docs and the Excel R&amp;D tracker.</td>
       </tr>
       <tr>
-        <td><strong>Help Center Weekly Scan</strong></td>
-        <td>Saturdays 9:00 AM</td>
+        <td><strong>Help Center Scan</strong></td>
+        <td>Monthly (last Friday), 2:00 PM</td>
         <td>Help Center Advisor</td>
         <td>Scans the STA help center for new articles, auto-categorizes into hc-data.json, rebuilds the HC Index App (which now includes an editable Projects tab - live project status across STA products, backed by a shared Cloudflare D1 tracker; signed-in staff edit in the tab, and the Work Personal Assistant writes via audited MCP tools), and updates context-help-center-state.md.</td>
       </tr>
@@ -651,7 +660,7 @@
 </div>
 
 <div class="footer">
-  <strong>School Technology Associates</strong> &nbsp;|&nbsp; The AI System - Operational Reference &nbsp;|&nbsp; Updated 2026-06-19
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; The AI System - Operational Reference &nbsp;|&nbsp; Updated 2026-07-06
 </div>
 
 <div style="margin: 60px 0 20px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">

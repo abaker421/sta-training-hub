@@ -416,7 +416,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Required before first use', note: 'The ground rules for your role. Read these before you use any AI tool for School Tech work - they cover what is allowed and what data must never go in. Non-negotiable.', docs: ['aup', 'restricted-data'] },
         { heading: 'Recommended Week 1', time: 'about 50 min', note: 'Getting started with the AI tools. Learn how to get better results from AI and how to work with the tools we already have. Read these in your first week.', docs: ['quick-ref', 'better-results', 'onboarding-deck', 'ai-advisor', 'open-html', 'open-markdown'] },
-        { heading: 'Go further', accent: '#c2185b', note: 'Optional. Once you have played with the AI tools and want to go deeper, these show you more of what AI can do beyond the basics.', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'ai-basics'] }
+        { heading: 'Go further', accent: '#c2185b', note: 'Optional. Once you have played with the AI tools and want to go deeper, these show you more of what AI can do beyond the basics.', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'ai-basics', 'what-is-a-brain'] }
       ]
     },
     {
@@ -489,13 +489,14 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Internal tools - Claude.ai Projects', note: 'Project-based agents on claude.ai - shared automatically with project members.', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool', 'the-customer'] },
         { heading: 'Internal tools - Coworks', note: 'Cowork agents that run on the AI Admin machine with file and tool access.', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
-        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report', 'skill-site-analytics-report', 'skill-salesforce-email-template'] },
+        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report', 'skill-site-analytics-report', 'skill-salesforce-email-template', 'skill-vendor-evaluation', 'skill-ai-tell-cleaner'] },
         { heading: 'Skills - Support & Troubleshooting', note: 'Skills for diagnosing and resolving support issues.', docs: ['time-clock'] },
-        { heading: 'Skills - Agent Building & QA', note: 'Skills for building, evaluating, and testing agents.', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger'] },
+        { heading: 'Skills - Agent Building & QA', note: 'Skills for building, evaluating, and testing agents.', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger', 'skill-code-relay'] },
         { heading: 'Skills - Knowledge & Research', note: 'Skills for building context files and managing the knowledge base.', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
         { heading: 'Skills - Safety & Guardrails', note: 'Skills that protect agents from misuse and prompt-override attempts.', docs: ['skill-prompt-override-guard'] },
         { heading: 'Skills - Maintenance & Ops', note: 'Skills that keep the system backed up, synced, and clean.', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter', 'skill-truncation-checker'] },
         { heading: 'System reference', note: 'How the AI system is wired together - maps, inventories, and references.', docs: ['system-overview', 'project-tracker-tool', 'ai-admin-pc-installed-inventory', 'project-export-snapshot-audit', 'workspace-skills', 'user-management', 'maintenance-sop'] },
+        { heading: 'Codebase & maintenance', note: 'How the internal hub apps are built and kept running - source code, deploy steps, and the recurring automations.', docs: ['codebase-maintenance-guide', 'scheduled-tasks-reference'] },
         { heading: 'Build pipeline', note: 'The process for taking an agent from idea to production.', docs: ['build-guide', 'architect-case-study'] },
         { heading: 'Planned builds (in scoping)', note: 'Agents scoped but not yet built.', docs: ['google-ai-employee-sow', 'salesforce-integration-sow'] },
         { heading: 'In Dev', note: 'Work in progress - not yet live.', docs: ['sta-server-proposal', 'sta-shared-brain'] },
@@ -506,6 +507,65 @@ window.TRAINING_DATA = {
     }
   ],
   docs: {
+    // ===== Codebase & maintenance (AI Admin) =====
+    'codebase-maintenance-guide': {
+      title: 'STA Hubs - Codebase & Maintenance Guide',
+      desc: 'How both internal hubs (AI Training Hub + STA Support Hub) are built and how to change and deploy them: file maps, no-build architecture, step-by-step edit + branch-to-PR deploy, and gotchas.',
+      file: 'docs/codebase-maintenance-guide.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Admin', 'Codebase'],
+      added: '2026-07-06', updated: '2026-07-06'
+    },
+    'scheduled-tasks-reference': {
+      title: 'STA Scheduled Tasks - Reference',
+      desc: 'Every recurring STA and AI-system automation - daily, weekly, monthly - what each does, when it runs, and on/off status. Personal jobs excluded; includes the folder-field rule for editing tasks.',
+      file: 'docs/scheduled-tasks-reference.html',
+      type: 'html',
+      priority: 'admin',
+      tags: ['Admin', 'Automation'],
+      added: '2026-07-06', updated: '2026-07-06'
+    },
+    // ===== Go further (staff) =====
+    'what-is-a-brain': {
+      title: 'What is an AI "Brain"?',
+      desc: 'Plain-language explainer: what an AI "brain" is (the shared STA knowledge an assistant reads), and the plan - support brain now, a company-wide main brain next, department brains on a shared server later.',
+      file: 'docs/what-is-a-brain.html',
+      type: 'html',
+      priority: 'optional',
+      org: true,
+      tags: ['Reference', 'Go further'],
+      added: '2026-07-06', updated: '2026-07-06'
+    },
+    // ===== New skill briefs =====
+    'skill-ai-tell-cleaner': {
+      title: 'AI Tell Cleaner',
+      desc: 'Strip AI "tells" from your writing so it reads human (keeps your voice), or get an honest, evidence-backed read on whether unknown text was AI-written. Two modes: clean and detect.',
+      file: 'docs/skill-ai-tell-cleaner.html',
+      org: true,
+      type: 'html',
+      priority: 'skill',
+      tags: ['Writing'],
+      added: '2026-07-06', updated: '2026-07-06'
+    },
+    'skill-vendor-evaluation': {
+      title: 'Vendor Evaluation',
+      desc: 'Turn a vendor demo or pitch into a neutral STA-branded buy/resell/pilot/pass report - a single-vendor 8-section write-up, or a 2-4 way comparison with a do-nothing baseline and weighted scorecard.',
+      file: 'docs/skill-vendor-evaluation.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Reports'],
+      added: '2026-07-06', updated: '2026-07-06'
+    },
+    'skill-code-relay': {
+      title: 'Code Relay',
+      desc: 'Hand coding work to Claude Code and pass it back by copy-paste. Produces a one-click handoff that splits roles - you decide; Code builds, tests, pushes - and keeps the loop closing itself.',
+      file: 'docs/skill-code-relay.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Dev'],
+      added: '2026-07-06', updated: '2026-07-06'
+    },
     'creating-your-first-cowork': {
       title: 'Creating Your First Cowork Project',
       desc: 'Step-by-step build guide for power users: scope the job, write instructions, pick the folder, add context files with routing rules, install skills, and run a first-chat verification.',
@@ -1308,7 +1368,7 @@ window.TRAINING_DATA = {
     // ===== In Dev (server / infrastructure) =====
     'sta-server-proposal': {
       title: 'Company Cloud Server + STA Shared Brain - Proposal',
-      desc: 'In dev. The case for a small always-on company cloud server (~$15/mo) to host STA shared AI infrastructure - the shared brain every assistant reads from, plus the project-tracker backend.',
+      desc: 'Approved 6/19, now building (server targeted end of July). The leadership pitch for a ~$15/mo company cloud server hosting STA shared AI infrastructure - the shared brain every assistant reads from, plus automations. Build contract: the STA Server SOW.',
       file: 'docs/sta-server-proposal.html',
       type: 'html',
       priority: 'wip',
@@ -1317,7 +1377,7 @@ window.TRAINING_DATA = {
     },
     'sta-shared-brain': {
       title: 'The Shared Brain - Scope',
-      desc: 'In dev. One update reaches every STA assistant: a single shared knowledge layer the agents read from, so a fact is changed in one place instead of in every project separately. Rides the same server as the proposal above.',
+      desc: 'Approved, in build. One update reaches every STA assistant: a single shared knowledge layer agents read from, so a fact changes in one place instead of in every project. Rides the company server (targeted end of July).',
       file: 'docs/sta-shared-brain-scope.html',
       type: 'html',
       priority: 'wip',

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STA Hubs - Codebase &amp; Maintenance Guide</title>
+<style>
+  :root{
+    --brand:#006098; --brand-d:#004a78; --green:#6bc04b; --doc-accent:#00838f;
+    --ink:#1a1f24; --muted:#5a5f66; --line:#e3e6ea; --bg:#fff; --band:#eef4f8;
+    --code-bg:#f4f6f8; --warn-bg:#fdf6e3; --warn-line:#e0c56b; --bad-bg:#fdeceb; --bad-line:#e6a9a3;
+    --good-bg:#eaf6ec; --good-line:#9cd3a8;
+    --sp-2:8px; --sp-3:16px; --sp-4:24px; --sp-5:40px;
+  }
+  *{box-sizing:border-box;}
+  html,body{overflow-x:hidden;}
+  body{margin:0;color:var(--ink);background:#f3f5f7;font:16px/1.6 "Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;}
+  main{max-width:860px;margin:0 auto;background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.08);}
+  header{background:#fff;color:#1e2a35;padding:var(--sp-5) var(--sp-5) var(--sp-4);border:1px solid #dde3e8;border-top:6px solid var(--doc-accent);border-radius:10px;overflow:hidden;}
+  .header-strip{margin:18px -40px 0;padding:9px 40px;background:color-mix(in srgb,var(--doc-accent) 12%,#fff);border-top:1px solid color-mix(in srgb,var(--doc-accent) 35%,#fff);color:var(--doc-accent);font-size:11px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;}
+  .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--doc-accent);font-weight:600;margin:0 0 var(--sp-2);}
+  header h1{font-size:1.7rem;line-height:1.25;margin:0;font-weight:700;letter-spacing:-.01em;color:#1e2a35;}
+  .meta{margin:var(--sp-3) 0 0;font-size:.82rem;color:#5f6b76;}
+  .body{padding:var(--sp-5);}
+  .bluf{background:var(--band);border:1px solid var(--line);border-left:5px solid var(--brand);border-radius:8px;padding:var(--sp-4);margin:0 0 var(--sp-5);}
+  .bluf p{margin:0 0 var(--sp-2);} .bluf p:last-child{margin:0;} .bluf strong{color:var(--brand-d);}
+  h2{font-size:1.18rem;line-height:1.3;margin:var(--sp-5) 0 var(--sp-3);color:var(--brand-d);padding-top:var(--sp-4);border-top:1px solid var(--line);}
+  h2:first-of-type{border-top:none;padding-top:0;}
+  h3{font-size:1rem;margin:var(--sp-4) 0 var(--sp-2);color:var(--ink);}
+  p{margin:0 0 var(--sp-3);}
+  table{border-collapse:collapse;width:100%;margin:var(--sp-2) 0 var(--sp-3);font-size:.92rem;}
+  th,td{padding:var(--sp-2) var(--sp-3);border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+  th[scope=col]{font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  tbody tr:nth-child(even){background:#f8fafc;}
+  code{background:var(--code-bg);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font:0.86em/1.5 ui-monospace,"SFMono-Regular",Consolas,monospace;}
+  pre{background:var(--code-bg);border:1px solid var(--line);border-left:4px solid var(--doc-accent);border-radius:6px;padding:var(--sp-3);overflow-x:auto;margin:0 0 var(--sp-3);}
+  pre code{background:none;border:none;padding:0;font-size:.84rem;}
+  ol.steps{counter-reset:s;list-style:none;padding-left:0;margin:0 0 var(--sp-3);}
+  ol.steps li{counter-increment:s;position:relative;padding:var(--sp-2) 0 var(--sp-3) 40px;border-bottom:1px solid var(--line);}
+  ol.steps li:last-child{border-bottom:none;}
+  ol.steps li::before{content:counter(s);position:absolute;left:0;top:var(--sp-2);width:26px;height:26px;background:var(--doc-accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;}
+  ol.steps b{color:var(--brand-d);}
+  .callout{border-radius:8px;padding:var(--sp-3) var(--sp-4);margin:0 0 var(--sp-3);font-size:.93rem;}
+  .callout.warn{background:var(--warn-bg);border:1px solid var(--warn-line);}
+  .callout.bad{background:var(--bad-bg);border:1px solid var(--bad-line);}
+  .callout.good{background:var(--good-bg);border:1px solid var(--good-line);}
+  .callout .lab{font-weight:700;text-transform:uppercase;font-size:.72rem;letter-spacing:.05em;display:block;margin-bottom:4px;}
+  .callout.warn .lab{color:#9a6700;} .callout.bad .lab{color:#b42318;} .callout.good .lab{color:#1a7f37;}
+  ul.tight{margin:0 0 var(--sp-3);padding-left:22px;} ul.tight li{margin-bottom:6px;}
+  footer{padding:var(--sp-4) var(--sp-5);border-top:3px solid var(--green);background:var(--band);font-size:.8rem;color:var(--muted);}
+  @media print{@page{size:Letter;margin:.7in;}body{background:#fff;font-size:11pt;}main{box-shadow:none;max-width:none;}header,.bluf,table,pre{-webkit-print-color-adjust:exact;print-color-adjust:exact;}table,pre,.callout{break-inside:avoid;}h2{break-after:avoid;}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">School Technology Associates &middot; AI Admin &middot; Codebase Reference</p>
+    <h1>STA Hubs - Codebase &amp; Maintenance Guide</h1>
+    <p class="meta">How the two internal hub apps are built, and exactly how to change and deploy them &nbsp;&middot;&nbsp; Adam Baker &nbsp;&middot;&nbsp; Updated 2026-07-06</p>
+    <div class="header-strip">INTERNAL &middot; ADMIN REFERENCE</div>
+  </header>
+  <div class="body">
+
+    <section class="bluf">
+      <p><strong>What this is:</strong> the maintenance manual for STA's two internal hub apps - the <strong>AI Training Hub</strong> and the <strong>STA Support Hub</strong>. It covers how each is built, where the code lives, how to make a change, and how to deploy it safely.</p>
+      <p><strong>Who it's for:</strong> whoever maintains the hubs (today: Adam). You do not need to be a developer to follow the change procedures - they're copy-paste steps.</p>
+      <p><strong>The one thing to remember:</strong> both apps are single self-contained files with no build step. You edit one file, sync a mirror copy, and open a pull request. That's the whole loop.</p>
+    </section>
+    <h2>The two hubs at a glance</h2>
+    <table>
+      <thead><tr><th scope="col">&nbsp;</th><th scope="col">AI Training Hub</th><th scope="col">STA Support Hub</th></tr></thead>
+      <tbody>
+        <tr><td><strong>What it is</strong></td><td>Launcher for every AI training doc, policy, and tool brief, organized by audience tab.</td><td>Article-index portal: Salesforce Knowledge links, internal articles, and email templates by product, plus the Project Tracker tab.</td></tr>
+        <tr><td><strong>Repo</strong></td><td><code>source/repos/training-kit-hub</code></td><td><code>source/repos/sta-help-center-index</code></td></tr>
+        <tr><td><strong>Tech</strong></td><td>Single-file vanilla JS (no framework, no build). Data in <code>window.TRAINING_DATA</code>.</td><td>Single-file React via Babel Standalone (no build). Data in <code>window.HC_DATA</code>.</td></tr>
+        <tr><td><strong>Edit this file</strong></td><td><code>STA-Training-Hub.html</code> (repo root)</td><td><code>HC-Index-App.html</code> in the Help Center Assistant project folder <em>(source of truth)</em></td></tr>
+        <tr><td><strong>Deployed file</strong></td><td><code>dist/index.html</code> (byte-identical mirror)</td><td><code>index.html</code> (repo root, synced from source)</td></tr>
+        <tr><td><strong>Host</strong></td><td colspan="2">Cloudflare Pages, git-connected. Push to <code>main</code> auto-deploys. Gated to <code>@k12sta.com</code> via Cloudflare Access.</td></tr>
+        <tr><td><strong>Deploy rule</strong></td><td colspan="2"><code>main</code> is branch-protected on both repos. You branch &rarr; open a PR &rarr; merge. Never <code>git push origin main</code>.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout good"><span class="lab">Why single-file, no build</span>Both apps embed their data in a JavaScript object inside one HTML file. No <code>npm install</code>, no compile, no toolchain to break. Anyone can open the file, edit a data entry, and the change is live after a sync and push. That simplicity is deliberate - keep it.</div>
+
+    <h2>AI Training Hub - how the code works</h2>
+    <p>The entire app is <code>STA-Training-Hub.html</code>. Everything staff see is driven by one JavaScript object, <code>window.TRAINING_DATA</code>, which has two parts:</p>
+    <pre><code>window.TRAINING_DATA = {
+  audiences: [            // the tabs across the top
+    { id:'admin', title:'AI Admin', icon:'...', sub:'...',
+      sections: [          // headings within a tab
+        { heading:'System reference', docs:['system-overview', ...] }
+      ] }
+  ],
+  docs: {                 // one entry per card, referenced by id
+    'system-overview': {
+      title:'...', desc:'...(<= ~200 chars / 5 lines)',
+      file:'docs/system-overview.html', type:'html',
+      priority:'admin', tags:['Admin','Reference'],
+      added:'2026-06-06', updated:'2026-06-06'
+    }
+  }
+};</code></pre>
+    <ul class="tight">
+      <li><strong>Audiences = tabs.</strong> Array order = tab order. Current tabs: Start Here, Sales, Support, Marketing, Operations, Renewals, Salesforce Admins, AI Admin.</li>
+      <li><strong>Sections = headings inside a tab</strong>, each listing card ids in <code>docs:[...]</code>.</li>
+      <li><strong>One doc id, many tabs.</strong> The same card can appear on several tabs - it's defined once in <code>docs{}</code> and referenced from each tab's <code>docs:[...]</code>.</li>
+      <li><strong>The card opens a real file</strong> in <code>dist/docs/</code> (HTML/MD) or <code>dist/files/</code> (docx/pptx/pdf). No content is rendered inside the app - it's a launcher.</li>
+      <li><strong>Priority sets the card color:</strong> required = blue, recommended = green, optional = gray, admin = orange.</li>
+    </ul>
+    <p>The <code>dist/</code> folder is what Cloudflare actually serves: <code>dist/index.html</code> (a copy of the source file), <code>dist/docs/</code> (all HTML/markdown docs), and <code>dist/files/</code> (source Word/PowerPoint files, which <code>convert-docx-to-html.py</code> turns into styled HTML in <code>dist/docs/</code>).</p>
+    <h2>AI Training Hub - how to make a change</h2>
+    <h3>Add a new doc / card</h3>
+    <ol class="steps">
+      <li><b>Name the file as a kebab-case slug</b> - lowercase, hyphens, no spaces (e.g. <code>customer-renewal-workflow.html</code>). Spaces silently break Cloudflare uploads.</li>
+      <li><b>Put the file in dist.</b> HTML/markdown &rarr; <code>dist/docs/</code>; Word/PowerPoint/PDF &rarr; <code>dist/files/</code> (then run <code>python3 convert-docx-to-html.py your-slug.docx</code> to generate the served HTML).</li>
+      <li><b>Add a <code>docs{}</code> entry</b> in <code>STA-Training-Hub.html</code>. Use an id matching the slug; keep <code>desc</code> to ~200 chars (cards clamp at 5 lines).</li>
+      <li><b>Reference the id</b> from one or more <code>audiences[].sections[].docs</code> arrays - this is what makes the card appear on a tab.</li>
+      <li><b>Sync + deploy</b> (see the deploy section below).</li>
+    </ol>
+    <div class="callout warn"><span class="lab">AI Admin card placement is a hard rule</span>An agent/tool card goes in a bucket by its registry <strong>Deployment Target</strong>: Claude.ai Projects on top, Coworks below, built web apps under System reference. Check <code>context-agent-registry.md</code> first - never guess, never use one mixed "agents &amp; tools" list. Full rule in the hub's <code>MAINTENANCE.md</code>.</div>
+    <h3>Edit or remove a doc</h3>
+    <ul class="tight">
+      <li><strong>Edit text on a card:</strong> change the <code>title</code>/<code>desc</code>/<code>tags</code> in the <code>docs{}</code> entry. Edit the doc's <em>content</em> in its <code>dist/docs/*.html</code> file.</li>
+      <li><strong>Edit a Word-derived doc:</strong> edit the <code>.docx</code> in <code>dist/files/</code>, then re-run <code>convert-docx-to-html.py</code>. Never hand-edit the generated HTML - it gets overwritten.</li>
+      <li><strong>Remove a doc:</strong> delete its <code>docs{}</code> entry, remove the id from every tab's <code>docs:[...]</code>, and delete the asset file. Then sync + deploy.</li>
+    </ul>
+
+    <h2>STA Support Hub - how the code works</h2>
+    <p>The Support Hub (repo <code>sta-help-center-index</code>) is the article-index portal for support staff, and also hosts the Project Tracker tab. It is a single-file <strong>React</strong> app loaded through Babel Standalone - still no build step, just React compiled in the browser.</p>
+    <ul class="tight">
+      <li><strong>Source of truth is NOT the repo.</strong> You edit <code>HC-Index-App.html</code> in the Help Center Assistant project folder (<code>Documents\Claude\Projects\.STA Projects\Help Center Assistant\article-index\</code>). The repo's <code>index.html</code> is the <em>deployed copy</em>, synced from that source.</li>
+      <li><strong>Data lives in <code>window.HC_DATA</code></strong> embedded in the file - Salesforce Knowledge links, internal articles, and email templates organized by product tab. Same "data-in-a-JS-object" pattern as the Training Hub.</li>
+      <li><strong>It's an installable PWA.</strong> <code>manifest.json</code> + <code>sw.js</code> (service worker) provide offline caching and "Add to Home Screen." <code>sw.js</code> must stay at the repo root - a service worker only controls its own folder and below.</li>
+      <li><strong>Cache busting:</strong> the <code>CACHE</code> constant in <code>sw.js</code> (<code>sta-hc-YYYYMMDD</code>) must be bumped on every deploy or returning users keep the old cached build.</li>
+    </ul>
+
+    <h2>STA Support Hub - how to make a change</h2>
+    <ol class="steps">
+      <li><b>Edit the source</b> - <code>HC-Index-App.html</code> in the Help Center Assistant project folder (update <code>window.HC_DATA</code> for content, or the React components for behavior).</li>
+      <li><b>Re-sync the repo copy</b> - copy the edited source over <code>index.html</code> in the <code>sta-help-center-index</code> repo (see that project's <code>MAINTENANCE.md</code> for the exact command).</li>
+      <li><b>Bump the cache</b> - set <code>CACHE</code> in <code>sw.js</code> to today's date, <code>sta-hc-YYYYMMDD</code>.</li>
+      <li><b>Keep root clean</b> - only <code>index.html</code>, <code>manifest.json</code>, <code>sw.js</code>, and dotfiles belong at root. New icons &rarr; <code>icons/</code>, CSS &rarr; <code>css/</code>, JS &rarr; <code>js/</code>.</li>
+      <li><b>Branch, PR, merge</b> - same protected-<code>main</code> flow as the Training Hub (below). Cloudflare auto-deploys on merge.</li>
+    </ol>
+    <div class="callout warn"><span class="lab">Content owner</span>The Support Hub's content and hub source edits are owned by the <strong>Help Center Advisor</strong> agent (it maintains both internal hubs and hands off a Code-tab/PR prompt - it never pushes). Route content-strategy and article-index work there.</div>
+    <h2>Deploy - the loop that actually ships</h2>
+    <p>Editing a file on disk changes nothing that staff see. Cloudflare Pages deploys from <code>origin/main</code> on GitHub, and <code>main</code> is <strong>branch-protected on both repos</strong> (CodeRabbit reviews every PR). So the loop is: sync the mirror, branch, open a PR, let CodeRabbit review, merge.</p>
+    <h3>AI Training Hub - sync then PR</h3>
+    <pre><code># 1. Sync the deployed mirror (byte-identical to source)
+cp "STA-Training-Hub.html" "dist/index.html"
+
+# 2. Branch + open a PR (paste into Claude Code / Code tab)
+cd "C:\Users\Adam\source\repos\training-kit-hub"
+git checkout -b hub-sync-short-description
+git add -A
+git commit -m "concrete message naming what changed"
+git push -u origin hub-sync-short-description
+gh pr create --fill
+
+# 3. Wait ~2 min for CodeRabbit, skim it, then merge (triggers deploy)
+gh pr merge --squash</code></pre>
+    <div class="callout bad"><span class="lab">Never do these</span>
+      <ul class="tight" style="margin-bottom:0">
+        <li><code>git push origin main</code> - rejected; <code>main</code> is protected on every BwB repo.</li>
+        <li><code>gh pr merge --squash --auto</code> - auto-merge closes the PR before CodeRabbit finishes and discards the review. Split create from merge.</li>
+        <li>Adding a <code>_redirects</code> file with <code>/* /index.html 200</code> - Cloudflare rejects the wildcard SPA fallback (<code>[code: 10021] Infinite loop</code>). Neither app needs it.</li>
+        <li>Filenames with spaces - Cloudflare drag-and-drop uploads silently fail mid-batch. Kebab-case slugs only.</li>
+      </ul></div>
+    <div class="callout warn"><span class="lab">The docs are drifting on this point</span>The Training Hub's own <code>MAINTENANCE.md</code>/<code>DEPLOY.md</code> still show <code>git push origin main</code>. That predates <code>main</code> being protected - follow the branch&rarr;PR flow above instead. (Flagged 2026-07-06; those docs need a refresh.)</div>
+    <h3>Support Hub - same flow, plus cache bump</h3>
+    <p>Identical branch&rarr;PR&rarr;squash-merge on the <code>sta-help-center-index</code> repo, with one extra step: bump <code>CACHE</code> in <code>sw.js</code> before committing, or returning PWA users keep the stale cached build. After merge, confirm the deploy in a fresh private window.</p>
+
+    <h2>Gotchas &amp; quick troubleshooting</h2>
+    <table>
+      <thead><tr><th scope="col">Symptom</th><th scope="col">Cause &amp; fix</th></tr></thead>
+      <tbody>
+        <tr><td>Card opens a 404</td><td>The asset isn't in <code>dist/docs/</code> or <code>dist/files/</code>. Check <code>docs[id].file</code> matches the real filename.</td></tr>
+        <tr><td>Edit didn't show up on the live hub</td><td>Either the dist mirror wasn't synced (<code>cp</code> step) or the PR wasn't merged. No merge = no deploy.</td></tr>
+        <tr><td>Whole Training Hub is blank</td><td>JS syntax error in the inline module script. Open the browser console - it names the line (no Babel step to hide it).</td></tr>
+        <tr><td>Support Hub shows old content after deploy</td><td><code>CACHE</code> in <code>sw.js</code> wasn't bumped. Set it to today's <code>sta-hc-YYYYMMDD</code>, redeploy, reload in a private window.</td></tr>
+        <tr><td>A <code>.md</code>/<code>.docx</code> card won't open (others fine)</td><td>Those two lazy-load pinned libraries (<code>marked</code>/<code>mammoth</code>) with SRI hashes. If a hash is stale the browser blocks it - regenerate per <code>DEPLOY.md</code>.</td></tr>
+        <tr><td>Users stuck on repeated Cloudflare login</td><td>Third-party cookies blocked. Enable them for <code>cloudflareaccess.com</code> or try another browser.</td></tr>
+        <tr><td>A deploy broke the app</td><td>Cloudflare Pages &rarr; Deployments &rarr; roll back to the last good one (~10 sec).</td></tr>
+      </tbody>
+    </table>
+    <div class="callout good"><span class="lab">Full detail lives in the repos</span>This guide is the map. The authoritative step-by-step is in each repo: Training Hub - <code>MAINTENANCE.md</code> + <code>DEPLOY.md</code>; Support Hub - <code>README.md</code> + <code>CLAUDE.md</code> + the Help Center Assistant project's <code>MAINTENANCE.md</code>.</div>
+  </div>
+  <footer>School Technology Associates &middot; STA Hubs Codebase &amp; Maintenance Guide &middot; Generated 2026-07-06 &middot; Internal admin reference</footer>
+</main>
+</body>
+</html>
