@@ -18,14 +18,12 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
-  .header { background:#fff; color:#1e2a35; padding:28px 40px; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #9c6a00); border-radius:10px; max-width:900px; margin:0 auto;  overflow:hidden; }
-  .header-strip { margin:18px -40px 0; padding:9px 40px; background:color-mix(in srgb, var(--doc-accent,#9c6a00) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#9c6a00) 35%, #fff); color:var(--doc-accent,#9c6a00); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
-
+  .header { background: var(--blue); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--green); }
   .header-inner { max-width: 900px; margin: 0 auto; }
-  .header h1 { color:#1e2a35; font-size: 26px; font-weight: 700; }
-  .header .sub { color:#5f6b76; opacity:1; font-size: 14px; margin-top: 6px; max-width: 640px; }
-  .header .badge { background:#f4f6f8; border:1px solid #dde3e8; color:#9c6a00; display: inline-block; border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; }
-  .page { background:#fff; border:1px solid #dde3e8; border-radius:10px; max-width:900px; margin:20px auto 0; padding:28px 40px 60px; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.82; margin-top: 6px; max-width: 640px; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; }
+  .page { max-width: 900px; margin: 0 auto; padding: 36px 60px 80px; }
 
   .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; margin-top: 44px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
   .section-intro { font-size: 14px; color: #444; margin-bottom: 20px; line-height: 1.65; }
@@ -68,7 +66,6 @@
     <div class="sub">How the AI system is organized on disk: The Architect workspace, the anatomy of a project blueprint, what a live Cowork project folder looks like, and every custom skill currently installed.</div>
     <div class="badge">AI Admin · Not for general staff distribution</div>
   </div>
-  <div class="header-strip">STAFF REFERENCE</div>
 </div>
 
 <div class="page">
@@ -98,23 +95,23 @@
 ├── <span class="b">context-agent-registry.md</span>  <span class="c"># master list of every agent/project + status</span>
 ├── <span class="b">context-path-reference.md</span>  <span class="c"># canonical path map (root-permitted file)</span>
 ├── <span class="b">feedback-log.md</span>            <span class="c"># cross-project feedback log (root-permitted file)</span>
-├── <span class="g">project-blueprints/</span>        <span class="c"># one folder per project (see Section 2)</span>
+├── <span class="g">Project Blueprints/</span>        <span class="c"># one folder per project (see Section 2)</span>
 ├── <span class="g">context-files/</span>            <span class="c"># shared/ (multi-project) + outputs/ (per-project)</span>
-├── <span class="g">knowledge-base/</span>           <span class="c"># Deep Research modules + index.md</span>
+├── <span class="g">Knowledge Base/</span>           <span class="c"># Deep Research modules + index.md</span>
 ├── <span class="g">Training Materials/</span>       <span class="c"># Training - Staff / Training - Admin (this doc)</span>
 ├── <span class="g">Evaluations/</span>             <span class="c"># prompt-evaluator HTML output history</span>
 ├── <span class="g">deliverables/</span>            <span class="c"># finished one-off outputs (reports, decks, checklists)</span>
 ├── <span class="g">images/</span>                  <span class="c"># shared image assets (e.g. AI Training screenshots)</span>
 ├── <span class="g">research-prompts/</span>        <span class="c"># deep-research commission prompts</span>
 ├── <span class="g">system-monitor/</span>          <span class="c"># maintenance SOP + health-report context</span>
-└── <span class="g">_Backups/</span>               <span class="c"># skills/ (INDEX.md + per-skill backups), scheduled-tasks/</span></pre>
+└── <span class="g">Backups/</span>               <span class="c"># skills/ (INDEX.md + per-skill backups), scheduled-tasks/</span></pre>
 
-  <h3 class="sub-h">Inside <code class="inline">project-blueprints/</code></h3>
+  <h3 class="sub-h">Inside <code class="inline">Project Blueprints/</code></h3>
   <div class="section-intro">Mix of live project folders and dot-prefixed organizing buckets:</div>
 
   <table class="ref">
     <tr><th>Folder</th><th>What's in it</th></tr>
-    <tr><td>[project-name]/</td><td>A live project blueprint (e.g. <code class="inline">help-center-advisor/</code>, <code class="inline">sta-security-advisor/</code>, <code class="inline">the-architect/</code>).</td></tr>
+    <tr><td>[project-name]/</td><td>A live project blueprint (e.g. <code class="inline">sta-support-expert/</code>, <code class="inline">help-center-advisor/</code>, <code class="inline">the-architect/</code>).</td></tr>
     <tr><td>templates/</td><td>Canonical templates only — instructions example, blueprint-summary, handoff, project-launch, eval, case-study, scheduled-task procedure.</td></tr>
     <tr><td>_Skills/</td><td>Skill blueprint folders + staged <code class="inline">[skill]-SKILL-updated.md</code> files awaiting install.</td></tr>
     <tr><td>_Claude-Projects/</td><td>Blueprints for Claude.ai Project deployments (never <code class="inline">_Projects/</code>).</td></tr>
@@ -129,9 +126,9 @@
 
   <!-- SECTION 2 -->
   <div class="section-title" id="sec-2">2 — Anatomy of a Project Blueprint</div>
-  <div class="section-intro">Every project gets a folder at <code class="inline">project-blueprints/[project-name]/</code>. The Architect produces these files in two waves — Wave 1 (the prompt) before sign-off, Wave 2 (downstream) only after the instructions are confirmed final.</div>
+  <div class="section-intro">Every project gets a folder at <code class="inline">Project Blueprints/[project-name]/</code>. The Architect produces these files in two waves — Wave 1 (the prompt) before sign-off, Wave 2 (downstream) only after the instructions are confirmed final.</div>
 
-<pre class="tree">project-blueprints/help-center-advisor/
+<pre class="tree">Project Blueprints/sta-support-expert/
 ├── <span class="b">instructions.md</span>          <span class="c"># Wave 1 · the production system prompt</span>
 ├── <span class="b">blueprint-summary.md</span>     <span class="c"># Wave 1 · overview, KB modules used, tool assessment, decisions</span>
 ├── <span class="b">backlog.md</span>               <span class="c"># Wave 1 · future-enhancement tracker (Active / Implemented)</span>
@@ -142,7 +139,7 @@
 ├── <span class="b">handoff.md</span>               <span class="c"># Wave 2 · pipeline status + changelog</span>
 ├── <span class="b">changelog.md</span>             <span class="c"># full version history (ISO 8601 dates)</span>
 ├── <span class="b">test-report-*.md</span>         <span class="c"># run-test-cases output (keep the two most recent)</span>
-├── <span class="g">outputs/</span>                 <span class="c"># runtime outputs; scheduled runs use outputs/YYYY/MM/</span>
+├── <span class="g">outputs/</span>                 <span class="c"># non-report runtime artifacts; reports route to Claude\reports\[type]\YYYY\MM\</span>
 └── <span class="g">scheduled-tasks/</span>         <span class="c"># present only if the project has recurring tasks</span></pre>
 
   <table class="ref">
@@ -168,13 +165,13 @@
   </div>
 
   <h3 class="sub-h">Recommended base layout for a new live folder</h3>
-<pre class="tree"><span class="g">Help Center Advisor/</span>            <span class="c"># the live Cowork project home</span>
+<pre class="tree"><span class="g">STA Support Expert/</span>            <span class="c"># the live Cowork project home</span>
 ├── <span class="b">context-*.md</span>             <span class="c"># optional local state/context the agent reads</span>
 ├── <span class="g">outputs/</span>                 <span class="c"># generated reports, drafts, digests</span>
 ├── <span class="g">images/</span>                  <span class="c"># any image assets the work uses</span>
 └── <span class="g">archive/</span>                 <span class="c"># superseded files kept for reference</span></pre>
 
-  <div class="section-intro">In practice these folders are freeform. A real example (Help Center Advisor) holds working documents and dated output subfolders — e.g. audit reports, <code class="inline">2026-Q2 Documents/</code>, a process-guide <code class="inline">.docx</code>, and diagnostic <code class="inline">.html</code> reports — rather than a fixed scaffold.</div>
+  <div class="section-intro">In practice these folders are freeform. A real example (STA Support Expert) holds working documents and dated output subfolders — e.g. <code class="inline">Error Log Reviews/</code>, <code class="inline">2026-Q2 Documents/</code>, a process-guide <code class="inline">.docx</code>, and diagnostic <code class="inline">.html</code> reports — rather than a fixed scaffold.</div>
 
   <div class="callout orange">
     <strong>Hygiene:</strong> the same root and outputs conventions apply — keep generated runs in <code class="inline">outputs/</code>, delete stray unnamed artifacts (random-character files with no extension) as soon as they appear, and don't let working files pile up at the folder root.
@@ -183,7 +180,7 @@
 
   <!-- SECTION 4 -->
   <div class="section-title" id="sec-4">4 — Every Custom Skill</div>
-  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code> in <code class="inline">_Backups/skills/INDEX.md</code>) — 23 currently installed. Anthropic-shipped skills (docx, pptx, xlsx, pdf, schedule, skill-creator, etc.) are not listed here. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
+  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code> in <code class="inline">Backups/skills/INDEX.md</code>) — 14 currently installed. Anthropic-shipped skills (docx, pptx, xlsx, pdf, schedule, skill-creator, etc.) are not listed here. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
 
   <div class="grp">Build pipeline — designing &amp; validating agents</div>
 
@@ -207,18 +204,6 @@
     <div class="skill-desc">Verifies that training docs still reflect what agents actually do, cross-checking against the registry and handoff files.</div>
     <div class="skill-trig"><strong>Say:</strong> "audit training docs", "is training accurate"</div></div>
 
-  <div class="skill-card"><div class="skill-name">skill-evaluator</div>
-    <div class="skill-desc">Scores a <code class="inline">SKILL.md</code> against Anthropic's skill-authoring frameworks — description quality, triggering accuracy, structure, skill-vs-inline placement.</div>
-    <div class="skill-trig"><strong>Say:</strong> "evaluate this skill", "is this skill production-ready"</div></div>
-
-  <div class="skill-card"><div class="skill-name">wcag-audit</div>
-    <div class="skill-desc">Audits a web page, HTML/CSS file, PDF, Word doc, or PPTX deck against WCAG 2.2 AA; severity-ranked findings with verifiable evidence. Standalone or handoff to The Test Master.</div>
-    <div class="skill-trig"><strong>Say:</strong> "run an accessibility audit", "check WCAG 2.2 AA"</div></div>
-
-  <div class="skill-card"><div class="skill-name">prompt-override-guard</div>
-    <div class="skill-desc">Intercepts jailbreak and instruction-override attempts ("ignore your instructions", "act as DAN", "developer mode"). Fires automatically inside every agent.</div>
-    <div class="skill-trig"><strong>Auto-fires</strong> on any override attempt</div></div>
-
   <div class="grp">Knowledge base &amp; research</div>
 
   <div class="skill-card"><div class="skill-name">deep-research-prompt-builder</div>
@@ -226,16 +211,8 @@
     <div class="skill-trig"><strong>Say:</strong> "craft a deep research prompt", "build a research commission"</div></div>
 
   <div class="skill-card"><div class="skill-name">knowledge-base-context-builder</div>
-    <div class="skill-desc">Turns existing KB modules into an uploadable project context file with a structured intake and quality gate.</div>
+    <div class="skill-desc">Turns existing KB modules into an uploadable project context file with a structured intake and quality gate. (The renamed <code class="inline">cowork-context-packager</code>.)</div>
     <div class="skill-trig"><strong>Say:</strong> "build a context file from [topic]", "package the [topic] research"</div></div>
-
-  <div class="skill-card"><div class="skill-name">cowork-context-packager</div>
-    <div class="skill-desc">Formats content as an on-demand Cowork context file — applies the on-demand loading model, writes the routing trigger, and proposes the <code class="inline">instructions.md</code> edit.</div>
-    <div class="skill-trig"><strong>Say:</strong> "package this for Cowork", "make a Cowork context file"</div></div>
-
-  <div class="skill-card"><div class="skill-name">project-context-packager</div>
-    <div class="skill-desc">Formats content as an always-loads Claude.ai Projects context file — token economy, XML section tags, primacy foregrounding, upload-order recommendation.</div>
-    <div class="skill-trig"><strong>Say:</strong> "package this for a Project", "format this for Claude.ai Projects"</div></div>
 
   <div class="skill-card"><div class="skill-name">kb-freshness-auditor</div>
     <div class="skill-desc">Scores KB modules by staleness and priority, then outputs paste-ready Deep Research prompts for the ones that need refreshing.</div>
@@ -261,37 +238,21 @@
     <div class="skill-desc">Logs an agent quality issue (wrong tone, ignored constraint, fabrication) so it surfaces in the Monday health report and routes to Project Feedback.</div>
     <div class="skill-trig"><strong>Say:</strong> "log this feedback", "the agent messed up"</div></div>
 
-  <div class="skill-card"><div class="skill-name">time-clock-error-log-review</div>
-    <div class="skill-desc">Diagnoses STA time clock issues (TT3/TT7/TT10) from uploaded log files — asks for account name, issue description, and logs, then produces a structured root-cause analysis.</div>
-    <div class="skill-trig"><strong>Say:</strong> upload clock logs, "review these time clock errors"</div></div>
-
-  <div class="skill-card"><div class="skill-name">cowork-snapshot-exporter</div>
-    <div class="skill-desc">Packages a Cowork project into a timestamped, shareable ZIP — system prompt, setup guide, training guide, and every referenced context file.</div>
-    <div class="skill-trig"><strong>Say:</strong> "snapshot this project", "package this for the team"</div></div>
-
-  <div class="skill-card"><div class="skill-name">backup-verifier</div>
-    <div class="skill-desc">Read-only drift report over <code class="inline">_Backups/</code> — verifies every skill, project, and archive backup is current; surfaces stale <code class="inline">.skill</code> packages as click-installable.</div>
-    <div class="skill-trig"><strong>Say:</strong> "verify all backups", "backup drift check"</div></div>
-
-  <div class="skill-card"><div class="skill-name">truncation-checker</div>
-    <div class="skill-desc">Token-minimal daily workspace-wide truncation sweep — finds files clipped mid-write (mid-word tails, missing <code class="inline">&lt;/html&gt;</code>/JSON/Python closers, empty files, trailing NUL padding). Auto-fixes lossless NUL padding and reports lossy truncation for manual rewrite. Wraps the root <code class="inline">verify-write.py --scan</code> engine and drives the daily 4 PM truncation-daily-scan task.</div>
-    <div class="skill-trig"><strong>Scheduled</strong> (daily 4 PM); or "run a truncation scan", "check for truncated files"</div></div>
-
-  <div class="skill-card"><div class="skill-name">weekly-github-backup</div>
-    <div class="skill-desc">Backs up all Claude projects and skills to GitHub every Sunday at 7:00 AM; also runs on demand as a scheduled task.</div>
-    <div class="skill-trig"><strong>Scheduled</strong> (Sundays); or "run the GitHub backup"</div></div>
+  <div class="skill-card"><div class="skill-name">garage-sale-scanner</div>
+    <div class="skill-desc">Runs the Garage Sale Monitor scan for Ashland, WI — fetches sources, ranks finds, and saves a dated HTML digest.</div>
+    <div class="skill-trig"><strong>Say:</strong> "run a garage sale scan", "do a rummage check"</div></div>
 
   <div class="skill-card"><div class="skill-name">session-closeout</div>
     <div class="skill-desc">Wraps up a chat: skim-ready summary, pending manual tasks, pending in-chat work, and an optional one-click handoff prompt for a new chat.</div>
     <div class="skill-trig"><strong>Say:</strong> "wrap up", "close out", "let's finish up"</div></div>
 
   <div class="callout blue" style="margin-top: 18px;">
-    <strong>Source of truth:</strong> the authoritative list, versions, and drift state live in <code class="inline">_Backups/skills/INDEX.md</code>. Run the verify procedure there to confirm installed copies match their backups before relying on any skill.
+    <strong>Source of truth:</strong> the authoritative list, versions, and drift state live in <code class="inline">Backups/skills/INDEX.md</code>. Run the verify procedure there to confirm installed copies match their backups before relying on any skill.
   </div>
 
 
   <div style="margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: #555; line-height: 1.6;">
-    <strong style="color: var(--dark);">Maintaining this doc?</strong> Folder maps come from a live scan of the workspace; the skill list comes from <code class="inline">_Backups/skills/INDEX.md</code> (<code class="inline">type: custom</code> rows). Re-verify both against disk before editing.
+    <strong style="color: var(--dark);">Maintaining this doc?</strong> Folder maps come from a live scan of the workspace; the skill list comes from <code class="inline">Backups/skills/INDEX.md</code> (<code class="inline">type: custom</code> rows). Re-verify both against disk before editing.
   </div>
 
 </div>
