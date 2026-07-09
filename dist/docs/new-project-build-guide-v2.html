@@ -18,17 +18,15 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
-  .header { background:#fff; color:#1e2a35; padding:28px 40px; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #9c6a00); border-radius:10px; max-width:900px; margin:0 auto;  overflow:hidden; }
-  .header-strip { margin:18px -40px 0; padding:9px 40px; background:color-mix(in srgb, var(--doc-accent,#9c6a00) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#9c6a00) 35%, #fff); color:var(--doc-accent,#9c6a00); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
-
+  .header { background: var(--dark); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--blue); }
   .header-inner { max-width: 960px; margin: 0 auto; }
-  .header h1 { color:#1e2a35; font-size: 26px; font-weight: 700; }
-  .header .sub { color:#5f6b76; opacity:1; font-size: 14px; margin-top: 6px; max-width: 620px; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.75; margin-top: 6px; max-width: 620px; }
   .header .badges { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
-  .header .badge { background:#f4f6f8; border:1px solid #dde3e8; color:#9c6a00; display: inline-block; border-radius: 20px; padding: 3px 12px; font-size: 12px; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 3px 12px; font-size: 12px; }
   .header .badge.blue { background: rgba(0,96,152,0.4); border-color: rgba(0,96,152,0.6); }
   .header .badge.green { background: rgba(107,192,75,0.35); border-color: rgba(107,192,75,0.6); }
-  .page { background:#fff; border:1px solid #dde3e8; border-radius:10px; max-width:900px; margin:20px auto 0; padding:28px 40px 60px; }
+  .page { max-width: 960px; margin: 0 auto; padding: 36px 60px 80px; }
 
   /* TOC */
   .toc { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 40px; }
@@ -146,7 +144,6 @@
       <div class="badge green">Build Guide v2.2 (2026-04-29) - revalidated against v5.16 on 2026-05-21</div>
     </div>
   </div>
-  <div class="header-strip">STAFF REFERENCE</div>
 </div>
 
 <div class="page">
@@ -280,12 +277,12 @@
       <div class="build-step-tool">Deep Research + KB Context Builder</div>
     </div>
     <div class="build-step-body">
-      <p><strong>Step 1 - Run Deep Research.</strong> Use the prompt in Manual Tasks Checklist Group 4 (Task 4-0). Deep Research hits all public-facing sources for STA - website, LinkedIn, industry databases, conference mentions, press - and saves structured modules to <code>knowledge-base/sta/sta-company-profile/</code>. This fills the web-researchable portion of every file above.</p>
+      <p><strong>Step 1 - Run Deep Research.</strong> Use the prompt in Manual Tasks Checklist Group 4 (Task 4-0). Deep Research hits all public-facing sources for STA - website, LinkedIn, industry databases, conference mentions, press - and saves structured modules to <code>Knowledge Base/sta/sta-company-profile/</code>. This fills the web-researchable portion of every file above.</p>
       <p><strong>Step 2 - Fill internal gaps.</strong> For the files marked "needs internal input" in the table above (team responsibilities, full customer list, ICP, partnership terms), gather that information directly from the relevant team member. Add it to the Deep Research modules or capture it as notes for Step 3.</p>
       <p><strong>Step 3 - Distill into context-shared files.</strong> Open The Architect and run the <code>knowledge-base-context-builder</code> skill, pointing it at the Deep Research output modules. It formats them into clean, upload-ready context files and saves them to <code>context-files/shared/</code>. The 7 files in the table above are the target outputs.</p>
       <p><strong>Step 4 - Upload to projects.</strong> Any Claude.ai Project that needs company context gets the relevant context-shared file(s) uploaded. Cowork projects read them directly from the workspace - no upload needed. When a file is updated, re-upload it to any Claude.ai Projects that use it.</p>
       <div class="callout blue" style="margin-top:12px;">
-        <strong>Context-shared vs. project-specific:</strong> Files in <code>context-files/shared/</code> are foundational - used across multiple projects. Files in <code>project-blueprints/[name]/</code> are project-specific (tone references, escalation paths, product-specific rules). When in doubt, put it in context-shared if more than one future project would need it.
+        <strong>Context-shared vs. project-specific:</strong> Files in <code>context-files/shared/</code> are foundational - used across multiple projects. Files in <code>Project Blueprints/[name]/</code> are project-specific (tone references, escalation paths, product-specific rules). When in doubt, put it in context-shared if more than one future project would need it.
       </div>
     </div>
   </div>
@@ -357,7 +354,7 @@
         The Architect saves <code>test-cases.md</code> (10 full test cases, not a scaffold), <code>registry-entry.md</code> (the row to add to context-agent-registry.md plus scope-overlap notes), <code>project-launch.md</code> (three copy-paste blocks: project instructions ready to paste into project settings, a numbered setup checklist of every manual step, and an initialization prompt to send as the first message to verify setup), and <code>handoff.md</code> (pipeline tracker).
       </div>
 
-      <div class="outputs-label">All saved to <code>The Architect/project-blueprints/[project-name]/</code></div>
+      <div class="outputs-label">All saved to <code>C:\Users\Adam\Documents\Claude\Project Blueprints\[project-name]/</code></div>
       <div class="output-pills">
         <span class="output-pill">blueprint-summary.md</span>
         <span class="output-pill">instructions.md (production-ready)</span>
@@ -369,12 +366,13 @@
       </div>
 
       <div class="callout blue" style="margin-top:14px;">
-        <strong>The Architect's four modes:</strong>
+        <strong>The Architect's five modes:</strong>
         <strong>Full Pipeline</strong> (new project from scratch - default).
         <strong>Polish Existing</strong> (you provide an existing prompt to bring up to standard; The Architect verifies via filesystem check that no live blueprint folder exists before treating as Polish).
         <strong>Quick Prompt</strong> (lightweight one-off, no pipeline tracking, no registry).
         <strong>Test Case Update</strong> (revise test-cases.md after any change to instructions - Project Feedback fix, manual edit, polish revision, eval-driven update).
-        The Architect picks the mode based on your opening message and confirms it back ("I'm reading this as [Mode] because [signal]. Sound right?") before running the workflow. If the opening is ambiguous, it surfaces both candidate modes and asks which applies. Quick Prompt skips the confirmation when triggers are unambiguous.
+        <strong>Advisory</strong> (expert Q&amp;A - opinions, assessments, recommendations; KB-grounded answers, no pipeline artifacts, no registry).
+        The Architect picks the mode based on your opening message and confirms it back ("I'm reading this as [Mode] because [signal]. Sound right?") before running the workflow. If the opening is ambiguous, it surfaces both candidate modes and asks which applies. Quick Prompt and Advisory skip the confirmation when intent is unambiguous.
       </div>
       <div class="callout blue" style="margin-top:8px;">
         <strong>Phase loopback:</strong> Phases run in sequence, but if a later phase reveals a miss in an earlier phase (e.g., Phase 4 needs a constraint that wasn't asked about in Discovery), The Architect returns to that phase rather than barreling forward. Single-sentence pause: "I'm at [phase] and just realized I never asked [question]. Going back to [earlier phase] for one question."
@@ -439,10 +437,10 @@
     <div class="build-step-body">
       <p>Open <strong>The Architect</strong> (or any Cowork session with the run-test-cases skill enabled) and trigger Run Test Cases by saying "test my project." Point it at the blueprint folder. It reads <code>instructions.md</code> and <code>test-cases.md</code>, runs all 10 cases (batch or walkthrough mode), and produces a report with pass/fail results and specific failure details.</p>
       <div class="prompt-label">Exact prompt:</div>
-      <pre class="prompt-block">Test my project. The blueprint is at project-blueprints/[project-name]/. Run all 10 test cases in batch mode and give me a full pass/fail report. Save the report as project-blueprints/[project-name]/test-report-[today's date].md</pre>
+      <pre class="prompt-block">Test my project. The blueprint is at Project Blueprints/[project-name]/. Run all 10 test cases in batch mode and give me a full pass/fail report. Save the report as Project Blueprints/[project-name]/test-report-[today's date].md</pre>
       <p>A pass rate of 8/10 or higher is the target before going live with a team-facing tool. For admin-only tools, 7/10 is acceptable if the failures are edge cases.</p>
       <p>Run Test Cases checks the v3.0 timing rule automatically: if test-cases.md and instructions.md were produced against different versions, it flags the mismatch before running.</p>
-      <div class="outputs-label">Saved to <code>project-blueprints/[project-name]/</code></div>
+      <div class="outputs-label">Saved to <code>Project Blueprints/[project-name]/</code></div>
       <div class="output-pills">
         <span class="output-pill">test-report-[date].md</span>
       </div>
@@ -462,7 +460,7 @@
     <div class="build-step-body">
       <p>For each failure in the test report (or each issue spotted in live use), trigger the Project Feedback skill. Describe what went wrong. Project Feedback reads the current instructions, identifies the root cause (Missing instruction / Wrong instruction / Conflicting instructions / Scope gap / Overly broad instruction), and produces the exact text to add, change, or remove.</p>
       <div class="prompt-label">Prompt format:</div>
-      <pre class="prompt-block">Fix my project. Blueprint at project-blueprints/[project-name]/. Issue: [paste the failure or describe the bad behavior]. The correct behavior should be: [describe what should have happened].</pre>
+      <pre class="prompt-block">Fix my project. Blueprint at Project Blueprints/[project-name]/. Issue: [paste the failure or describe the bad behavior]. The correct behavior should be: [describe what should have happened].</pre>
       <p>After applying the fix, re-paste the updated instructions into the deployed workspace or project. Increment the version in the instructions.md changelog and in <code>handoff.md</code> (v1.0 - v1.1 - etc.).</p>
       <p>If the fix changes test coverage, take the updated instructions back to The Architect and ask it to run the Test Case Update workflow. The Architect compares the changelog entry to the existing test cases and produces a revised <code>test-cases.md</code> with [UPDATED] and [NEW] markers. Re-run Run Test Cases after.</p>
       <p>Repeat until you hit your target pass rate.</p>
@@ -481,10 +479,10 @@
     </div>
     <div class="build-step-body">
       <p>Once the project passes testing, do the following in order:</p>
-      <p><strong>1. Apply the registry entry.</strong> Open <code>The Architect/context-agent-registry.md</code> and append (or update) the row from <code>project-blueprints/[project-name]/registry-entry.md</code>. Status moves from Draft to Active here.</p>
+      <p><strong>1. Apply the registry entry.</strong> Open <code>The Architect/context-agent-registry.md</code> and append (or update) the row from <code>Project Blueprints/[project-name]/registry-entry.md</code>. Status moves from Draft to Active here.</p>
       <p><strong>2. Finalize handoff.md.</strong> Confirm Status = Active, Current Version matches the deployed version, Testing row reflects the run-test-cases report, and all open USER TO PROVIDE markers are resolved.</p>
       <p><strong>3. Update AI System Overview Admin.html</strong> if the new project changes anything about how the system works or introduces a new tool type.</p>
-      <p><strong>4. If the project has a knowledge base dependency</strong>, confirm the relevant module exists in <code>knowledge-base/index.md</code> and that the context file uploaded to the project is current.</p>
+      <p><strong>4. If the project has a knowledge base dependency</strong>, confirm the relevant module exists in <code>Knowledge Base/index.md</code> and that the context file uploaded to the project is current.</p>
       <div class="callout blue" style="margin-top:12px;">
         <strong>Backup note:</strong> The workspace folder is automatically backed up to GitHub every 30 minutes via Obsidian Git. No manual step required - keep Obsidian open while working and changes are committed and pushed automatically. Repo: <a href="https://github.com/abaker421/school-tech-ai-system" target="_blank">github.com/abaker421/school-tech-ai-system</a> (private).
       </div>
@@ -511,43 +509,43 @@
     <tbody>
       <tr>
         <td><code>blueprint-summary.md</code></td>
-        <td><code>project-blueprints/[name]/</code></td>
+        <td><code>Project Blueprints/[name]/</code></td>
         <td>Plain-language scope, audience, design decisions, open USER TO PROVIDE markers, tool assessment</td>
         <td>At project creation - rarely after</td>
       </tr>
       <tr>
         <td><code>instructions.md</code></td>
-        <td><code>project-blueprints/[name]/</code></td>
+        <td><code>Project Blueprints/[name]/</code></td>
         <td>Production-ready system prompt with version changelog. Source of truth for what is pasted into the live workspace.</td>
         <td>Every time Project Feedback or The Architect produces a change. Always increments version.</td>
       </tr>
       <tr>
         <td><code>test-cases.md</code></td>
-        <td><code>project-blueprints/[name]/</code></td>
+        <td><code>Project Blueprints/[name]/</code></td>
         <td>10 complete test cases (3 normal use, 2 ambiguous, 2 uncertainty, 2 edge case, 1 output format)</td>
         <td>Produced after instructions.md is confirmed final. Updated by The Architect's Test Case Update mode after fixes.</td>
       </tr>
       <tr>
         <td><code>registry-entry.md</code></td>
-        <td><code>project-blueprints/[name]/</code></td>
+        <td><code>Project Blueprints/[name]/</code></td>
         <td>The canonical row for context-agent-registry.md plus scope-overlap notes</td>
         <td>At project creation. Updated if registry layout changes.</td>
       </tr>
       <tr>
         <td><code>handoff.md</code></td>
-        <td><code>project-blueprints/[name]/</code></td>
+        <td><code>Project Blueprints/[name]/</code></td>
         <td>Pipeline tracker - which stages are complete, current version, deployment target, notes</td>
         <td>Every time a stage transitions (testing complete, version increments, etc.)</td>
       </tr>
       <tr>
         <td><code>test-report-[date].md</code></td>
-        <td><code>project-blueprints/[name]/</code></td>
+        <td><code>Project Blueprints/[name]/</code></td>
         <td>Most recent Run Test Cases run results</td>
         <td>After each Run Test Cases run (supersedes prior reports)</td>
       </tr>
       <tr>
         <td><code>context-tone-reference.md</code></td>
-        <td><code>project-blueprints/[name]/</code></td>
+        <td><code>Project Blueprints/[name]/</code></td>
         <td>Tone and style reference for the project (optional)</td>
         <td>Created if the project has tone-sensitive output. Upload as context to the live project.</td>
       </tr>
