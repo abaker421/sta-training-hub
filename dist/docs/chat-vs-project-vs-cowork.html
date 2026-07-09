@@ -144,7 +144,7 @@
 <div class="header">
   <div class="header-inner">
     <h1>Chat vs Project vs Cowork</h1>
-    <div class="sub">Three ways to work with AI at School Tech. Once you're past the basics, knowing which one to reach for saves real time. Here's what each is, when to use it, and where each one bites.</div>
+    <div class="sub">Two choices, not three tabs: which <strong>mode</strong> you work in (Chat or Cowork) and which <strong>container</strong> holds your context (a Project or a folder). Knowing which to reach for saves real time. Here's what each is, when to use it, and where each one bites.</div>
     <div class="badge">For Staff - Intermediate</div>
   </div>
   <div class="header-strip">STAFF REFERENCE</div>
@@ -154,22 +154,24 @@
 
   <!-- 1 Quick frame -->
   <div class="section-title">Quick frame</div>
+  <p class="section-intro">There's one <strong>Home tab</strong>. Two separate pickers in the composer decide how a task runs: a <strong>mode</strong> and a <strong>container</strong>. They're independent - you set both.</p>
   <ul class="deep-list">
-    <li><strong>Plain chat</strong> - a blank conversation with no School Tech setup. Fast, personal, forgets everything when you close it.</li>
-    <li><strong>Project</strong> - a chat pre-loaded with School Tech context and reference files. This is what you use for real work day to day.</li>
-    <li><strong>Cowork</strong> - a desktop app where Claude can actually do things - work with files on your computer, run code, and run jobs on a schedule. Admins and power users only.</li>
+    <li><strong>Mode - Chat or Cowork</strong> (a toggle in the composer). <strong>Chat</strong> answers you. <strong>Cowork</strong> does things - works with files on your computer, runs code, runs jobs on a schedule. You pick the mode per task.</li>
+    <li><strong>Container - Project or folder</strong> (a separate picker). A <strong>Project</strong> is a claude.ai workspace pre-loaded with School Tech context and shareable with the team. A <strong>folder</strong> is a location on your computer that a Cowork-mode session reads on demand.</li>
+    <li><strong>Put them together:</strong> "a Project" = a shared, STA-loaded workspace you normally use in Chat mode. "a Cowork project" = Cowork mode pointed at a folder. Mode and container are separate choices, not one setting.</li>
   </ul>
-  <div class="callout blue"><strong>Not sure which you're in?</strong> If it already knows School Tech, you're in a Project. If it can open files on your computer, that's Cowork. Otherwise it's a plain chat.</div>
+  <div class="callout blue"><strong>Two dials, not three tabs.</strong> Older guides called Chat, Project, and Cowork separate tabs. They aren't - there's one Home tab, and you set the mode (Chat/Cowork) and the container (Project/folder) in the composer for each task.</div>
 
   <!-- 2 At a glance -->
   <div class="section-title">At a glance</div>
   <div class="glance-wrap">
     <table class="glance">
-      <thead><tr><th scope="col"></th><th scope="col">Plain chat</th><th scope="col">Project</th><th scope="col">Cowork</th></tr></thead>
+      <thead><tr><th scope="col"></th><th scope="col">Plain chat</th><th scope="col">Project</th><th scope="col">Cowork mode</th></tr></thead>
       <tbody>
-        <tr><th scope="row">Setup needed</th><td>None</td><td>Pre-loaded with STA context</td><td>Desktop app + connect a folder</td></tr>
-        <tr><th scope="row">Remembers context</th><td>Only within that one chat</td><td>Keeps its setup files every time</td><td>Keeps memory inside a Cowork Project</td></tr>
-        <tr><th scope="row">Touches your files</th><td>No</td><td>No (uploads only)</td><td>Yes - reads and writes files on your computer</td></tr>
+        <tr><th scope="row">What it is</th><td>Chat mode, no container</td><td>A container (loads STA context)</td><td>A mode (composer toggle)</td></tr>
+        <tr><th scope="row">Setup needed</th><td>None</td><td>Pre-loaded with STA context</td><td>Desktop + a folder; mode set in the composer</td></tr>
+        <tr><th scope="row">Remembers context</th><td>Only within that one chat</td><td>Front-loads its context files every conversation</td><td>Reads its folder on demand each session</td></tr>
+        <tr><th scope="row">Touches your files</th><td>No</td><td>No (uploads only)</td><td>Yes, on desktop - reads and writes files in its folder</td></tr>
         <tr><th scope="row">Shareable with the team</th><td>No</td><td>Yes</td><td>No - each person runs their own</td></tr>
         <tr><th scope="row">Who has it at STA</th><td>Everyone</td><td>Everyone (our daily tools)</td><td>Admins and power users</td></tr>
         <tr><th scope="row">Best for</th><td>Quick one-off questions</td><td>Real STA work</td><td>File work, automations, scheduled jobs</td></tr>
@@ -179,7 +181,7 @@
 
   <!-- 3 Plain chat -->
   <div class="section-title">Plain chat</div>
-  <p class="doc-p"><strong>What it is:</strong> a fresh conversation with no STA setup. It knows nothing about us unless you paste it in, and it starts blank every time you open a new one.</p>
+  <p class="doc-p"><strong>What it is:</strong> Chat mode with no Project loaded - a fresh conversation with no STA setup. It knows nothing about us unless you paste it in, and it starts blank every time you open a new one.</p>
   <p class="doc-p"><strong>Reach for it when:</strong> you want a quick reword, a definition, a one-off rewrite, or a personal question that has nothing to do with STA data.</p>
   <p class="doc-p"><strong>STA examples:</strong> "Reword this sentence to sound friendlier." "What does SAML mean in plain English?" "Draft a quick thank-you note."</p>
   <div class="callout orange"><strong>Watch out:</strong> it forgets everything when you close it, and it has zero School Tech context.</div>
@@ -187,7 +189,7 @@
   <!-- 4 Projects -->
   <div class="section-title">Projects</div>
   <p class="doc-p"><strong>What it is:</strong> a chat that's pre-loaded with School Tech instructions and reference files (a built-in knowledge base). It already knows our products, customers, processes, and tone, so you skip the explaining and just ask.</p>
-  <p class="doc-p"><strong>Where you find it:</strong> a Project is a Claude.ai Project, and you open it from the <strong>Chat tab</strong> (top-left). Every staff tool - AI Advisor, STA Support Chat, Salesforce Cohort - is a Project you reach from the Chat tab. This is the surface staff use day to day. (Not to be confused with Cowork, which lives on its own separate Cowork tab - see below.)</p>
+  <p class="doc-p"><strong>Where you find it:</strong> a Project is a claude.ai Project - you open it from the Home tab and it loads its context automatically. Every staff tool - AI Advisor, STA Support Chat, Salesforce Cohort - is a Project. You normally work in a Project in <strong>Chat</strong> mode. A Project is a <em>container</em> (what context is loaded), not a mode - so "a Project" and "Cowork" aren't opposites; you can even open a Project in Cowork mode if you have access.</p>
   <p class="doc-p"><strong>Our live Projects:</strong> AI Advisor (all staff), STA Support Chat (support team), Salesforce Cohort (any Salesforce user, mostly our SF admins).</p>
   <p class="doc-p"><strong>Reach for it when:</strong> you're doing real STA work - troubleshooting, customer drafts, Salesforce guidance - or anything a teammate should be able to use too, since Projects are shareable.</p>
   <p class="doc-p"><strong>Good to know:</strong> a Project keeps its setup files loaded every time, but it still won't recall yesterday's conversation unless that info lives in the project.</p>
@@ -195,8 +197,8 @@
 
   <!-- 5 Cowork -->
   <div class="section-title">Cowork</div>
-  <p class="doc-p"><strong>What it is:</strong> the desktop app where Claude can take real action - read and write files on your computer, run code, run jobs on a schedule, and split big tasks into sub-tasks. It's the "do things for me" surface, not just "answer me."</p>
-  <p class="doc-p"><strong>Where you find it:</strong> Cowork uses its own separate <strong>Cowork tab</strong> - not the Chat tab where Projects live. We deliberately say "Project" for the Chat-tab tools and "Cowork" for the Cowork-tab workspace; they are not the same thing. The Cowork tab is for admins and power users.</p>
+  <p class="doc-p"><strong>What it is:</strong> <strong>Cowork mode</strong> - flip the composer from Chat to Cowork and Claude can take real action: read and write files on your computer, run code, run jobs on a schedule, and split big tasks into sub-tasks. It's the "do things for me" mode, not just "answer me."</p>
+  <p class="doc-p"><strong>Where you find it:</strong> it's a toggle in the composer on the Home tab, not a separate place - you pick Chat or Cowork per task, then point the session at a folder (the container) so it has somewhere to work. <strong>Desktop-only for file work:</strong> Cowork mode itself runs on web and mobile (beta), but the local file and browser access is desktop-only. At STA, file-access Cowork projects run on the AI Admin PC with the folder mounted - you can't run one from web or mobile.</p>
   <p class="doc-p"><strong>Who has it at STA:</strong> admins and power users only.</p>
   <p class="doc-p"><strong>Worth it when:</strong> multi-file work, a recurring or scheduled output (like a weekly digest), or a long multi-step job that would overwhelm a single chat. For anything that's just one question, use a Project instead - Cowork uses more of our usage allowance.</p>
   <p class="doc-p"><strong>Needs your computer awake:</strong> scheduled jobs skip if the machine is asleep or the app is closed.</p>
@@ -218,6 +220,8 @@
     <li>Cowork only runs while your computer is on and awake.</li>
     <li>Cowork uses more usage than a Project - don't reach for it for one-off questions.</li>
     <li>Cowork is never for student, HR, or restricted data - there's no audit trail.</li>
+    <li>Mode (Chat/Cowork) and container (Project/folder) are separate picks - a Project isn't a mode, and Cowork isn't a tab.</li>
+    <li>Cowork mode runs on web and mobile, but file and browser access is desktop-only - STA's file-access projects run on the AI Admin PC.</li>
   </ul>
 
   <!-- 8 Next step -->
