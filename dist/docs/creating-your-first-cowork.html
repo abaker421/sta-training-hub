@@ -17,14 +17,12 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #ffffff; color: var(--dark); line-height: 1.65; }
-  .header { background:#fff; color:#1e2a35; padding:28px 40px; border:1px solid #dde3e8; border-top:6px solid #006098; border-radius:10px; max-width:900px; margin:0 auto;  overflow:hidden; }
-  .header-strip { margin:18px -40px 0; padding:9px 40px; background:color-mix(in srgb, var(--doc-accent,#006098) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#006098) 35%, #fff); color:var(--doc-accent,#006098); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
-
+  .header { background: var(--blue); color: white; padding: 40px 60px 36px; border-bottom: 5px solid var(--green); }
   .header-inner { max-width: 760px; margin: 0 auto; }
-  .header h1 { color:#1e2a35; font-size: 26px; font-weight: 700; }
-  .header .sub { color:#5f6b76; opacity:1; font-size: 14px; margin-top: 6px; max-width: 620px; }
-  .header .badge { background:#f4f6f8; border:1px solid #dde3e8; color:#006098; display: inline-block; border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; margin-right: 6px; }
-  .page { background:#fff; border:1px solid #dde3e8; border-radius:10px; max-width:900px; margin:20px auto 0; padding:28px 40px 60px; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .sub { font-size: 14px; opacity: 0.85; margin-top: 6px; max-width: 620px; }
+  .header .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 12px; font-size: 12px; margin-top: 12px; margin-right: 6px; }
+  .page { max-width: 760px; margin: 0 auto; padding: 40px 60px 80px; }
 
   .section-title { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--blue-dark); margin: 48px 0 18px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
   .section-title:first-of-type { margin-top: 0; }
@@ -68,15 +66,14 @@
     <div class="badge">Power Users</div>
     <div class="badge">Intermediate</div>
   </div>
-  <div class="header-strip">STAFF REFERENCE</div>
 </div>
 
 <div class="page">
 
   <div class="section-title">Before You Start</div>
-  <p class="intro">A Cowork project is a configured workspace inside the Claude desktop app: its own instructions, its own folder on the PC it runs on, and its own set of context files and skills. That's what separates it from a regular chat (no memory of your setup) and from a claude.ai team Project (shared, but no file access). If you're not sure which of the three you need, read <strong>Chat vs Project vs Cowork</strong> first - it's the deciding-between-them guide.</p>
+  <p class="intro">A Cowork project is a workspace you build in <strong>Cowork mode</strong>: its own instructions, its own folder on the PC it runs on, and its own set of context files and skills. Cowork isn't a separate app or tab - it's a mode you flip on in the composer from the Home tab, chosen per task. What sets a Cowork project apart from a regular chat (no memory of your setup) and from a claude.ai team Project (shared, but no file access) is that folder-and-instructions setup. If you're not sure which of the three you need, read <strong>Chat vs Project vs Cowork</strong> first - it's the deciding-between-them guide.</p>
 
-  <div class="callout"><strong>Access check:</strong> Cowork runs in the Claude desktop app and requires power-user access. Regular staff use the claude.ai team Projects (AI Advisor, STA Support Chat, STA Salesforce Cohort). If you think a workflow you own needs a Cowork project, start with a chat in the AI Advisor - it will help you shape the idea into something buildable.</div>
+  <div class="callout"><strong>Access check:</strong> Cowork mode is available on web and mobile (beta), but the local file and browser access a Cowork project depends on is <strong>desktop-only</strong>. An STA file-access project still runs on the AI Admin PC with its folder mounted, and needs power-user access. Regular staff use the claude.ai team Projects (AI Advisor, STA Support Chat, STA Salesforce Cohort). If you think a workflow you own needs a Cowork project, start with a chat in the AI Advisor - it will help you shape the idea into something buildable.</div>
 
   <div class="callout red"><strong>Data rule still applies:</strong> a Cowork project can read files on the PC it runs on. The AI Restricted Data Reference Guide applies to folders exactly as it does to pasted text - never point a project at folders containing student PII, HR records, financials, or credentials.</div>
 
@@ -94,8 +91,8 @@
   <div class="step">
     <div class="step-num">2</div>
     <div>
-      <div class="step-title">Create the project in Cowork</div>
-      <div class="step-desc">Open the Claude desktop app, switch to Cowork, and create a new project. Name it for the job, not the tool ("Help Center Advisor," not "Claude Helper"). The name shows up in every session header, so make it say what it does.</div>
+      <div class="step-title">Create the project in Cowork mode</div>
+      <div class="step-desc">From the Home tab, switch the composer to <strong>Cowork mode</strong> and create a new project. Mode (Chat vs Cowork) and container (Project vs folder) are two separate pickers now - you want a Cowork-mode project pointed at its own folder. Name it for the job, not the tool ("Help Center Advisor," not "Claude Helper"). The name shows up in every session header, so make it say what it does.</div>
     </div>
   </div>
 
@@ -174,7 +171,7 @@
 </div>
 
 <div class="footer">
-  <strong>School Technology Associates</strong> &nbsp;|&nbsp; AI Training Kit - Creating Your First Cowork Project &nbsp;|&nbsp; Updated 2026-06-06
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; AI Training Kit - Creating Your First Cowork Project &nbsp;|&nbsp; Updated 2026-07-09
 </div>
 
 </body>
