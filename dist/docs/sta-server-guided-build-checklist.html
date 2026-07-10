@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STA Company Server - Guided Build Checklist</title>
+<style>
+  :root{
+    --blue:#006098; --blue-d:#004a78; --blue-l:#0a73b3; --green:#6bc04b; --green-d:#4f9a31;
+    --ink:#1a2332; --muted:#6b7280; --line:#dde1e6; --bg:#eef1f4; --card:#fff; --chip:28px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14.5px;line-height:1.55;padding:24px 16px 48px}
+  .container{max-width:760px;margin:0 auto}
+
+  .masthead{background:linear-gradient(120deg,var(--blue-d) 0%,var(--blue) 60%,var(--blue-l) 100%);border-radius:10px;box-shadow:0 1px 2px rgba(15,23,42,.06);padding:24px 30px 20px;margin-bottom:16px;color:#fff}
+  .masthead .eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--green);margin-bottom:12px}
+  .masthead .eyebrow::before{content:"";width:14px;height:14px;border-radius:3px;background:var(--green)}
+  .masthead h1{font-size:28px;font-weight:700;letter-spacing:-.4px;line-height:1.12;margin-bottom:18px}
+  .masthead .meta{display:flex;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+  .masthead .field{flex:1;min-width:170px}
+  .masthead .field label{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.7);margin-bottom:5px}
+  .masthead .field input{width:100%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;font:inherit;font-size:14px;padding:8px 11px;border-radius:6px}
+  .masthead .field input::placeholder{color:rgba(255,255,255,.55)}
+  .masthead .field input:focus{outline:none;border-color:var(--green);background:rgba(255,255,255,.2)}
+  .progress-row{display:flex;align-items:center;gap:12px}
+  .progress-bar-outer{flex:1;height:9px;background:rgba(255,255,255,.22);border-radius:5px;overflow:hidden}
+  .progress-bar-inner{height:100%;border-radius:5px;width:0%;background:var(--green);transition:width .3s ease}
+  .progress-count{font-size:12.5px;font-weight:600;color:#fff;white-space:nowrap}
+  .reset-link{background:none;border:1px solid rgba(255,255,255,.4);cursor:pointer;font:inherit;font-size:12px;color:#fff;white-space:nowrap;padding:3px 9px;border-radius:5px}
+  .reset-link:hover{background:rgba(255,255,255,.15)}
+  .reset-link[hidden]{display:none}
+
+  .intro-callout{background:#eaf2f8;border-left:4px solid var(--blue);border-radius:0;padding:14px 18px 12px;margin-bottom:16px}
+  .intro-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--blue);margin-bottom:8px}
+  .intro-callout ul{margin:0;padding-left:18px}
+  .intro-callout li{font-size:13.5px;line-height:1.55;margin-bottom:3px}
+  .intro-callout li:last-child{margin-bottom:0}
+
+  .section{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 1px 2px rgba(15,23,42,.06);margin-bottom:12px;overflow:hidden}
+  .section-header{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .section-num{width:var(--chip);height:var(--chip);border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s ease}
+  .section[data-complete] .section-num{background:var(--green)}
+  .section-title{font-size:15px;font-weight:600;flex:1}
+  .section-check{width:20px;height:20px;flex-shrink:0;opacity:0;transition:opacity .2s ease}
+  .section[data-complete] .section-check{opacity:1}
+  ul.items{list-style:none;padding:6px 18px 10px}
+  ul.items>li{padding:9px 0;border-bottom:1px solid #f0f2f5}
+  ul.items>li:last-child{border-bottom:none}
+  ul.items input[type="checkbox"]{display:none}
+  ul.items label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;width:100%}
+  .cb-box{width:18px;height:18px;border-radius:4px;border:2px solid #c5cdd6;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;background:#fff;transition:border-color .15s,background .15s}
+  input[type="checkbox"]:checked+label .cb-box{background:var(--blue);border-color:var(--blue)}
+  input[type="checkbox"]:checked+label .cb-box::after{content:"";width:10px;height:6px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translateY(-1px);display:block}
+  .item-text{font-size:14px;line-height:1.5;font-weight:500}
+  input[type="checkbox"]:checked+label .item-text{text-decoration:line-through;color:var(--muted)}
+
+  /* expandable "How to do this" */
+  details.how{margin:7px 0 2px 28px}
+  details.how>summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--blue);list-style:none;display:inline-flex;align-items:center;gap:6px;padding:2px 0;user-select:none}
+  details.how>summary::-webkit-details-marker{display:none}
+  details.how>summary::before{content:"\25B8";font-size:11px}
+  details.how[open]>summary::before{content:"\25BE"}
+  details.how>summary:hover{color:var(--blue-l)}
+  .how-body{font-size:13px;color:#374151;background:#f7f9fb;border:1px solid var(--line);border-radius:8px;padding:11px 14px;margin-top:7px;line-height:1.55}
+  .how-body p{margin:0 0 7px}
+  .how-body p:last-child{margin-bottom:0}
+  .how-body ol,.how-body ul{margin:4px 0 7px 18px}
+  .how-body li{padding:2px 0;border:none !important}
+  .how-body code{background:#eef1f4;padding:1px 5px;border-radius:4px;font-size:12px;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .how-body .tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:2px 7px;border-radius:10px;margin-bottom:7px}
+  .tag.clicks{background:#e3f0f8;color:var(--blue-d)}
+  .tag.build{background:#fdeede;color:#9a5b14}
+  .how-body .ask{display:block;margin-top:7px;padding:9px 11px;background:#eef6ee;border-left:3px solid var(--green);border-radius:0 6px 6px 0;font-size:12.5px}
+  .how-body .ask b{color:var(--green-d)}
+  .how-body .check{display:block;margin-top:7px;font-size:12.5px;color:var(--ink)}
+  .how-body .check b{color:var(--blue)}
+
+  .ref-card{background:var(--card);border:1px solid var(--blue);border-radius:10px;padding:16px 20px;margin-top:8px}
+  .ref-card h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--blue);margin-bottom:10px}
+  .ref-card ul{list-style:none}
+  .ref-card li{padding:5px 0;border-bottom:1px solid #f0f2f5;font-size:13.5px}
+  .ref-card li:last-child{border-bottom:none}
+  .ref-card a{color:var(--blue);text-decoration:none;font-weight:500}
+  .ref-card a:hover{text-decoration:underline}
+  .ref-note{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+  footer{text-align:center;font-size:12px;color:var(--muted);margin-top:28px}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="masthead">
+    <div class="eyebrow">STA Infrastructure - Guided Server Build (SOW v1.3)</div>
+    <h1>STA Company Server Guided Build Checklist</h1>
+    <div class="meta">
+      <div class="field"><label>Completed by</label><input type="text" id="meta-name" data-meta placeholder="Your name"></div>
+      <div class="field"><label>Date</label><input type="text" id="meta-date" data-meta placeholder="YYYY-MM-DD"></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="progress-bar"></div></div>
+      <span class="progress-count"><span id="done-count">0</span> / <span id="total-count">0</span> complete</span>
+      <button type="button" id="reset-progress" class="reset-link" hidden>Reset</button>
+    </div>
+  </header>
+
+  <div class="intro-callout">
+    <div class="intro-label">Read first</div>
+    <ul>
+      <li>Every step has a <b>"How to do this"</b> dropdown - click it for the plain-English walkthrough.</li>
+      <li>Blue <b>CLICKS</b> tag = you can do it yourself by clicking/typing. Orange <b>BUILD</b> tag = a coding step: the dropdown gives you the exact thing to paste to Claude Code (or Adam's assistant) and how to confirm it worked.</li>
+      <li>You do not need to know how to code - on BUILD steps you are the director, not the typist.</li>
+      <li>Work top to bottom. Don't start Section 08 (Shared Brain) keys until the exclusion list is signed (step 39).</li>
+      <li>Checkboxes save to this browser automatically; reopen anytime and your progress is restored.</li>
+      <li><b>Refreshed 2026-06-25:</b> the 2026-06-24 audit's local-PC items were folded in as <b>Section 11</b> (local scheduled-task watchdog + GitHub restore drill), and the exclusion gate (step 39) now points to the full sign-off sheet. The server's own watchdog/restore stay at steps 22-23.</li>
+      <li><b>Verified 2026-07-08:</b> every external claim in the plan was re-checked and holds - Lightsail $12/mo 2GB + 3 free months, Granola API still read-only, n8n license fine for internal use. Three flags folded in: the <b>MCP spec finalizes 7/28/26</b> (the same window as server stand-up - see the Shared Brain steps), healthchecks.io's free tier caps at <b>20 checks</b> total (server + Section 11 combined), and Claude connectors now accept a key sent as a <b>request header</b> (cleaner than the URL key). New steps added: swap file, off-server secrets backup, <code>meetings</code> DNS record. A duplicate-checkbox bug in this file was also fixed - if two Shared Brain items show un-checked that you previously checked, re-check them once.</li>
+      <li><b>Scope v1.6 (7/9/26):</b> two security steps added after Adam's hardening request - <b>private admin plane</b> (Section 03) and the <b>security-extras bundle</b> (Section 04) - plus a plain-text rule on the meeting browser. The approved v2 additions (self-healing, /kb slash command, status page, restic backup, and more) live in <b>SOW Section 12</b> and <code>backlog.md</code> - they come AFTER this build, don't chase them during WS1-WS3.</li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title">Pre-flight and prerequisites</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="items">
+      <li>
+        <input type="checkbox" id="i1"><label for="i1"><span class="cb-box"></span><span class="item-text">Confirm approval is recorded and agree the budget alarm number with Tanya.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>Andy already approved this (6/19). The actual alarm gets set inside AWS in step 7 - here you just agree the number with Tanya so it's not a surprise.</p>
+          <ol><li>Tell Tanya: the server runs about <code>$15/mo</code> and you want an email alert if it ever crosses <code>$25</code>.</li><li>Confirm she has, or will accept, access to AWS billing.</li></ol>
+          <span class="check"><b>Done when:</b> Tanya knows the $25 trip-wire and expects the AWS billing invite.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i2"><label for="i2"><span class="cb-box"></span><span class="item-text">Confirm you'll have DNS (Namecheap) access for k12sta.com.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>"DNS" is just the address book that points web names at servers. You'll need to log into Namecheap (where k12sta.com lives) to add two small addresses later. Nothing changes today - you're only confirming access.</p>
+          <ol><li>This is the Namecheap login you're requesting from Chris in your email.</li><li>Once you have it, log in and find the k12sta.com domain's "Advanced DNS" area - just confirm you can see it.</li></ol>
+          <span class="check"><b>Done when:</b> you can log into Namecheap and view k12sta.com's DNS records.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i3"><label for="i3"><span class="cb-box"></span><span class="item-text">Confirm the KB content repo exists and create a new private repo for the server config.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>GitHub keeps a safe copy of the server's setup so nothing important lives only on the box. The knowledge-base repo already exists; you just need one new empty repo for the server's config and runbook.</p>
+          <ol><li>On github.com, click <b>New repository</b>.</li><li>Name it <code>sta-server</code>, set it to <b>Private</b>, click <b>Create</b>.</li></ol>
+          <span class="check"><b>Done when:</b> an empty private <code>sta-server</code> repo exists.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i4"><label for="i4"><span class="cb-box"></span><span class="item-text">Collect the three Granola API keys (you, Chris, Tyler) via secure handoff.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>Each person makes their own read-only key so the meeting digest can see their customer calls. A key only ever sees its owner's notes.</p>
+          <ol><li>Each person: Granola desktop &rarr; <b>Settings &rarr; Connectors &rarr; API keys &rarr; Create new key</b>.</li><li>Choose scope <b>"Personal notes"</b> &rarr; <b>Generate</b> &rarr; copy the <code>grn_...</code> key (shown once).</li><li>Send it to whoever sets up the server through a password manager - not plain email or Slack.</li></ol>
+          <span class="check"><b>Done when:</b> three <code>grn_</code> keys are collected and stored securely.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i5"><label for="i5"><span class="cb-box"></span><span class="item-text">Note the AWS free-period start date for the 90-day review.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>Lightsail is free for the first 3 months. You want to decide keep-or-kill before paid billing begins.</p>
+          <ol><li>When you create the server (step 8), write the date down.</li><li>Set a calendar reminder ~80 days later for the review.</li></ol>
+          <span class="check"><b>Done when:</b> the start date is recorded and a reminder is set.</span>
+        </div></details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title">WS1 - Cloud account and server stand-up</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="items">
+      <li>
+        <input type="checkbox" id="i6"><label for="i6"><span class="cb-box"></span><span class="item-text">Create the AWS account (company email + MFA) and add Tanya to billing.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>AWS is the company that rents us the server. MFA = a second login code (from a phone app) so the account can't be hijacked by a password alone.</p>
+          <ol><li>Go to <code>aws.amazon.com</code> &rarr; Create an AWS Account, using a company email (not personal).</li><li>In the account, turn on MFA for the root login (Security Credentials &rarr; assign an authenticator app).</li><li>Under IAM/Account, give Tanya billing access.</li></ol>
+          <span class="check"><b>Done when:</b> you can sign in with the phone code and Tanya can see billing.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i7"><label for="i7"><span class="cb-box"></span><span class="item-text">Set a $25/mo budget alarm and turn on CloudTrail.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>The budget alarm emails you if spend ever crosses $25 (it should sit near $15). CloudTrail is a log of who did what in the account - turn it on day one so there's a record.</p>
+          <ol><li>AWS console search bar &rarr; <b>Budgets</b> &rarr; Create budget &rarr; monthly &rarr; $25 &rarr; your email.</li><li>Search bar &rarr; <b>CloudTrail</b> &rarr; create a trail with default settings.</li></ol>
+          <span class="check"><b>Done when:</b> a $25 budget exists and CloudTrail shows "Logging on."</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i8"><label for="i8"><span class="cb-box"></span><span class="item-text">Provision a Lightsail 2GB Ubuntu 24.04 instance with a static IP.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>Lightsail is AWS's simple "give me a small server" product. "2GB" is its memory size; Ubuntu 24.04 is the operating system; a static IP is a permanent address so it never changes.</p>
+          <ol><li>AWS search bar &rarr; <b>Lightsail</b> &rarr; <b>Create instance</b>.</li><li>Platform: Linux/Unix; Blueprint: <b>OS Only &rarr; Ubuntu 24.04 LTS</b>; plan: the <b>2GB</b> bundle.</li><li>Name it <code>sta-server</code> &rarr; Create. Then Networking tab &rarr; <b>attach a static IP</b>.</li><li>Write down the static IP and today's date (step 5).</li></ol>
+          <span class="check"><b>Done when:</b> the instance shows "Running" and has a static IP.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i9"><label for="i9"><span class="cb-box"></span><span class="item-text">Create per-person IAM logins instead of sharing the root account.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>IAM users are individual logins so each person (you, Chris, Tyler) signs in as themselves - better security and a clean audit trail.</p>
+          <ol><li>AWS search bar &rarr; <b>IAM</b> &rarr; Users &rarr; Create user, one per person.</li><li>Give them appropriate access and require MFA.</li></ol>
+          <span class="check"><b>Done when:</b> each person has their own login (root is only for emergencies).</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i10"><label for="i10"><span class="cb-box"></span><span class="item-text">Open only ports 22, 80, and 443 in the Lightsail firewall.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>"Ports" are doors into the server. 22 = remote admin login, 80/443 = web pages. Everything else stays shut so there's less to attack.</p>
+          <ol><li>Lightsail &rarr; your instance &rarr; <b>Networking</b> tab.</li><li>Under firewall, keep only SSH (22), HTTP (80), HTTPS (443); remove anything else.</li></ol>
+          <span class="check"><b>Done when:</b> only 22, 80, and 443 are listed.</span>
+        </div></details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title">WS1 - Hardening (locking the server down)</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="items">
+      <li>
+        <input type="checkbox" id="i11"><label for="i11"><span class="cb-box"></span><span class="item-text">Switch SSH to key-only and turn off password login; verify a password is refused.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code</span>
+          <p>SSH is the secure remote door into the server. "Key-only" means you log in with a cryptographic key file instead of a password, which is far harder to break. This is command-line work - don't hand-type it blind.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "I have a fresh Lightsail Ubuntu 24.04 server at IP &lt;your IP&gt;. Walk me through connecting over SSH, setting up key-only login for my user, disabling password authentication, and then proving a password login is refused. Give me each command and tell me what to expect after each one."</span>
+          <span class="check"><b>Done when:</b> you can log in with your key, and a password login attempt is rejected.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i12"><label for="i12"><span class="cb-box"></span><span class="item-text">Enable the ufw firewall (only 22/80/443) and fail2ban.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code</span>
+          <p>ufw is a second firewall on the server itself (belt and suspenders with the Lightsail one). fail2ban automatically blocks anyone who keeps trying to break in.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "On my Ubuntu server, set up ufw to allow only ports 22, 80, and 443 and deny everything else, then install and enable fail2ban with sensible defaults for SSH. Give me the exact commands in order and how to confirm both are active."</span>
+          <span class="check"><b>Done when:</b> <code>ufw status</code> shows only 22/80/443 and fail2ban is running.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i13"><label for="i13"><span class="cb-box"></span><span class="item-text">Turn on automatic security updates.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code</span>
+          <p>This makes the server patch its own security holes automatically, so it stays safe without you babysitting it.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Enable unattended automatic security updates on Ubuntu 24.04 and show me how to confirm it's working."</span>
+          <span class="check"><b>Done when:</b> automatic security updates report as enabled.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i13b"><label for="i13b"><span class="cb-box"></span><span class="item-text">Put the admin plane (SSH + n8n login) on a private VPN, then close port 22 to the public internet.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code (added 7/9/26)</span>
+          <p>Right now SSH and the n8n login page would face the whole internet with fail2ban as the bouncer. A VPN overlay means only your devices can even see those doors - the public internet only ever sees 80/443. Two options: <b>WireGuard</b> (free forever, a little more setup) or <b>Tailscale Standard</b> ($8/user/mo - its free tier is licensed for non-commercial use only, verified 7/8/26). Pick at build time; WireGuard is the no-cost default.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Set up WireGuard on my Ubuntu 24.04 server and my Windows PC so I can reach SSH and the n8n web UI over the VPN only. Then walk me through closing port 22 in the Lightsail firewall and ufw, and restricting the n8n route in Caddy to VPN clients. Prove SSH from the public internet is refused and works over the VPN."</span>
+          <span class="check"><b>Done when:</b> SSH and n8n are reachable over the VPN, port 22 is closed publicly, and step 14's outside scan shows only 80/443 open.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i14"><label for="i14"><span class="cb-box"></span><span class="item-text">From an outside network, confirm only 22/80/443 are reachable.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>A final sanity check that the doors you closed are actually closed, tested from outside.</p>
+          <ol><li>Ask Claude Code to run a quick port scan against your IP, or use a free online port-check site for ports 22, 80, 443, and one random other (e.g. 3000).</li><li>The three should be open/expected; the random one should be closed.</li></ol>
+          <span class="check"><b>Done when:</b> only 22/80/443 respond; everything else is closed.</span>
+        </div></details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-title">WS1 - The software stack (n8n, Postgres, Caddy, kb-mcp)</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="items">
+      <li>
+        <input type="checkbox" id="i15"><label for="i15"><span class="cb-box"></span><span class="item-text">Install Docker and Docker Compose.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code</span>
+          <p>Docker lets the server run each piece of software in its own tidy "container" so they don't conflict. Compose is the tool that starts them all together from one file.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Install Docker Engine and the Docker Compose plugin on my Ubuntu 24.04 server, add my user to the docker group, and show me how to confirm both versions."</span>
+          <span class="check"><b>Done when:</b> <code>docker --version</code> and <code>docker compose version</code> both print a version.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i15b"><label for="i15b"><span class="cb-box"></span><span class="item-text">Add a 2GB swap file and check memory headroom.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code</span>
+          <p>2GB of RAM is n8n's documented minimum - the whole stack fits, but it's tight (n8n idles around 300-500MB, Postgres another 200-500MB). Swap is spill-over memory on disk that absorbs spikes, so one big workflow run can't crash the box. Standard practice on a 2GB server.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Add a 2GB swap file to my Ubuntu 24.04 server, make it persistent across reboots with sensible swappiness, and show me how to check memory headroom once my Docker stack is running."</span>
+          <span class="check"><b>Done when:</b> <code>free -h</code> shows 2GB swap active. Re-check headroom once kb-mcp goes live (SOW empirical question 2) - if it's constantly swapping, resize to the 4GB bundle (a reboot, not a migration).</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i16"><label for="i16"><span class="cb-box"></span><span class="item-text">Write the docker-compose file (n8n, Postgres 16, Caddy 2, kb-mcp) and commit it to GitHub.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code</span>
+          <p>This one file describes all four services and how they connect. It's the master recipe for the whole stack - and saving it to GitHub means the server can be rebuilt from scratch anytime.</p>
+          <p>The four pieces: <b>n8n</b> runs the automations, <b>Postgres</b> stores data (incl. the meeting digest), <b>Caddy</b> serves web pages + handles HTTPS, <b>kb-mcp</b> is the Shared Brain.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Write a docker-compose.yml for an STA server with four services: n8n, Postgres 16, Caddy 2, and a kb-mcp container. Use named volumes for data, put secrets in an .env file, and wire Caddy as the reverse proxy for n8n and the report site. Then commit it to my sta-server GitHub repo. Explain each section in plain English."</span>
+          <span class="check"><b>Done when:</b> a <code>docker-compose.yml</code> exists locally and in the <code>sta-server</code> repo.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i17"><label for="i17"><span class="cb-box"></span><span class="item-text">Create the DNS records and point Caddy at kb.k12sta.com and reports.k12sta.com.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks + Build</span>
+          <p>Two halves: in Namecheap you point the two web names at the server (clicks); in Caddy you tell the server to answer for them (Claude Code). Caddy then gets the secure-padlock (HTTPS) certificates automatically.</p>
+          <ol><li>Namecheap &rarr; k12sta.com &rarr; Advanced DNS &rarr; add three <b>A records</b>: host <code>kb</code>, host <code>reports</code>, and host <code>meetings</code> (the WS2b meeting browser at step 35 needs its own name), all pointing to your server's static IP.</li></ol>
+          <span class="ask"><b>Then paste to Claude Code:</b> "Configure my Caddyfile so kb.k12sta.com routes to the kb-mcp container and reports.k12sta.com serves the reports folder, both with automatic HTTPS."</span>
+          <span class="check"><b>Done when:</b> visiting <code>https://reports.k12sta.com</code> loads with a valid padlock.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i18"><label for="i18"><span class="cb-box"></span><span class="item-text">Set n8n's admin login and confirm its secret store is encrypted.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code</span>
+          <p>n8n is the automation tool you'll log into through a browser. It also safely stores the API keys (like the Granola keys) so they're never sitting in plain text. <b>The encryption key is the master key to every stored credential - copy it into the company password manager the moment it's set</b> (step 21b backs up all secrets together).</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Set an admin username/password for n8n via environment variables, set the n8n encryption key, set GENERIC_TIMEZONE and TZ to America/Chicago so schedules fire at Central time, and confirm the credentials store is encrypted. Tell me the URL to log in."</span>
+          <span class="check"><b>Done when:</b> you can log into n8n in a browser with your admin account.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i19"><label for="i19"><span class="cb-box"></span><span class="item-text">Start the stack, reboot the server, and confirm all four containers come back healthy.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code</span>
+          <p>This proves the server can recover on its own - if it ever restarts, everything should come back without you touching it.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Bring up the docker compose stack, then reboot the server and confirm all four containers (n8n, Postgres, Caddy, kb-mcp) restart automatically and report healthy. Show me the command to check container status."</span>
+          <span class="check"><b>Done when:</b> after a reboot, all four containers show as running/healthy.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i19b"><label for="i19b"><span class="cb-box"></span><span class="item-text">Apply the security-extras bundle: log rotation, weekly image scan, security headers, internal-only Postgres, n8n MFA, pinned versions.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code (added 7/9/26)</span>
+          <p>Six small settings that prevent the most common small-server failures: runaway Docker logs filling the disk (the classic 2GB-box killer), unscanned images carrying known holes, missing browser security headers, a database door that never needed to exist, a single-factor admin login, and surprise breaking updates.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "On my Docker server: (1) set json-file log rotation with a max-size so logs can't fill the disk, plus a weekly disk-space check that warns Slack; (2) install a recent Trivy and add a weekly cron scanning all running images, posting findings to Slack; (3) add security headers in Caddy for the report and meeting sites - HSTS, X-Content-Type-Options nosniff, Referrer-Policy, and CSP frame-ancestors; (4) confirm Postgres publishes no public port and is reachable only on the internal docker network; (5) turn on n8n's built-in MFA for my admin account; (6) pin every image to a specific version tag and set a monthly calendar routine to review and update them deliberately. Explain each as you go."</span>
+          <span class="check"><b>Done when:</b> all six confirm - log caps set, first Trivy scan posted, headers visible in the browser dev tools, no public Postgres port, MFA prompt on n8n login, and pinned tags in docker-compose.yml. Note: OS auto-updates (step 13) do NOT update containers - the monthly pinned-version review is the container path.</span>
+        </div></details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-title">WS1 - Backups and an outside watchdog</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="items">
+      <li>
+        <input type="checkbox" id="i20"><label for="i20"><span class="cb-box"></span><span class="item-text">Turn on daily Lightsail snapshots, keeping the last 7.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>A snapshot is a full photo of the server. Daily snapshots mean if anything breaks, you can roll back to yesterday in minutes.</p>
+          <ol><li>Lightsail &rarr; your instance &rarr; <b>Snapshots</b> tab &rarr; enable <b>automatic snapshots</b>.</li><li>Set retention to keep the most recent 7.</li></ol>
+          <span class="check"><b>Done when:</b> automatic snapshots are on with a 7-day retention.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i21"><label for="i21"><span class="cb-box"></span><span class="item-text">Set n8n workflows to auto-export to GitHub.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - do with Claude Code</span>
+          <p>Your automations live inside n8n; this backs them up to GitHub so they're never trapped on the box and can be restored or reviewed.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Set up n8n to automatically export all workflows to my sta-server GitHub repo on a schedule (or via its Git integration). Explain how to confirm a workflow change shows up in GitHub."</span>
+          <span class="check"><b>Done when:</b> a saved n8n workflow appears in the GitHub repo.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i21b"><label for="i21b"><span class="cb-box"></span><span class="item-text">Back up the .env secrets and the n8n encryption key off-server (password manager).</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>GitHub holds the compose file but deliberately never the secrets (the <code>.env</code> file stays out of the repo). Snapshots cover normal restores - but a rebuild-from-GitHub without the <code>.env</code> and the n8n encryption key loses every stored credential, including the Granola keys and all staff Shared Brain keys. One secure note closes that hole.</p>
+          <ol><li>Copy the full contents of the server's <code>.env</code> file (includes the n8n encryption key) into the company password manager as a secure note named <code>sta-server .env</code>.</li><li>Update the note any time a secret is added or rotated - make it part of the key-rotation habit (step 47).</li></ol>
+          <span class="check"><b>Done when:</b> the secure note exists and matches the server's current <code>.env</code>.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i22"><label for="i22"><span class="cb-box"></span><span class="item-text">Add healthchecks.io monitors on n8n and kb-mcp, alerting Slack.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks + Build</span>
+          <p>The server can't tell you when it's dead - so an outside service pings it and shouts in Slack if it goes quiet. healthchecks.io is free.</p>
+          <ol><li>Sign up at <code>healthchecks.io</code>, create two checks (one for n8n, one for kb-mcp), and connect its Slack integration.</li><li>Your local PC's Cowork scheduled tasks need the same dead-man's-switch - that's <b>Section 11</b> at the end of this checklist (separate from the server).</li><li><b>Free-tier cap (verified 7/8/26): 20 checks total.</b> These 2 plus the 14-18 local checks in Section 11 land right at the cap - if you run out, consolidate the lowest-value local checks or take the paid tier. Don't split across free accounts (against their terms).</li></ol>
+          <span class="ask"><b>Then paste to Claude Code:</b> "Wire my server so n8n and kb-mcp each ping their healthchecks.io URL on a schedule, so a missed ping triggers a Slack alert."</span>
+          <span class="check"><b>Done when:</b> both checks show green and a deliberate stop fires a Slack alert.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i23"><label for="i23"><span class="cb-box"></span><span class="item-text">Run one restore test now; schedule monthly tests and a quarterly Chris/Tyler drill.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>A backup you've never restored isn't a backup. Prove it works once, and make sure someone other than you can do it.</p>
+          <ol><li>In Lightsail, create a new instance from a snapshot and confirm it boots (then delete the test copy).</li><li>Put a monthly restore test and a quarterly "Chris or Tyler restores without Adam" drill on the calendar.</li></ol>
+          <span class="check"><b>Done when:</b> a snapshot has been restored successfully at least once.</span>
+        </div></details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-title">WS2 - Day-one jobs and report hosting</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="items">
+      <li>
+        <input type="checkbox" id="i24"><label for="i24"><span class="cb-box"></span><span class="item-text">Build the Skyward release watcher (n8n) alerting Slack.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - in n8n, with Claude Code</span>
+          <p>An automation that watches for new Skyward releases and posts a heads-up to Slack so nobody has to check manually.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Help me build an n8n workflow that checks the Skyward release source on a schedule and posts a Slack message when a new release appears. Walk me through adding it in the n8n editor node by node."</span>
+          <span class="check"><b>Done when:</b> a test run posts a Skyward message to Slack.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i25"><label for="i25"><span class="cb-box"></span><span class="item-text">Build the support inbox flag (n8n) alerting Slack.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - in n8n, with Claude Code</span>
+          <p>Watches the support inbox and flags the messages that need attention into Slack, so nothing sits unseen.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Help me build an n8n workflow that monitors our support inbox and posts a Slack flag when a message matches our 'needs attention' rules. Ask me what those rules are first, then build it with me in the n8n editor."</span>
+          <span class="check"><b>Done when:</b> a test message triggers a Slack flag.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i26"><label for="i26"><span class="cb-box"></span><span class="item-text">Build the nightly backup push (n8n).</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - in n8n, with Claude Code</span>
+          <p>A nightly job that pushes key data/config off the server to a safe second location, on top of the Lightsail snapshots.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Help me build a nightly n8n workflow that backs up our important server data/config - including a pg_dump of the Postgres databases (n8n data and customer_meetings) - to GitHub or another safe destination, and Slacks me if it fails."</span>
+          <span class="check"><b>Done when:</b> a manual run completes and the backup lands in its destination.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i27"><label for="i27"><span class="cb-box"></span><span class="item-text">Stand up report hosting at reports.k12sta.com (shared staff token; audience folders).</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with Claude Code</span>
+          <p>This is the "share a link instead of emailing HTML" feature. Reports drop into a folder and become a private web link. Structure the folders by audience now so future per-group access is a setting, not a reorganization.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Set up reports.k12sta.com in Caddy to serve a reports folder behind one shared access token. Create subfolders reports/all/ and reports/leadership/ from the start. Show me where I drop a file and what the resulting link looks like."</span>
+          <span class="check"><b>Done when:</b> a test report dropped in the folder opens at its link only with the token.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i28"><label for="i28"><span class="cb-box"></span><span class="item-text">Write the one-line staff how-to for sharing reports.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>So staff actually use it, give them a dead-simple instruction.</p>
+          <ol><li>Write something like: "Save your report file into the reports folder, then share this link: &lt;link&gt;. That's it."</li><li>Keep it where staff will see it (and it becomes the hub card in the next step).</li></ol>
+          <span class="check"><b>Done when:</b> a one-line how-to exists that a non-technical staffer can follow.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i29"><label for="i29"><span class="cb-box"></span><span class="item-text">Add a Support Hub card for the report hub, then dist-sync and open the PR.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with Claude Code / The Architect</span>
+          <p>Standing rule: anything staff use gets a discovery card in the Training Kit Hub so people find it. Built web tools go under <b>System reference</b>.</p>
+          <span class="ask"><b>Paste to The Architect:</b> "Add a System-reference card to the Training Kit Hub linking reports.k12sta.com, then run the hub dist sync and give me the PR prompt." (It knows the hub rules and the dist + PR workflow.)</span>
+          <span class="check"><b>Done when:</b> the card is live on the hub after the PR is merged.</span>
+        </div></details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <div class="section-title">WS2b - The Granola customer-meeting digest</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="items">
+      <li>
+        <input type="checkbox" id="i30"><label for="i30"><span class="cb-box"></span><span class="item-text">Load the three Granola keys into n8n credentials.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks (in n8n)</span>
+          <p>Put the keys you collected in step 4 into n8n's secure credential store so the workflow can use them without exposing them.</p>
+          <ol><li>In n8n &rarr; <b>Credentials</b> &rarr; add a Header Auth (or HTTP) credential for each person's <code>grn_</code> key.</li><li>Name them clearly: Granola - Adam, Granola - Chris, Granola - Tyler.</li></ol>
+          <span class="check"><b>Done when:</b> three Granola credentials exist in n8n.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i31"><label for="i31"><span class="cb-box"></span><span class="item-text">Set the customer-detection and dedup rules in the workflow config.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks (decisions)</span>
+          <p>Two simple rules the workflow follows: which meetings count as "customer," and what to do when several of you were in the same meeting.</p>
+          <ol><li>Customer rule: keep a meeting if any attendee's email is NOT <code>@k12sta.com</code>.</li><li>Dedup rule: if several staff attended, keep the organizer's note (fallback: whichever synced first).</li></ol>
+          <span class="check"><b>Done when:</b> both rules are written down for the build step.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i32"><label for="i32"><span class="cb-box"></span><span class="item-text">Build the nightly schedule trigger in n8n.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - in n8n, with Claude Code</span>
+          <p>Picks the time the digest runs each night - after the workday so all meeting notes have finished syncing in Granola first.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "In n8n, add a Schedule Trigger that runs once nightly at 9pm Central. This starts the Granola digest workflow. Confirm GENERIC_TIMEZONE is America/Chicago (set in step 18) so 9pm actually means Central."</span>
+          <span class="check"><b>Done when:</b> the workflow shows a nightly schedule trigger.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i33"><label for="i33"><span class="cb-box"></span><span class="item-text">Pull each person's recent meetings from Granola and keep only customer ones.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - in n8n, with Claude Code</span>
+          <p>For each key, the workflow asks Granola for the day's meetings, then drops the internal-only ones.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "In n8n, for each of my three Granola credentials, add an HTTP Request to GET https://public-api.granola.ai/v1/notes?created_after=&lt;last run&gt;, then filter to keep only meetings where at least one attendee email is not @k12sta.com. Build this with me node by node."</span>
+          <span class="check"><b>Done when:</b> a test run returns only customer meetings.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i34"><label for="i34"><span class="cb-box"></span><span class="item-text">Dedup meetings several staff attended, by calendar event.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - in n8n, with Claude Code</span>
+          <p>Stops the same meeting showing up two or three times when more than one of you recorded it.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Add an n8n step that groups the meetings by calendar event ID and keeps just one per event - prefer the organizer's note, otherwise the first one. Output one record per meeting."</span>
+          <span class="check"><b>Done when:</b> a meeting two of you attended produces a single record.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i35"><label for="i35"><span class="cb-box"></span><span class="item-text">Create the Postgres table and save each meeting into it (no duplicates).</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with Claude Code</span>
+          <p>Postgres is the database already on your server. This is where the meetings are stored. "Upsert" = update if it already exists, add if it doesn't - so re-runs never duplicate.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Create a Postgres table customer_meetings (meeting title, date, customer/company, attendees, source owner, summary, action items, granola note id, calendar event id) and add an n8n Postgres step that upserts each meeting keyed on calendar event id."</span>
+          <span class="check"><b>Done when:</b> a test run writes rows, and a second run updates instead of duplicating.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i36"><label for="i36"><span class="cb-box"></span><span class="item-text">Build the gated, filterable meeting browser page.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with Claude Code</span>
+          <p>This is the page your team opens to browse every customer meeting. It reads from the Postgres table and sits behind the same staff login as the reports. This is the one piece that's a small web app, not just a config tweak.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Build a simple internal web page served by Caddy at e.g. meetings.k12sta.com that reads the customer_meetings Postgres table and shows a sortable, filterable list (by date, customer, owner) with each meeting's summary, action items, and attendees. Put it behind the same staff token as reports.k12sta.com. Render every meeting field as plain text - never as HTML - since summaries originate in external meetings (XSS)."</span>
+          <span class="check"><b>Done when:</b> the page lists your customer meetings and you can sort/filter them.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i37"><label for="i37"><span class="cb-box"></span><span class="item-text">Test it: dedup, internal-only excluded, gated access, no duplicates on re-run.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Test</span>
+          <p>Four quick checks that the whole digest behaves.</p>
+          <ol><li>Run it manually and confirm customer meetings appear.</li><li>A meeting two of you attended = one row.</li><li>An all-<code>@k12sta.com</code> meeting = no row.</li><li>Run it again - no duplicates. Open the page without the token - access refused.</li></ol>
+          <span class="check"><b>Done when:</b> all four checks pass.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i38"><label for="i38"><span class="cb-box"></span><span class="item-text">Add a Support Hub card for the meeting browser, then dist-sync and open the PR.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with The Architect</span>
+          <p>Same standing rule as the report hub - surface it where staff look.</p>
+          <span class="ask"><b>Paste to The Architect:</b> "Add a System-reference card to the Training Kit Hub linking the customer-meeting browser, then run the hub dist sync and give me the PR prompt."</span>
+          <span class="check"><b>Done when:</b> the card is live after the PR merges.</span>
+        </div></details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <div class="section-title">WS3 - The Shared Brain (phased)</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="items">
+      <li>
+        <input type="checkbox" id="i39"><label for="i39"><span class="cb-box"></span><span class="item-text">HARD GATE: sign off the Shared Brain exclusion list before any staff key.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks - your decision</span>
+          <p>The Shared Brain lets staff assistants read company knowledge. Some folders are too sensitive to expose. You must approve the exclusion list before anyone gets a key. The 2026-06-24 audit built a full sign-off sheet for this and found a real bug.</p>
+          <ol><li>Open the sign-off sheet: <a href="kb-mcp/kb-mcp-exclusion-signoff-2026-06-24.md">kb-mcp-exclusion-signoff-2026-06-24.md</a> (it maps all ~90 sta/ topics into Exclude / your-call / safe).</li><li><b>Fix the bug first:</b> the pricing-strategy exclusion points at <code>sales-enablement/...</code> but the topic actually lives at <code>sales-marketing/...</code> - so it would silently leak. Correct the path in <code>kb-exclusions.txt</code>.</li><li>Make the Tier-2 calls (pricing, vendor briefings, competitive landscape) and eyeball the 2 security modules for STA-specific config.</li><li>Sign and date the sheet.</li></ol>
+          <span class="check"><b>Done when:</b> the path bug is fixed, Tier-2 decisions are made, and the sheet is signed + dated. No key issued before this.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i40"><label for="i40"><span class="cb-box"></span><span class="item-text">Run a dedicated Discovery/blueprint for the kb-mcp service internals.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with The Architect</span>
+          <p>The Shared Brain's internal design (what tools it exposes, how it indexes, folder scoping) deserves its own planning pass rather than being winged. The SOW deliberately leaves this slot open.</p>
+          <span class="ask"><b>Paste to The Architect:</b> "Run Phase 1 Discovery for the kb-mcp Shared Brain service: tool schemas, index strategy, and per-folder scoping. Produce the blueprint."</span>
+          <span class="check"><b>Done when:</b> a kb-mcp blueprint exists before you build the service.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i41"><label for="i41"><span class="cb-box"></span><span class="item-text">Phase 1: bring kb-mcp live over the work-scope KB (minus exclusions); pilot with you + Tyler.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with Claude Code</span>
+          <p>Stand up the knowledge service reading only the approved folders, syncing from GitHub every 15 minutes, and test it with two pilot users before anyone else.</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Bring the kb-mcp container live mounting the sta/ KB folders read-only, minus the exclusion-list folders, with a GitHub-to-server sync every 15 minutes. Then run an MCP Inspector test." Pilot: connect Adam + Tyler first.</span>
+          <span class="check"><b>Done when:</b> a pilot assistant answers a question citing a KB module, and an excluded folder is unreachable.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i42"><label for="i42"><span class="cb-box"></span><span class="item-text">Apply the WS0 verdict: per-person keys in the connector URL; redact keys from logs.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with Claude Code</span>
+          <p>The earlier spike proved staff connect by pasting a personal key inside the connector address. The server must scrub those keys out of its logs so they don't leak.</p>
+          <p><b>Update (verified 7/8/26):</b> Claude's Add-custom-connector dialog now also accepts a fixed key sent as a <b>request header</b> (under Advanced settings) - cleaner than the URL key because it never lands in access logs. Test header auth first; keep the URL-key path as the proven fallback (with the redaction below). Also note: connections come from Anthropic's cloud servers, not staff PCs - <code>kb.k12sta.com</code> must stay publicly reachable, and the key IS the access control (no office-IP allowlisting).</p>
+          <span class="ask"><b>Paste to Claude Code:</b> "Configure kb-mcp so each staffer connects with a per-person key - accept it from a request header, falling back to the connector URL (?key=...) - and make sure the key is redacted from all access logs either way."</span>
+          <span class="check"><b>Done when:</b> a test key connects and never appears in the logs.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i43"><label for="i43"><span class="cb-box"></span><span class="item-text">Phase 2: issue staff keys and ship the 7-step connect README.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks</span>
+          <p>Once the pilot works, roll out to staff - about 15 minutes per person, using the ready-made connect instructions.</p>
+          <ol><li>Generate a per-person key for each staffer.</li><li>Send them the 7-step connect README (already written in the proposal's Setup tab).</li><li><b>The MCP spec update lands 7/28/26 - the same window as this build</b> (verified: it finalizes that day, with breaking changes to transport headers and auth; Streamable HTTP stays). Build kb-mcp against the current 2025-11-25 spec, then re-verify the connect flow and plan an SDK upgrade before or during rollout.</li><li>Revoke a test key and confirm it stops working within one container restart (SOW acceptance criterion).</li></ol>
+          <span class="check"><b>Done when:</b> each staffer's assistant is connected to the Shared Brain.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i44"><label for="i44"><span class="cb-box"></span><span class="item-text">Phase 3: centralize the assistant catalog and begin retiring per-copy context files.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with The Architect</span>
+          <p>The payoff: instead of each assistant carrying its own frozen copy of company knowledge, they all read the live Shared Brain. Start consolidating.</p>
+          <span class="ask"><b>Paste to The Architect:</b> "Begin Shared Brain Phase 3: centralize the assistant catalog and identify which per-copy context files we can retire now that the live Shared Brain is in use."</span>
+          <span class="check"><b>Done when:</b> the catalog is centralized and the first per-copy files are retired.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i52"><label for="i52"><span class="cb-box"></span><span class="item-text">STA Support Brain (post-server, transition-ready): extend the shared-brain service with a team DECISIONS/LEARNINGS store, separate from the KB (facts).</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with The Architect</span>
+          <p>ONE brain for all departments with a <code>dept:</code> field - not separate per-department brains (Adam is the only maintainer; one store is far less to babysit). Start Support-scoped, and design it so it becomes the org-wide main brain with zero rework as other departments come online. It sits beside the KB: KB = shared facts, brain = the team's decisions and why.</p>
+          <span class="ask"><b>Paste to The Architect:</b> "Run Discovery/blueprint for the STA Support Brain: a dept-tagged team decisions store on the shared-brain service, transition-ready to the org main brain."</span>
+          <span class="check"><b>Done when:</b> the decisions/learnings store is live on the server with read + write MCP tools, dept-tagged, Support-scoped.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i53"><label for="i53"><span class="cb-box"></span><span class="item-text">Wire SILENT auto-capture into the Support assistants (Chris + Tyler) so the brain fills as a byproduct of normal use - never manual entry, no team training.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with The Architect</span>
+          <p>The Catch-22 to remember: <b>server live -&gt; MCP tools rolled out to Chris &amp; Tyler -&gt; connected to the STA Support Brain -&gt; only THEN is it working.</b> The brain is not live until both Chris and Tyler have the connected tools. Capture must be automatic (like Adam's personal brains) - if anyone has to be told "go write in the brain," it will not happen.</p>
+          <span class="ask"><b>Paste to The Architect:</b> "Add silent decision-capture routing to Chris's and Tyler's assistants, writing to the STA Support Brain."</span>
+          <span class="check"><b>Done when:</b> Chris and Tyler are using connected assistants and durable decisions are landing in the Support Brain automatically. Full design: _Apps/org-team-brain/org-team-brain-scope.md.</span>
+        </div></details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">09</div>
+      <div class="section-title">WS4 - 90-day review and ongoing</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="items">
+      <li>
+        <input type="checkbox" id="i45"><label for="i45"><span class="cb-box"></span><span class="item-text">Verify all build-acceptance criteria in the SOW.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Test</span>
+          <p>A final pass to confirm the whole build is solid before you rely on it.</p>
+          <ol><li>Open SOW Section 9 and tick each item: MFA + budget alarm, SSH password refused, only 22/80/443, containers healthy after reboot, snapshot restored once, watchdog fires on a deliberate stop, every job producing output, gated pages refused without the token.</li></ol>
+          <span class="check"><b>Done when:</b> every SOW Section 9 criterion passes.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i46"><label for="i46"><span class="cb-box"></span><span class="item-text">Track the 90-day success metrics.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Track</span>
+          <p>These are the numbers Andy agreed to judge keep-or-kill on, so keep a running tally.</p>
+          <ol><li>10+ Slack alerts that led to real action.</li><li>3+ staff assistants connected to the Shared Brain.</li><li>Report links in active use instead of attachments.</li><li>Zero unnoticed outages (the watchdog log is the proof).</li></ol>
+          <span class="check"><b>Done when:</b> you have a simple running count of all four.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i47"><label for="i47"><span class="cb-box"></span><span class="item-text">Produce the one-page 90-day usage report for Andy.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag build">Build - with The Architect</span>
+          <p>One page, plain language, showing the four metrics against target - the basis for the keep/kill call.</p>
+          <span class="ask"><b>Paste to The Architect:</b> "Build the 90-day STA server usage report for Andy: the four success metrics vs target, plain-language, as a branded HTML report. Save it to deliverables/."</span>
+          <span class="check"><b>Done when:</b> the report is saved and shared with Andy.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i48"><label for="i48"><span class="cb-box"></span><span class="item-text">Ongoing: rotate keys on staffing changes, watch the MCP spec update, run the quarterly restore drill.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Ongoing</span>
+          <p>Light, periodic upkeep so the box stays healthy and secure.</p>
+          <ol><li>When someone joins/leaves, add or revoke their key.</li><li>The 2026-07-28 MCP spec is final as of that date - after the kb-mcp SDK upgrade, re-check connector auth once, then watch future spec releases before upgrading again.</li><li>Every quarter, have Chris or Tyler do a restore drill without you.</li></ol>
+          <span class="check"><b>Done when:</b> these are on a recurring calendar reminder.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i49"><label for="i49"><span class="cb-box"></span><span class="item-text">Day-90 decision: keep or kill the server, in writing.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Decision</span>
+          <p>Before the free period ends, make the call against the metrics so paid billing only starts if it's earning its keep.</p>
+          <ol><li>Review the usage report with Andy.</li><li>Write down keep or kill and why.</li></ol>
+          <span class="check"><b>Done when:</b> a written keep/kill decision exists.</span>
+        </div></details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">11</div>
+      <div class="section-title">Local system hardening (audit 2026-06-24 follow-up)</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <p style="margin:0 0 10px;font-size:13px;color:#555">Your local PC's Claude system - separate from the server above. From the 2026-06-24 audit. Do these after the server's own watchdog + restore (steps 22-23).</p>
+    <ul class="items">
+      <li>
+        <input type="checkbox" id="i50"><label for="i50"><span class="cb-box"></span><span class="item-text">Wire your ~14 local Cowork scheduled tasks to a healthchecks.io dead-man's-switch.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks + Build</span>
+          <p>Distinct from step 22 (which watches the server's n8n + kb-mcp). These are the tasks under <code>Scheduled\</code> on your PC - if one silently stops firing, nothing tells you today. A dead-man's-switch on healthchecks.io alerts you when a task misses its check-in.</p>
+          <ol><li>At <code>healthchecks.io</code>, create one check per active task (14 active per <a href="watchdog-setup.md">watchdog-setup.md</a>; the SOW's July update counts ~18 recurring jobs - <b>re-count against the live <code>Scheduled\</code> folder first</b> and update the table). Set each check's Period + Grace to that task's real schedule. Start with <code>weekly-github-backup</code> - the most important.</li><li>Copy each ping URL into the table in <code>watchdog-setup.md</code>, replacing PLACEHOLDER_URL.</li><li>Mind the free-tier cap: 20 checks total including the server's 2 (step 22).</li></ol>
+          <span class="ask"><b>Then paste to Claude Code:</b> "Wire these healthchecks.io ping URLs into the scheduled tasks per watchdog-setup.md - add the success-ping block at the end of each task's SKILL.md (weekly-github-backup is the wired worked example)."</span>
+          <span class="check"><b>Done when:</b> each active task pings on success and a deliberately-skipped run raises an alert.</span>
+        </div></details>
+      </li>
+      <li>
+        <input type="checkbox" id="i51"><label for="i51"><span class="cb-box"></span><span class="item-text">Run a local GitHub restore drill - prove you can rebuild the Claude system from the backup.</span></label>
+        <details class="how"><summary>How to do this</summary><div class="how-body">
+          <span class="tag clicks">Clicks + Build</span>
+          <p>Your whole Claude system lives on one PC and backs up to GitHub weekly. You have never test-restored it. An untested backup is a hope, not a backup - and a stale-<code>.git</code> scare already happened this cycle.</p>
+          <ol><li>Make a scratch folder outside the Claude tree, e.g. <code>Desktop\restore-test</code>.</li><li>Clone: <code>git clone https://github.com/abaker421/school-tech-ai-system.git restore-test</code></li><li>Open a couple of key files (<code>the-architect/instructions.md</code>, a KB module) - confirm they are complete and current.</li><li>Confirm <code>Knowledge Base/adam/</code> is NOT in the clone (personal scope stays private).</li><li>Delete the scratch folder when satisfied.</li></ol>
+          <span class="check"><b>Done when:</b> a clone from GitHub opened clean, key files were current, and adam/ was absent.</span>
+        </div></details>
+      </li>
+    </ul>
+  </div>
+
+  <div class="ref-card">
+    <h2>Tools &amp; References</h2>
+    <ul>
+      <li><a href="sta-server-sow.md">sta-server-sow.md</a><span class="ref-note">The full build contract - every step's detail lives here (same folder)</span></li>
+      <li><a href="https://docs.n8n.io/">n8n docs</a><span class="ref-note">The automation tool behind the jobs and the digest</span></li>
+      <li><a href="https://caddyserver.com/docs/">Caddy docs</a><span class="ref-note">Serves the report and meeting pages with automatic HTTPS</span></li>
+      <li><a href="https://healthchecks.io/">healthchecks.io</a><span class="ref-note">Free outside watchdog for n8n and kb-mcp</span></li>
+      <li><a href="https://docs.granola.ai/introduction">Granola API</a><span class="ref-note">Read-only endpoints and the personal API keys for the digest</span></li>
+      <li><a href="watchdog-setup.md">watchdog-setup.md</a><span class="ref-note">Local scheduled-task dead-man's-switch spec + the 14-task table (Section 11)</span></li>
+      <li><a href="kb-mcp/kb-mcp-exclusion-signoff-2026-06-24.md">kb-mcp exclusion sign-off</a><span class="ref-note">The Shared Brain exclusion decisions + the path-bug fix (step 39)</span></li>
+      <li><a href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/">MCP 2026-07-28 release notes</a><span class="ref-note">The spec update landing during this build - breaking changes to transport headers + auth; Streamable HTTP stays</span></li>
+    </ul>
+  </div>
+
+  <footer>Generated by The Architect &bull; html-checklist skill</footer>
+</div>
+
+<script>
+  (function () {
+    const allBoxes = document.querySelectorAll('input[type="checkbox"]');
+    const metaFields = [...document.querySelectorAll('input[data-meta]')];
+    const bar = document.getElementById('progress-bar');
+    const doneEl = document.getElementById('done-count');
+    const totalEl = document.getElementById('total-count');
+    const resetBtn = document.getElementById('reset-progress');
+    const total = allBoxes.length;
+    totalEl.textContent = total;
+
+    const titleEl = document.querySelector('h1');
+    const titleKey = (titleEl ? titleEl.textContent : document.title).trim().toLowerCase().replace(/\s+/g, '-');
+    const STORAGE_KEY = 'sta-checklist:' + titleKey;
+
+    function save() {
+      try {
+        const checked = [...allBoxes].filter(cb => cb.checked).map(cb => cb.id);
+        const meta = {};
+        metaFields.forEach(m => meta[m.id] = m.value);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ checked: checked, meta: meta }));
+      } catch (e) { /* storage unavailable - session stays in-memory */ }
+    }
+
+    function load() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        const checked = Array.isArray(data) ? data : (data && data.checked) || [];
+        const saved = new Set(checked);
+        allBoxes.forEach(cb => { if (saved.has(cb.id)) cb.checked = true; });
+        if (data && data.meta) {
+          metaFields.forEach(m => { if (data.meta[m.id] != null) m.value = data.meta[m.id]; });
+        }
+      } catch (e) { /* ignore malformed or unavailable storage */ }
+    }
+
+    function update() {
+      const done = [...allBoxes].filter(cb => cb.checked).length;
+      doneEl.textContent = done;
+      bar.style.width = total ? (done / total * 100) + '%' : '0%';
+
+      document.querySelectorAll('.section[data-section]').forEach(sec => {
+        const boxes = sec.querySelectorAll('input[type="checkbox"]');
+        const allDone = boxes.length > 0 && [...boxes].every(cb => cb.checked);
+        allDone ? sec.setAttribute('data-complete', '') : sec.removeAttribute('data-complete');
+      });
+
+      if (resetBtn) resetBtn.hidden = (done === 0);
+    }
+
+    allBoxes.forEach(cb => cb.addEventListener('change', () => { save(); update(); }));
+    metaFields.forEach(m => m.addEventListener('input', save));
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+        allBoxes.forEach(cb => { cb.checked = false; });
+        update();
+      });
+    }
+
+    load();
+    update();
+  })();
+</script>
+</body>
+</html>
