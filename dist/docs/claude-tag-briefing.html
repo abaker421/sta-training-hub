@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adopt Claude Tag: it puts AI in front of all 10 STA staff, and the company server should ship Tag-compatible</title>
+<style>
+  :root{
+    --brand:#006098; --brand-d:#004a78; --green:#6bc04b; --green-d:#4f9a34;
+    --eyebrow:#bfe0f0; --headmeta:#cfe5f1;
+    --good:#1a7f37; --warn:#9a6700; --bad:#b42318;
+    --good-bg:#eaf6ec; --warn-bg:#fdf6e3; --bad-bg:#fdeceb;
+    --ink:#1a1f24; --muted:#5a5f66; --line:#e3e6ea; --bg:#fff; --band:#eef4f8;
+    --sp-1:4px; --sp-2:8px; --sp-3:16px; --sp-4:24px; --sp-5:40px;
+  }
+  *{box-sizing:border-box;}
+  html,body{overflow-x:hidden;}
+  body{margin:0;color:var(--ink);background:#f3f5f7;
+    font:16px/1.6 "Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;}
+  main{max-width:820px;margin:0 auto;background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.08);}
+  header{background:linear-gradient(135deg,#006098 0%,#004a78 100%);color:#fff;
+    padding:var(--sp-5) var(--sp-5) var(--sp-4);border-bottom:5px solid var(--green);}
+  .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--eyebrow);font-weight:600;margin:0 0 var(--sp-2);}
+  header h1{font-size:1.75rem;line-height:1.22;margin:0;font-weight:800;letter-spacing:-.01em;}
+  .meta{margin:var(--sp-3) 0 0;font-size:.82rem;color:var(--headmeta);}
+  .body{padding:var(--sp-5);}
+  .verdict{display:inline-block;border-radius:999px;padding:3px 12px;font-weight:700;font-size:.82rem;margin:0 0 var(--sp-3);}
+  .verdict.good{background:var(--good-bg);color:var(--good);border:1px solid #bfe3c6;}
+  .verdict.warn{background:var(--warn-bg);color:var(--warn);border:1px solid #e8d48a;}
+  .verdict.bad{background:var(--bad-bg);color:var(--bad);border:1px solid #f0c5c1;}
+  .bluf{display:flex;gap:var(--sp-4);align-items:flex-start;background:var(--band);
+    border:1px solid var(--line);border-left:5px solid var(--brand);
+    border-radius:8px;padding:var(--sp-4);margin:0 0 var(--sp-5);}
+  .bluf .txt{flex:1;} .bluf p{margin:0 0 var(--sp-2);} .bluf p:last-child{margin:0;} .bluf strong{color:var(--brand-d);}
+  h2{font-size:1.18rem;line-height:1.3;margin:var(--sp-5) 0 var(--sp-3);color:var(--brand-d);
+    padding-top:var(--sp-4);border-top:1px solid var(--line);}
+  h2:first-of-type{border-top:none;padding-top:0;}
+  p{margin:0 0 var(--sp-3);}
+  .find{border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:0 6px 6px 0;
+    padding:var(--sp-4);margin:0 0 var(--sp-3);background:#fff;}
+  .find.goodf{border-left-color:var(--good);background:var(--good-bg);}
+  .find-head{display:flex;align-items:flex-start;gap:var(--sp-3);margin:0 0 var(--sp-2);}
+  .find .badge{flex:0 0 auto;margin-top:3px;font-size:.66rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.07em;padding:3px 10px;border-radius:999px;line-height:1.4;}
+  .badge.bgood{background:var(--good);color:#fff;}
+  .find h3{margin:0;font-size:1.06rem;font-weight:700;line-height:1.32;color:var(--ink);}
+  .find p{margin:0;font-size:.95rem;}
+  table{border-collapse:collapse;width:100%;margin:var(--sp-2) 0 var(--sp-3);font-size:.95rem;}
+  caption{text-align:left;font-weight:600;margin-bottom:var(--sp-2);color:var(--ink);}
+  th,td{padding:var(--sp-2) var(--sp-3);border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+  th[scope=col]{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);}
+  tbody tr:nth-child(even){background:#f8fafc;}
+  table.defs{width:auto;margin:var(--sp-2) 0 var(--sp-3);}
+  table.defs td,table.defs th{border:none;padding:var(--sp-1) var(--sp-4) var(--sp-1) 0;}
+  table.defs th[scope=row]{color:var(--muted);font-weight:600;text-transform:none;letter-spacing:0;font-size:.95rem;}
+  .callout{background:var(--band);border-left:5px solid var(--brand);border-radius:0 6px 6px 0;
+    padding:var(--sp-3) var(--sp-4);margin:0 0 var(--sp-4);color:var(--ink);font-size:.95rem;}
+  .callout strong{color:var(--brand-d);}
+  .tl{position:relative;margin:var(--sp-3) 0 var(--sp-4);padding-left:0;}
+  .tl-line{position:absolute;left:0;right:0;top:13px;height:3px;background:var(--line);}
+  .tl-row{display:flex;justify-content:space-between;position:relative;}
+  .tl-step{flex:1;text-align:center;position:relative;padding:0 4px;}
+  .tl-node{width:26px;height:26px;border-radius:50%;margin:0 auto var(--sp-1);display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;font-weight:800;color:#fff;border:3px solid #fff;box-shadow:0 0 0 1px var(--line);}
+  .tl-node.done{background:var(--green-d);} .tl-node.now{background:var(--brand);box-shadow:0 0 0 4px #bfe0f0;}
+  .tl-node.todo{background:#fff;color:var(--muted);border-color:var(--line);}
+  .tl-lab{font-size:.78rem;color:var(--ink);font-weight:600;} .tl-date{font-size:.7rem;color:var(--muted);}
+  ol.fixes{counter-reset:f;list-style:none;padding-left:0;margin:0 0 var(--sp-3);}
+  ol.fixes li{counter-increment:f;position:relative;padding:var(--sp-2) 0 var(--sp-3) 44px;border-bottom:1px solid var(--line);}
+  ol.fixes li:last-child{border-bottom:none;}
+  ol.fixes li::before{content:counter(f);position:absolute;left:0;top:var(--sp-2);
+    width:28px;height:28px;background:var(--brand);color:#fff;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;}
+  ol.fixes b{color:var(--brand-d);}
+  ul.plain{margin:0 0 var(--sp-3);padding-left:20px;} ul.plain li{margin:0 0 var(--sp-2);font-size:.95rem;}
+  details{margin:var(--sp-4) 0 0;border-top:1px solid var(--line);padding-top:var(--sp-3);}
+  summary{cursor:pointer;font-weight:600;min-height:24px;color:var(--muted);}
+  details p{font-size:.88rem;color:var(--muted);margin-top:var(--sp-2);}
+  a{color:var(--brand);}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--brand-d);outline-offset:2px;border-radius:4px;}
+  footer{padding:var(--sp-4) var(--sp-5);border-top:3px solid var(--green);background:var(--band);font-size:.8rem;color:var(--muted);}
+  @media print{
+    @page{size:Letter;margin:.7in;}
+    body{background:#fff;font-size:11pt;} main{box-shadow:none;max-width:none;}
+    header,.bluf,.find,.badge,.verdict,.callout,.tl-node,tbody tr:nth-child(even),ol.fixes li::before{
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .find,table,.bluf,.callout,.tl{break-inside:avoid;} h2{break-after:avoid;} p{orphans:3;widows:3;}
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">AI Platform Briefing &middot; Claude Tag</p>
+    <h1>Adopt Claude Tag: it puts AI in front of all 10 staff, and the company server should ship Tag-compatible</h1>
+    <p class="meta">Generated 2026-07-09 &nbsp;&middot;&nbsp; Source: 5-module KB deep research (Anthropic T1 docs, launch 2026-06-23) &nbsp;&middot;&nbsp; Scope: how Tag works, STA fit, rollout plan</p>
+  </header>
+
+  <div class="body">
+
+    <p class="verdict good">Recommendation: ADOPT - pilot one channel now, build the server Tag-compatible</p>
+    <section class="bluf" role="note" aria-label="Bottom line">
+      <div class="txt">
+        <p><strong>Bottom line:</strong> Claude Tag is a shared @Claude teammate inside Slack, included with STA's existing Team plan at no per-seat cost - channel work bills to an org usage balance, and Anthropic issued a launch credit STA can pilot on before spending anything. It is the lowest-friction way to put AI in front of the 9 staff who do not use Adam's Cowork system.</p>
+        <p><strong>The architecture answer:</strong> Tag CAN consume a custom MCP server (confirmed in Anthropic's docs: a plugin declaring the server + a host credential). Build the STA company server Tag-compatible - one server then feeds Tag channels, Cowork, and personal DMs. <strong>Action:</strong> fund/verify the usage balance, pilot #ask-claude this month, and decide everything before the legacy app retires August 3.</p>
+      </div>
+    </section>
+
+    <h2>How it works: one shared Claude, invoked by tagging, acting under org-owned credentials</h2>
+    <p>Tag @Claude in any channel it has been added to and it starts a working session in that thread - running asynchronously in an Anthropic-hosted sandbox, editing a visible checklist in place, and posting the result (a reply, a file, a chart, or a draft PR). Anyone in the channel can steer a running task just by replying. The architectural shift from the old personal Slack app: in channels, <strong>Claude acts as itself</strong> under service-account credentials an admin provisions, and its access follows the channel, not the person asking. DMs are the opposite - there Claude runs on your personal account with your own connectors, billed to your seat.</p>
+    <table class="defs">
+      <tbody>
+        <tr><th scope="row">Availability</th><td>Team + Enterprise plans only (STA qualifies) &middot; public beta since 2026-06-23 &middot; runs Claude Opus 4.8</td></tr>
+        <tr><th scope="row">Cost model</th><td>No per-seat charge &middot; channel work draws on an org usage balance with a spend cap &middot; launch credit issued to Team orgs</td></tr>
+        <tr><th scope="row">Context</th><td>Reads its thread (~50 earliest messages when tagged mid-thread), channel history + pins, keyword search of public channels, attached files, built-in web search</td></tr>
+        <tr><th scope="row">Memory</th><td>Public channels share workspace memory; private channels are isolated; admins can view, Owners can edit/delete</td></tr>
+        <tr><th scope="row">Proactive work</th><td>"Routines" - scheduled jobs, channel watches, PR subscriptions - set up in-channel, run with the channel's access</td></tr>
+        <tr><th scope="row">Hard boundaries</th><td>No passive access to channels it wasn't added to &middot; no Slack Connect / external channels &middot; no external tools until an Owner connects them</td></tr>
+      </tbody>
+    </table>
+
+    <h2>The load-bearing finding: your company server can plug straight into Tag</h2>
+    <div class="find goodf">
+      <div class="find-head">
+        <span class="badge bgood">Confirmed &middot; T1</span>
+        <h3>Custom MCP servers are supported - via a plugin that declares the server, plus a credential for its host</h3>
+      </div>
+      <p>Anthropic's docs confirm the pattern: attach a plugin whose <code>.mcp.json</code> points at the server URL, then add a credential (Bearer/OAuth) for the server's host on the bundle's Credentials tab. Auth is injected at Anthropic's Agent Proxy - the model never holds the key, and egress is default-deny. Two traps: a <code>.mcp.json</code> committed to a repo is NOT loaded (must ship as an attached plugin), and threads lock their config at start (updates reach new threads only).</p>
+    </div>
+    <p><strong>What this means for the end-of-July server build:</strong> expose a public HTTPS MCP endpoint (Streamable HTTP per the MCP spec - transport not named explicitly in Tag docs, verify against a live endpoint during the pilot), use Bearer or OAuth mapped to a service account, ship it as a plugin bundled with STA-specific skills (for example the SMS 2.0 vs Qmlativ compatibility rules), and issue read-only vs write tokens in separate Access Bundles so a general channel gets read while a private ops channel gets write. One implementation then serves Tag, Cowork, and Claude.ai - build it Tag-compatible from day one.</p>
+
+    <h2>Tag does not replace the existing system - each surface has a clear job</h2>
+    <table>
+      <caption>Team-shared work goes to Tag; everything Adam already runs stays where it is.</caption>
+      <thead><tr><th scope="col">Surface</th><th scope="col">Use it when</th><th scope="col">At STA</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Tag channel</strong></td><td>Work is shared, the team should see and steer it, and it needs org-connected tools</td><td>Support triage, internal Q&amp;A, team digests - the 9 non-Cowork staff</td></tr>
+        <tr><td><strong>Tag DM</strong></td><td>Personal task with your own connectors; bills to your seat; outside org audit</td><td>Anything personal, or content that must not enter shared channel memory</td></tr>
+        <tr><td><strong>Cowork</strong></td><td>Your own files, skills, branded documents, KB building</td><td>Adam's existing system - report production, agent builds, KB work</td></tr>
+        <tr><td><strong>Claude.ai Project</strong></td><td>Persistent curated context for repeated single-player chats</td><td>Existing Projects (Salesforce admin assistant, etc.) - unchanged</td></tr>
+        <tr><td><strong>Claude Code</strong></td><td>Hands-on coding in a local checkout</td><td>Adam's Code-tab work - unchanged</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Four STA uses, in pilot order - each with its day-one seeding</h2>
+    <table>
+      <caption>Start where customer risk is lowest and value shows on Slack content alone; save customer-facing work for after review habits are proven.</caption>
+      <thead><tr><th scope="col">#</th><th scope="col">Channel / job</th><th scope="col">Connections</th><th scope="col">Seed on day one</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>#ask-claude</strong> - internal product + migration Q&amp;A for Pat, Jessie, Joanie (SMS 2.0 vs Qmlativ rules, VirtuaTime, EOL dates)</td><td>None to start; Help Center/KB read next; STA server when live</td><td>Pointers to authoritative KB content + "cite the source; if unsure, say so and route to a human"; weekly Q&amp;A digest routine</td></tr>
+        <tr><td>2</td><td><strong>Behind the Bell channel</strong> - episode planning, guest research, show-notes drafts</td><td>Built-in web search only</td><td>Show profile, episode history pointer, templates location; weekly "guest pipeline / open items" routine</td></tr>
+        <tr><td>3</td><td><strong>#support triage</strong> - draft replies, check compatibility rules before a human sends</td><td>Help Center/KB read, Salesforce read, then the STA MCP server</td><td>Triage rule (dupe-check, answer from Help Center, else route with a one-line summary) + hard rule: every customer-facing reply is a draft until a person sends</td></tr>
+        <tr><td>4</td><td><strong>Sales/renewal drafting</strong> - quotes, renewals, outreach for non-technical staff</td><td>Salesforce read</td><td>Quote/pricing rule pointers + no-send-without-approval; route polished branded output through Cowork skills</td></tr>
+      </tbody>
+    </table>
+
+    <h2>The guardrails that matter for a K-12 vendor</h2>
+    <ul class="plain">
+      <li><strong>Paste rule is the real exposure.</strong> Tag retains channel memory and transcripts (that is why ZDR orgs cannot use it). Staff rule: never paste student PII, credentials, or unreleased customer data into a Tag channel - use a DM. Team-plan data is not used for model training under Anthropic's Commercial Terms.</li>
+        <li><strong>Removal does not delete data.</strong> Uninstalling, removing from a channel, or deleting a bundle leaves memory/routines/transcripts in place - deletion uses the dedicated controls at claude.ai admin settings. The commonly repeated "30-day auto-delete on disconnect" claim is unverified for Tag.</li>
+      <li><strong>Set spend before widening.</strong> Org cap + per-channel limits at claude.ai/admin-settings/usage/claude-tag; at the cap Claude stops and says so (never silently truncates). Per-user attribution does not exist - the channel is the unit, so map channels to teams.</li>
+      <li><strong>Tune ambient per channel, never globally.</strong> Routines run with the channel's credentials and are the documented token-burn risk; audit them org-wide from the Scheduled-work tab.</li>
+      <li><strong>Set Members to "any organization member"</strong> so Slack guests cannot invoke Claude (per-role gating needs Enterprise); Claude stays disabled in guest channels by default.</li>
+      <li><strong>Review memory monthly.</strong> Ask "@Claude what do you remember about this channel?" and prune - auto-accumulated memory is the top early-adopter opacity complaint. Seed it deliberately instead.</li>
+    </ul>
+
+    <h2>Rollout: pilot this month, server integration by early August</h2>
+    <div class="tl" role="img" aria-label="Rollout timeline: setup now, pilot in July, server integration late July, expansion decision by August 3">
+      <div class="tl-line"></div>
+      <div class="tl-row">
+        <div class="tl-step"><div class="tl-node now">&#9679;</div><div class="tl-lab">Enable + cap</div><div class="tl-date">Now</div></div>
+        <div class="tl-step"><div class="tl-node todo">2</div><div class="tl-lab">Pilot #ask-claude</div><div class="tl-date">July</div></div>
+        <div class="tl-step"><div class="tl-node todo">3</div><div class="tl-lab">STA server plugin</div><div class="tl-date">Late July</div></div>
+        <div class="tl-step"><div class="tl-node todo">4</div><div class="tl-lab">#support + expand</div><div class="tl-date">By Aug 3</div></div>
+      </div>
+    </div>
+
+    <h2>Do these, in order</h2>
+    <ol class="fixes">
+      <li><b>This week:</b> at claude.ai/admin-settings/claude-tag, run setup (Owner role), confirm the launch usage credit, set an org spend cap, and set Members to "any organization member." Keep the default "Slack default" bundle empty of credentials for now.</li>
+      <li><b>This week:</b> create #ask-claude (test in a private channel first), invite @Claude, seed channel memory with the KB pointers and the "cite or route to a human" rule. No connectors yet - prove value on Slack content alone.</li>
+      <li><b>Week 2:</b> add the Behind the Bell channel. Publish the one-page staff guideline (invocation basics, paste rule, human-review rule, escalation) - the KB module has the full outline, ready for the Training Kit Hub.</li>
+      <li><b>Server build (by end of July):</b> lock the Tag-compatible architecture - public HTTPS MCP endpoint, Bearer/OAuth service-account auth, delivered as a plugin with STA skills. Re-verify the plugin mechanics and transport against live docs immediately before finalizing (beta - docs shift).</li>
+      <li><b>Early August:</b> connect the server + Help Center/Salesforce read access to #support via a dedicated read-only bundle; enforce the draft-until-human-sends rule; watch the per-channel spend breakdown for two weeks.</li>
+      <li><b>Then decide:</b> sales/renewal channel, DM policy (on or off org-wide), and whether any routine earns a per-channel spend cap. Review channel memory monthly from here on.</li>
+    </ol>
+
+    <div class="callout"><strong>Beta caveat + hard date:</strong> every Tag docs page is marked "public beta - behavior may change," so the KB module set is on a monthly re-check cadence. The legacy Claude in Slack app retires <strong>August 3, 2026</strong> - after that, Tag is the only version, so finish the pilot and make the rollout call before then.</div>
+
+    <details>
+      <summary>Methodology and data sources</summary>
+      <p>Synthesized 2026-07-09 from the 5-module deep-research set at Knowledge Base\sta\ai-platform\claude-tag-workspace-agent\ (modules: fundamentals, Access Bundles/integrations, memory/privacy/security, governance/spend, deployment/STA playbook). Primary sourcing is Anthropic T1 documentation (claude.com/docs/claude-tag, anthropic.com launch post, support and privacy centers, trust.anthropic.com), with T2 press and T3 community reports labeled as such in the modules. Facts the docs do not state are flagged inline (MCP transport name; the 30-day-on-disconnect claim, which is unverified; exact Slack OAuth scopes - pull from the install consent screen). Claude Tag is in public beta; figures and mechanics are point-in-time as of 2026-07-09 and on a monthly re-verification cadence.</p>
+    </details>
+
+  </div>
+
+  <footer>School Technology Associates &middot; AI Platform Briefing &middot; Generated 2026-07-09 &middot; Internal - STA staff only</footer>
+</main>
+</body>
+</html>

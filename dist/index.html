@@ -499,7 +499,7 @@ window.TRAINING_DATA = {
         { heading: 'Codebase & maintenance', note: 'How the internal hub apps are built and kept running - source code, deploy steps, and the recurring automations.', docs: ['codebase-maintenance-guide', 'scheduled-tasks-reference'] },
         { heading: 'Build pipeline', note: 'The process for taking an agent from idea to production.', docs: ['build-guide', 'architect-case-study'] },
         { heading: 'Planned builds (in scoping)', note: 'Agents scoped but not yet built.', docs: ['google-ai-employee-sow', 'salesforce-integration-sow'] },
-        { heading: 'In Dev', note: 'Work in progress - not yet live.', docs: ['sta-server-proposal', 'sta-shared-brain'] },
+        { heading: 'In Dev', note: 'Work in progress - not yet live.', docs: ['sta-server-proposal', 'sta-server-guided-build-checklist', 'claude-tag-briefing', 'sta-shared-brain'] },
         { heading: 'Security checklists', note: 'Security review checklists for Google and Salesforce.', docs: ['google-security', 'sf-security'] },
         { heading: 'Operational procedures', note: 'Standing procedures for running and maintaining the system.', docs: ['drift-check', 'formatting-standards', 'write-verification'] },
         { heading: 'Knowledge base', note: 'The research and reference modules behind the AI system.', docs: ['kb-module-catalog', 'creative-snippet-gallery', 'effects-lab'] }
@@ -1366,6 +1366,24 @@ window.TRAINING_DATA = {
     },
 
     // ===== In Dev (server / infrastructure) =====
+    'sta-server-guided-build-checklist': {
+      title: 'STA Company Server - Guided Build Checklist',
+      desc: 'The interactive, step-by-step build checklist for the company cloud server (updated 7/9). Work through it top to bottom during the build - each step is checkable with guidance inline. Pairs with the server proposal card.',
+      file: 'docs/sta-server-guided-build-checklist.html',
+      type: 'html',
+      priority: 'wip',
+      tags: ['In Dev', 'Admin'],
+      added: '2026-07-10', updated: '2026-07-10'
+    },
+    'claude-tag-briefing': {
+      title: 'Claude Tag (Claude in Slack) - Adoption Briefing',
+      desc: 'Adopt recommendation for Claude Tag, the shared @Claude teammate in Slack (included in our Team plan). How it works, the confirmed custom-MCP hookup for the company server, four STA uses in pilot order, and the rollout plan before the Aug 3 legacy cutoff.',
+      file: 'docs/claude-tag-briefing.html',
+      type: 'html',
+      priority: 'wip',
+      tags: ['In Dev', 'Admin'],
+      added: '2026-07-09', updated: '2026-07-09'
+    },
     'sta-server-proposal': {
       title: 'Company Cloud Server + STA Shared Brain - Proposal',
       desc: 'Approved 6/19, now building (server targeted end of July). The leadership pitch for a ~$15/mo company cloud server hosting STA shared AI infrastructure - the shared brain every assistant reads from, plus automations. Build contract: the STA Server SOW.',
