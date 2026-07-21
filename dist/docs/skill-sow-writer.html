@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOW Writer - Skill Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  :root { --dark:#1A1A2E; --teal:#0d7d8c; --teal-dark:#0a6470; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#fff; color:#1e2a35; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #0a6571); border-radius:10px;  overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent,#0a6571) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#0a6571) 35%, #fff); color:var(--doc-accent,#0a6571); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+
+  .head h1 { color:#1e2a35; }
+  .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent, #0a6571); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--teal-dark); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Content &amp; Output &middot; AI Admin</span>
+      <h1>SOW Writer</h1>
+      <div class="tagline">Write a vendor-ready Statement of Work for outsourced dev work.</div>
+      <div class="head-strip">SKILL &middot; RUNS AUTOMATICALLY WHEN IT APPLIES</div>
+    </div>
+    <div class="body">
+      <h2>What it does</h2>
+      <p>Turns your intent into two things: a standalone, School Tech-branded Statement of Work (.docx) that goes to the dev shop, and a high-level internal HTML summary that walks staff and leadership through what is being commissioned. The whole point of an SOW is to tell a vendor what you want to be true and let their expertise decide how to build it, so the skill holds the line at outcomes and keeps implementation detail out.</p>
+      <h2>When to use it</h2>
+      <p>Any time you are commissioning an outside dev shop or contractor to build or improve software and need it written up to send them. It triggers even when you do not say "SOW" - "write up what we want Cruxlab to build" is the same request. Not for choosing a vendor (that is Vendor Evaluation), drafting contract or legal terms, or an internal-only spec with no vendor.</p>
+      <h2>How to trigger it</h2>
+      <div class="trigger"><p>"draft an SOW for this build"</p><p>"write up what we want the dev shop to build"</p><p>"scope this dev work for Cruxlab"</p></div>
+      <h2>Example output 1 - the vendor SOW (.docx)</h2>
+      <figure style="margin:6px 0 0;">
+        <img src="img/skill-sow-writer.jpg" alt="Example School Tech branded Statement of Work document produced by the skill" style="display:block;width:100%;max-width:820px;border:1px solid var(--border);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.10);">
+        <figcaption style="font-size:9.5pt;color:#555;font-style:italic;margin:7px 0 0;">The standalone, School Tech-branded SOW that goes to the vendor - outcomes only, lean, with a priorities table.</figcaption>
+      </figure>
+      <h2>Example output 2 - the internal summary (HTML)</h2>
+      <figure style="margin:6px 0 0;">
+        <img src="img/skill-sow-writer-summary.jpg" alt="Example internal HTML summary of the SOW for staff and leadership" style="display:block;width:100%;max-width:560px;border:1px solid var(--border);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.10);">
+        <figcaption style="font-size:9.5pt;color:#555;font-style:italic;margin:7px 0 0;">The internal walkthrough for staff and leadership - derived from the SOW, never sent to the vendor.</figcaption>
+      </figure>
+    </div>
+    <div class="foot">School Technology Associates &middot; SOW Writer &middot; Custom Skill</div>
+  </div>
+</body>
+</html>
