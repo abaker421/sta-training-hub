@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Tech AI - Reporting Errors</title>
+<style>
+  :root { --blue:#006098; --green:#6bc04b; --orange:#F4A300; --red:#c0392b; --gray:#8a8d8e; --light:#f4f6f8; --dark:#1e2a35; --white:#fff; --border:#dde3e8; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:var(--light); color:var(--dark); line-height:1.6; }
+  .header { background:#fff; color:#1e2a35; padding:28px 40px; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #3a8a1e); border-radius:10px; max-width:900px; margin:0 auto;  overflow:hidden; }
+  .header-strip { margin:18px -40px 0; padding:9px 40px; background:color-mix(in srgb, var(--doc-accent,#3a8a1e) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#3a8a1e) 35%, #fff); color:var(--doc-accent,#3a8a1e); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+
+  .header-inner { max-width:900px; margin:0 auto; }
+  .header h1 { color:#1e2a35; font-size:26px; font-weight:700; }
+  .header .sub { color:#5f6b76; opacity:1; font-size:14px; margin-top:6px; max-width:640px; }
+  .header .badge { background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent,#3a8a1e); display:inline-block; border-radius:20px; padding:3px 12px; font-size:12px; margin-top:12px; }
+  .page { background:#fff; border:1px solid #dde3e8; border-radius:10px; max-width:900px; margin:20px auto 0; padding:28px 40px 60px; }
+  h2.section-title { font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--gray); margin:44px 0 16px; padding-bottom:8px; border-bottom:2px solid var(--border); }
+  h2.section-title:first-of-type { margin-top:8px; }
+  p { font-size:14px; color:#333; margin-bottom:14px; }
+  .lead { font-size:15px; color:#444; margin-bottom:8px; }
+  .callout { border-radius:8px; padding:14px 18px; margin:18px 0; font-size:13px; line-height:1.6; }
+  .callout.blue { background:#e8f2f8; border-left:4px solid var(--blue); }
+  .callout.green { background:#edf7e6; border-left:4px solid var(--green); }
+  .callout.orange { background:#fef4e0; border-left:4px solid var(--orange); }
+  .callout.red { background:#fdf0ef; border-left:4px solid var(--red); }
+  .callout strong { color:var(--dark); }
+  .big { font-size:18px; font-weight:700; color:var(--dark); }
+  .steps { counter-reset:step; margin:8px 0 4px; }
+  .step { display:flex; gap:18px; margin-bottom:16px; }
+  .step-num { width:32px; height:32px; border-radius:50%; background:var(--blue); color:#fff; font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+  .step-body { flex:1; }
+  .step-title { font-size:15px; font-weight:700; margin-bottom:3px; }
+  .step-desc { font-size:13.5px; color:#444; line-height:1.55; }
+  a { color:var(--blue); }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.5); text-align:center; padding:20px; font-size:12px; margin-top:60px; }
+  .footer strong { color:rgba(255,255,255,0.8); }
+  @media (max-width:800px) { .page { padding:20px 16px 60px; } .header { padding:24px 16px; } }
+</style>
+</head>
+<body id="top">
+
+<div class="header" style="--doc-accent:#006098;">
+  <div class="header-inner">
+    <h1>Reporting Errors</h1>
+    <div class="sub">When an AI tool gets something wrong, tell me. Here is who to reach and why it matters more than you might think.</div>
+    <div class="badge">Required before first use</div>
+  </div>
+  <div class="header-strip">Required Reading</div>
+</div>
+
+<div class="page">
+
+  <p class="lead">The AI tools you use for School Tech work are things I build and maintain. When one gets something wrong, I don't see it unless you tell me. So tell me.</p>
+
+  <div class="callout blue">
+    <span class="big">Reach out to Adam. Email is best.</span><br>
+    That's the whole process. You know who I am - no ticket, no form, no special wording. Send me an email describing what went wrong.
+  </div>
+
+  <h2 class="section-title">Why this matters</h2>
+  <p>An error you don't report is an error that never gets fixed. I can only correct what I know about, and I'm not watching over your shoulder while you work. A quick email is the difference between a problem that gets solved and one that keeps happening to you and to everyone else using the same tool.</p>
+  <div class="callout orange">
+    <strong>Don't assume someone else already said something.</strong> Most of the time, nobody has. The thing that feels too small to mention is usually exactly the thing I'd want to know.
+  </div>
+
+  <h2 class="section-title">The three-times rule</h2>
+  <p>Here is the clearest signal that it's time to email me:</p>
+  <div class="callout red">
+    <strong>If you're correcting the same thing more than three times, reach out.</strong> When you find yourself fixing the same mistake over and over - the tool keeps getting one fact wrong, keeps using the wrong format, keeps missing the same step - that's not something you should have to keep patching by hand.
+  </div>
+  <p>When you flag a repeat problem like that, I can correct it <strong>inside the AI itself</strong> - in the instructions the tool runs on - so it stops happening for good. Fix it once at the source instead of a hundred times in your day.</p>
+
+  <h2 class="section-title">What to put in the email</h2>
+  <p>Nothing formal. Just enough that I can see what you saw:</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Which tool</div>
+        <div class="step-desc">The name of the project, chat, or skill you were using.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">What went wrong</div>
+        <div class="step-desc">What you expected versus what it actually did. A sentence is fine.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Whether it's a repeat</div>
+        <div class="step-desc">Tell me if this is the same thing you've had to correct before. That moves it to the top of my list.</div>
+      </div>
+    </div>
+  </div>
+  <div class="callout blue">
+    <strong>A screenshot or a copy of the conversation helps</strong> but it isn't required. Send what you have.
+  </div>
+
+  <div class="callout green" style="margin-top:24px;">
+    <span class="big">The short version:</span> something's wrong, email Adam. Correcting it three times? Email Adam. If you don't tell me, it never gets fixed.
+  </div>
+
+</div>
+
+<div class="footer"><strong>School Technology Associates</strong> &middot; AI Program &middot; Reporting Errors</div>
+
+</body>
+</html>

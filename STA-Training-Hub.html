@@ -414,7 +414,7 @@ window.TRAINING_DATA = {
       icon: '\u{1F44B}',
       sub: 'Everyone reads these first. Day 1 onboarding for the AI program, no matter your role.',
       sections: [
-        { heading: 'Required before first use', note: 'The ground rules for your role. Read these before you use any AI tool for School Tech work - they cover what is allowed and what data must never go in. Non-negotiable.', docs: ['aup', 'restricted-data'] },
+        { heading: 'Required before first use', note: 'The ground rules for your role. Read these before you use any AI tool for School Tech work - they cover what is allowed, what data must never go in, and how to report a problem when a tool gets something wrong. Non-negotiable.', docs: ['aup', 'restricted-data', 'reporting-errors'] },
         { heading: 'Recommended Week 1', time: 'about 50 min', note: 'Getting started with the AI tools. Learn how to get better results from AI and how to work with the tools we already have. Read these in your first week.', docs: ['quick-ref', 'better-results', 'onboarding-deck', 'ai-advisor', 'open-html', 'open-markdown'] },
         { heading: 'Go further', accent: '#c2185b', note: 'Optional. Once you have played with the AI tools and want to go deeper, these show you more of what AI can do beyond the basics.', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'ai-basics', 'what-is-a-brain'] }
       ]
@@ -675,6 +675,16 @@ window.TRAINING_DATA = {
       tags: ['Policy'],
       added: '2026-05-21', updated: '2026-05-21',
       check: 'What is the name of the quick decision rule the guide gives for all staff, and what does it say to do if you would not paste the information into an email to a stranger?'
+    },
+    'reporting-errors': {
+      title: 'Reporting Errors',
+      desc: 'When an AI tool gets something wrong, email Adam - that is the whole process. Why reporting matters (unreported errors never get fixed) and the three-times rule for repeat problems.',
+      file: 'docs/reporting-ai-errors.html',
+      type: 'html',
+      priority: 'required',
+      tags: ['Policy'],
+      added: '2026-07-24', updated: '2026-07-24',
+      check: 'According to the three-times rule, at what point should you email Adam about a repeated mistake, and what can he then do inside the AI itself to stop it happening?'
     },
 
     // ===== Staff core =====
