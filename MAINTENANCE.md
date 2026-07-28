@@ -44,34 +44,43 @@ cp "../Training - Staff/Getting Started Guide.html" "dist/docs/Getting Started G
 
 ---
 
-## Push to Deploy (mandatory after every sync)
+## Ship to Deploy (mandatory after every sync)
 
-**Cloudflare Pages deploys from the GitHub remote `origin/main`, not from the local filesystem.** Local dist syncs alone do NOT update the hosted hub - the changes must be pushed to GitHub before Cloudflare picks them up. Every sync must be followed by a commit + push, or the hub silently serves stale content even though dist/ on disk is up to date.
+**Cloudflare Pages deploys from the GitHub remote `origin/main`, not from the local filesystem.** Local dist syncs alone do NOT update the hosted hub - the change must reach `main` on GitHub before Cloudflare picks it up. Every sync must be followed by a merged PR, or the hub silently serves stale content even though dist/ on disk is up to date.
+
+**`main` is protected - `git push origin main` is rejected.** The change ships through a pull request. Cloudflare deploys on the merge, not on the push.
 
 **The Architect provides a paste-ready prompt at the end of every hub-modifying session** per RESTATED HARD RULES rule 13. Paste it into Claude Code to execute. The prompt template:
 
 ```bash
 cd "C:\Users\Adam\source\repos\training-kit-hub"
+git checkout main && git pull origin main
+git checkout -b hub/[short-slug]
 git status
-git add -A
+git add -- STA-Training-Hub.html dist/index.html   # name the files; never git add -A
 git commit -m "[concrete descriptive message of what changed]"
-git push origin main
+git push -u origin hub/[short-slug]
+gh pr create --base main --fill
+gh pr checks hub/[short-slug] --watch
+gh pr merge hub/[short-slug] --squash --delete-branch
+git checkout main && git pull origin main
 ```
 
 If running manually (no Architect session):
 
 1. `cd` to the hub folder above.
-2. `git status` to confirm what changed.
-3. `git add -A` to stage everything (source + dist).
-4. `git commit -m "..."` with a concrete commit message (name the files or behaviors that changed, not "updates").
-5. `git push origin main`.
+2. `git checkout main && git pull origin main`, then `git checkout -b hub/<slug>`.
+3. `git status` to confirm what changed.
+4. `git add -- <explicit paths>` (source + the synced dist file). Do not `git add -A`.
+5. `git commit -m "..."` with a concrete commit message (name the files or behaviors that changed, not "updates").
+6. `git push -u origin hub/<slug>`, then `gh pr create --base main --fill`.
+7. Wait for checks, then `gh pr merge <branch> --squash --delete-branch`.
 
-Cloudflare Pages auto-deploys within ~60 seconds of the push completing. Confirm by loading the hosted hub URL in a new private window (to bypass browser cache).
+Cloudflare Pages auto-deploys within ~60 seconds of the **merge** completing. Confirm by loading the hosted hub URL in a new private window (to bypass browser cache).
 
-**No push = no deploy.** Edits to source files alone, without a push, will silently fail to reach users. This is the dominant operational failure mode for the hub - the dist sync rule (immediate, within-session) catches the local mirror issue; this push rule (immediate, before declaring complete) catches the remote deploy issue.
+**No merged PR = no deploy.** Edits to source files alone, or a pushed branch that never merges, will silently fail to reach users. This is the dominant operational failure mode for the hub - the dist sync rule (immediate, within-session) catches the local mirror issue; this ship rule (immediate, before declaring complete) catches the remote deploy issue.
 
-Origin: 2026-05-21, The Architect's RESTATED HARD RULES rule 13 added after Adam observed the push step was being missed at the end of hub-modifying sessions.
-
+Origin: 2026-05-21, The Architect's RESTATED HARD RULES rule 13 added after Adam observed the push step was being missed at the end of hub-modifying sessions. Revised 2026-07-28 when `main` became protected across all repos - direct pushes no longer work.
 ---
 
 ## Re-converting .docx Files After Source Edits
