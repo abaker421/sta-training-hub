@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The AI Admin PC now runs 5 plugins and 45 non-custom skills after the July 2026 cleanup</title>
+<title>The AI Admin PC now runs 6 plugins and 39 bundled skills after the July 2026 cleanup</title>
 <style>
   :root{
-    --brand:#006098; --brand-d:#004a78; --green:#6bc04b; --green-d:#4f9a34;
+    --brand:#006098; --brand-d:#004a78; --green:#6bc04b; --green-d:#4f9a34;  /* #004a78 is a working accent, not brand */
     --eyebrow:#bfe0f0; --headmeta:#cfe5f1;
     --good:#1a7f37; --warn:#9a6700; --bad:#b42318;
     --good-bg:#eaf6ec; --warn-bg:#fdf6e3; --bad-bg:#fdeceb;
@@ -109,7 +109,7 @@
 <main>
   <header>
     <p class="eyebrow">School Technology Associates &middot; AI Admin System Inventory</p>
-    <h1>The AI Admin PC now runs 5 plugins and 45 non-custom skills after the July 2026 cleanup</h1>
+    <h1>The AI Admin PC now runs 6 plugins and 39 bundled skills after the July 2026 cleanup</h1>
     <p class="meta">Generated 2026-06-06 &middot; Rebuilt 2026-07-01 after a plugin cleanup &nbsp;&middot;&nbsp; Source: live session registry (skills + MCP servers) + context-org-tech-stack.md &nbsp;&middot;&nbsp; Scope: all installed plugins and stock skills, plus the STA tech stack the AI layer plugs into; Adam's custom skills excluded</p>
     <div class="header-strip">INTERNAL &middot; ADMIN REFERENCE</div>
   </header>
@@ -121,18 +121,18 @@
         <div class="big">5</div>
         <div class="lab">Plugins installed</div>
       </div>
-      <div class="txt"><p><strong>Bottom line:</strong> the plugin bench was cut hard in the July 2026 cleanup - from 27 plugins down to 5. What remains is the set actually used in daily work: <strong>Design, Slack by Salesforce, PDF Viewer, Desktop Commander, and Cowork Plugin Management</strong>. Anthropic's 18 stock skills (the full document pipeline) are untouched, and so are Adam's ~48 custom skills - excluded here by design and documented on their own hub cards. Most plugin MCP connectors sit unauthenticated until first use. Nothing needs action - this is a reference inventory.</p></div>
+      <div class="txt"><p><strong>Bottom line:</strong> the plugin bench was cut hard in the July 2026 cleanup - from 27 plugins down to <strong>6</strong>. What remains is the set actually used in daily work: <strong>Design, Slack by Salesforce, PDF Viewer, Desktop Commander, Cowork Plugin Management, and Figma</strong> (Figma is now a full plugin rather than a bare connector, and contributes 12 bundled skills of its own - so the bundled total is <strong>39</strong>, not 27). Anthropic's 18 stock skills (the full document pipeline) are untouched, and so are Adam's <strong>38</strong> custom skills - excluded here by design and documented on their own hub cards. Most plugin MCP connectors sit unauthenticated until first use. Nothing needs action - this is a reference inventory.</p></div>
     </section>
 
     <div class="kpis">
-      <div class="kpi"><div class="num">5</div><div class="label">Plugins installed</div><div class="delta down">down from 27</div></div>
-      <div class="kpi"><div class="num">27</div><div class="label">Plugin-bundled skills</div></div>
+      <div class="kpi"><div class="num">6</div><div class="label">Plugins installed</div><div class="delta down">down from 27</div></div>
+      <div class="kpi"><div class="num">39</div><div class="label">Plugin-bundled skills</div></div>
       <div class="kpi"><div class="num">18</div><div class="label">Anthropic stock skills</div></div>
     </div>
-    <h2>Five plugins remain after the cleanup</h2>
-    <p>Down from 27. The removed set was the business-role bench (Small Business, Data, Engineering, Sales, Operations, Product Management, Marketing, Finance, Customer Support), the heavy developer kits (Twilio, Zoom), and the research and utility group (Nimble, Enterprise Search, VPAI, Product Tracking, Brand Voice, Productivity, Airtable, Qodo, Fluent, Postiz). None were load-bearing for STA's day-to-day work; the custom skill suite and the stock document pipeline carry it.</p>
+    <h2>Six plugins remain after the cleanup</h2>
+    <p>Down from 27, and back up by one when Figma graduated from a connector to a full plugin. The removed set was the business-role bench (Small Business, Data, Engineering, Sales, Operations, Product Management, Marketing, Finance, Customer Support), the heavy developer kits (Twilio, Zoom), and the research and utility group (Nimble, Enterprise Search, VPAI, Product Tracking, Brand Voice, Productivity, Airtable, Qodo, Fluent, Postiz). None were load-bearing for STA's day-to-day work; the custom skill suite and the stock document pipeline carry it.</p>
     <table>
-      <caption>The five installed plugins (27 bundled skills total)</caption>
+      <caption>The six installed plugins (39 bundled skills total)</caption>
       <thead><tr><th scope="col">Plugin</th><th scope="col" class="num">Skills</th><th scope="col">What it gives you</th></tr></thead>
       <tbody>
         <tr><td>Design</td><td class="num">7</td><td>Design critique, WCAG a11y review, UX copy, design systems, developer handoff, user research + synthesis. Connectors (unauthenticated): Figma, Asana, Atlassian, Linear, Intercom, Notion</td></tr>
@@ -140,6 +140,7 @@
         <tr><td>Desktop Commander</td><td class="num">6</td><td>Persistent shells/REPLs, filesystem beyond the workspace, SSH, AI-tools setup, computer health check, KB/Obsidian helpers (MCP)</td></tr>
         <tr><td>PDF Viewer</td><td class="num">5</td><td>Interactive viewing, annotation, form fill, signatures</td></tr>
         <tr><td>Cowork Plugin Mgmt</td><td class="num">2</td><td>Create and customize Cowork plugins</td></tr>
+        <tr><td>Figma</td><td class="num">12</td><td>Design-to-code and code-to-design both ways - read a Figma file into code, push screens and component libraries back into Figma, Code Connect mapping, FigJam diagrams, motion and SwiftUI helpers. Promoted from a bare connector to a full plugin</td></tr>
       </tbody>
     </table>
 
@@ -193,7 +194,7 @@
       </tbody></table>
     </div></details>
 
-    <div class="callout"><strong>Live MCP connectors this session:</strong> Gmail (draft-only), Google Calendar, Slack, Box, Figma, Hugging Face, Zoom, Granola, GA4 (ga4-helpcenter, custom), MCP Registry. The Design-plugin connectors (Figma, Asana, Atlassian, Intercom, Linear, Notion) sit unauthenticated until first sign-in.</div>
+    <div class="callout"><strong>Live MCP connectors this session:</strong> Gmail (draft-only), Google Calendar, Google Drive, Slack, Figma, Hugging Face, Zoom, Granola, GA4 (ga4-helpcenter, custom), MCP Registry. Box is <strong>not</strong> installed. The Design-plugin connectors (Figma, Asana, Atlassian, Intercom, Linear, Notion) sit unauthenticated until first sign-in.</div>
     <h2>Anthropic's 18 stock skills cover the document pipeline end to end</h2>
     <p>Untouched by the cleanup - these ship with Cowork and are always available.</p>
     <table>
@@ -255,7 +256,7 @@
         <tr><td>ISCorp</td><td>Hosting for SchoolTRAK. <span class="st b">Not AI-connected</span></td></tr>
         <tr><td rowspan="5">Communication</td><td>Google Chat</td><td>Primary internal messaging. <span class="st b">Not AI-connected</span> (identified future target)</td></tr>
         <tr><td>Slack</td><td>AI-output channel - adopted for its AI integration ease; System Monitor health reports post here. <span class="st g">AI-connected</span> (MCP)</td></tr>
-        <tr><td>Zoom</td><td>Meetings. <span class="st b">Not AI-connected</span> (post-meeting case notes are a named pain point). The Zoom developer plugin was removed in the July 2026 cleanup</td></tr>
+        <tr><td>Zoom</td><td>Meetings. <span class="st g">AI-connected</span> via the Zoom connector. The separate Zoom <em>developer plugin</em> was removed in the July 2026 cleanup - that is the plugin, not the connector</td></tr>
         <tr><td>Salesforce Chatter</td><td>Case-related in-platform messaging. <span class="st g">Via Salesforce</span></td></tr>
         <tr><td>Intercom / HubSpot</td><td>Customer-facing comms. <span class="st w">Connector only</span>: the HubSpot / Customer Support plugin was removed in the July 2026 cleanup; Intercom remains only as an unauthenticated Design-plugin connector. HubSpot's relationship to Salesforce as system of record was never fully defined - flag in any CRM-adjacent design</td></tr>
         <tr><td rowspan="5">Content &amp; knowledge</td><td>Salesforce Knowledge (Help Center)</td><td>Customer-facing KB in a strict HTML format. <span class="st g">AI-integrated</span> (Help Center Article skill, Help Center Advisor agent, GA4 help-center reporting)</td></tr>
@@ -267,8 +268,8 @@
         <tr><td>Granola</td><td>AI meeting notes/transcripts. <span class="st g">AI-connected</span> (feeds the rd-time-tracking-weekly task)</td></tr>
         <tr><td rowspan="5">AI &amp; dev infrastructure</td><td>Claude (Anthropic)</td><td>claude.ai Projects (staff tools), Cowork desktop (agents + skills on this PC), Claude Code (repo work, PRs). <span class="st g">The AI layer itself</span></td></tr>
         <tr><td>GitHub</td><td>Repos for the training hub, BwB web apps, and the weekly full-system backup. Protected main; PR-based deploys. <span class="st g">AI-connected</span> (Claude Code + weekly-github-backup)</td></tr>
-        <tr><td>Cloudflare Pages (+ D1)</td><td>Hosts the STA Training Hub and the Help Center Index app's Projects tab (D1-backed tracker); deploys from origin/main on PR merge. <span class="st g">AI-maintained</span></td></tr>
-        <tr><td>Netlify</td><td>Hosts the STA Help Center Index single-page app. <span class="st g">AI-maintained</span></td></tr>
+        <tr><td>Cloudflare Pages (+ D1)</td><td>Hosts the STA Training Hub and the STA Support Hub's Projects tab (D1-backed tracker); deploys from origin/main on PR merge. <span class="st g">AI-maintained</span></td></tr>
+        <tr><td>Netlify</td><td>Hosts the STA Support Hub single-page app (renamed 2026-06-11; repo slug remains <code>sta-help-center-index</code>). <span class="st g">AI-maintained</span></td></tr>
         <tr><td>Google Analytics 4</td><td>Help Center traffic analytics. <span class="st g">AI-connected</span> (ga4-helpcenter connector + help-center-report skill)</td></tr>
         <tr><td rowspan="2">Security</td><td>Bullphish / Webroot / Spanning</td><td>Phishing training, endpoint protection, Salesforce backup. <span class="st w">Monitored</span> via STA Security Advisor (CIS v8.1 evidence tracking)</td></tr>
         <tr><td>Google Admin Console</td><td>Workspace administration, MFA enforcement, security events. <span class="st w">Monitored</span> via STA Security Advisor</td></tr>
@@ -276,11 +277,11 @@
     </table>
     <div class="callout"><strong>Source of truth:</strong> the canonical stack doc is <strong>context-files/outputs/context-org-tech-stack.md</strong> in The Architect workspace. When a tool is added, dropped, or newly AI-connected, update that file first, then regenerate this section.</div>
 
-    <div class="callout"><strong>Excluded by design:</strong> the ~48 custom-built skills (garage-sale-scanner, prompt-evaluator, sta-html-report, time-clock-error-log-review, training-doc-auditor, and the rest of the pipeline tooling). They are all installed alongside everything above and documented on their own hub cards.</div>
+    <div class="callout"><strong>Excluded by design:</strong> the 38 custom-built skills (garage-sale-scanner, prompt-evaluator, sta-html-report, time-clock-error-log-review, training-doc-auditor, and the rest of the pipeline tooling). They are all installed alongside everything above and documented on their own hub cards.</div>
 
     <details>
       <summary>Methodology and data sources</summary>
-      <p>Counts taken from the live Cowork session registry (available-skills list plus connected and deferred MCP server inventory). This is the 2026-07-01 rebuild after a plugin cleanup that cut the bench from 27 plugins to 5; the earlier 2026-06-06 version documented the pre-cleanup 27-plugin set. Skill counts are the plugin-bundled skills visible this session (Design 7, Slack 7, Desktop Commander 6, PDF Viewer 5, Cowork Plugin Mgmt 2 = 27) plus Anthropic's 18 stock skills. Most connectors expose only authentication endpoints until first sign-in. Point-in-time snapshot - installing or removing a plugin invalidates the counts.</p>
+      <p>Counts taken from the live Cowork session registry (available-skills list plus connected and deferred MCP server inventory). This is the 2026-07-01 rebuild after a plugin cleanup that cut the bench from 27 plugins to 5, revised 2026-08-17 when Figma was promoted from a connector to a full plugin; the earlier 2026-06-06 version documented the pre-cleanup 27-plugin set. Skill counts are the plugin-bundled skills visible this session (Design 7, Slack 7, Desktop Commander 6, PDF Viewer 5, Cowork Plugin Mgmt 2, Figma 12 = 39) plus Anthropic's 18 stock skills. Most connectors expose only authentication endpoints until first sign-in. Point-in-time snapshot - installing or removing a plugin invalidates the counts.</p>
     </details>
   </div>
 

@@ -65,7 +65,7 @@ The Architect itself runs this procedure. Triggers:
 
 ## Relationship to Mechanism 2 (Final-Version Audit)
 
-Mechanism 1 (this procedure) runs on every change. Mechanism 2 invokes the `training-doc-audit` skill when a final version of any prompt or agent has been decided (project transitions Draft to Active). The two are complementary: this procedure is fast and catches obvious drift; the audit is thorough and catches drift keyword-grep misses.
+Mechanism 1 (this procedure) runs on every change. Mechanism 2 invokes the `training-doc-auditor` skill when a final version of any prompt or agent has been decided (project transitions Draft to Active). The two are complementary: this procedure is fast and catches obvious drift; the audit is thorough and catches drift keyword-grep misses.
 
 ---
 

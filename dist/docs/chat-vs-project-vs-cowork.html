@@ -201,8 +201,9 @@
   <p class="doc-p"><strong>Where you find it:</strong> it's a toggle in the composer on the Home tab, not a separate place - you pick Chat or Cowork per task, then point the session at a folder (the container) so it has somewhere to work. <strong>Desktop-only for file work:</strong> Cowork mode itself runs on web and mobile (beta), but the local file and browser access is desktop-only. At STA, file-access Cowork projects run on the AI Admin PC with the folder mounted - you can't run one from web or mobile.</p>
   <p class="doc-p"><strong>Who has it at STA:</strong> admins and power users only.</p>
   <p class="doc-p"><strong>Worth it when:</strong> multi-file work, a recurring or scheduled output (like a weekly digest), or a long multi-step job that would overwhelm a single chat. For anything that's just one question, use a Project instead - Cowork uses more of our usage allowance.</p>
-  <p class="doc-p"><strong>Needs your computer awake:</strong> scheduled jobs skip if the machine is asleep or the app is closed.</p>
-  <div class="callout red"><strong>Data caution - important:</strong> Cowork has no audit log and stores its data on your local computer. Anthropic's own guidance is not to use it for regulated work. For School Tech that means never run student records, HR or employee PII, or any restricted data through Cowork. The data rule from the Getting Started guide applies double here.</div>
+  <p class="doc-p"><strong>Scheduled jobs do NOT need your computer awake:</strong> scheduled tasks run remotely and fire even with the desktop app closed. The exception is any step that touches <em>local</em> files or the local browser - those need the desktop app open on the machine that holds the folder. So a task that only reads a connector and posts to Slack runs unattended; a task that writes into a mounted workspace folder does not.</p>
+  <div class="callout red"><strong>Data caution - important:</strong> Cowork can read and write real files on your computer, which is a much bigger blast radius than a chat. <strong>School Tech's rule stands regardless of the tooling: never run student records, HR or employee PII, or any restricted data through Cowork.</strong> The data rule from the Getting Started guide applies double here.
+  <br><br><strong>On auditability:</strong> Cowork activity <em>is</em> captured in the Compliance API, and Team/Enterprise owners can stream those events to a SIEM - so "there is no audit trail" is not accurate. Anthropic's published guidance is to avoid granting Cowork access to sensitive local files; it does not prohibit regulated work outright. Our restriction is School Tech's own call, and it holds on its own merits.</div>
 
   <!-- 6 Which one do I use -->
   <div class="section-title">Which one do I use?</div>
@@ -217,9 +218,9 @@
   <ul class="doc-list">
     <li>Plain chat forgets everything the moment you close it.</li>
     <li>Shared Projects lose connector access (Gmail, Drive) - keep a project private if it needs them.</li>
-    <li>Cowork only runs while your computer is on and awake.</li>
+    <li>Scheduled Cowork tasks run remotely - they fire with the app closed. Only the steps that touch local files or the local browser need the desktop app open.</li>
     <li>Cowork uses more usage than a Project - don't reach for it for one-off questions.</li>
-    <li>Cowork is never for student, HR, or restricted data - there's no audit trail.</li>
+    <li>Cowork is never for student, HR, or restricted data - that's School Tech's rule, not a gap in the tool (activity is captured in the Compliance API).</li>
     <li>Mode (Chat/Cowork) and container (Project/folder) are separate picks - a Project isn't a mode, and Cowork isn't a tab.</li>
     <li>Cowork mode runs on web and mobile, but file and browser access is desktop-only - STA's file-access projects run on the AI Admin PC.</li>
   </ul>
@@ -231,7 +232,7 @@
   <!-- FOOTER -->
   <div style="margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: #555; line-height: 1.6;">
     <strong style="color: var(--dark);">Questions or issues?</strong> Contact Adam.
-    For data questions, see the <a href="ai-restricted-data-reference-guide.html" style="color:#0a66c2;text-decoration:underline;">AI Restricted Data Reference Guide</a>. New to AI? Start with the <a href="getting-started-guide.html" style="color:#0a66c2;text-decoration:underline;">Quick Start Guide</a>.
+    For data questions, see the <a href="ai-restricted-data-reference-guide.html" style="color:#0a66c2;text-decoration:underline;">AI Restricted Data Reference Guide</a>. New to AI? Start with the <a href="quick-reference-card.html" style="color:#0a66c2;text-decoration:underline;">Quick Reference Card</a>.
   </div>
 
 </div>

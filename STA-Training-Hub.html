@@ -447,7 +447,8 @@ window.TRAINING_DATA = {
       sub: 'For Marketing and content - newsletters, the blog, and the Behind the Bell podcast. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'behind-the-bell-tool'] },
-        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report', 'skill-salesforce-email-template', 'skill-image-gen'] }
+        { heading: 'Getting started', note: 'Read this first to get up and running with the Behind the Bell assistant.', docs: ['behind-the-bell'] },
+        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report', 'skill-salesforce-email-template', 'skill-image-gen', 'skill-outbound-comms-grounding'] }
       ]
     },
     {
@@ -467,6 +468,7 @@ window.TRAINING_DATA = {
       sub: 'For Renewals - Jessie. Renewal-call practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'the-customer', 'behind-the-bell-tool'] },
+        { heading: 'Getting started', note: 'Read this first to get up and running with the Behind the Bell assistant.', docs: ['behind-the-bell'] },
         { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
@@ -487,14 +489,14 @@ window.TRAINING_DATA = {
       icon: '\u{1F527}',
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
-        { heading: 'Internal tools - Claude.ai Projects', note: 'Project-based agents on claude.ai - shared automatically with project members.', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'main-chat-tool', 'the-customer'] },
+        { heading: 'Internal tools - Claude.ai Projects', note: 'Project-based agents on claude.ai - shared automatically with project members.', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'the-customer'] },
         { heading: 'Internal tools - Coworks', note: 'Cowork agents that run on the AI Admin machine with file and tool access.', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
-        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report', 'skill-site-analytics-report', 'skill-salesforce-email-template', 'skill-vendor-evaluation', 'skill-ai-tell-cleaner', 'skill-sow-writer', 'skill-image-gen'] },
+        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report', 'skill-site-analytics-report', 'skill-salesforce-email-template', 'skill-vendor-evaluation', 'skill-ai-tell-cleaner', 'skill-sow-writer', 'skill-image-gen', 'skill-outbound-comms-grounding'] },
         { heading: 'Skills - Support & Troubleshooting', note: 'Skills for diagnosing and resolving support issues.', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', note: 'Skills for building, evaluating, and testing agents.', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger', 'skill-code-relay'] },
         { heading: 'Skills - Knowledge & Research', note: 'Skills for building context files and managing the knowledge base.', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
         { heading: 'Skills - Safety & Guardrails', note: 'Skills that protect agents from misuse and prompt-override attempts.', docs: ['skill-prompt-override-guard'] },
-        { heading: 'Skills - Maintenance & Ops', note: 'Skills that keep the system backed up, synced, and clean.', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter', 'skill-truncation-checker'] },
+        { heading: 'Skills - Maintenance & Ops', note: 'Skills that keep the system backed up, synced, and clean.', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter', 'skill-truncation-checker', 'skill-scheduled-task-builder'] },
         { heading: 'System reference', note: 'How the AI system is wired together - maps, inventories, and references.', docs: ['system-overview', 'project-tracker-tool', 'ai-admin-pc-installed-inventory', 'project-export-snapshot-audit', 'workspace-skills', 'user-management', 'maintenance-sop'] },
         { heading: 'Codebase & maintenance', note: 'How the internal hub apps are built and kept running - source code, deploy steps, and the recurring automations.', docs: ['codebase-maintenance-guide', 'scheduled-tasks-reference'] },
         { heading: 'Build pipeline', note: 'The process for taking an agent from idea to production.', docs: ['build-guide', 'architect-case-study'] },
@@ -587,6 +589,25 @@ window.TRAINING_DATA = {
       org: true,
       tags: ['Images'],
       added: '2026-07-21', updated: '2026-07-21'
+    },
+    'skill-outbound-comms-grounding': {
+      title: 'Outbound Comms Grounding',
+      desc: 'Before any message you send to another person, it reads the knowledge base and proves it - file paths plus line-numbered quotes. No grounding block, no draft. Also locks the domain so work and civic writing never cross.',
+      file: 'docs/skill-outbound-comms-grounding.html',
+      type: 'html',
+      priority: 'skill',
+      org: true,
+      tags: ['Writing'],
+      added: '2026-08-17', updated: '2026-08-17'
+    },
+    'skill-scheduled-task-builder': {
+      title: 'Scheduled Task Builder',
+      desc: 'Builds, audits, and repairs scheduled tasks so they survive unattended runs. Applies twelve gates before creating or changing one, because an ungated task fails silently and its output still looks correct.',
+      file: 'docs/skill-scheduled-task-builder.html',
+      type: 'html',
+      priority: 'skill',
+      tags: ['Automation'],
+      added: '2026-08-17', updated: '2026-08-17'
     },
     'creating-your-first-cowork': {
       title: 'Creating Your First Cowork Project',
@@ -836,7 +857,7 @@ window.TRAINING_DATA = {
     },
     'project-tracker-tool': {
       title: 'STA Project Tracker',
-      desc: 'Shared internal tracker for STA product/dev work - the Projects tab in the Help Center Index app. A built web app, not a chat agent. Phase A read-only is live; Phase B collaborative editing is deferred.',
+      desc: 'Shared internal tracker for STA product/dev work - the Projects tab in the STA Support Hub. A built web app, not a chat agent. Phase A read-only and Phase B collaborative editing are both live.',
       file: 'docs/sta-project-tracker.html',
       type: 'html',
       priority: 'admin',
@@ -951,14 +972,6 @@ window.TRAINING_DATA = {
       desc: 'Shared Claude.ai Project: Salesforce reference and build guidance for the 4-person admin cohort; heavy Flow work routes to the Salesforce Admin Assistant.',
       deployment: 'project',
       file: 'docs/sta-salesforce-cohort-tool.html',
-      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
-      added: '2026-06-08', updated: '2026-06-08'
-    },
-    'main-chat-tool': {
-      title: 'STA Main Chat',
-      desc: 'Planned company-wide base brain (org knowledge, products, processes) that department brains extend from. Parked until department workflow docs are collected.',
-      deployment: 'project',
-      file: 'docs/sta-main-chat-tool.html',
       type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
     },
@@ -1435,7 +1448,7 @@ window.TRAINING_DATA = {
       added: '2026-06-08', updated: '2026-06-08'
     },
 
-    // ===== Coming soon (WIP) =====
+    // ===== Getting-started briefs =====
     'behind-the-bell': {
       title: 'Behind the Bell Assistant',
       desc: 'Shared episode-prep assistant for the Behind the Bell hosts: guest research, prep packages, grouped interview questions, draft scripts, and guest-outreach emails. [CONFIRMED]/[UNVERIFIED] sourcing on every fact.',
@@ -1445,16 +1458,6 @@ window.TRAINING_DATA = {
       tags: ['Tool Brief', 'Podcast Prep'],
       added: '2026-06-01', updated: '2026-06-03',
       check: 'What two tags must every fact in a prep package carry so nothing unverified slips on air?'
-    },
-    'sta-main-chat': {
-      title: 'STA Main Chat',
-      desc: 'A company-wide assistant grounded in how School Tech actually works. Launches once Tanya has each department’s workflow docs.',
-      file: 'docs/sta-main-chat-coming-soon.html',
-      type: 'html',
-      priority: 'wip',
-      tags: ['Company-wide'],
-      added: '2026-06-01', updated: '2026-06-01',
-      check: 'Who is collecting the department workflow documents that STA Main Chat is waiting on before it can launch?'
     }
   }
 };
@@ -1486,7 +1489,7 @@ window.HELPFUL_LINKS = [
     icon: '\u{1F6E0}\u{FE0F}',
     headerBg: '#1A1A2E',
     items: [
-      { name: 'STA Help Center Index', url: 'https://serene-kulfi-7acc0e.netlify.app/', desc: 'Quick lookup for KB articles by product - the single-page app this hub was modeled on.' },
+      { name: 'STA Support Hub', url: 'https://serene-kulfi-7acc0e.netlify.app/', desc: 'Quick lookup for KB articles by product - the single-page app this hub was modeled on.' },
       { name: 'STA Help Center (Salesforce)', url: 'https://schooltechnology.my.site.com/s/', desc: 'Official customer-facing knowledge base.' },
       { name: 'Pinion.md', url: 'https://buildwithbaker.github.io/pinion-md/', desc: 'Read and edit markdown (.md) files locally in your browser.' }
     ]

@@ -2,7 +2,7 @@
 
 **Status:** Draft for review. Created 2026-06-05.
 **Owner:** Adam Baker.
-**Builds on:** Phase A (shipped 2026-06-05) - read-only Projects tab in the gated Help Center Index hub, fed by a static `data/project-data.json` generated from the Work PA's `agenda-state.md`.
+**Builds on:** Phase A (shipped 2026-06-05) - read-only Projects tab in the gated STA Support Hub, fed by a static `data/project-data.json` generated from the Work PA's `agenda-state.md`.
 **Planning doc, not a build prompt.** Build prompts come after Adam approves scope and the open decisions (Section 11) are resolved. A Deep Research commission (Section 3 / B0) is a recommended prerequisite - the KB has no module on Cloudflare D1/Workers or multi-agent write contracts.
 
 ---

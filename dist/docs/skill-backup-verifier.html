@@ -37,9 +37,13 @@
     </div>
     <div class="body">
       <h2>What it does</h2>
-      <p>Runs read-only checks across the _Backups folder - skills, project backups, archives, scheduled-task snapshots - and outputs a drift report, surfacing stale skill packages as click-installable .skill files.</p>
+      <p>Runs read-only checks across the <code>Backups</code> folder - skills, project backups, archives, scheduled-task snapshots - and outputs a drift report, surfacing stale skill packages as click-installable .skill files.</p>
+      <h2>It checks connectors too, with live probes</h2>
+      <p>Beyond files, it compares the <strong>connected MCP connectors</strong> against the expected set and <strong>probes each one with a read-only call</strong> to confirm it actually works. That distinction matters: a connector can be present and listed while its auth has silently expired, so presence alone proves nothing. The probe is what separates "connected" from "connected and working."</p>
+      <h2>Cross-PC install parity</h2>
+      <p>It also diffs the two PCs' installs against each other, so a skill or project that exists on one machine and not the other shows up as drift rather than being discovered the next time you sit down at the wrong desk.</p>
       <h2>When to use it</h2>
-      <p>After a batch of skill or project changes, or whenever you are unsure a backup is current.</p>
+      <p>After a batch of skill or project changes, whenever you are unsure a backup is current, or when a connector has started behaving as though it is not signed in.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"verify all backups"</p><p>"are my backups up to date"</p><p>"backup drift check"</p></div>
     </div>

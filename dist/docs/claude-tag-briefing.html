@@ -6,7 +6,7 @@
 <title>Adopt Claude Tag: it puts AI in front of all 10 STA staff, and the company server should ship Tag-compatible</title>
 <style>
   :root{
-    --brand:#006098; --brand-d:#004a78; --green:#6bc04b; --green-d:#4f9a34;
+    --brand:#006098; --brand-d:#004a78; --green:#6bc04b; --green-d:#4f9a34;  /* #004a78 is a working accent, not brand */
     --eyebrow:#bfe0f0; --headmeta:#cfe5f1;
     --good:#1a7f37; --warn:#9a6700; --bad:#b42318;
     --good-bg:#eaf6ec; --warn-bg:#fdf6e3; --bad-bg:#fdeceb;
@@ -93,7 +93,7 @@
   <header>
     <p class="eyebrow">AI Platform Briefing &middot; Claude Tag</p>
     <h1>Adopt Claude Tag: it puts AI in front of all 10 staff, and the company server should ship Tag-compatible</h1>
-    <p class="meta">Generated 2026-07-09 &nbsp;&middot;&nbsp; Source: 5-module KB deep research (Anthropic T1 docs, launch 2026-06-23) &nbsp;&middot;&nbsp; Scope: how Tag works, STA fit, rollout plan</p>
+    <p class="meta">Generated 2026-07-09 &nbsp;&middot;&nbsp; Revised 2026-08-17 (post-launch) &nbsp;&middot;&nbsp; Source: 5-module KB deep research, Anthropic T1 docs &nbsp;&middot;&nbsp; Scope: how Tag works, STA fit, rollout plan</p>
   </header>
 
   <div class="body">
@@ -102,19 +102,21 @@
     <section class="bluf" role="note" aria-label="Bottom line">
       <div class="txt">
         <p><strong>Bottom line:</strong> Claude Tag is a shared @Claude teammate inside Slack, included with STA's existing Team plan at no per-seat cost - channel work bills to an org usage balance, and Anthropic issued a launch credit STA can pilot on before spending anything. It is the lowest-friction way to put AI in front of the 9 staff who do not use Adam's Cowork system.</p>
-        <p><strong>The architecture answer:</strong> Tag CAN consume a custom MCP server (confirmed in Anthropic's docs: a plugin declaring the server + a host credential). Build the STA company server Tag-compatible - one server then feeds Tag channels, Cowork, and personal DMs. <strong>Action:</strong> fund/verify the usage balance, pilot #ask-claude this month, and decide everything before the legacy app retires August 3.</p>
+        <p><strong>The architecture answer:</strong> Tag CAN consume a custom MCP server (confirmed in Anthropic's docs: a plugin declaring the server + a host credential). Build the STA company server Tag-compatible - one server then feeds Tag channels, Cowork, and personal DMs. <strong>Action:</strong> fund/verify the usage balance, stand up the #ask-claude pilot, and make the expansion call.</p>
+        <p><strong>Status as of 2026-08-17:</strong> the new Tag experience <strong>launched 2026-08-03</strong> and is in <strong>Team/Enterprise beta</strong>. The legacy Claude in Slack app is gone - Tag is the only version now, so the "decide before the cutover" window described in the original briefing has closed. The recommendation below is unchanged; the timeline has moved.</p>
       </div>
     </section>
 
     <h2>How it works: one shared Claude, invoked by tagging, acting under org-owned credentials</h2>
     <p>Tag @Claude in any channel it has been added to and it starts a working session in that thread - running asynchronously in an Anthropic-hosted sandbox, editing a visible checklist in place, and posting the result (a reply, a file, a chart, or a draft PR). Anyone in the channel can steer a running task just by replying. The architectural shift from the old personal Slack app: in channels, <strong>Claude acts as itself</strong> under service-account credentials an admin provisions, and its access follows the channel, not the person asking. DMs are the opposite - there Claude runs on your personal account with your own connectors, billed to your seat.</p>
+    <p><strong>Context is now channel-wide, not per-message.</strong> The earlier model rebuilt context around each individual mention. Tag now works from the channel as a whole, which is why seeding channel memory deliberately (below) matters more than it used to - what the channel holds is what Claude reasons from, on every invocation, for everyone.</p>
     <table class="defs">
       <tbody>
-        <tr><th scope="row">Availability</th><td>Team + Enterprise plans only (STA qualifies) &middot; public beta since 2026-06-23 &middot; runs Claude Opus 4.8</td></tr>
+        <tr><th scope="row">Availability</th><td>Team + Enterprise plans only (STA qualifies) &middot; the new Tag experience launched 2026-08-03 and is in beta. Anthropic's Tag documentation does not name the model it runs on - do not assume a specific one.</td></tr>
         <tr><th scope="row">Cost model</th><td>No per-seat charge &middot; channel work draws on an org usage balance with a spend cap &middot; launch credit issued to Team orgs</td></tr>
-        <tr><th scope="row">Context</th><td>Reads its thread (~50 earliest messages when tagged mid-thread), channel history + pins, keyword search of public channels, attached files, built-in web search</td></tr>
+        <tr><th scope="row">Context</th><td><strong>Channel-wide.</strong> Claude works from the channel's context rather than assembling context per message - channel history and pins, attached files, keyword search of public channels, and built-in web search. This replaces the earlier per-message context model, where each mention pulled its own slice of the thread.</td></tr>
         <tr><th scope="row">Memory</th><td>Public channels share workspace memory; private channels are isolated; admins can view, Owners can edit/delete</td></tr>
-        <tr><th scope="row">Proactive work</th><td>"Routines" - scheduled jobs, channel watches, PR subscriptions - set up in-channel, run with the channel's access</td></tr>
+        <tr><th scope="row">Proactive work</th><td><strong>"Standing instructions"</strong> (formerly called routines) - scheduled jobs, channel watches, subscriptions - set up in-channel, run with the channel's access</td></tr>
         <tr><th scope="row">Hard boundaries</th><td>No passive access to channels it wasn't added to &middot; no Slack Connect / external channels &middot; no external tools until an Owner connects them</td></tr>
       </tbody>
     </table>
@@ -127,7 +129,7 @@
       </div>
       <p>Anthropic's docs confirm the pattern: attach a plugin whose <code>.mcp.json</code> points at the server URL, then add a credential (Bearer/OAuth) for the server's host on the bundle's Credentials tab. Auth is injected at Anthropic's Agent Proxy - the model never holds the key, and egress is default-deny. Two traps: a <code>.mcp.json</code> committed to a repo is NOT loaded (must ship as an attached plugin), and threads lock their config at start (updates reach new threads only).</p>
     </div>
-    <p><strong>What this means for the end-of-July server build:</strong> expose a public HTTPS MCP endpoint (Streamable HTTP per the MCP spec - transport not named explicitly in Tag docs, verify against a live endpoint during the pilot), use Bearer or OAuth mapped to a service account, ship it as a plugin bundled with STA-specific skills (for example the SMS 2.0 vs Qmlativ compatibility rules), and issue read-only vs write tokens in separate Access Bundles so a general channel gets read while a private ops channel gets write. One implementation then serves Tag, Cowork, and Claude.ai - build it Tag-compatible from day one.</p>
+    <p><strong>What this means for the STA server build:</strong> expose a public HTTPS MCP endpoint (Streamable HTTP per the MCP spec - transport not named explicitly in Tag docs, verify against a live endpoint during the pilot), use Bearer or OAuth mapped to a service account, ship it as a plugin bundled with STA-specific skills (for example the SMS 2.0 vs Qmlativ compatibility rules), and issue read-only vs write tokens in separate Access Bundles so a general channel gets read while a private ops channel gets write. One implementation then serves Tag, Cowork, and Claude.ai - build it Tag-compatible from day one.</p>
 
     <h2>Tag does not replace the existing system - each surface has a clear job</h2>
     <table>
@@ -147,8 +149,8 @@
       <caption>Start where customer risk is lowest and value shows on Slack content alone; save customer-facing work for after review habits are proven.</caption>
       <thead><tr><th scope="col">#</th><th scope="col">Channel / job</th><th scope="col">Connections</th><th scope="col">Seed on day one</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td><strong>#ask-claude</strong> - internal product + migration Q&amp;A for Pat, Jessie, Joanie (SMS 2.0 vs Qmlativ rules, VirtuaTime, EOL dates)</td><td>None to start; Help Center/KB read next; STA server when live</td><td>Pointers to authoritative KB content + "cite the source; if unsure, say so and route to a human"; weekly Q&amp;A digest routine</td></tr>
-        <tr><td>2</td><td><strong>Behind the Bell channel</strong> - episode planning, guest research, show-notes drafts</td><td>Built-in web search only</td><td>Show profile, episode history pointer, templates location; weekly "guest pipeline / open items" routine</td></tr>
+        <tr><td>1</td><td><strong>#ask-claude</strong> - internal product + migration Q&amp;A for Pat, Jessie, Joanie (SMS 2.0 vs Qmlativ rules, VirtuaTime, EOL dates)</td><td>None to start; Help Center/KB read next; STA server when live</td><td>Pointers to authoritative KB content + "cite the source; if unsure, say so and route to a human"; weekly Q&amp;A digest as a standing instruction</td></tr>
+        <tr><td>2</td><td><strong>Behind the Bell channel</strong> - episode planning, guest research, show-notes drafts</td><td>Built-in web search only</td><td>Show profile, episode history pointer, templates location; weekly "guest pipeline / open items" standing instruction</td></tr>
         <tr><td>3</td><td><strong>#support triage</strong> - draft replies, check compatibility rules before a human sends</td><td>Help Center/KB read, Salesforce read, then the STA MCP server</td><td>Triage rule (dupe-check, answer from Help Center, else route with a one-line summary) + hard rule: every customer-facing reply is a draft until a person sends</td></tr>
         <tr><td>4</td><td><strong>Sales/renewal drafting</strong> - quotes, renewals, outreach for non-technical staff</td><td>Salesforce read</td><td>Quote/pricing rule pointers + no-send-without-approval; route polished branded output through Cowork skills</td></tr>
       </tbody>
@@ -157,44 +159,46 @@
     <h2>The guardrails that matter for a K-12 vendor</h2>
     <ul class="plain">
       <li><strong>Paste rule is the real exposure.</strong> Tag retains channel memory and transcripts (that is why ZDR orgs cannot use it). Staff rule: never paste student PII, credentials, or unreleased customer data into a Tag channel - use a DM. Team-plan data is not used for model training under Anthropic's Commercial Terms.</li>
-        <li><strong>Removal does not delete data.</strong> Uninstalling, removing from a channel, or deleting a bundle leaves memory/routines/transcripts in place - deletion uses the dedicated controls at claude.ai admin settings. The commonly repeated "30-day auto-delete on disconnect" claim is unverified for Tag.</li>
+        <li><strong>Removal does not delete data.</strong> Uninstalling, removing from a channel, or deleting a bundle leaves memory, standing instructions and transcripts in place - deletion uses the dedicated controls at claude.ai admin settings. The commonly repeated "30-day auto-delete on disconnect" claim is unverified for Tag.</li>
       <li><strong>Set spend before widening.</strong> Org cap + per-channel limits at claude.ai/admin-settings/usage/claude-tag; at the cap Claude stops and says so (never silently truncates). Per-user attribution does not exist - the channel is the unit, so map channels to teams.</li>
-      <li><strong>Tune ambient per channel, never globally.</strong> Routines run with the channel's credentials and are the documented token-burn risk; audit them org-wide from the Scheduled-work tab.</li>
+      <li><strong>Tune ambient per channel, never globally.</strong> Standing instructions run with the channel's credentials and are the documented token-burn risk; audit them org-wide from the Scheduled-work tab.</li>
       <li><strong>Set Members to "any organization member"</strong> so Slack guests cannot invoke Claude (per-role gating needs Enterprise); Claude stays disabled in guest channels by default.</li>
       <li><strong>Review memory monthly.</strong> Ask "@Claude what do you remember about this channel?" and prune - auto-accumulated memory is the top early-adopter opacity complaint. Seed it deliberately instead.</li>
     </ul>
 
-    <h2>Rollout: pilot this month, server integration by early August</h2>
-    <div class="tl" role="img" aria-label="Rollout timeline: setup now, pilot in July, server integration late July, expansion decision by August 3">
+    <h2>Rollout: the cutover has already happened, so the sequence is now un-dated</h2>
+    <p>The original plan was paced against the legacy app's retirement. That date passed on 2026-08-03 and Tag is now the only version, so the steps below are sequenced by dependency rather than by calendar - each one gates the next, and the pilot still comes before any customer-facing channel.</p>
+    <div class="tl" role="img" aria-label="Rollout sequence: enable and cap, then pilot ask-claude, then the STA server plugin, then support and expansion">
       <div class="tl-line"></div>
       <div class="tl-row">
-        <div class="tl-step"><div class="tl-node now">&#9679;</div><div class="tl-lab">Enable + cap</div><div class="tl-date">Now</div></div>
-        <div class="tl-step"><div class="tl-node todo">2</div><div class="tl-lab">Pilot #ask-claude</div><div class="tl-date">July</div></div>
-        <div class="tl-step"><div class="tl-node todo">3</div><div class="tl-lab">STA server plugin</div><div class="tl-date">Late July</div></div>
-        <div class="tl-step"><div class="tl-node todo">4</div><div class="tl-lab">#support + expand</div><div class="tl-date">By Aug 3</div></div>
+        <div class="tl-step"><div class="tl-node now">&#9679;</div><div class="tl-lab">Enable + cap</div><div class="tl-date">Step 1</div></div>
+        <div class="tl-step"><div class="tl-node todo">2</div><div class="tl-lab">Pilot #ask-claude</div><div class="tl-date">Step 2</div></div>
+        <div class="tl-step"><div class="tl-node todo">3</div><div class="tl-lab">STA server plugin</div><div class="tl-date">Step 3</div></div>
+        <div class="tl-step"><div class="tl-node todo">4</div><div class="tl-lab">#support + expand</div><div class="tl-date">Step 4</div></div>
       </div>
     </div>
 
     <h2>Do these, in order</h2>
     <ol class="fixes">
-      <li><b>This week:</b> at claude.ai/admin-settings/claude-tag, run setup (Owner role), confirm the launch usage credit, set an org spend cap, and set Members to "any organization member." Keep the default "Slack default" bundle empty of credentials for now.</li>
-      <li><b>This week:</b> create #ask-claude (test in a private channel first), invite @Claude, seed channel memory with the KB pointers and the "cite or route to a human" rule. No connectors yet - prove value on Slack content alone.</li>
-      <li><b>Week 2:</b> add the Behind the Bell channel. Publish the one-page staff guideline (invocation basics, paste rule, human-review rule, escalation) - the KB module has the full outline, ready for the Training Kit Hub.</li>
-      <li><b>Server build (by end of July):</b> lock the Tag-compatible architecture - public HTTPS MCP endpoint, Bearer/OAuth service-account auth, delivered as a plugin with STA skills. Re-verify the plugin mechanics and transport against live docs immediately before finalizing (beta - docs shift).</li>
-      <li><b>Early August:</b> connect the server + Help Center/Salesforce read access to #support via a dedicated read-only bundle; enforce the draft-until-human-sends rule; watch the per-channel spend breakdown for two weeks.</li>
-      <li><b>Then decide:</b> sales/renewal channel, DM policy (on or off org-wide), and whether any routine earns a per-channel spend cap. Review channel memory monthly from here on.</li>
+      <li><b>Step 1 - admin setup:</b> at claude.ai/admin-settings/claude-tag, run setup (Owner role), confirm the launch usage credit, set an org spend cap, and set Members to "any organization member." Keep the default "Slack default" bundle empty of credentials for now.</li>
+      <li><b>Step 2 - pilot:</b> create #ask-claude (test in a private channel first), invite @Claude, seed channel memory with the KB pointers and the "cite or route to a human" rule. No connectors yet - prove value on Slack content alone. Seeding matters more now that context is channel-wide.</li>
+      <li><b>Step 3 - second channel + staff guidance:</b> add the Behind the Bell channel. Publish the one-page staff guideline (invocation basics, paste rule, human-review rule, escalation) - the KB module has the full outline, ready for the Training Kit Hub.</li>
+      <li><b>Step 4 - server build:</b> lock the Tag-compatible architecture - public HTTPS MCP endpoint, Bearer/OAuth service-account auth, delivered as a plugin with STA skills. Re-verify the plugin mechanics and transport against live docs immediately before finalizing (still in beta - docs shift).</li>
+      <li><b>Step 5 - customer-facing:</b> connect the server + Help Center/Salesforce read access to #support via a dedicated read-only bundle; enforce the draft-until-human-sends rule; watch the per-channel spend breakdown for two weeks.</li>
+      <li><b>Step 6 - then decide:</b> sales/renewal channel, DM policy (on or off org-wide), and whether any standing instruction earns a per-channel spend cap. Review channel memory monthly from here on.</li>
     </ol>
 
-    <div class="callout"><strong>Beta caveat + hard date:</strong> every Tag docs page is marked "public beta - behavior may change," so the KB module set is on a monthly re-check cadence. The legacy Claude in Slack app retires <strong>August 3, 2026</strong> - after that, Tag is the only version, so finish the pilot and make the rollout call before then.</div>
+    <div class="callout"><strong>Beta caveat:</strong> Tag is still marked beta and behavior may change, so the KB module set stays on a monthly re-check cadence. The cutover is done - the new Tag experience launched <strong>2026-08-03</strong> and the legacy Claude in Slack app is retired, so there is no longer a deadline forcing the rollout call. Re-verify any mechanic in this briefing against live docs before you build on it.</div>
 
     <details>
       <summary>Methodology and data sources</summary>
-      <p>Synthesized 2026-07-09 from the 5-module deep-research set at Knowledge Base\sta\ai-platform\claude-tag-workspace-agent\ (modules: fundamentals, Access Bundles/integrations, memory/privacy/security, governance/spend, deployment/STA playbook). Primary sourcing is Anthropic T1 documentation (claude.com/docs/claude-tag, anthropic.com launch post, support and privacy centers, trust.anthropic.com), with T2 press and T3 community reports labeled as such in the modules. Facts the docs do not state are flagged inline (MCP transport name; the 30-day-on-disconnect claim, which is unverified; exact Slack OAuth scopes - pull from the install consent screen). Claude Tag is in public beta; figures and mechanics are point-in-time as of 2026-07-09 and on a monthly re-verification cadence.</p>
+      <p>Synthesized 2026-07-09 from the 5-module deep-research set at Knowledge Base\sta\ai-platform\claude-tag-workspace-agent\ (modules: fundamentals, Access Bundles/integrations, memory/privacy/security, governance/spend, deployment/STA playbook). Primary sourcing is Anthropic T1 documentation (claude.com/docs/claude-tag, anthropic.com launch post, support and privacy centers, trust.anthropic.com), with T2 press and T3 community reports labeled as such in the modules. Facts the docs do not state are flagged inline (MCP transport name; the 30-day-on-disconnect claim, which is unverified; exact Slack OAuth scopes - pull from the install consent screen). Claude Tag is in beta; figures and mechanics are point-in-time and on a monthly re-verification cadence.</p>
+      <p><strong>Revision 2026-08-17.</strong> Re-verified against current Anthropic documentation and corrected four things the original briefing got wrong or that time invalidated: (1) the claim that Tag runs one specific named Claude model was removed - Tag's documentation names no model; (2) every date had passed, so the timeline is restated around the new Tag experience launching 2026-08-03 into Team/Enterprise beta, with the legacy app now retired; (3) context is channel-wide, replacing the per-message context model described originally; (4) "routines" is now "standing instructions." The adopt recommendation and the MCP-server finding were re-checked and stand.</p>
     </details>
 
   </div>
 
-  <footer>School Technology Associates &middot; AI Platform Briefing &middot; Generated 2026-07-09 &middot; Internal - STA staff only</footer>
+  <footer>School Technology Associates &middot; AI Platform Briefing &middot; Generated 2026-07-09, revised 2026-08-17 &middot; Internal - STA staff only</footer>
 </main>
 </body>
 </html>

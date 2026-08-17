@@ -37,7 +37,14 @@
     </div>
     <div class="body">
       <h2>What it does</h2>
-      <p>Calculates module staleness from last-updated dates, scores by priority, and outputs ready-to-paste Deep Research prompts for the modules that need refreshing.</p>
+      <p>Audits the knowledge base on <strong>two independent axes</strong>, then outputs ready-to-paste Deep Research prompts for whatever needs work.</p>
+      <ul>
+        <li><strong>Freshness</strong> - calculates module staleness from last-updated dates and scores it against priority, so a stale high-traffic module outranks a stale one nobody reads.</li>
+        <li><strong>Reference value, including orphan detection</strong> - whether a module is actually reachable and used. A module can be perfectly current and still be dead weight if nothing routes to it. Orphans are modules on disk that no index or lookup points at, so they can never be retrieved no matter how good they are.</li>
+      </ul>
+      <p>Staleness alone was the original single axis, and it systematically missed this second failure mode: refreshing a module that nothing can reach produces current content and zero improvement.</p>
+      <h2>Index and lookup parity</h2>
+      <p>It cross-checks the index against the lookup file so the two agree. When they drift apart, a module can be listed in one and absent from the other - which reads as present from whichever side you happen to check, and as missing from the side that actually does the routing.</p>
       <h2>When to use it</h2>
       <p>Before a major build, after Anthropic ships changes, or on a maintenance cadence.</p>
       <h2>How to trigger it</h2>

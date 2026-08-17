@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outbound Comms Grounding - Skill Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  :root { --doc-accent:#795548; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#fff; color:#1e2a35; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent); border-radius:10px; overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent) 35%, #fff); color:var(--doc-accent); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+  .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; color:#1e2a35; }
+  .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--doc-accent); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  pre { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin:0 0 12px; overflow-x:auto; font-size:9.5pt; line-height:1.5; }
+  table { width:100%; border-collapse:collapse; font-size:10.5pt; margin:0 0 12px; }
+  th,td { padding:8px 12px; border-bottom:1px solid var(--border); text-align:left; vertical-align:top; }
+  th { font-size:9pt; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Admin</span>
+      <h1>Outbound Comms Grounding</h1>
+      <div class="tagline">No grounding block, no draft. Every outbound message gets read-and-proved against the knowledge base first.</div>
+      <div class="head-strip">SKILL &middot; RUNS AUTOMATICALLY WHEN IT APPLIES</div>
+    </div>
+    <div class="body">
+      <h2>What it does</h2>
+      <p>Before a message goes to another human being, this skill finds out what the knowledge base already knows about that recipient and that situation - and proves it read it. It emits a <strong>KB GROUNDING block</strong> with file paths and line-numbered verbatim quotes <em>before</em> any draft text. If there is no grounding block, there is no draft.</p>
+      <p>It also locks the <strong>domain</strong> so standards from one part of Adam's life never leak into another. Work and civic writing have different voices, different sourcing, and different consequences; applying the wrong one is worse than citing nothing at all.</p>
+
+      <h2>Why it exists</h2>
+      <p>Four times, a draft was written from the model's own priors and then labelled with an attribution line naming a knowledge base module that was never opened. The last one went out before the gap was caught.</p>
+      <p>The knowledge base was never the problem - the right module described that exact scenario. What was missing was any point in the drafting path where a read <em>had</em> to happen. Writing prose needs no tool call, so there is no natural checkpoint. Three earlier attempts to fix this with prompt rules all failed for that reason. The line-numbered quote is the fix: it cannot be produced from memory.</p>
+
+      <h2>The procedure</h2>
+      <ul>
+        <li><strong>1. Classify</strong> - recipient class, relationship temperature, purpose, and domain, each stated in one line before anything is opened. Classification first, because a friendly note from an official and a hostile public comment share every keyword and need opposite handling.</li>
+        <li><strong>2. Lock the domain</strong> - pick exactly one, declared up front. The domain sets an allowlist of knowledge base paths; anything outside it is not read, not cited, and not applied.</li>
+        <li><strong>3. Read the curated lookup in full</strong> - the whole index-lookup file, no <code>head</code>, no <code>grep</code>, no line limits. A truncated read silently misses modules.</li>
+        <li><strong>4. Shortlist by "use when" text, then read</strong> - matching on how a situation is described, not on topic nouns. Expect one to three modules, and pull <em>both</em> substance (what to say) and relational craft (how to say it to this recipient).</li>
+        <li><strong>5. Keyword search only as a fallback</strong> - and treated as weak evidence. Search-first routing was tested and failed to surface the correct module; the curated "use when" lines matched perfectly.</li>
+      </ul>
+
+      <h2>Domain locking</h2>
+      <p>Each domain allows a specific set of paths and blocks the rest. Three crossovers must never happen, in severity order:</p>
+      <table>
+        <thead><tr><th>Crossover</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>Civic-action content in a work message</td><td>Highest severity - stop the line. An organizing frame inside a customer email creates professional and political exposure Adam did not choose.</td></tr>
+          <tr><td>Sales and marketing persuasion patterns in a civic message</td><td>A sales-sequence structure inside an advocacy post discredits the campaign.</td></tr>
+          <tr><td>Work or civic register in a family or personal message</td><td>Wrong voice entirely for the relationship.</td></tr>
+        </tbody>
+      </table>
+      <p><strong>When the domain is ambiguous, it asks rather than guessing.</strong> This is the one place where refusing to act is always right - "most likely work" is not a domain lock. Dual-domain topics (surveillance technology, student data privacy, school safety) default conservative: anything going to a work address, customer, vendor or colleague is work, always. Cross-domain reads need explicit permission in that same turn and get recorded in the grounding block; the skill never self-authorizes.</p>
+
+      <h2>What the grounding block looks like</h2>
+      <pre>KB GROUNDING - read this turn
+DOMAIN: civic-action | RECIPIENT: public official, friendly inbound
+ALLOWED: adam/civic-action/**, adam/writing-craft/**
+adam/civic-action/.../module-07-warm-1on1-official-engagement.md
+  L44: "&lt;sentence copied verbatim from the file&gt;"
+  L91: "&lt;sentence copied verbatim from the file&gt;"
+APPLIED:
+  L44 -&gt; answering warmly without conceding the ordinance position
+  L91 -&gt; proposing a 1:1 rather than waiting for public comment</pre>
+      <p>One module minimum, two line-numbered verbatim quotes per module, and an <code>APPLIED</code> line tying each quote to a real choice in the draft. The block stays in chat - it never goes inside the text you copy and send. If a read fails, the skill reports <code>GROUNDING FAILED - no draft produced</code> and offers three options rather than quietly drafting anyway.</p>
+
+      <h2>Things that quietly break it</h2>
+      <ul>
+        <li><strong>A read earlier in the same conversation does not count.</strong> Re-read per draft. Reusing the memory of an earlier read is exactly how the last failure happened.</li>
+        <li><strong>Never invent a quote or a line number.</strong> A wrong module is recoverable. A fabricated receipt destroys the whole mechanism.</li>
+        <li><strong>Banned phrases</strong> - "Grounded in [module]" with no quotes, "per best practices", "based on the KB", "drawing on [topic] research". Each asserts grounding while carrying none, and their interchangeability with real citations is what kept four weeks of failures invisible.</li>
+      </ul>
+
+      <h2>Composing with other skills</h2>
+      <p>This skill supplies the front half - the grounded read. Formatting skills supply the back half, and none of them performs a knowledge base read of its own, so this runs first. Help-center articles go on to <code>help-center-article</code>; support and Salesforce email to <code>salesforce-email-template-builder</code>; internal STA comms to <code>internal-comms</code>. Facebook posts, texts, letters and public comments need no formatting skill.</p>
+
+      <h2>When to use it</h2>
+      <p>Any time a message is being written to another person, even a short one, and even when the knowledge base is not mentioned. Not for summarizing or analyzing an inbound message when no reply is being written.</p>
+
+      <h2>How to trigger it</h2>
+      <div class="trigger"><p>"draft a reply"</p><p>"respond to this email"</p><p>"write a post about..."</p><p>"how should I answer this"</p><p>or just paste an inbound email, screenshot, or message and ask what to say</p></div>
+    </div>
+    <div class="foot">School Technology Associates &middot; Outbound Comms Grounding &middot; Custom Skill</div>
+  </div>
+</body>
+</html>
