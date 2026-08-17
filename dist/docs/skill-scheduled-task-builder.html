@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scheduled Task Builder - Skill Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  :root { --doc-accent:#795548; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#fff; color:#1e2a35; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent); border-radius:10px; overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent) 35%, #fff); color:var(--doc-accent); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+  .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; color:#1e2a35; }
+  .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--doc-accent); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  ol.gates { margin:0 0 12px 0; padding-left:0; list-style:none; counter-reset:g; }
+  ol.gates li { counter-increment:g; position:relative; padding:8px 0 8px 40px; border-bottom:1px solid var(--border); font-size:11pt; }
+  ol.gates li:last-child { border-bottom:none; }
+  ol.gates li::before { content:counter(g); position:absolute; left:0; top:9px; width:26px; height:26px; background:var(--doc-accent); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:10pt; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  .callout { background:#fdf6e3; border:1px solid #e0c56b; border-radius:8px; padding:14px 18px; margin:0 0 12px; font-size:10.5pt; }
+  table { width:100%; border-collapse:collapse; font-size:10.5pt; margin:0 0 12px; }
+  th,td { padding:8px 12px; border-bottom:1px solid var(--border); text-align:left; vertical-align:top; }
+  th { font-size:9pt; text-transform:uppercase; letter-spacing:0.5px; color:var(--gray); }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Admin</span>
+      <h1>Scheduled Task Builder</h1>
+      <div class="tagline">Twelve gates applied before any scheduled task is created or changed, because an ungated task fails silently and its output looks correct.</div>
+      <div class="head-strip">SKILL &middot; RUNS AUTOMATICALLY WHEN IT APPLIES</div>
+    </div>
+    <div class="body">
+      <h2>What it does</h2>
+      <p>Creates, audits, and repairs Cowork scheduled tasks so they survive unattended deferred runs. A scheduled-task prompt is not a chat prompt. Get a chat prompt wrong and the next message corrects it. Get a scheduled prompt wrong and it runs unattended, at a time nobody chose, in a session with a different mount topology and no conversation history - and the output usually <strong>looks fine</strong>.</p>
+      <div class="callout">That last part is the whole problem. A fabricated report, a duplicate Slack post, a trend chart built from a history store that was never found, and a genuinely clean run are visually identical. Nobody goes looking for a failure that reports success. This skill exists because 24 live tasks were audited in one sweep and <strong>every single one carried at least one defect</strong>.</div>
+
+      <h2>Three modes</h2>
+      <table>
+        <thead><tr><th>Mode</th><th>Use when</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Create</strong></td><td>Building a new recurring or one-time task</td></tr>
+          <tr><td><strong>Audit</strong></td><td>Reviewing existing tasks for defects, no changes yet</td></tr>
+          <tr><td><strong>Repair</strong></td><td>Fixing a task after an audit or a reported misbehavior</td></tr>
+        </tbody>
+      </table>
+
+      <h2>The twelve gates</h2>
+      <p>Every produced prompt satisfies each gate <strong>or</strong> marks it exempt with the reason written into the prompt itself. That second half matters: an exemption with no stated reason looks identical to an oversight, and the next audit will "fix" it. Each gate is here because a real task failed on it in a way that stayed invisible until someone went looking.</p>
+      <ol class="gates">
+        <li><strong>Derive the date first, with the timezone pinned explicitly.</strong> Deferred runs fire on later days than scheduled, so any day-gated branch silently takes the wrong path - and the inherited timezone is not guaranteed. Day-count thresholds are the sharpest version: a 60-day staleness rule and a 59-day one give opposite verdicts, and nothing in the output reveals which was used.</li>
+        <li><strong>Dedupe on the current period's output existing, never on the calendar.</strong> "If today is the 1st" fails the moment a run defers to the 2nd. "If this month's report already exists" holds. Gate on the artifact.</li>
+        <li><strong>Mount check that test-reads a known file by absolute path and STOPS.</strong> Covering every surface the task reads <em>and</em> writes, placed before the work. A check at write time means an hour of reading with nowhere to put it.</li>
+        <li><strong>Absolute save paths.</strong> One convention, written literally - dedupe gates glob these paths, and a changed shape breaks them silently.</li>
+        <li><strong>Grep every path and named source against disk before calling a prompt clean.</strong> Prompts rot. This gate caught defects in a third of the tasks audited: a task pointing at a deleted folder builds its output from nothing and reports normally.</li>
+        <li><strong>Mass-change STOP.</strong> Any bulk delete, edit, or overwrite gets a volume threshold that halts and asks. A failed API pull looks exactly like "everything was removed."</li>
+        <li><strong>State advances only on success.</strong> Advance a cursor on a failed run and the task silently skips an entire period, forever - the next run never looks back.</li>
+        <li><strong>Pin browser tasks by deviceId, never by label.</strong> The wrong profile does not error, it returns <em>empty</em>, which reads as "no activity this week."</li>
+        <li><strong>Duplicate-side-effect gate for anything external.</strong> Gate the side effect, not the whole run: a re-run should still show its report in chat while skipping the duplicate Slack post.</li>
+        <li><strong>Single-channel rule.</strong> A file bash executes gets mutated via bash; a file the Edit tool touches gets verified via the Read tool. Crossing that boundary makes bash report a phantom syntax error on a perfectly good file.</li>
+        <li><strong>A partial run must never read as clean.</strong> "All green" requires that every check actually ran. An absence of access is not an absence of problems.</li>
+        <li><strong>Report the literal condition, never a plausible cause.</strong> Quote the tool's actual error string. This is the gate that protects all the others - an invented explanation stops the next reader from looking.</li>
+      </ol>
+      <p><strong>Do not cargo-cult the list.</strong> Some gates genuinely do not apply - an idempotent task is better off without a dedupe gate, a one-time task has no period to dedupe against, a read-only task needs no save path. When a gate does not apply, the reason is written inside the prompt so the exemption survives the next audit.</p>
+
+      <h2>Backing up the task</h2>
+      <p><strong>The live task store is the only copy</strong> and it is untracked in git, so every create and every repair writes the full prompt body to the backups tree, split by machine (desktop / laptop) because the two machines run different task sets. The schedule metadata - cron, fireAt, enabled, jitter - is refreshed alongside it, since a prompt body alone cannot rebuild a task. This is part of the workflow rather than a periodic chore: a backup that depends on someone remembering is not a backup.</p>
+
+      <h2>Two operational facts worth knowing</h2>
+      <ul>
+        <li>A missed run fires on next launch - that deferral is exactly what gates 1 and 2 exist for.</li>
+        <li><strong>Clicking "Run now" once pre-approves the task's tools</strong>, so future unattended runs do not stall on a permission prompt. Worth doing immediately for anything touching connectors or the browser, because a run paused on a permission dialog at 3 AM is indistinguishable from a run that never fired.</li>
+      </ul>
+
+      <h2>Hardening is not a bug report</h2>
+      <p>When strengthening a prompt, the skill writes "changed for robustness, both forms verified." It claims a defect only when the target task's <em>own</em> artifacts prove one. A fabricated defect history in a production prompt is worse than the defect would have been, because the next reader believes it and stops looking for the real cause. Repairs also replace the prompt wholesale - there is no patch mode - so the live prompt is read in full and reproduced with the changes folded in, compressing nothing. Those prompts encode corrections someone paid for in a real failure, and a summarized rule is a deleted rule.</p>
+
+      <h2>How to trigger it</h2>
+      <div class="trigger"><p>"schedule this" / "make this run weekly" / "every Monday" / "remind me"</p><p>"harden this task"</p><p>"audit my scheduled tasks"</p><p>"it keeps double-posting" / "why did it fabricate a report"</p></div>
+    </div>
+    <div class="foot">School Technology Associates &middot; Scheduled Task Builder &middot; Custom Skill</div>
+  </div>
+</body>
+</html>
