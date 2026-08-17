@@ -46,7 +46,7 @@
   <header>
     <p class="eyebrow">School Technology Associates &middot; AI Admin &middot; Automation Reference</p>
     <h1>STA Scheduled Tasks - Reference</h1>
-    <p class="meta">Every recurring STA / AI-system automation, what it does, and when it runs &nbsp;&middot;&nbsp; Adam Baker &nbsp;&middot;&nbsp; Updated 2026-07-06</p>
+    <p class="meta">Every recurring STA / AI-system automation, what it does, and when it runs &nbsp;&middot;&nbsp; Adam Baker &nbsp;&middot;&nbsp; Updated 2026-08-17</p>
     <div class="header-strip">INTERNAL &middot; ADMIN REFERENCE</div>
   </header>
   <div class="body">
@@ -60,10 +60,8 @@
     <table>
       <thead><tr><th scope="col">Task</th><th scope="col">When</th><th scope="col">What it does</th><th scope="col">Status</th></tr></thead>
       <tbody>
-        <tr><td><strong>Brain auto-tidy</strong></td><td class="when">3:00 AM daily</td><td>Drains the Inbox and files/links notes in both the Work Brain and My Brain per each brain's maintenance rules; Sunday adds an orphan sweep, the 1st adds a monthly prune. AI-system infrastructure.</td><td><span class="pill on">Enabled</span></td></tr>
-        <tr><td><strong>Truncation daily scan</strong></td><td class="when">4:00 PM Mon-Fri</td><td>Scans the entire Claude workspace for files clipped mid-write (mid-word tails, missing closers, NUL padding); auto-fixes safe cases, reports the rest, writes a dated HTML report.</td><td><span class="pill on">Enabled</span></td></tr>
-        <tr><td><strong>Evening meeting recap</strong></td><td class="when">4:00 PM Mon-Fri</td><td>Drafts Salesforce case comments for the day's completed customer meetings (Chris, Tyler, Adam) and posts to <code>#meeting-comments</code>.</td><td><span class="pill on">Enabled</span></td></tr>
         <tr><td><strong>Morning meeting summary</strong></td><td class="when">4:39 PM Sun-Thu</td><td>Previews tomorrow's meetings (customer + internal/vendor) per person to <code>#daily-support-call-summary</code>, with Calendly reason + prior-session recap.</td><td><span class="pill on">Enabled</span></td></tr>
+        <tr><td><strong>Work check-in (Adam only)</strong></td><td class="when">8:00 AM Mon-Fri</td><td>Adam's private daily work check-in. Contents are personal to Adam and are deliberately not documented in this shared reference; listed here only so the task inventory is complete. Named <code>weekly-work-frustration-checkin</code> in the task store - the name says weekly, the schedule is daily Mon-Fri.</td><td><span class="pill on">Enabled</span></td></tr>
         <tr><td><strong>Work PA morning briefing</strong></td><td class="when">8:00 AM Mon-Fri</td><td>Daily briefing: ingests 5 recurring meetings + support calibration, writes project state to the D1 tracker, rebuilds the briefing artifact.</td><td><span class="pill off">Disabled</span></td></tr>
       </tbody>
     </table>
@@ -72,13 +70,10 @@
     <table>
       <thead><tr><th scope="col">Task</th><th scope="col">When</th><th scope="col">What it does</th><th scope="col">Status</th></tr></thead>
       <tbody>
-        <tr><td><strong>System Monitor health check</strong></td><td class="when">Mon 8:00 AM</td><td>Automated health check of the whole School Tech AI ecosystem; posts a structured report to Slack.</td><td><span class="pill on">Enabled</span></td></tr>
+        <tr><td><strong>System Monitor health check</strong></td><td class="when">Mon 8:00 AM</td><td>Automated health check of the whole School Tech AI ecosystem; posts a structured report to Slack. <strong>Includes truncation checking as Check 15</strong> (System Monitor v1.23), which is <strong>read-only</strong> - it reports clipped files and never repairs them. There is no <code>--fix-nulls</code> pass and nothing auto-fixes a truncated file; every repair is a deliberate follow-up.</td><td><span class="pill on">Enabled</span></td></tr>
         <tr><td><strong>R&amp;D time tracking</strong></td><td class="when">Mon 8:00 AM</td><td>Pulls the prior week's 3 product-dev meetings, updates per-meeting Word notes + the Excel R&amp;D credit tracker (with Stage column).</td><td><span class="pill on">Enabled</span></td></tr>
         <tr><td><strong>Knowledge base update checker</strong></td><td class="when">Mon 9:09 AM</td><td>Reports overdue KB topics in chat + to <code>#kb-update-check</code>; folds in the semi-annual health-insurance live-figure check when due.</td><td><span class="pill on">Enabled</span></td></tr>
-        <tr><td><strong>Skill-backup safety net</strong></td><td class="when">Sun 8:09 AM</td><td>Scans installed custom skills vs the Backups folder and creates/refreshes any missing or stale backup (folder + .skill + CHANGELOG + INDEX). Catches skills built outside an Architect session.</td><td><span class="pill on">Enabled</span></td></tr>
-        <tr><td><strong>Meeting decisions to brain</strong></td><td class="when">Sat 10:00 AM</td><td>Scans the week's meetings, extracts durable decisions/learnings only, drops thin Inbox notes - work to the Work Brain, personal to My Brain.</td><td><span class="pill on">Enabled</span></td></tr>
-        <tr><td><strong>Wren promotion to brain</strong></td><td class="when">Sat 11:37 AM</td><td>Promotes durable Wren scratch notes into the right brain; lists originals for Adam to delete (never auto-deletes).</td><td><span class="pill on">Enabled</span></td></tr>
-        <tr><td><strong>Slack decisions to STA brain</strong></td><td class="when">Sat 11:06 AM</td><td>Scans active STA Slack threads, extracts durable work decisions into the Work Brain Inbox (routine chatter stays out).</td><td><span class="pill off">Disabled</span></td></tr>
+        <tr><td><strong>Weekly review ingestion</strong></td><td class="when">Tue 4:00 PM</td><td>Reads Adam's submitted weekly-review form receipt straight from the <code>adamb@k12sta.com</code> Gmail connector (read-only), appends it to the Work Brain weekly-review archive under its <em>submission</em> date, drops a durable brain note when the review contains one, and pushes Projects-column status into the D1 project tracker. Dedupe-gated on submission date, so a manual re-run when the 1:1 moves can never double-append.</td><td><span class="pill on">Enabled</span></td></tr>
       </tbody>
     </table>
 
@@ -90,14 +85,32 @@
         <tr><td><strong>Site analytics report</strong></td><td class="when">1st, 7:00 AM</td><td>Monthly k12sta.com marketing-site analytics report, leadership-ready.</td><td><span class="pill on">Enabled</span></td></tr>
         <tr><td><strong>Context staleness check</strong></td><td class="when">1st, 8:00 AM</td><td>Flags Claude.ai Project context files unchanged 60+/90+ days.</td><td><span class="pill on">Enabled</span></td></tr>
         <tr><td><strong>Brain registry audit</strong></td><td class="when">2nd, 9:00 AM</td><td>Audits both brains against the agent registry - catches deprecated-but-active notes, renames, missing agents, duplicate titles; auto-fixes safe items.</td><td><span class="pill on">Enabled</span></td></tr>
+        <tr><td><strong>Architect watchdog</strong></td><td class="when">Monthly</td><td>The Architect's monthly behavior self-audit (Part A) plus the Valence Gate compliance check (Part C). Samples recent Architect sessions against the documented trigger classes and hard rules, checks the artifact trail (version/changelog agreement, staged-diff promotion completeness, file-tail integrity), and audits that valenced claims about Adam carry their required receipts. Confirmed violations are routed to The Architect's backlog; a clean month is reported as clean rather than padded. Report lands in <code>Claude/reports/architect-watchdog/YYYY/MM/</code>. Dedupe-gated to one run per calendar month.</td><td><span class="pill on">Enabled</span></td></tr>
+        <tr><td><strong>Architect second opinion</strong></td><td class="when">Quarterly - 1st of Jan / Apr / Jul / Oct</td><td>Assembles The Architect's quarterly adversarial review package (Part B): current instructions version and measured word count against its own compaction trigger, the newest evaluation and how many versions stale it is, the last three watchdog reports, the last ten changelog rows, and a paste-ready review prompt. Adam runs that prompt in a fresh chat with no Architect instructions loaded, ideally on a different model. Findings come back as Advisory; nothing is self-applied unreviewed. Saved to <code>Claude/reports/architect-second-opinion/YYYY/MM/</code>.</td><td><span class="pill on">Enabled</span></td></tr>
         <tr><td><strong>Help Center scan</strong></td><td class="when">Last Fri, 2:00 PM</td><td>Scans the STA help center for new articles, auto-categorizes into <code>hc-data.json</code>, rebuilds the Support Hub index + dist.</td><td><span class="pill on">Enabled</span></td></tr>
         <tr><td><strong>Skyward Friday digest</strong></td><td class="when">Last Fri, 2:10 PM</td><td>Full Skyward scan across 8 sources (public + login) since last run; produces a self-contained HTML digest.</td><td><span class="pill on">Enabled</span></td></tr>
       </tbody>
     </table>
 
+    <h2>How this list was built, and what came off it</h2>
+    <p>This catalog is rebuilt against the live scheduled-task store - one row per task folder that actually exists - rather than edited by memory. The 2026-08-17 pass removed seven rows:</p>
+    <table>
+      <thead><tr><th scope="col">Removed row</th><th scope="col">Why</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Truncation daily scan</strong></td><td>Retired. Truncation checking now runs read-only as Check 15 of the Monday System Monitor health check.</td></tr>
+        <tr><td><strong>Wren promotion to brain</strong></td><td>Retired - moved to the retired-task store.</td></tr>
+        <tr><td><strong>Brain auto-tidy</strong></td><td>Retired and superseded. The row also described the wrong scope: tidying covers the Work Brain only, never "both brains."</td></tr>
+        <tr><td><strong>Skill-backup safety net</strong></td><td rowspan="4">No task folder in the live store - these four had no running task behind them. <strong>Removed on Adam's explicit approval, 2026-08-17</strong>, rather than being carried as unverifiable rows.</td></tr>
+        <tr><td><strong>Meeting decisions to brain</strong></td></tr>
+        <tr><td><strong>Slack decisions to STA brain</strong></td></tr>
+        <tr><td><strong>Evening meeting recap</strong></td></tr>
+      </tbody>
+    </table>
+    <p>Four live tasks that had never been listed were added in the same pass: the two Architect self-audit jobs (monthly watchdog, quarterly second opinion), weekly review ingestion, and Adam's private daily work check-in.</p>
+
     <div class="callout"><span class="lab">Maintaining these tasks</span>Scheduled tasks are Cowork-only. When creating or editing one that touches project files, the <strong>folder field must be set</strong> to the workspace folder (<code>...\STA Projects\The Architect</code>) - an empty folder field launches the run with nothing mounted and it fails with "files inaccessible." Architect-produced recurring outputs are created and updated by The Architect; project-specific tasks are owned by their project's Cowork chat; system-wide jobs by System Monitor.</div>
   </div>
-  <footer>School Technology Associates &middot; STA Scheduled Tasks Reference &middot; Generated 2026-07-06 &middot; Personal tasks excluded by design</footer>
+  <footer>School Technology Associates &middot; STA Scheduled Tasks Reference &middot; Rebuilt against the live task store 2026-08-17 &middot; Personal tasks excluded by design</footer>
 </main>
 </body>
 </html>

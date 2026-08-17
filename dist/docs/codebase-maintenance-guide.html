@@ -75,7 +75,7 @@
         <tr><td><strong>Tech</strong></td><td>Single-file vanilla JS (no framework, no build). Data in <code>window.TRAINING_DATA</code>.</td><td>Single-file React via Babel Standalone (no build). Data in <code>window.HC_DATA</code>.</td></tr>
         <tr><td><strong>Edit this file</strong></td><td><code>STA-Training-Hub.html</code> (repo root)</td><td><code>HC-Index-App.html</code> in the Help Center Assistant project folder <em>(source of truth)</em></td></tr>
         <tr><td><strong>Deployed file</strong></td><td><code>dist/index.html</code> (byte-identical mirror)</td><td><code>index.html</code> (repo root, synced from source)</td></tr>
-        <tr><td><strong>Host</strong></td><td colspan="2">Cloudflare Pages, git-connected. Push to <code>main</code> auto-deploys. Gated to <code>@k12sta.com</code> via Cloudflare Access.</td></tr>
+        <tr><td><strong>Host</strong></td><td colspan="2">Cloudflare Pages, git-connected. Deploys when a PR <strong>merges</strong> to <code>origin/main</code> - <code>main</code> is protected, so there is no push-to-deploy. Gated to <code>@k12sta.com</code> via Cloudflare Access.</td></tr>
         <tr><td><strong>Deploy rule</strong></td><td colspan="2"><code>main</code> is branch-protected on both repos. You branch &rarr; open a PR &rarr; merge. Never <code>git push origin main</code>.</td></tr>
       </tbody>
     </table>
@@ -143,29 +143,37 @@
     </ol>
     <div class="callout warn"><span class="lab">Content owner</span>The Support Hub's content and hub source edits are owned by the <strong>Help Center Advisor</strong> agent (it maintains both internal hubs and hands off a Code-tab/PR prompt - it never pushes). Route content-strategy and article-index work there.</div>
     <h2>Deploy - the loop that actually ships</h2>
-    <p>Editing a file on disk changes nothing that staff see. Cloudflare Pages deploys from <code>origin/main</code> on GitHub, and <code>main</code> is <strong>branch-protected on both repos</strong> (CodeRabbit reviews every PR). So the loop is: sync the mirror, branch, open a PR, let CodeRabbit review, merge.</p>
+    <p>Editing a file on disk changes nothing that staff see. Cloudflare Pages deploys from <code>origin/main</code> on GitHub, and <code>main</code> is <strong>branch-protected on both repos</strong> (CodeRabbit reviews Training Hub PRs; it skips the Support Hub - see below). So the loop is: sync the mirror, branch, open a PR, wait for the required checks, review, merge. The merge is the deploy.</p>
     <h3>AI Training Hub - sync then PR</h3>
     <pre><code># 1. Sync the deployed mirror (byte-identical to source)
 cp "STA-Training-Hub.html" "dist/index.html"
 
 # 2. Branch + open a PR (paste into Claude Code / Code tab)
 cd "C:\Users\Adam\source\repos\training-kit-hub"
+git checkout main &amp;&amp; git pull origin main
 git checkout -b hub-sync-short-description
-git add -A
+git status
+git add -- STA-Training-Hub.html dist/index.html   # name the files; never git add -A
 git commit -m "concrete message naming what changed"
 git push -u origin hub-sync-short-description
-gh pr create --fill
+gh pr create --base main --fill
 
-# 3. Wait ~2 min for CodeRabbit, skim it, then merge (triggers deploy)
-gh pr merge --squash</code></pre>
+# 3. Wait for the required checks to finish
+gh pr checks hub-sync-short-description --watch
+
+# 4. Review, then merge. THE MERGE IS WHAT DEPLOYS.
+gh pr merge hub-sync-short-description --squash --delete-branch
+git checkout main &amp;&amp; git pull origin main</code></pre>
+    <div class="callout warn"><span class="lab">Merging is a separate, deliberate step</span>Pushing a branch deploys nothing. Cloudflare Pages deploys on the <strong>merge to <code>origin/main</code></strong>, and <code>main</code> is protected - so shipping always costs a branch, a pull request, and a merge you perform yourself after the checks pass. A pushed branch that never merges is the dominant way a hub change silently fails to reach staff. Never merge while a required check is failing or pending, and never disable a check to force one through.</div>
     <div class="callout bad"><span class="lab">Never do these</span>
       <ul class="tight" style="margin-bottom:0">
         <li><code>git push origin main</code> - rejected; <code>main</code> is protected on every BwB repo.</li>
+        <li><code>git add -A</code> - stages whatever else happens to be in the tree. Both <code>CLAUDE.md</code> and <code>MAINTENANCE.md</code> forbid it. Name the paths: <code>git add -- STA-Training-Hub.html dist/index.html</code>.</li>
         <li><code>gh pr merge --squash --auto</code> - auto-merge closes the PR before CodeRabbit finishes and discards the review. Split create from merge.</li>
         <li>Adding a <code>_redirects</code> file with <code>/* /index.html 200</code> - Cloudflare rejects the wildcard SPA fallback (<code>[code: 10021] Infinite loop</code>). Neither app needs it.</li>
         <li>Filenames with spaces - Cloudflare drag-and-drop uploads silently fail mid-batch. Kebab-case slugs only.</li>
       </ul></div>
-    <div class="callout warn"><span class="lab">The docs are drifting on this point</span>The Training Hub's own <code>MAINTENANCE.md</code>/<code>DEPLOY.md</code> still show <code>git push origin main</code>. That predates <code>main</code> being protected - follow the branch&rarr;PR flow above instead. (Flagged 2026-07-06; those docs need a refresh.)</div>
+    <div class="callout bad"><span class="lab">CodeRabbit silence is NOT a pass on the Support Hub</span>CodeRabbit <strong>silently skips</strong> the Support Hub repo - it treats it as an OSS repository and posts "manual review required for this OSS repository," or simply never comments at all. So on <code>sta-help-center-index</code> PRs, an absent review means <em>nobody reviewed it</em>, not that it came back clean. Read the diff yourself before merging there. Only the Training Hub repo gets a real automated review, and even there the review is advisory - the required checks are what gate the merge.</div>
     <h3>Support Hub - same flow, plus cache bump</h3>
     <p>Identical branch&rarr;PR&rarr;squash-merge on the <code>sta-help-center-index</code> repo, with one extra step: bump <code>CACHE</code> in <code>sw.js</code> before committing, or returning PWA users keep the stale cached build. After merge, confirm the deploy in a fresh private window.</p>
 
