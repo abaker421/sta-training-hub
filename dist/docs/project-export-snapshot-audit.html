@@ -132,7 +132,7 @@
       </tbody>
     </table>
     <div class="callout"><strong>Note on Block 1 format:</strong> the four backfilled launch files for live, self-maintained agents use a pointer-style Block 1 ("paste the contents of instructions.md, drop the version comment") instead of duplicating the full instructions text. Deliberate deviation from the launch template's verbatim rule: these agents version-bump in place, and a second full copy would silently drift on every bump.</div>
-    <h2>Cowork agents - 16 snapshots (click any to expand)</h2>
+    <h2>Cowork agents - 14 snapshots (click any to expand)</h2>
 
     <details class="plug"><summary>Adam's Personal Assistant - v2.6 <span class="tag ok">Export-ready</span></summary><div class="inner">
       <table><caption class="sr-only">Personal Assistant snapshot</caption><tbody>
@@ -160,7 +160,7 @@
       <table><caption class="sr-only">The Architect snapshot</caption><tbody>
         <tr><th scope="row">Version / target</th><td>v6.21 (6/6/26) &middot; Cowork (instructions in project settings) &middot; Active &middot; STA scope</td></tr>
         <tr><th scope="row">Context files</th><td>context-agent-registry.md (root - every agent/project/skill, overlap checks); context-path-reference.md (root - key paths); sta-company-profile (shared); context-doc-design-standards (shared); context-prompt-engineering; context-cowork-vs-projects; context-cowork-tools-and-mcp (caveat library); context-ai-context-mechanics; context-context-design-rules; context-claude-skills</td></tr>
-        <tr><th scope="row">Skills used</th><td>deep-research, knowledge-base-context-builder, skill-creator, prompt-evaluator, run-test-cases, project-feedback, training-doc-audit, help-center-article, schedule</td></tr>
+        <tr><th scope="row">Skills used</th><td>deep-research, knowledge-base-context-builder, skill-creator, prompt-evaluator, run-test-cases, project-feedback, training-doc-auditor, help-center-article, schedule</td></tr>
         <tr><th scope="row">KB modules</th><td>KB index (read at start of every task); modules per-project during pipeline runs</td></tr>
         <tr><th scope="row">Install needs</th><td>project-launch.md created 2026-06-06: mount workspace, paste instructions, verify 13 files, install 5 required peer skills (prompt-evaluator, run-test-cases, project-feedback, knowledge-base-context-builder, skill-creator) + 6 recommended</td></tr>
         <tr><th scope="row">Gaps</th><td>Closed 2026-06-06 (launch file backfilled, pointer-style Block 1)</td></tr>
@@ -235,7 +235,7 @@
 
     <details class="plug"><summary>Local Discovery - v1.8 / v1.5 (Both) <span class="tag ok">Export-ready</span></summary><div class="inner">
       <table><caption class="sr-only">Local Discovery snapshot</caption><tbody>
-        <tr><th scope="row">Version / target</th><td>v1.8 Cowork (6/3/26) + v1.5 Claude.ai Project (mobile) &middot; Active &middot; intentional version split (Cowork-only skill features exempt from lockstep)</td></tr>
+        <tr><th scope="row">Version / target</th><td>v1.8 Cowork (6/3/26) + v1.5 Claude.ai Project (mobile) &middot; <strong>Deprecated - archived 2026-06-24</strong> &middot; intentional version split (Cowork-only skill features exempt from lockstep). Snapshot retained for the archive; not a live project.</td></tr>
         <tr><th scope="row">Context files</th><td>context-source-tiers (which sources per anchor/horizon, JS vs open-web); context-seed-places (routing into seed-places KB); context-search-techniques (query phrasing, dedup); context-html-report-design (shared - Pine digest craft, Cowork only). Persistence: state.md + preferences.md</td></tr>
         <tr><th scope="row">Skills used</th><td>garage-sale-scanner (Mode 6, Cowork only - sole authorized skill)</td></tr>
         <tr><th scope="row">KB modules</th><td>local-discovery-seed-places, northwoods-event-sources, northwoods-birding-reference, wi-fishing-reference, northwoods-park-systems, web-search-best-practices</td></tr>
@@ -266,17 +266,6 @@
       </tbody></table>
     </div></details>
 
-    <details class="plug"><summary>STA Support Expert - v2.1 <span class="tag ok">Export-ready</span></summary><div class="inner">
-      <table><caption class="sr-only">STA Support Expert snapshot</caption><tbody>
-        <tr><th scope="row">Version / target</th><td>v2.1 (5/22/26) &middot; Cowork &middot; Active &middot; STA scope &middot; absorbed Skyward Advisor at v2.0</td></tr>
-        <tr><th scope="row">Context files</th><td>21 routed entries: context-skyward-compatibility (consult FIRST); 9 per-product files (time-clocks, tardy-kiosk, schooltrak, positive-attendance, food-service, visitor-management, id-badging, transcript-labels, sta-products); 4 howto files (time-clocks, schooltrak, id-badging, id-printers); context-product-mechanics; sta-company-profile (shared); context-remote-access-tools; context-sql-server-ecosystem; context-coverage-and-routing; context-platform-detection</td></tr>
-        <tr><th scope="row">Skills used</th><td>time-clock-diagnostics (log analysis routing); help-center-article (drafting routing)</td></tr>
-        <tr><th scope="row">KB modules</th><td>school-tech-help-center, skyward-ecosystem-deep-dive, skyward-qmlativ-migration-dynamics</td></tr>
-        <tr><th scope="row">Install needs</th><td>[REQUIRED] upload 15 context files. [RECOMMENDED] confirm both routed skills active</td></tr>
-        <tr><th scope="row">Core tools</th><td>Read. Folder also holds -proj variants feeding the STA Support Chat sibling</td></tr>
-      </tbody></table>
-    </div></details>
-
     <details class="plug"><summary>The Test Master - v1.5 <span class="tag ok">Export-ready</span></summary><div class="inner">
       <table><caption class="sr-only">The Test Master snapshot</caption><tbody>
         <tr><th scope="row">Version / target</th><td>v1.5 (6/3/26) &middot; Cowork &middot; Active &middot; Personal scope</td></tr>
@@ -288,9 +277,9 @@
       </tbody></table>
     </div></details>
 
-    <details class="plug"><summary>Project Tester (Deep) - v1.2 (Draft) <span class="tag ok">Export-ready</span></summary><div class="inner">
+    <details class="plug"><summary>Project Tester (Deep) - v1.2 (Deprecated) <span class="tag ok">Export-ready</span></summary><div class="inner">
       <table><caption class="sr-only">Project Tester snapshot</caption><tbody>
-        <tr><th scope="row">Version / target</th><td>v1.2 (5/21/26) &middot; Cowork &middot; Draft &middot; STA scope &middot; supersedes run-test-cases for deep structured testing</td></tr>
+        <tr><th scope="row">Version / target</th><td>v1.2 (5/21/26) &middot; Cowork &middot; <strong>Deprecated 2026-06-08</strong> &middot; STA scope. It never superseded run-test-cases. Testing splits by target: <strong>run-test-cases</strong> for quick checks, <strong>The Test Master</strong> for web, app and extension work - and The Test Master is a separate agent, not a rename of this one.</td></tr>
         <tr><th scope="row">Context files</th><td>context-behavioral-testing (LLM-as-judge, rubrics, bias mitigations); context-adversarial-testing (OWASP LLM Top 10 red-team standard); context-qa-engineering (partitioning, boundary, state-transition); context-test-harness (Mode 3 code-test harness)</td></tr>
         <tr><th scope="row">Skills used</th><td>project-feedback, prompt-evaluator (referenced)</td></tr>
         <tr><th scope="row">KB modules</th><td>KB index (the four ai-platform testing modules ground the context files)</td></tr>
@@ -299,9 +288,10 @@
       </tbody></table>
     </div></details>
 
-    <details class="plug"><summary>The Customer - v1.3 (Draft, STA sales practice) <span class="tag ok">Export-ready</span></summary><div class="inner">
+    <h2>Claude.ai Projects - 5 snapshots</h2>
+    <details class="plug"><summary>The Customer - v1.3 (Active, STA sales practice) <span class="tag ok">Export-ready</span></summary><div class="inner">
       <table><caption class="sr-only">The Customer snapshot</caption><tbody>
-        <tr><th scope="row">Version / target</th><td>v1.3 (6/6/26) &middot; Cowork &middot; Draft &middot; generic role-play engine + swappable STA layer (STA deployment is the working instance) &middot; prompt-evaluator 99/100</td></tr>
+        <tr><th scope="row">Version / target</th><td>v1.3 (6/6/26) &middot; <strong>Claude.ai Project since 2026-06-11</strong> &middot; <strong>Active</strong> &middot; generic role-play engine + swappable STA layer (STA deployment is the working instance) &middot; prompt-evaluator 99/100</td></tr>
         <tr><th scope="row">Context files</th><td>persona-pack-sta (four K-12 personas with skill floors); district-operations-sta (org chart, business-office mindset); coaching-reference-sta (GROW debrief + nine-item rubric); scenario-bank-sta (six practice scenarios); sta-company-profile (shared, synced copy)</td></tr>
         <tr><th scope="row">Skills used</th><td>None in instructions; run-test-cases gates Draft to Active</td></tr>
         <tr><th scope="row">KB modules</th><td>KB index on demand; grounded by the three sales-enablement modules</td></tr>
@@ -309,15 +299,14 @@
         <tr><th scope="row">Gaps</th><td>Closed 2026-06-06: instructions.md (v1.3, md5-verified) + all 5 context files synced from the Default Projects instance into the blueprint folder; changelog.md created with a sync rule (blueprint copy follows the runnable copy on every bump)</td></tr>
       </tbody></table>
     </div></details>
-    <h2>Claude.ai Projects - 4 snapshots, all with file maps</h2>
 
     <details class="plug"><summary>STA Support Chat - v1.6 <span class="tag ok">Export-ready</span></summary><div class="inner">
       <table><caption class="sr-only">STA Support Chat snapshot</caption><tbody>
         <tr><th scope="row">Version / target</th><td>v1.6 (6/3/26) &middot; Claude.ai Project &middot; Active &middot; shared with Tyler + support team</td></tr>
-        <tr><th scope="row">Context files</th><td>Same 15 product/howto/mechanics files as STA Support Expert (shared content lineage) + context-sta-company-proj (shared) + kb-index.md upload - 17 entries total</td></tr>
+        <tr><th scope="row">Context files</th><td><strong>24 context files.</strong> The product / how-to / mechanics set (shared content lineage with the Work Personal Assistant, which absorbed that capability when the old admin-side support project was retired) + context-sta-company-proj (shared) + kb-index.md upload. Coverage now also spans RMA, support operations, the Salesforce Case schema, implementation and migration, remote access and SQL diagnostics, and Skyward routing.</td></tr>
         <tr><th scope="row">Skills used</th><td>None - self-contained, no skills available in Projects</td></tr>
         <tr><th scope="row">KB modules</th><td>None live - kb-index.md uploaded as a static file</td></tr>
-        <tr><th scope="row">Install needs</th><td>[REQUIRED] create + paste, upload 16 context files, share with support team ("Can use")</td></tr>
+        <tr><th scope="row">Install needs</th><td>[REQUIRED] create + paste, upload 24 context files, share with support team ("Can use")</td></tr>
         <tr><th scope="row">File map</th><td class="st g">project-file-map.md exists, ~28 file rows - full recreation checklist</td></tr>
       </tbody></table>
     </div></details>
