@@ -144,7 +144,7 @@
   <!-- SYSTEM ARCHITECTURE -->
   <div id="arch"></div>
   <div class="section-title">System Architecture</div>
-  <div class="section-intro">Two parallel deployment layers. <strong>Claude.ai Projects</strong> are the staff-facing tools - four are Active (AI Advisor, STA Support Chat, STA Salesforce Cohort, Behind the Bell Assistant) and one is Draft (STA Main Chat). <strong>Cowork workspaces</strong> are the build, ops, and personal layer - primarily Adam's, with one (System Monitor) handling automated health monitoring. The Architect handles all project builds across both deployment types. The shared file system lives in the The Architect workspace folder, auto-backed up to GitHub every 30 min via Obsidian Git.</div>
+  <div class="section-intro">Two parallel deployment layers. <strong>Claude.ai Projects</strong> are the staff-facing tools - five are Active (AI Advisor, STA Support Chat, STA Salesforce Cohort, Behind the Bell Assistant, and The Customer) and one is Parked (STA Main Chat). <strong>Cowork workspaces</strong> are the build, ops, and personal layer - primarily Adam's, with one (System Monitor) handling automated health monitoring. The Architect handles all project builds across both deployment types. The shared file system lives in the The Architect workspace folder, auto-backed up to GitHub every 30 min via Obsidian Git.</div>
 
   <svg class="arch-svg" viewBox="0 0 960 420" xmlns="http://www.w3.org/2000/svg">
     <!-- STAFF-FACING ROW -->
@@ -176,16 +176,16 @@
 
     <rect x="780" y="32" width="180" height="74" rx="8" fill="#f4f6f8" stroke="#8a8d8e" stroke-width="2" stroke-dasharray="4,3"/>
     <text x="870" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">STA Main Chat</text>
-    <text x="870" y="70" text-anchor="middle" font-size="9" fill="#8a8d8e">Draft (context ready)</text>
+    <text x="870" y="70" text-anchor="middle" font-size="9" fill="#8a8d8e">Parked (context ready)</text>
     <text x="870" y="84" text-anchor="middle" font-size="9" fill="#8a8d8e">All staff - org base</text>
-    <text x="870" y="98" text-anchor="middle" font-size="8.5" fill="#8a8d8e" font-weight="700">PENDING INSTRUCTIONS</text>
+    <text x="870" y="98" text-anchor="middle" font-size="8.5" fill="#8a8d8e" font-weight="700">BUILD DEFERRED</text>
 
     <!-- COWORK BUILD/OPS ROW -->
     <text x="0" y="138" font-size="11" font-weight="700" fill="#8a8d8e" letter-spacing="1px">COWORK - BUILD, OPS, AND ADMIN (ADAM)</text>
 
     <rect x="0" y="150" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
     <text x="109" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">The Architect</text>
-    <text x="109" y="184" text-anchor="middle" font-size="9.5" fill="#006098">v6.17 - build pipeline</text>
+    <text x="109" y="184" text-anchor="middle" font-size="9.5" fill="#006098">v7.0 - build pipeline</text>
     <text x="109" y="198" text-anchor="middle" font-size="9" fill="#006098">Discovery, blueprint, spec</text>
 
     <rect x="232" y="150" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
@@ -247,7 +247,7 @@
       <p><strong>For:</strong> Chris Baker, Tyler Baughman, Adam Baker. Product troubleshooting and customer email drafts grounded in the STA Help Center across every product line.</p>
       <p><strong>Hard rule:</strong> NEVER FABRICATE. Source-label taxonomy (Context-confirmed / Training knowledge / Training knowledge - verify carefully / Cannot confirm) on every answer.</p>
       <div class="ws-meta">
-        <strong>16 context files</strong> covering Time Clocks, SchoolTRAK, Tardy Kiosk, Food Service, Visitor Management, ID Badging, Positive Attendance, Transcript Labels, ID Printers, Skyward compatibility, product mechanics, remote access, SQL Server, coverage routing, plus <code>sta-company-profile.md</code>. <strong>Blueprint:</strong> <code>Project Blueprints/_Claude-Projects/sta-support-chat-proj/</code>
+        <strong>24 context files</strong> covering Time Clocks, SchoolTRAK, Tardy Kiosk, Food Service, Visitor Management, ID Badging, Positive Attendance, Transcript Labels, ID Printers, Skyward compatibility, product mechanics, remote access, SQL Server, coverage routing, plus <code>sta-company-profile.md</code>. Coverage now also spans RMA, support operations, the Salesforce Case schema, implementation and migration, remote access and SQL diagnostics, and Skyward routing. <strong>Blueprint:</strong> <code>Project Blueprints/_Claude-Projects/sta-support-chat-proj/</code>
       </div>
     </div>
 
@@ -263,9 +263,9 @@
 
     <div class="ws-card gray">
       <div class="ws-name">STA Main Chat</div>
-      <div class="ws-tag gray">Draft - instructions pending</div>
+      <div class="ws-tag gray">Parked - build deferred</div>
       <p><strong>Planned for:</strong> all staff. The base brain for general School Tech questions and org knowledge. Other department-specific brains will extend from it.</p>
-      <p><strong>Status:</strong> context files pre-built (<code>context-sta-company-proj.md</code>, <code>context-sta-products-detail.md</code>, <code>context-sta-team-ai-proj.md</code>); instructions.md still to write.</p>
+      <p><strong>Status:</strong> <strong>Parked</strong>, not in progress. Context files are pre-built (<code>context-sta-company-proj.md</code>, <code>context-sta-products-detail.md</code>, <code>context-sta-team-ai-proj.md</code>) and <code>instructions.md</code> is still to write, but the build is explicitly deferred rather than underway - there is no active work and no target date.</p>
       <div class="ws-meta">
         <strong>Blueprint:</strong> <code>Project Blueprints/_Claude-Projects/sta-main-chat-proj/</code>
       </div>
@@ -290,7 +290,7 @@
   <div class="card-grid">
     <div class="ws-card blue">
       <div class="ws-name">The Architect</div>
-      <div class="ws-tag blue">Active v6.17 - build pipeline</div>
+      <div class="ws-tag blue">Active v7.0 - build pipeline</div>
       <p><strong>Use for:</strong> building new projects, polishing existing prompts, quick one-off prompts, updating test cases after fixes, all system maintenance work (registry updates, training materials, knowledge-base oversight).</p>
       <p><strong>Five modes:</strong> Full Pipeline &middot; Polish Existing &middot; Quick Prompt &middot; Test Case Update &middot; Advisory (expert Q&amp;A, no pipeline artifacts).</p>
       <div class="ws-meta">
@@ -436,7 +436,7 @@
     <div class="skill-item"><div class="skill-name">Prompt Override Guard</div><div class="skill-desc">Intercepts jailbreak / override attempts ("ignore your instructions", "act as DAN", etc.). Always armed inside Cowork agents.</div><div class="skill-trigger">Any prompt-injection attempt (auto-fires)</div></div>
     <div class="skill-item"><div class="skill-name">Help Center Article</div><div class="skill-desc">STA Salesforce Knowledge Base articles in the exact STA HTML format.</div><div class="skill-trigger">"KB article", "format this as a KB article"</div></div>
     <div class="skill-item"><div class="skill-name">HTML Checklist</div><div class="skill-desc">Process or workflow to single-file interactive HTML checklist with STA branding. In-memory state.</div><div class="skill-trigger">"make this a checklist"</div></div>
-    <div class="skill-item"><div class="skill-name">Time Clock Diagnostics</div><div class="skill-desc">Analyzes STA time clock log files (TT3, TT7, TT10) - app.config, winsvc, emulator.log, errors.txt, settings.xml.</div><div class="skill-trigger">Upload any clock log file</div></div>
+    <div class="skill-item"><div class="skill-name">Time Clock Error Log Review</div><div class="skill-desc">Analyzes STA time clock log files (TT3, TT7, TT10) - app.config, winsvc, emulator.log, errors.txt, settings.xml. (Renamed from Time Clock Diagnostics on 2026-06-07.)</div><div class="skill-trigger">Upload any clock log file</div></div>
     <div class="skill-item"><div class="skill-name">Cowork Snapshot Exporter</div><div class="skill-desc">Packages a Cowork project into a timestamped ZIP for sharing - system prompt, setup guide, all referenced context files.</div><div class="skill-trigger">"snapshot this project", "export this cowork"</div></div>
     <div class="skill-item"><div class="skill-name">Research to Slides</div><div class="skill-desc">Converts Deep Research modules into polished PowerPoint decks with STA branding and SVG diagrams.</div><div class="skill-trigger">"turn this into slides"</div></div>
     <div class="skill-item"><div class="skill-name">Backup Verifier</div><div class="skill-desc">Read-only Drift Report over Backups/ - skills, projects, archives, scheduled-task snapshots; surfaces stale .skill packages as click-installable.</div><div class="skill-trigger">"verify all backups", "are my backups up to date"</div></div>
@@ -444,6 +444,18 @@
     <div class="skill-item"><div class="skill-name">Deep Research Prompt Builder</div><div class="skill-desc">Crafts a deep research commission prompt as one .md for the knowledge base, then returns a one-click kickoff prompt.</div><div class="skill-trigger">"craft a deep research prompt", "build a research commission"</div></div>
     <div class="skill-item"><div class="skill-name">Session Closeout</div><div class="skill-desc">Wraps up a chat - summary, pending manual tasks, pending in-chat items; optional one-click handoff prompt for a new chat.</div><div class="skill-trigger">"end chat", "wrap up", "close out"</div></div>
     <div class="skill-item"><div class="skill-name">Weekly GitHub Backup</div><div class="skill-desc">Backs up all Claude projects and skills to GitHub on a weekly schedule (also runs as a scheduled task).</div><div class="skill-trigger">Scheduled (Sundays); or "run the GitHub backup"</div></div>
+    <div class="skill-item"><div class="skill-name">STA HTML Report</div><div class="skill-desc">The STA report engine - brand-styled HTML reports from a locked template plus a rich element library (charts, sparklines, meters, heatmaps, timelines). Also assembles multi-tab packages.</div><div class="skill-trigger">"make an HTML report", "write this up"</div></div>
+    <div class="skill-item"><div class="skill-name">Help Center Report</div><div class="skill-desc">Monthly Help Center analytics as a five-tab package (Overview / Health / Salesforce Reporting / Article Performance / Recommendations) from live GA4 data.</div><div class="skill-trigger">"run the help center report"</div></div>
+    <div class="skill-item"><div class="skill-name">Site Analytics Report</div><div class="skill-desc">Leadership-ready k12sta.com analytics from live GA4 - audience, traffic sources, lead-gen pages, product interest, store - as a five-tab report ending in Where to Focus.</div><div class="skill-trigger">"run the site report", "how is the website doing"</div></div>
+    <div class="skill-item"><div class="skill-name">Salesforce Email Template Builder</div><div class="skill-desc">STA Salesforce Lightning email templates as paste-ready, Outlook-safe HTML in five formats - short reply, sectioned, case acknowledgement, bulk notification, internal notification.</div><div class="skill-trigger">"make a Salesforce email template"</div></div>
+    <div class="skill-item"><div class="skill-name">Truncation Checker</div><div class="skill-desc">On-demand workspace sweep for files clipped mid-write - mid-word tails, missing closers, empty files, NUL padding. Auto-fixes lossless padding; everything else gets a one-click Architect handoff.</div><div class="skill-trigger">"run the truncation scan", "did anything get cut off"</div></div>
+    <div class="skill-item"><div class="skill-name">AI Tell Cleaner</div><div class="skill-desc">Strips AI fingerprinting from Adam's own writing while preserving voice, and reports an evidence-cited confidence band on text of unknown origin - never a bare verdict.</div><div class="skill-trigger">"remove the AI tells", "is this AI-written"</div></div>
+    <div class="skill-item"><div class="skill-name">Code Relay</div><div class="skill-desc">Turns a Cowork agent into the architect half of a two-way relay with Claude Code - one-click handoff block, fixed role split, copy-ready status block back.</div><div class="skill-trigger">"hand this to Claude Code", "start a relay"</div></div>
+    <div class="skill-item"><div class="skill-name">Vendor Evaluation</div><div class="skill-desc">Neutral, skimmable vendor write-ups. Single-vendor uses an eight-section template; compare mode does 2-4 options with a do-nothing baseline and a weighted scorecard.</div><div class="skill-trigger">"evaluate this vendor", "write up the demo"</div></div>
+    <div class="skill-item"><div class="skill-name">SOW Writer</div><div class="skill-desc">Vendor-ready Statement of Work for outsourced development plus an internal HTML summary. Outcome-based - what we want to be true, never how to build it.</div><div class="skill-trigger">"draft an SOW", "scope this dev work"</div></div>
+    <div class="skill-item"><div class="skill-name">Image Gen</div><div class="skill-desc">Produces a real on-disk PNG via the Hugging Face connector, routed to the right model for photos, text-in-image, filler, or edits. Not for diagrams.</div><div class="skill-trigger">"generate an image", "make a hero image"</div></div>
+    <div class="skill-item"><div class="skill-name">Outbound Comms Grounding</div><div class="skill-desc">Gates every outbound draft behind a KB grounding block - file paths plus line-numbered quotes - and locks the domain so work and activism standards never cross. No block, no draft.</div><div class="skill-trigger">"draft a reply", or any pasted inbound message</div></div>
+    <div class="skill-item"><div class="skill-name">Scheduled Task Builder</div><div class="skill-desc">Creates, audits and repairs Cowork scheduled tasks so they survive unattended deferred runs, applying twelve gates before any task is created or changed.</div><div class="skill-trigger">"schedule this", "harden this task"</div></div>
   </div>
 
   <h3 style="font-size:13px; margin: 18px 0 8px; color: var(--gray); text-transform:uppercase; letter-spacing:0.7px;">Standard platform skills (Anthropic-bundled with Cowork)</h3>
@@ -533,7 +545,7 @@
       <tr>
         <td><code>context-agent-registry.md</code> <em>(workspace root)</em></td>
         <td>The Architect (writes), all build tools (read)</td>
-        <td>Master list of every project. Status: Draft / Active / Deprecated. Used for scope-overlap checks before new builds.</td>
+        <td>Master list of every project. Status: <strong>Draft / Active / Parked / Deprecated</strong>. <em>Parked</em> means explicitly deferred - built or partly built, but with no active work and no target date; it is not a slower Draft. Used for scope-overlap checks before new builds.</td>
       </tr>
       <tr>
         <td><code>context-path-reference.md</code> <em>(workspace root)</em></td>

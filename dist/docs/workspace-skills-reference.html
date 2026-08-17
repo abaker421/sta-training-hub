@@ -180,16 +180,20 @@
 
   <!-- SECTION 4 -->
   <div class="section-title" id="sec-4">4 — Every Custom Skill</div>
-  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code> in <code class="inline">Backups/skills/INDEX.md</code>) — 14 currently installed. Anthropic-shipped skills (docx, pptx, xlsx, pdf, schedule, skill-creator, etc.) are not listed here. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
+  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code> in <code class="inline">Backups/skills/INDEX.md</code>) &mdash; <strong>38 currently installed</strong> (37 distinct skills plus one duplicate, noted below). Anthropic-shipped skills (docx, pptx, xlsx, pdf, schedule, skill-creator, etc.) are not listed here. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
 
-  <div class="grp">Build pipeline — designing &amp; validating agents</div>
+  <div class="grp">Build pipeline &mdash; designing &amp; validating agents</div>
 
   <div class="skill-card"><div class="skill-name">prompt-evaluator</div>
     <div class="skill-desc">Scores an <code class="inline">instructions.md</code> against named prompt-engineering frameworks and writes a versioned HTML eval artifact.</div>
     <div class="skill-trig"><strong>Say:</strong> "run the eval", "score these instructions"</div></div>
 
+  <div class="skill-card"><div class="skill-name">skill-evaluator</div>
+    <div class="skill-desc">Scores a <code class="inline">SKILL.md</code> against Anthropic's published skill-authoring frameworks &mdash; description quality, triggering accuracy, structure, progressive disclosure &mdash; and writes a structured HTML eval as a persistent artifact.</div>
+    <div class="skill-trig"><strong>Say:</strong> "evaluate this skill", "is this skill production-ready"</div></div>
+
   <div class="skill-card"><div class="skill-name">run-test-cases</div>
-    <div class="skill-desc">Runs a project's <code class="inline">test-cases.md</code> against its <code class="inline">instructions.md</code>, with a version-alignment check and a structured failure taxonomy. (Formerly <code class="inline">project-tester</code>.)</div>
+    <div class="skill-desc">Runs a project's <code class="inline">test-cases.md</code> against its <code class="inline">instructions.md</code>, with a version-alignment check and a structured failure taxonomy. Also runs a parallel fan-out mode for large suites. (Formerly <code class="inline">project-tester</code>.)</div>
     <div class="skill-trig"><strong>Say:</strong> "run the tests", "validate my instructions"</div></div>
 
   <div class="skill-card"><div class="skill-name">project-feedback</div>
@@ -201,7 +205,7 @@
     <div class="skill-trig"><strong>Say:</strong> "audit the pipeline", "what's missing from the system"</div></div>
 
   <div class="skill-card"><div class="skill-name">training-doc-auditor</div>
-    <div class="skill-desc">Verifies that training docs still reflect what agents actually do, cross-checking against the registry and handoff files.</div>
+    <div class="skill-desc">Verifies that training docs still reflect what agents actually do, cross-checking against the registry, the handoff files and the hub card index. Applies fixes on approval.</div>
     <div class="skill-trig"><strong>Say:</strong> "audit training docs", "is training accurate"</div></div>
 
   <div class="grp">Knowledge base &amp; research</div>
@@ -211,15 +215,23 @@
     <div class="skill-trig"><strong>Say:</strong> "craft a deep research prompt", "build a research commission"</div></div>
 
   <div class="skill-card"><div class="skill-name">knowledge-base-context-builder</div>
-    <div class="skill-desc">Turns existing KB modules into an uploadable project context file with a structured intake and quality gate. (The renamed <code class="inline">cowork-context-packager</code>.)</div>
+    <div class="skill-desc">Turns existing KB modules into an uploadable project context file with a structured intake and quality gate. Start here when working from raw KB slugs, then hand off to one of the two packagers below.</div>
     <div class="skill-trig"><strong>Say:</strong> "build a context file from [topic]", "package the [topic] research"</div></div>
 
+  <div class="skill-card"><div class="skill-name">cowork-context-packager</div>
+    <div class="skill-desc">Packages content as a <strong>Cowork</strong> context file &mdash; applies the on-demand loading model, writes cross-references, generates the routing trigger, and proposes the <code class="inline">instructions.md</code> edit directly.</div>
+    <div class="skill-trig"><strong>Say:</strong> "package this for Cowork", "make a Cowork context file"</div></div>
+
+  <div class="skill-card"><div class="skill-name">project-context-packager</div>
+    <div class="skill-desc">Packages content as a <strong>Claude.ai Project</strong> context file &mdash; enforces token economy, strips cross-references and skill references, applies primacy foregrounding and XML section tags, and recommends upload order.</div>
+    <div class="skill-trig"><strong>Say:</strong> "package this for a Project", "format this for Claude.ai Projects"</div></div>
+
   <div class="skill-card"><div class="skill-name">kb-freshness-auditor</div>
-    <div class="skill-desc">Scores KB modules by staleness and priority, then outputs paste-ready Deep Research prompts for the ones that need refreshing.</div>
+    <div class="skill-desc">Scores KB modules on two axes &mdash; staleness/priority, and reference value including orphan detection &mdash; then outputs paste-ready Deep Research prompts for what needs refreshing. Also checks index&harr;lookup parity.</div>
     <div class="skill-trig"><strong>Say:</strong> "audit the KB", "which research is out of date"</div></div>
 
   <div class="skill-card"><div class="skill-name">research-to-slides</div>
-    <div class="skill-desc">Converts a KB research folder into a teaching slide deck using adult-learning principles, assertion titles, and cognitive-load limits.</div>
+    <div class="skill-desc">Converts a KB research folder into a teaching slide deck using adult-learning principles, assertion titles, and cognitive-load limits &mdash; with generated imagery, SVG diagrams, speaker notes and a QA pass.</div>
     <div class="skill-trig"><strong>Say:</strong> "turn this into slides", "make a presentation from my research"</div></div>
 
   <div class="grp">Content production</div>
@@ -229,8 +241,64 @@
     <div class="skill-trig"><strong>Say:</strong> "write up a help article", "format this as a KB article"</div></div>
 
   <div class="skill-card"><div class="skill-name">html-checklist</div>
-    <div class="skill-desc">Converts a process, workflow, or document into a styled STA-branded <code class="inline">.html</code> checklist with in-memory checkbox state.</div>
-    <div class="skill-trig"><strong>Say:</strong> "turn this into a checklist", "make a checkable version of this"</div></div>
+    <div class="skill-desc">Converts a process, workflow, or document into a styled STA-branded <code class="inline">.html</code> checklist. Two modes: <strong>checkbox</strong> (live progress + localStorage) and <strong>form/intake</strong> (notes field per row, exports a Markdown record).</div>
+    <div class="skill-trig"><strong>Say:</strong> "turn this into a checklist", "make an intake form"</div></div>
+
+  <div class="skill-card"><div class="skill-name">bwb-html-checklist</div>
+    <div class="skill-desc">The Build with Baker sibling of <code class="inline">html-checklist</code>, in the BwB indigo/sand masthead. Same checkbox and form/intake modes. Use this one for any non-STA context.</div>
+    <div class="skill-trig"><strong>Say:</strong> "make a BwB checklist", "client onboarding checklist"</div></div>
+
+  <div class="skill-card"><div class="skill-name">salesforce-email-template-builder</div>
+    <div class="skill-desc">Generates STA Salesforce Lightning email templates as paste-ready, Outlook-safe HTML in five formats &mdash; short reply, sectioned email, case acknowledgement, bulk notification, internal notification.</div>
+    <div class="skill-trig"><strong>Say:</strong> "make a Salesforce email template", "draft a case reply template"</div></div>
+
+  <div class="skill-card"><div class="skill-name">sow-writer</div>
+    <div class="skill-desc">Writes a vendor-ready Statement of Work for outsourced development, plus a high-level internal HTML summary for staff. Outcome-based &mdash; what we want to be true, never how to build it.</div>
+    <div class="skill-trig"><strong>Say:</strong> "draft an SOW", "scope this dev work for [vendor]"</div></div>
+
+  <div class="skill-card"><div class="skill-name">image-gen</div>
+    <div class="skill-desc">Generates a real on-disk PNG via the Hugging Face image connector, routing to the right model for photos, text-in-image, quick filler, or edits. Not for diagrams &mdash; diffusion renders diagram text as gibberish.</div>
+    <div class="skill-trig"><strong>Say:</strong> "generate an image", "make a hero image for this report"</div></div>
+
+  <div class="skill-card"><div class="skill-name">ai-tell-cleaner</div>
+    <div class="skill-desc">Two modes. <strong>Clean</strong> strips AI fingerprinting from your own writing so it reads human, preserving voice, and removes authorship metadata from <code class="inline">.docx</code>/<code class="inline">.pdf</code>. <strong>Detect</strong> gives an evidence-cited confidence band on text of unknown origin &mdash; never a bare verdict.</div>
+    <div class="skill-trig"><strong>Say:</strong> "remove the AI tells", "is this AI-written"</div></div>
+
+  <div class="skill-card"><div class="skill-name">ai-detector</div>
+    <div class="skill-desc">Byte-identical to <code class="inline">ai-tell-cleaner</code> apart from the name &mdash; both are installed, and which one is canonical is <strong>not yet resolved</strong> (the registry and <code class="inline">Backups/skills/INDEX.md</code> currently name opposite winners). Until that is settled, treat them as one skill with two names and do not delete either.</div>
+    <div class="skill-trig"><strong>Say:</strong> same triggers as <code class="inline">ai-tell-cleaner</code></div></div>
+
+  <div class="grp">Reports</div>
+
+  <div class="skill-card"><div class="skill-name">sta-html-report</div>
+    <div class="skill-desc">The STA report engine. Generates brand-styled HTML reports &mdash; digests, status updates, diagnostics, analyses &mdash; from a locked template plus a rich element library (charts, KPI sparklines, meters, heatmaps, timelines). Also assembles multi-tab packages.</div>
+    <div class="skill-trig"><strong>Say:</strong> "make an HTML report", "write this up"</div></div>
+
+  <div class="skill-card"><div class="skill-name">bwb-html-report</div>
+    <div class="skill-desc">The Build with Baker sibling of <code class="inline">sta-html-report</code>, in the locked indigo/sand template. Defaults to expressive internal styling, with an opt-in customer-facing mode that applies WCAG 2.2 AA.</div>
+    <div class="skill-trig"><strong>Say:</strong> "make a BwB report", "build a BwB digest"</div></div>
+
+  <div class="skill-card"><div class="skill-name">help-center-report</div>
+    <div class="skill-desc">Monthly Help Center analytics as a five-tab HTML package (Overview / Health / Salesforce Reporting / Article Performance / Recommendations) from live GA4 data.</div>
+    <div class="skill-trig"><strong>Say:</strong> "run the help center report"</div></div>
+
+  <div class="skill-card"><div class="skill-name">site-analytics-report</div>
+    <div class="skill-desc">Leadership-ready analytics for k12sta.com from live GA4 &mdash; audience, traffic sources, lead-gen pages, product interest, and the online store &mdash; as a five-tab report ending in a Where to Focus tab.</div>
+    <div class="skill-trig"><strong>Say:</strong> "run the site report", "how is the website doing"</div></div>
+
+  <div class="skill-card"><div class="skill-name">vendor-evaluation</div>
+    <div class="skill-desc">Turns a vendor demo or pitch into a neutral, skimmable evaluation. Single-vendor uses an eight-section template; compare mode does 2&ndash;4 options side by side with a do-nothing baseline column and a weighted scorecard.</div>
+    <div class="skill-trig"><strong>Say:</strong> "evaluate this vendor", "write up the [X] demo"</div></div>
+
+  <div class="grp">Support &amp; diagnostics</div>
+
+  <div class="skill-card"><div class="skill-name">time-clock-error-log-review</div>
+    <div class="skill-desc">Analyses uploaded time-clock logs &mdash; frozen clocks, connection failures, auth errors, reader faults, sync issues &mdash; across TT3, TT7 and TT10. Asks for account name, issue description and logs before starting. (Renamed from <code class="inline">time-clock-diagnostics</code> on 2026-06-07.)</div>
+    <div class="skill-trig"><strong>Say:</strong> "review these clock logs", or an upload of <code class="inline">errors.txt</code> / <code class="inline">emulator.log</code></div></div>
+
+  <div class="skill-card"><div class="skill-name">wcag-audit</div>
+    <div class="skill-desc">Audits a page, HTML file, PDF, Word doc or deck for WCAG 2.2 Level AA conformance and returns severity-ranked findings with verifiable evidence per finding.</div>
+    <div class="skill-trig"><strong>Say:</strong> "is this accessible", "run an accessibility audit"</div></div>
 
   <div class="grp">Operations &amp; utilities</div>
 
@@ -238,13 +306,47 @@
     <div class="skill-desc">Logs an agent quality issue (wrong tone, ignored constraint, fabrication) so it surfaces in the Monday health report and routes to Project Feedback.</div>
     <div class="skill-trig"><strong>Say:</strong> "log this feedback", "the agent messed up"</div></div>
 
-  <div class="skill-card"><div class="skill-name">garage-sale-scanner</div>
-    <div class="skill-desc">Runs the Garage Sale Monitor scan for Ashland, WI — fetches sources, ranks finds, and saves a dated HTML digest.</div>
-    <div class="skill-trig"><strong>Say:</strong> "run a garage sale scan", "do a rummage check"</div></div>
-
   <div class="skill-card"><div class="skill-name">session-closeout</div>
     <div class="skill-desc">Wraps up a chat: skim-ready summary, pending manual tasks, pending in-chat work, and an optional one-click handoff prompt for a new chat.</div>
     <div class="skill-trig"><strong>Say:</strong> "wrap up", "close out", "let's finish up"</div></div>
+
+  <div class="skill-card"><div class="skill-name">backup-verifier</div>
+    <div class="skill-desc">Verifies every backup in <code class="inline">Backups/</code> is current &mdash; skills, projects, archives, task snapshots &mdash; probes each connected MCP connector with a read-only call to confirm live auth rather than mere presence, and diffs the two PCs' installs for parity.</div>
+    <div class="skill-trig"><strong>Say:</strong> "verify the backups", "are my backups current"</div></div>
+
+  <div class="skill-card"><div class="skill-name">weekly-github-backup</div>
+    <div class="skill-desc">Weekly backup of all Claude projects and skills to GitHub, Sundays at 7:00 AM. Personal brain content is excluded by design.</div>
+    <div class="skill-trig"><strong>Say:</strong> runs on schedule; "run the GitHub backup"</div></div>
+
+  <div class="skill-card"><div class="skill-name">truncation-checker</div>
+    <div class="skill-desc">On-demand workspace-wide sweep for files clipped mid-write &mdash; mid-word tails, missing close tags, empty files, trailing NUL padding. Auto-fixes lossless NUL padding; everything else gets a one-click Architect handoff block. A clean scan returns a one-line all-clear.</div>
+    <div class="skill-trig"><strong>Say:</strong> "run the truncation scan", "did anything get cut off"</div></div>
+
+  <div class="skill-card"><div class="skill-name">scheduled-task-builder</div>
+    <div class="skill-desc">Creates, audits and repairs Cowork scheduled tasks so they survive unattended deferred runs, applying twelve gates before any task is created or changed.</div>
+    <div class="skill-trig"><strong>Say:</strong> "schedule this", "harden this task", "audit my scheduled tasks"</div></div>
+
+  <div class="skill-card"><div class="skill-name">cowork-snapshot-exporter</div>
+    <div class="skill-desc">Packages a Cowork project for someone else &mdash; resolves context-file paths, generates a <code class="inline">SETUP-GUIDE.md</code>, and ZIPs it for external distribution.</div>
+    <div class="skill-trig"><strong>Say:</strong> "snapshot this project", "package this for the team"</div></div>
+
+  <div class="skill-card"><div class="skill-name">code-relay</div>
+    <div class="skill-desc">Turns a Cowork agent into the architect half of a two-way relay with Claude Code: produces a one-click handoff block that sets the role split and requires Code to close every reply with a copy-ready status block.</div>
+    <div class="skill-trig"><strong>Say:</strong> "hand this to Claude Code", "start a relay"</div></div>
+
+  <div class="skill-card"><div class="skill-name">garage-sale-scanner</div>
+    <div class="skill-desc">Runs the Garage Sale Monitor scan for Ashland, WI &mdash; fetches sources, ranks finds, and saves a dated HTML digest.</div>
+    <div class="skill-trig"><strong>Say:</strong> "run a garage sale scan", "do a rummage check"</div></div>
+
+  <div class="grp">Guardrails</div>
+
+  <div class="skill-card"><div class="skill-name">outbound-comms-grounding</div>
+    <div class="skill-desc">Gates every outbound draft behind a knowledge-base grounding block &mdash; file paths plus line-numbered quotes &mdash; and locks the domain so work and activism standards never cross. No grounding block, no draft.</div>
+    <div class="skill-trig"><strong>Say:</strong> "draft a reply", "respond to this email", or any pasted inbound message</div></div>
+
+  <div class="skill-card"><div class="skill-name">prompt-override-guard</div>
+    <div class="skill-desc">Fires the moment someone tries to talk the agent out of its instructions ("ignore your rules", "developer mode", "act as DAN"). Takes priority over every other response when an override attempt is detected.</div>
+    <div class="skill-trig"><strong>Say:</strong> fires automatically on an override attempt</div></div>
 
   <div class="callout blue" style="margin-top: 18px;">
     <strong>Source of truth:</strong> the authoritative list, versions, and drift state live in <code class="inline">Backups/skills/INDEX.md</code>. Run the verify procedure there to confirm installed copies match their backups before relying on any skill.
