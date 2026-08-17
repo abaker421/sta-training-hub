@@ -38,10 +38,14 @@
     <div class="body">
       <h2>What it does</h2>
       <p>Runs an agent's test-cases.md against its instructions.md and reports pass/fail with a structured failure taxonomy, plus a version-alignment check.</p>
+      <h2>Serial or parallel fan-out</h2>
+      <p>Serial is the default and is unchanged. <strong>Fan-out mode</strong> runs the suite in parallel instead, dispatching one simulate-then-grade chain per case to fresh sub-agents.</p>
+      <p>The speed is the obvious benefit; the real one is independence. In fan-out, the node that <em>simulates</em> the case never receives the pass criteria, so it cannot bend its answer toward them - simulate-before-grade becomes structural rather than a discipline someone has to maintain. And the node that <em>grades</em> never wrote the thing it is grading. The rubric, failure taxonomy, report format and regression gate are identical in both modes: <strong>fan-out changes how verdicts are produced, never how they are judged or reported.</strong></p>
+      <p>Rough guidance: under about 10 cases, serial wins - coordination overhead on a small slice is pure loss. Over about 15, fan-out is worth it. In between it names the tradeoff and lets you pick.</p>
       <h2>When to use it</h2>
       <p>After instructions are written or updated, to confirm nothing broke before going live.</p>
       <h2>How to trigger it</h2>
-      <div class="trigger"><p>"run the tests"</p><p>"test my project"</p><p>"validate my instructions"</p></div>
+      <div class="trigger"><p>"run the tests"</p><p>"test my project"</p><p>"validate my instructions"</p><p><strong>Fan-out:</strong> "fan out the tests" &middot; "run the cases in parallel" &middot; "run the full suite fast"</p></div>
     </div>
     <div class="foot">School Technology Associates &middot; Run Test Cases &middot; Custom Skill</div>
   </div>

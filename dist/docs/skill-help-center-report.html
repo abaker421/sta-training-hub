@@ -38,7 +38,16 @@
     <div class="body">
       <h2>What it does</h2>
       <p>Pulls live Google Analytics (GA4) data for STA's Salesforce Help Center - overview numbers, top articles, traffic sources, and search behavior - and analyzes it against the five Help Center effectiveness metrics: case deflection, search success, zero-result searches, article ratings, and time-to-resolution. It delivers the findings as a branded HTML report that leads with one verdict: is the Help Center reducing support tickets or not.</p>
-      <p>When Salesforce Knowledge CSV exports are provided (article views, search activity, feedback, case deflection), it folds those in for a sharper picture. It works GA4-only and names whatever is still pending.</p>
+      <p>The report is a <strong>five-tab package</strong>: <strong>Overview</strong> (product-view charts and the headline verdict), <strong>Health</strong>, <strong>Salesforce Reporting</strong>, <strong>Article Performance</strong>, and <strong>Recommendations</strong>.</p>
+      <p>When Salesforce Knowledge CSV exports are provided (article views, search activity, feedback, case deflection), it folds those in for a sharper picture. It also works GA4-only.</p>
+      <h2>Every metric gets a real data state - never "pending"</h2>
+      <p>This is a hard rule in the skill, not a stylistic preference. Each metric is reported in exactly one of three states:</p>
+      <ul>
+        <li><strong>Reportable now</strong> - the data exists and is pulled, whether from Salesforce natively or from GA4.</li>
+        <li><strong>No data source</strong> - a process or configuration gap. Nothing is coming, because nothing is being captured. This is a process gap, not a reporting gap.</li>
+        <li><strong>Blocked</strong> - tracking is genuinely not enabled yet.</li>
+      </ul>
+      <p>What it never says is <strong>"pending export"</strong> or "pending." That single bucket hid three different situations behind one word that implies a file is on its way - and for a config gap, no file is ever on its way. Naming the real cause is what makes the gap actionable instead of perpetually deferred.</p>
       <h2>When to use it</h2>
       <p>Whenever you want to know how the Help Center is performing - a periodic health check, a digest of article and search activity, or a write-up of Help Center analytics for review.</p>
       <h2>How to trigger it</h2>

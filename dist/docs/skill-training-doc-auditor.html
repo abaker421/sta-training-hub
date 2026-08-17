@@ -38,8 +38,16 @@
     <div class="body">
       <h2>What it does</h2>
       <p>Systematically cross-checks the training docs against the registry and handoff files to catch accumulated drift between what the docs say and what agents actually do.</p>
+      <h2>Three layers, not just the prose</h2>
+      <ul>
+        <li><strong>The agent registry</strong> - versions, statuses, deployment targets, renames and retirements.</li>
+        <li><strong>Handoff and blueprint files</strong> - what each agent was actually built to do.</li>
+        <li><strong>The hub card index</strong> - the card entries themselves: whether every card resolves to a file that exists, whether a card is defined but unreachable from any audience tab, and whether a served doc has no card at all. Drift here is invisible in the docs, because the document reads fine while nobody can find it.</li>
+      </ul>
+      <h2>It can apply the fixes</h2>
+      <p>Findings are not just reported. On your approval it applies the corrections directly, rather than handing back a list to re-key by hand. You see what it intends to change before it changes anything.</p>
       <h2>When to use it</h2>
-      <p>After deploying a new agent or major version, before onboarding staff, or on a quarterly cadence.</p>
+      <p>Triggers are <strong>event-based</strong>, not calendar-based: after deploying a new agent or a major version, after a rename or retirement, and before onboarding staff onto the docs. There is no fixed audit cadence - running it on a schedule when nothing has changed finds nothing, and waiting for the schedule after something has changed is how the drift accumulates in the first place.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"audit training docs"</p><p>"are the training materials up to date"</p><p>"training doc audit"</p></div>
     </div>

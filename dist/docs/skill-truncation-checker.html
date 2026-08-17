@@ -46,7 +46,9 @@
         <li>Trailing NUL padding left behind by an interrupted write.</li>
       </ul>
       <h2>Auto-fix vs. report</h2>
-      <p>It auto-fixes the lossless case on its own: trailing NUL padding is stripped, since no real content is lost. Lossy truncation - where actual content was cut off and cannot be recovered - is reported, not silently patched, so you can rewrite the affected file by hand.</p>
+      <p>It auto-fixes the lossless case on its own: trailing NUL padding is stripped, since no real content is lost. Lossy truncation - where actual content was cut off and cannot be recovered - is never silently patched, because guessing at the missing text is how a corrupt file becomes a plausible-looking wrong one.</p>
+      <p>Instead, each flagged file gets a <strong>one-click-copy handoff block</strong> addressed to The Architect: the file path, what was detected, and the instruction to rebuild the missing tail from source. You paste it and the repair happens as a deliberate, sourced rewrite rather than a hand-patch you have to reconstruct from memory.</p>
+      <p><strong>A clean scan returns a single line.</strong> No findings means one all-clear, not a report full of green checkmarks - so a run with something in it is impossible to skim past.</p>
       <h2>How it runs</h2>
       <p>It wraps the root <code>verify-write.py --scan</code> engine and drives the daily 4 PM <code>truncation-daily-scan</code> task. You can also trigger it on demand any time you suspect a file landed incomplete.</p>
       <h2>When to use it</h2>
