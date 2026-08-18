@@ -448,7 +448,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'behind-the-bell-tool'] },
         { heading: 'Getting started', note: 'Read this first to get up and running with the Behind the Bell assistant.', docs: ['behind-the-bell'] },
-        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report', 'skill-salesforce-email-template', 'skill-image-gen', 'skill-outbound-comms-grounding'] }
+        { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report', 'skill-salesforce-email-template', 'skill-image-gen'] }
       ]
     },
     {
@@ -491,7 +491,10 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Internal tools - Claude.ai Projects', note: 'Project-based agents on claude.ai - shared automatically with project members.', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'the-customer'] },
         { heading: 'Internal tools - Coworks', note: 'Cowork agents that run on the AI Admin machine with file and tool access.', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
-        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report', 'skill-site-analytics-report', 'skill-salesforce-email-template', 'skill-vendor-evaluation', 'skill-ai-tell-cleaner', 'skill-sow-writer', 'skill-image-gen', 'skill-outbound-comms-grounding'] },
+        // outbound-comms-grounding is Adam-only scope (ruling 2026-08-17) and is deliberately NOT carded here.
+        // Registered in the agent registry for completeness only. Do not add a card for it.
+        // (JS comment, not an HTML comment: this sits inside <script type="module">, where <!-- --> is a SyntaxError.)
+        { heading: 'Skills - Content & Output', note: 'Skills that produce finished documents, reports, and articles.', docs: ['skill-help-center-article', 'skill-html-checklist', 'skill-research-to-slides', 'skill-sta-html-report', 'skill-help-center-report', 'skill-site-analytics-report', 'skill-salesforce-email-template', 'skill-vendor-evaluation', 'skill-ai-tell-cleaner', 'skill-sow-writer', 'skill-image-gen'] },
         { heading: 'Skills - Support & Troubleshooting', note: 'Skills for diagnosing and resolving support issues.', docs: ['time-clock'] },
         { heading: 'Skills - Agent Building & QA', note: 'Skills for building, evaluating, and testing agents.', docs: ['skill-prompt-evaluator', 'skill-run-test-cases', 'skill-wcag-audit', 'skill-project-feedback', 'skill-skill-evaluator', 'skill-pipeline-audit', 'skill-training-doc-auditor', 'skill-agent-quality-logger', 'skill-code-relay'] },
         { heading: 'Skills - Knowledge & Research', note: 'Skills for building context files and managing the knowledge base.', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
@@ -589,16 +592,6 @@ window.TRAINING_DATA = {
       org: true,
       tags: ['Images'],
       added: '2026-07-21', updated: '2026-07-21'
-    },
-    'skill-outbound-comms-grounding': {
-      title: 'Outbound Comms Grounding',
-      desc: 'Before any message you send to another person, it reads the knowledge base and proves it - file paths plus line-numbered quotes. No grounding block, no draft. Also locks the domain so work and civic writing never cross.',
-      file: 'docs/skill-outbound-comms-grounding.html',
-      type: 'html',
-      priority: 'skill',
-      org: true,
-      tags: ['Writing'],
-      added: '2026-08-17', updated: '2026-08-17'
     },
     'skill-scheduled-task-builder': {
       title: 'Scheduled Task Builder',
