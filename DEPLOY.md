@@ -1,12 +1,12 @@
 # STA Training Kit Hub - Deployment Guide
 
-Step-by-step for deploying the hub on Cloudflare Pages with Cloudflare Access (Zero Trust) gating by `@k12sta.com` email. Both are free tier; no Netlify usage impact.
+Step-by-step for deploying the hub on Cloudflare Pages with Cloudflare Access (Zero Trust) gating by `@k12sta.com` email. Both are free tier.
 
 ---
 
 ## Why this stack
 
-| | Cloudflare Pages + Access | Netlify free |
+| | Cloudflare Pages + Access | Static-host free tier |
 |---|---|---|
 | Bandwidth | Unlimited | 100 GB/mo |
 | Builds | 500/mo | 300/mo |
@@ -164,7 +164,7 @@ Done. Takes about 10 seconds.
 
 ## Known deploy gotcha: `_redirects` file
 
-**Do not add a `_redirects` file to `dist/`.** The 2026-05-21 deploy failed with `[code: 10021] Infinite loop detected` because Cloudflare Workers Assets (the architecture CF Pages currently deploys under) interprets the Netlify-style SPA fallback `/* → /index.html 200` as a potential infinite redirect loop and rejects the deploy entirely.
+**Do not add a `_redirects` file to `dist/`.** The 2026-05-21 deploy failed with `[code: 10021] Infinite loop detected` because Cloudflare Workers Assets (the architecture CF Pages currently deploys under) interprets the conventional SPA fallback `/* → /index.html 200` as a potential infinite redirect loop and rejects the deploy entirely.
 
 The hub does NOT need SPA fallback - it has no client-side routing. Every doc card link opens a real static file (`/docs/[slug].html` or `/files/[slug].docx`) and the root `/` naturally serves `index.html`. Just leave `_redirects` out of `dist/`.
 

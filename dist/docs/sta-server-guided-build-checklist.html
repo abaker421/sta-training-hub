@@ -113,7 +113,7 @@
       <li>Work top to bottom. Don't start Section 08 (Shared Brain) keys until the exclusion list is signed (step 39).</li>
       <li>Checkboxes save to this browser automatically; reopen anytime and your progress is restored.</li>
       <li><b>Refreshed 2026-06-25:</b> the 2026-06-24 audit's local-PC items were folded in as <b>Section 11</b> (local scheduled-task watchdog + GitHub restore drill), and the exclusion gate (step 39) now points to the full sign-off sheet. The server's own watchdog/restore stay at steps 22-23.</li>
-      <li><b>Verified 2026-07-08:</b> every external claim in the plan was re-checked and holds - Lightsail $12/mo 2GB + 3 free months, Granola API still read-only, n8n license fine for internal use. Three flags folded in: the <b>MCP spec finalizes 7/28/26</b> (the same window as server stand-up - see the Shared Brain steps), healthchecks.io's free tier caps at <b>20 checks</b> total (server + Section 11 combined), and Claude connectors now accept a key sent as a <b>request header</b> (cleaner than the URL key). New steps added: swap file, off-server secrets backup, <code>meetings</code> DNS record. A duplicate-checkbox bug in this file was also fixed - if two Shared Brain items show un-checked that you previously checked, re-check them once.</li>
+      <li><b>Verified 2026-07-08:</b> every external claim in the plan was re-checked and holds - Lightsail $12/mo 2GB + 3 free months, Granola API still read-only, n8n license fine for internal use. Three flags folded in: the <b>MCP spec shipped 2026-07-28</b> (it landed in the same window as server stand-up - see the Shared Brain steps), healthchecks.io's free tier caps at <b>20 checks</b> total (server + Section 11 combined), and Claude connectors now accept a key sent as a <b>request header</b> (cleaner than the URL key). New steps added: swap file, off-server secrets backup, <code>meetings</code> DNS record. A duplicate-checkbox bug in this file was also fixed - if two Shared Brain items show un-checked that you previously checked, re-check them once.</li>
       <li><b>Scope v1.6 (7/9/26):</b> two security steps added after Adam's hardening request - <b>private admin plane</b> (Section 03) and the <b>security-extras bundle</b> (Section 04) - plus a plain-text rule on the meeting browser. The approved v2 additions (self-healing, /kb slash command, status page, restic backup, and more) live in <b>SOW Section 12</b> and <code>backlog.md</code> - they come AFTER this build, don't chase them during WS1-WS3.</li>
     </ul>
   </div>
@@ -618,7 +618,7 @@
         <details class="how"><summary>How to do this</summary><div class="how-body">
           <span class="tag clicks">Clicks</span>
           <p>Once the pilot works, roll out to staff - about 15 minutes per person, using the ready-made connect instructions.</p>
-          <ol><li>Generate a per-person key for each staffer.</li><li>Send them the 7-step connect README (already written in the proposal's Setup tab).</li><li><b>The MCP spec update lands 7/28/26 - the same window as this build</b> (verified: it finalizes that day, with breaking changes to transport headers and auth; Streamable HTTP stays). Build kb-mcp against the current 2025-11-25 spec, then re-verify the connect flow and plan an SDK upgrade before or during rollout.</li><li>Revoke a test key and confirm it stops working within one container restart (SOW acceptance criterion).</li></ol>
+          <ol><li>Generate a per-person key for each staffer.</li><li>Send them the 7-step connect README (already written in the proposal's Setup tab).</li><li><b>The MCP spec shipped 2026-07-28</b> (breaking changes to transport headers and auth; Streamable HTTP stays). Build kb-mcp against the <b>2026-07-28</b> spec - it is the current one, so there is no longer any reason to build against 2025-11-25 and upgrade afterwards. Re-verify the connect flow once after the SDK is on the shipped spec.</li><li>Revoke a test key and confirm it stops working within one container restart (SOW acceptance criterion).</li></ol>
           <span class="check"><b>Done when:</b> each staffer's assistant is connected to the Shared Brain.</span>
         </div></details>
       </li>
@@ -747,7 +747,7 @@
       <li><a href="https://docs.granola.ai/introduction">Granola API</a><span class="ref-note">Read-only endpoints and the personal API keys for the digest</span></li>
       <li><a href="watchdog-setup.md">watchdog-setup.md</a><span class="ref-note">Local scheduled-task dead-man's-switch spec + the 14-task table (Section 11)</span></li>
       <li><a href="kb-mcp/kb-mcp-exclusion-signoff-2026-06-24.md">kb-mcp exclusion sign-off</a><span class="ref-note">The Shared Brain exclusion decisions + the path-bug fix (step 39)</span></li>
-      <li><a href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/">MCP 2026-07-28 release notes</a><span class="ref-note">The spec update landing during this build - breaking changes to transport headers + auth; Streamable HTTP stays</span></li>
+      <li><a href="https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/">MCP 2026-07-28 release notes</a><span class="ref-note">Shipped 2026-07-28, during this build - breaking changes to transport headers + auth; Streamable HTTP stays</span></li>
     </ul>
   </div>
 

@@ -50,9 +50,9 @@
       <p>Instead, each flagged file gets a <strong>one-click-copy handoff block</strong> addressed to The Architect: the file path, what was detected, and the instruction to rebuild the missing tail from source. You paste it and the repair happens as a deliberate, sourced rewrite rather than a hand-patch you have to reconstruct from memory.</p>
       <p><strong>A clean scan returns a single line.</strong> No findings means one all-clear, not a report full of green checkmarks - so a run with something in it is impossible to skim past.</p>
       <h2>How it runs</h2>
-      <p>It wraps the root <code>verify-write.py --scan</code> engine and drives the daily 4 PM <code>truncation-daily-scan</code> task. You can also trigger it on demand any time you suspect a file landed incomplete.</p>
+      <p>It wraps the root <code>verify-write.py --scan</code> engine. <strong>There is no daily scheduled scan.</strong> The <code>truncation-daily-scan</code> task was retired 2026-08-10; the recurring sweep is now <strong>Check 15 of the System Monitor weekly health check</strong> (Mondays), which runs the same engine <strong>read-only</strong> - no <code>--fix-nulls</code> - because System Monitor is read-only by hard rule. This skill is <strong>on-demand only, and it is the write-capable path</strong>: since the weekly sweep cannot repair, <strong>this skill is now the only thing that strips NUL padding</strong>. Run it on demand, or when the Monday report flags Check 15.</p>
       <h2>When to use it</h2>
-      <p>After a large batch of writes, after an interrupted or crashed session, or whenever a file looks like it ends in the wrong place. The daily scheduled scan covers routine coverage; trigger it manually for spot checks.</p>
+      <p>After a large batch of writes, after an interrupted or crashed session, or whenever a file looks like it ends in the wrong place. Because nothing repairs NUL padding on a schedule any more, also run it whenever the Monday Check 15 report flags something - that report detects, it does not fix.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"run a truncation scan"</p><p>"check for truncated files"</p><p>"did anything get clipped mid-write"</p></div>
     </div>

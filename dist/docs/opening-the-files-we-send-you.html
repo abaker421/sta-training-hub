@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>School Tech AI - How to Open HTML Files</title>
+<title>School Tech AI - Opening the Files We Send You</title>
 <style>
   :root { --blue:#006098; --green:#6bc04b; --orange:#F4A300; --red:#c0392b; --gray:#8a8d8e; --light:#f4f6f8; --dark:#1e2a35; --white:#fff; --border:#dde3e8; }
   * { box-sizing:border-box; margin:0; padding:0; }
@@ -35,15 +35,22 @@
   a { color:var(--blue); }
   .footer { background:var(--dark); color:rgba(255,255,255,0.5); text-align:center; padding:20px; font-size:12px; margin-top:60px; }
   .footer strong { color:rgba(255,255,255,0.8); }
-  @media (max-width:800px) { .page { padding:20px 16px 60px; } .header { padding:24px 16px; } }
+  .opt-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:8px 0; }
+  .opt-card { background:#fff; border:1px solid var(--border); border-radius:10px; padding:18px 20px; border-top:3px solid var(--green); }
+  .opt-card.blue { border-top-color:var(--blue); }
+  .opt-name { font-size:15px; font-weight:700; margin-bottom:6px; }
+  .opt-desc { font-size:13px; color:#444; line-height:1.55; }
+  .opt-desc a { color:var(--blue); }
+  @media (max-width:800px) { .page { padding:20px 16px 60px; } .header { padding:24px 16px; } .opt-grid { grid-template-columns:1fr; } }
 </style>
 </head>
 <body id="top">
 
+
 <div class="header">
   <div class="header-inner">
-    <h1>How to Open HTML Files</h1>
-    <div class="sub">A lot of what the AI tools produce - reports, digests, checklists, dashboards - comes as an .html file. Here is how to open one and see it the way it's meant to look.</div>
+    <h1>Opening the Files We Send You</h1>
+    <div class="sub">Most of what the AI tools produce arrives as one of two file types - an .html report or a .md notes file. Here is how to open each one and see it the way it's meant to look.</div>
     <div class="badge">For Team Members</div>
   </div>
   <div class="header-strip">STAFF REFERENCE</div>
@@ -51,13 +58,27 @@
 
 <div class="page">
 
-  <p class="lead">An <strong>HTML file</strong> is just a web page saved to your computer. It ends in <kbd>.html</kbd>. You don't need internet for it and you don't need any special software - your web browser already opens it.</p>
+  <p class="lead">Two file types cover almost everything we send you. Neither needs special software, and neither sends your file anywhere - both open right on your own computer.</p>
 
   <div class="callout green">
-    <strong>The short version:</strong> download the file, then double-click it - or drag it onto a Google Chrome window. It opens like any web page.
+    <strong>The short version:</strong> an <kbd>.html</kbd> file is a web page - download it and double-click, or drag it onto a <strong>Google Chrome</strong> window. A <kbd>.md</kbd> file is formatted text - open it in <a href="https://pinion.buildwithbaker.io/" target="_blank" rel="noopener noreferrer">Pinion.md</a> for a clean view, or read it raw in any text editor.
   </div>
 
-  <h2 class="section-title">Open it in 3 steps</h2>
+  <div class="opt-grid">
+    <div class="opt-card blue">
+      <div class="opt-name">.html - reports and dashboards</div>
+      <div class="opt-desc">Reports, digests, checklists, dashboards. Opens in your browser. <strong>Use Chrome.</strong></div>
+    </div>
+    <div class="opt-card">
+      <div class="opt-name">.md - notes and references</div>
+      <div class="opt-desc">Procedures, notes, reference docs. Readable as-is; nicer in a Markdown reader like Pinion.md.</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Part 1 - HTML files (.html)</h2>
+
+  <p>An <strong>HTML file</strong> is just a web page saved to your computer. It ends in <kbd>.html</kbd>. You don't need internet for it and you don't need any special software - your web browser already opens it.</p>
+
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
@@ -82,14 +103,12 @@
     </div>
   </div>
 
-  <h2 class="section-title">Use Google Chrome</h2>
-  <p>Any browser will open an HTML file - Edge, Firefox, Safari - so if you're in a pinch, use what you have. But <strong>we standardize on Google Chrome</strong> at School Tech, and some of what we build uses features that only render fully in Chrome.</p>
+  <p><strong>Use Google Chrome.</strong> Any browser will open an HTML file - Edge, Firefox, Safari - so if you're in a pinch, use what you have. But <strong>we standardize on Google Chrome</strong> at School Tech, and some of what we build uses features that only render fully in Chrome.</p>
   <div class="callout orange">
     <strong>Heads-up:</strong> open our files in Chrome to get the full effect. In Edge or another browser, most of it still works, but you may see missing pieces or things that don't behave the way they should. When something looks broken, re-open it in Chrome before assuming the file is wrong.
   </div>
   <p>To make Chrome your default so double-clicking always uses it: Chrome menu (&#8942;) &rarr; <strong>Settings</strong> &rarr; <strong>Default browser</strong> &rarr; <strong>Make default</strong>. Or on Windows: <kbd>Settings &rarr; Apps &rarr; Default apps</kbd> and set Chrome for web pages.</p>
 
-  <h2 class="section-title">Common snags</h2>
   <div class="callout blue">
     <strong>It opened as a wall of code.</strong> You're seeing the raw HTML, not the page. Right-click the file &rarr; <strong>Open with &rarr; Google Chrome</strong>.
   </div>
@@ -100,13 +119,57 @@
     <strong>You only see a download link, never the page.</strong> Some email and chat tools preview the code instead of rendering it. Download the file first, then open the downloaded copy.
   </div>
 
+  <h2 class="section-title">Part 2 - Markdown files (.md)</h2>
+
+  <p>A <strong>Markdown file</strong> ends in <kbd>.md</kbd>. It's just text with a few simple marks - <kbd>#</kbd> for a heading, <kbd>-</kbd> for a bullet, <kbd>**bold**</kbd> for bold. Open it raw and it's perfectly readable; open it in a Markdown reader and those marks turn into real headings, bullets, and bold text.</p>
+
+  <p><strong>Easiest: Pinion.md (no install).</strong> Pinion.md is a free in-browser Markdown reader and editor we already use - nothing to install, and it works in Chrome.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Open Pinion.md</div>
+        <div class="step-desc">Go to <a href="https://pinion.buildwithbaker.io/" target="_blank" rel="noopener noreferrer">pinion.buildwithbaker.io</a> - it's also linked at the bottom of the Help Center under the tools we've built.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Open or drop in your .md file</div>
+        <div class="step-desc">Use its open-file option, or drag the <kbd>.md</kbd> file onto the page. You can also paste Markdown text straight in.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Read the clean version</div>
+        <div class="step-desc">The <kbd>#</kbd> and <kbd>-</kbd> marks become real headings and bullets. You can edit and save changes locally too.</div>
+      </div>
+    </div>
+  </div>
+
+  <p><strong>Other ways to read a .md file.</strong> Use whatever's convenient - any of these work:</p>
+  <div class="opt-grid">
+    <div class="opt-card blue">
+      <div class="opt-name">Any Markdown reader you like</div>
+      <div class="opt-desc">If you already use a Markdown app or browser extension, keep using it. They all render the same <kbd>.md</kbd> format. Pinion.md is just our no-install default.</div>
+    </div>
+    <div class="opt-card">
+      <div class="opt-name">A plain text editor</div>
+      <div class="opt-desc">Right-click &rarr; <strong>Open with &rarr; Notepad</strong> (or any editor). You'll see the raw marks, but <kbd>.md</kbd> is written to be readable as-is - fine for a quick look.</div>
+    </div>
+  </div>
+  <div class="callout orange">
+    <strong>Don't double-click expecting a formatted view.</strong> On most computers a <kbd>.md</kbd> file isn't linked to any app, so double-clicking may do nothing or open raw text. Open it through Pinion.md or your reader of choice instead.
+  </div>
+
   <div class="callout green" style="margin-top:24px;">
-    <strong>That's it.</strong> Download &rarr; double-click (or drag into Chrome) &rarr; read. When in doubt, Chrome.
+    <strong>That's it.</strong> For an <kbd>.html</kbd> file: download &rarr; double-click (or drag into Chrome) &rarr; read. For a <kbd>.md</kbd> file: Pinion.md for a clean read, any text editor for a quick glance. When in doubt, Chrome.
   </div>
 
 </div>
 
-<div class="footer"><strong>School Technology Associates</strong> &middot; AI Program &middot; How to Open HTML Files</div>
+<div class="footer"><strong>School Technology Associates</strong> &middot; AI Program &middot; Opening the Files We Send You &middot; Updated 2026-08-19</div>
 
 </body>
 </html>

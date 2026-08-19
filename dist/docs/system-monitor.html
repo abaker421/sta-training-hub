@@ -44,9 +44,13 @@
 
       <h2>Two modes</h2>
       <ul>
-        <li><strong>Monitor mode</strong> - generates a weekly health snapshot across every Active STA project and the knowledge base, applies consistent thresholds, and posts the report to Slack. Fires on the Monday 8am scheduled task or on an explicit "run health check" request.</li>
+        <li><strong>Monitor mode</strong> - runs <strong>15 checks</strong> to generate a weekly health snapshot across the Active STA <em>agent</em> projects and the knowledge base, applies consistent thresholds, and posts the report to Slack. Fires on the Monday 8am scheduled task or on an explicit "run health check" request. <strong>Scope note:</strong> since v1.21 the project-level checks exclude non-agent web apps, so this is not "every Active project" - web apps are out of scope by design.</li>
         <li><strong>Navigator mode</strong> - answers questions about the AI system by reading live files, and routes issues to the right tool with the diagnostic work already done. The default for any casual "how's the system doing?" question.</li>
       </ul>
+
+      <div class="note">
+        <strong>Check 15 - Workspace Truncation Sweep - is read-only.</strong> It reports clipped and null-padded files and never repairs them. There is no unattended <code>--fix-nulls</code> pass; every repair is a deliberate follow-up on a named file.
+      </div>
 
       <div class="note">
         <strong>Read-only.</strong> System Monitor never edits project files. It monitors, informs, and routes - build work goes to The Architect, live-bug fixes go to Project Feedback. Slack is its only delivery channel.
@@ -62,7 +66,7 @@
         <p>"What changed in the system recently?"</p>
       </div>
     </div>
-    <div class="foot">School Technology Associates &middot; System Monitor &middot; Tool Brief</div>
+    <div class="foot">School Technology Associates &middot; System Monitor v1.23 (15 checks) &middot; Tool Brief &middot; Updated 2026-08-19</div>
   </div>
 </body>
 </html>
