@@ -516,6 +516,7 @@ window.TRAINING_DATA = {
       sub: 'For the Sales team - Pat and Jessie. Pitch and renewal practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
         { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'the-customer'] },
+        { heading: 'Coming soon', note: 'Scoped and waiting on you. Read this one, then tell Adam when you are ready.', docs: ['district-outreach-assistant'] },
         { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
     },
@@ -593,7 +594,7 @@ window.TRAINING_DATA = {
         { heading: 'System reference', note: 'How the AI system is wired together - maps, inventories, and references.', docs: ['system-overview', 'project-tracker-tool', 'ai-admin-pc-installed-inventory', 'project-export-snapshot-audit', 'workspace-skills', 'user-management', 'maintenance-sop', 'claude-tag-briefing'] },
         { heading: 'Codebase & maintenance', note: 'How the internal hub apps are built and kept running - source code, deploy steps, and the recurring automations.', docs: ['codebase-maintenance-guide', 'scheduled-tasks-reference'] },
         { heading: 'Build pipeline', note: 'The process for taking an agent from idea to production.', docs: ['build-guide', 'architect-case-study'] },
-        { heading: 'Planned builds (in scoping)', note: 'Agents scoped but not yet built.', docs: ['google-ai-employee-sow', 'salesforce-integration-sow'] },
+        { heading: 'Planned builds (in scoping)', note: 'Agents scoped but not yet built.', docs: ['google-ai-employee-sow', 'salesforce-integration-sow', 'district-outreach-assistant'] },
         { heading: 'In Dev', note: 'Work in progress - not yet live.', docs: ['sta-server-proposal', 'sta-server-guided-build-checklist'] },
         { heading: 'Security checklists', note: 'Security review checklists for Google and Salesforce.', docs: ['google-security', 'sf-security'] },
         { heading: 'Operational procedures', note: 'Standing procedures for running and maintaining the system.', docs: ['drift-check', 'formatting-standards', 'write-verification'] },
@@ -1481,6 +1482,16 @@ window.TRAINING_DATA = {
       tags: ['Planned', 'Admin'],
       added: '2026-06-04', updated: '2026-08-19',
       check: 'In the forward-and-chat design, why is forwarding email to the agent a security win over giving it standing access to the support inbox?'
+    },
+    'district-outreach-assistant': {
+      title: 'District Outreach Assistant',
+      desc: 'Scoped, not yet built. On demand research on a district, its people, and its state funding rules and legal requirements, for both ERP and SIS. Bolts onto the Work Assistant.',
+      file: 'docs/district-outreach-assistant.html',
+      type: 'html',
+      priority: 'wip',
+      tags: ['Planned', 'Sales'],
+      added: '2026-08-19', updated: '2026-08-19',
+      check: 'Why is a funding recovery pitch wrong in Utah, and what is the first step you personally need to take before this gets built?'
     },
     'salesforce-integration-sow': {
       title: 'Claude + Salesforce Integration - Scope of Work',

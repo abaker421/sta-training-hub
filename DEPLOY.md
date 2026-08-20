@@ -198,6 +198,45 @@ Cloudflare's Zero Trust dashboard shows every login attempt with email, IP, coun
 
 ---
 
+## Post-deploy verification (the only method that works here)
+
+**Do not try to curl a served doc to confirm a deploy.** Every page on this hub sits behind
+Cloudflare Access, so an unauthenticated request returns `HTTP 302` with a `Location` of
+`https://school-tech.cloudflareaccess.com/cdn-cgi/access/login/...` and a body of
+`302 Found`. Any `grep` against that response matches nothing, which looks exactly like a
+failed deploy or a stale edge cache. It is neither. It is the login gate, and waiting does
+not change it.
+
+Verify the two halves separately. Both green means shipped.
+
+**1. Content** - check the blob on `origin/main`, which is the Worker's actual build input, so
+verifying it verifies what gets served:
+
+```
+git fetch origin main
+git show origin/main:dist/docs/<file>.html | grep -c "<expected string>"
+```
+
+**2. Deployment** - check the Cloudflare build for the merge commit:
+
+```
+gh api repos/abaker421/sta-training-hub/commits/<merge-sha>/check-runs   -q '.check_runs[] | "\(.name): \(.status)/\(.conclusion)"'
+```
+
+Expect `Workers Builds: sta-training-hub: completed/success`.
+
+**Do not request or create a Cloudflare Access service token for this.** It would be a new
+long-lived secret in a workspace that already carries one stale credential, and the whole
+benefit would be a post-deploy grep. Not worth it.
+
+**A verification string is derived FROM the content, never imposed on it.** If a grep count
+comes back lower than expected, read the file before assuming the deploy failed. On 2026-08-20
+a check expecting two occurrences of `Correction 2026-08-20` returned one, because the page
+carries two correction markers worded differently, `Corrected` and `Correction`. The page was
+right and the check string was wrong. Never edit content to make a count match.
+
+---
+
 ## Future Considerations
 
 - **Audit trail of what each user opened.** Not built in - Cloudflare logs auth, not asset access. If you want per-doc analytics, options are (a) add a lightweight analytics script like Plausible (privacy-friendly, $9/mo) or (b) instrument the app to log opens to a Cloudflare Worker that writes to KV.
