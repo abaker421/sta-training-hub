@@ -54,7 +54,10 @@
   .hdr-themetoggle { flex-shrink: 0; width: 34px; height: 34px; padding: 0; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background .15s, border-color .15s; }
   .hdr-themetoggle:hover { background: rgba(107,192,75,0.25); border-color: rgba(107,192,75,0.7); }
   .hdr-themetoggle svg { width: 17px; height: 17px; display: block; }
-  .search-wrap { max-width: 320px; margin-left: 12px; position: relative; flex-shrink: 0; }
+  /* The search box yields space first when the header row is tight. Chosen over
+     raising the 900px breakpoint, which would stack the header at 1024 - a common
+     laptop width. */
+  .search-wrap { max-width: 320px; margin-left: 12px; position: relative; flex-shrink: 1; min-width: 140px; }
   .search-input { width: 100%; padding: 7px 14px 7px 34px; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.1); color: #fff; font-family: inherit; font-size: 9pt; outline: none; transition: border-color .15s, background .15s; }
   .search-input::placeholder { color: rgba(255,255,255,0.45); }
   .search-input:focus { border-color: rgba(107,192,75,0.7); background: rgba(255,255,255,0.15); }
