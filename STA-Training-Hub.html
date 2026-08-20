@@ -111,38 +111,43 @@
        through. It cannot be folded into --card-accent - a custom property that mixes
        itself is a cycle and resolves invalid. */
     --accent-vis: var(--card-accent, var(--blue)); }
-  .card:hover { border-color: var(--card-accent, var(--blue)); box-shadow: 0 10px 24px -6px rgba(16,24,40,.18), 0 2px 6px rgba(16,24,40,.08); transform: translateY(-3px) scale(1.02); z-index: 2; }
-  .card-required { border-top: 3px solid var(--blue); --card-accent: var(--blue); }
-  .card-recommended { border-top: 3px solid var(--green); --card-accent: var(--green); }
-  .card-optional { border-top: 3px solid var(--gray); --card-accent: var(--gray); }
-  .card-admin { border-top: 3px solid var(--orange); --card-accent: var(--orange); }
-  .card-wip { border-top: 3px solid #6c3dbf; --card-accent: #6c3dbf; }
-  .card-skill { border-top: 3px solid #0d7d8c; --card-accent: #0d7d8c; }
-  .card-project { border-top: 3px solid #3f51b5; --card-accent: #3f51b5; }
-  .card-cowork { border-top: 3px solid #795548; --card-accent: #795548; }
+  .card:hover { border-color: var(--accent-vis); box-shadow: 0 10px 24px -6px rgba(16,24,40,.18), 0 2px 6px rgba(16,24,40,.08); transform: translateY(-3px) scale(1.02); z-index: 2; }
+  .card-required { border-top: 3px solid var(--accent-vis); --card-accent: var(--blue); }
+  .card-recommended { border-top: 3px solid var(--accent-vis); --card-accent: var(--green); }
+  .card-optional { border-top: 3px solid var(--accent-vis); --card-accent: var(--gray); }
+  .card-admin { border-top: 3px solid var(--accent-vis); --card-accent: var(--orange); }
+  .card-wip { border-top: 3px solid var(--accent-vis); --card-accent: #6c3dbf; }
+  .card-skill { border-top: 3px solid var(--accent-vis); --card-accent: #0d7d8c; }
+  .card-project { border-top: 3px solid var(--accent-vis); --card-accent: #3f51b5; }
+  .card-cowork { border-top: 3px solid var(--accent-vis); --card-accent: #795548; }
   .section-time { font-size: 8.5pt; font-weight: 600; color: var(--blue); background: #e8f2f8; border-radius: 20px; padding: 2px 10px; margin-left: 10px; vertical-align: middle; }
-  .section-accent .card { border-top: 3px solid var(--section-accent); --card-accent: var(--section-accent); }
+  .section-accent .card { border-top: 3px solid var(--accent-vis); --card-accent: var(--section-accent); }
   /* Unread + required. The class is recomputed from state.read on every render and
      toggleRead() re-renders, so it clears the moment the card is marked read.
      Background wash only - the card already carries four signals. */
   .card-required-unread { background: color-mix(in srgb, var(--card-accent, var(--blue)) 5%, var(--white)); }
 
   .card-head { display: flex; align-items: flex-start; gap: 10px; }
-  .card-titleblock { flex: 1; min-width: 0; }
+  /* The underline lives here, not on .card-title: .card-titleblock is flex:1 inside
+     .card-head, so its right edge already sits one .card-head gap (10px) short of
+     .card-fav. That gap is the "stop near the star" behaviour - inherited, not
+     hardcoded. min-width:0 stays so a long unbroken title truncates instead of
+     pushing the star out. */
+  .card-titleblock { flex: 1; min-width: 0; position: relative; padding-bottom: 8px; }
+  .card-titleblock::after { content: ""; position: absolute; left: 0; right: 0; bottom: 3px;
+    height: 2px; border-radius: 2px; background: var(--accent-vis);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path .3s cubic-bezier(.22,.61,.36,1); }
+  .card:hover .card-titleblock::after { clip-path: inset(0 0 0 0); }
   /* Title underline: Creative Snippet Gallery S67, "Animated annotation underline"
      (cat K - Text, dropin, zero-JS). S67's mechanism - an absolutely-positioned ::after
      revealed by animating clip-path - but a solid accent fill instead of its inline-SVG
      stroke: S67 hardcodes its colour inside a data-URI SVG, and a custom property cannot
      be injected into a data URI, so shipping it as-is would make every card amber and
-     destroy the per-type colours. width: fit-content makes the rule track the text
-     rather than the column; padding-bottom separates text from rule and rule from desc. */
-  .card-title { font-size: 11pt; font-weight: 700; color: var(--dark); line-height: 1.3;
-    position: relative; width: fit-content; max-width: 100%; padding-bottom: 8px; }
-  .card-title::after { content: ""; position: absolute; left: 0; right: 0; bottom: 3px;
-    height: 2px; border-radius: 2px; background: var(--accent-vis);
-    clip-path: inset(0 100% 0 0);
-    transition: clip-path .3s cubic-bezier(.22,.61,.36,1); }
-  .card:hover .card-title::after { clip-path: inset(0 0 0 0); }
+     destroy the per-type colours. The rule is drawn on .card-titleblock (see above), so it
+     spans the title column and stops one .card-head gap short of the favourite star;
+     padding-bottom separates text from rule and rule from the description. */
+  .card-title { font-size: 11pt; font-weight: 700; color: var(--dark); line-height: 1.3; }
   .card-fav { background: none; border: none; cursor: pointer; padding: 2px 4px; border-radius: 3px; font-size: 14px; line-height: 1; color: #ccc; transition: color .12s, background .12s; flex-shrink: 0; }
   .card-fav:hover { color: #f0b429; background: rgba(240,180,41,0.1); }
   .card-fav.active { color: #f0b429; }
@@ -385,9 +390,9 @@
     *, *::before, *::after { animation: none !important; transition: none !important; }
     /* The global rule above already kills transitions, but it does not reset transform,
        and the title highlight has to land instantly rather than not at all. */
-    .card, .card-title::after { transition: none; }
+    .card, .card-titleblock::after { transition: none; }
     .card:hover { transform: none; }
-    .card:hover .card-title::after { clip-path: inset(0 0 0 0); }
+    .card:hover .card-titleblock::after { clip-path: inset(0 0 0 0); }
   }
 
   /* PRINT */
