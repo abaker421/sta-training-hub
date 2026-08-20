@@ -42,6 +42,15 @@
       <p>You want to commission new KB research modules on a topic.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"craft a deep research prompt"</p><p>"build a research commission"</p><p>"new research prompt"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - None.</p>
+      <p><strong>Folder access</strong> - Write access to the Deep Research project folder, specifically its <code>_prompts/</code> subfolder.</p>
+      <p><strong>KB modules / context files</strong> - None.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - There is a folder-access gate before any intake work, and it checks <strong>two ways</strong> before declaring failure - the mounted filesystem, then the device bridge. That second check exists because on 2026-08-05 the first check returned nothing while the folder was in fact reachable, which produced a wrong failure. Only if both fail does the skill stop, and it hands you a paste-ready block instead. A single negative result is <strong>not</strong> evidence the folder is unreachable.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Deep Research Prompt Builder &middot; Custom Skill</div>
   </div>

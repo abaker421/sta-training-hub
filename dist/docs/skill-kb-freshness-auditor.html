@@ -49,6 +49,15 @@
       <p>Before a major build, after Anthropic ships changes, or on a maintenance cadence.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"audit the KB"</p><p>"check which modules are stale"</p><p>"KB freshness check"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - None.</p>
+      <p><strong>Folder access</strong> - Read access to the knowledge base and its index, plus write access for the dated TSV record it emits.</p>
+      <p><strong>KB modules / context files</strong> - The KB index and lookup files it audits - it runs an index-to-lookup parity check in both directions.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - A missing index is <strong>LOUD</strong>. The <strong>SILENT</strong> one is over-counting: generic single-word slugs are matched by plain text, so the reference count for a short slug can be inflated. Those are flagged low-confidence and must be verified by eye rather than acted on.</p>
     </div>
     <div class="foot">School Technology Associates &middot; KB Freshness Auditor &middot; Custom Skill</div>
   </div>

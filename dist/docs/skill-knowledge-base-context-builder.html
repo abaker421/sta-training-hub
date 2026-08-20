@@ -42,6 +42,15 @@
       <p>A project needs a context file built from existing knowledge-base modules.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"build a context file from [topic]"</p><p>"package the [topic] research"</p><p>"synthesize the [slug] modules"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - None.</p>
+      <p><strong>Folder access</strong> - Read access to the KB modules named by slug, and write access to the context-file destination.</p>
+      <p><strong>KB modules / context files</strong> - The exact KB module slugs you supply - it works from those, not from a topic description.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - A slug that does not resolve is <strong>LOUD</strong>. The <strong>SILENT</strong> failure is a partial synthesis: if some slugs resolve and others do not, the output looks complete while missing whole sources, so check every slug was found before using the file.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Knowledge Base Context Builder &middot; Custom Skill</div>
   </div>

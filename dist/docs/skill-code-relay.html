@@ -40,6 +40,15 @@
       <p>When you want to hand a coding job to Claude Code and pass messages back and forth, or when you paste back a block headed <code>=== FOR THE ARCHITECT ===</code>. Not for writing the code here, running git, or handoffs to anything other than Claude Code.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"hand this to Claude Code"</p><p>"make a Claude Code prompt"</p><p>"relay to Code"</p><p>"start a relay"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - None.</p>
+      <p><strong>Folder access</strong> - Read access to the repository you are relaying about, including its <code>CLAUDE.md</code> or <code>AGENTS.md</code> if present.</p>
+      <p><strong>KB modules / context files</strong> - None.</p>
+      <p><strong>Repos</strong> - Whichever repo the relay concerns - named explicitly in the handoff, with its local path. Write access depends on that repo, not on this skill.</p>
+      <p><strong>If something is missing</strong> - Omitting the repo name and path is the common failure and it is <strong>SILENT</strong>: the receiving agent starts fresh, guesses, and costs a round trip. Name both every time.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Code Relay &middot; Custom Skill</div>
   </div>

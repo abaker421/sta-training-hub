@@ -88,6 +88,15 @@
 
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"schedule this" / "make this run weekly" / "every Monday" / "remind me"</p><p>"harden this task"</p><p>"audit my scheduled tasks"</p><p>"it keeps double-posting" / "why did it fabricate a report"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - <strong><code>scheduled-tasks</code></strong> - required; the skill calls <code>create_scheduled_task</code> / <code>update_scheduled_task</code>.</p>
+      <p><strong>Folder access</strong> - Write access to <code>Backups/scheduled-tasks/[machine]/</code>, where the full prompt body is saved after a task is created or updated.</p>
+      <p><strong>KB modules / context files</strong> - <code>references/gate-failures.md</code> - bundled; the worked failure behind each gate.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - A failed tool call is <strong>LOUD</strong>. Everything else this skill exists for is <strong>SILENT</strong>: an ungated task prompt fails and its output still looks correct - a fabricated report, a duplicate post, or a chart built from a history store that was never found are visually identical to a clean run. Twelve gates are applied, or exempted with the reason written into the prompt itself, because an unexplained exemption is indistinguishable from an oversight.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Scheduled Task Builder &middot; Custom Skill</div>
   </div>

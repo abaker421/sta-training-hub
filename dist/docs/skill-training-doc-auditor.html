@@ -50,6 +50,15 @@
       <p>Triggers are <strong>event-based</strong>, not calendar-based: after deploying a new agent or a major version, after a rename or retirement, and before onboarding staff onto the docs. There is no fixed audit cadence - running it on a schedule when nothing has changed finds nothing, and waiting for the schedule after something has changed is how the drift accumulates in the first place.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"audit training docs"</p><p>"are the training materials up to date"</p><p>"training doc audit"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - None.</p>
+      <p><strong>Folder access</strong> - Read access to the hub's served docs and card data, and to the agent registry it audits against.</p>
+      <p><strong>KB modules / context files</strong> - <code>context-agent-registry.md</code>.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - A missing registry is <strong>LOUD</strong>. The <strong>SILENT</strong> failure is a scan that reads a smaller set than the hub actually serves and returns a clean result for documents it never opened - which is exactly what happened before the scan root was repointed at the served set. Confirm what was scanned, not just the verdict.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Training Doc Auditor &middot; Custom Skill</div>
   </div>

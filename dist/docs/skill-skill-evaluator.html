@@ -42,6 +42,15 @@
       <p>After creating or revising a SKILL.md, to confirm it is production-ready.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"evaluate this skill"</p><p>"score my skill"</p><p>"is this skill production-ready"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - <strong>WebSearch</strong> - required for the fact-verification criterion, which is the one place the skill must verify rather than read: anything that could have changed (a law, a rate, a form, a default, a deprecation) is checked against current reality.</p>
+      <p><strong>Folder access</strong> - Read access to the <code>SKILL.md</code> under evaluation and write access to the evaluation output.</p>
+      <p><strong>KB modules / context files</strong> - The <code>SKILL.md</code> being scored.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - No search means the fact-verification criterion cannot be scored, and the skill should say so rather than pass it - a claim marked verified without a check is the <strong>SILENT</strong> failure here. A clean first evaluation forces a dry-run re-run, because a spotless first pass is more often an inflated one.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Skill Evaluator &middot; Custom Skill</div>
   </div>

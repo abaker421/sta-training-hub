@@ -42,6 +42,15 @@
       <p>Before a major system update, onboarding a maintainer, or after a batch of agent builds.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"audit the pipeline"</p><p>"check system completeness"</p><p>"what's missing from the system"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - None.</p>
+      <p><strong>Folder access</strong> - Read access to the agent registry and to every project blueprint folder it covers.</p>
+      <p><strong>KB modules / context files</strong> - <code>context-agent-registry.md</code> - the project list it audits against.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - A missing registry is <strong>LOUD</strong>. The <strong>SILENT</strong> case is coverage: the audit reports on what the registry lists, so an agent absent from the registry is absent from the matrix and reads as though it does not exist.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Pipeline Audit &middot; Custom Skill</div>
   </div>

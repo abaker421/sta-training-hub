@@ -55,6 +55,15 @@
       <p>After a large batch of writes, after an interrupted or crashed session, or whenever a file looks like it ends in the wrong place. Because nothing repairs NUL padding on a schedule any more, also run it whenever the Monday Check 15 report flags something - that report detects, it does not fix.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"run a truncation scan"</p><p>"check for truncated files"</p><p>"did anything get clipped mid-write"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - None. Note it explicitly does <em>not</em> call <code>present_files</code> and never emits an HTML report - the handoff code block is its only output.</p>
+      <p><strong>Folder access</strong> - Read access to the workspace being swept, and write access only for the lossless repair it performs.</p>
+      <p><strong>KB modules / context files</strong> - None.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - An unreadable scan root is <strong>LOUD</strong> and reported as a literal condition rather than an all-clear. The severe <strong>SILENT</strong> case is what the skill exists for: NUL padding and clipped tails pass every ordinary check, and the recurring weekly sweep is read-only, so nothing repairs padding on a schedule. This on-demand run is the only path that repairs it. Lossy truncation is never invented back.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Truncation Checker &middot; Custom Skill</div>
   </div>

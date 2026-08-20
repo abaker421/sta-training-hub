@@ -46,6 +46,15 @@
       <p>After a batch of skill or project changes, whenever you are unsure a backup is current, or when a connector has started behaving as though it is not signed in.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"verify all backups"</p><p>"are my backups up to date"</p><p>"backup drift check"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - <code>present_files</code> - required, to render out-of-date <code>.skill</code> packages with a Save-skill button. <code>list_scheduled_tasks</code> - optional; without it the run reports the task snapshot's age and count and says the live comparison was skipped.</p>
+      <p><strong>Folder access</strong> - Read access to <code>Backups/</code> and to <code>Project Blueprints/</code>. Read-only throughout - it never writes, repackages, or edits an index.</p>
+      <p><strong>KB modules / context files</strong> - <code>Backups/connectors/expected-connectors.json</code> - the connector baseline. <code>Backups/skills/INDEX.md</code>.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - An unreadable <code>Backups/</code> exits code 2, which the skill reports as a problem and never as an all-clear - <strong>LOUD</strong> by design. A missing <code>expected-connectors.json</code> stops connector reporting rather than guessing a baseline. The <strong>SILENT</strong> case it guards against: a content mismatch between a backup and an installed copy does not reveal which is newer, so it is raised for human review instead of auto-installed.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Backup Verifier &middot; Custom Skill</div>
   </div>

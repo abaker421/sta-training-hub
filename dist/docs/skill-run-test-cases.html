@@ -46,6 +46,15 @@
       <p>After instructions are written or updated, to confirm nothing broke before going live.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"run the tests"</p><p>"test my project"</p><p>"validate my instructions"</p><p><strong>Fan-out:</strong> "fan out the tests" &middot; "run the cases in parallel" &middot; "run the full suite fast"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - None.</p>
+      <p><strong>Folder access</strong> - Read access to the project's <code>instructions.md</code> and <code>test-cases.md</code>, and write access to the report destination. Fan-out mode additionally needs <code>Project Blueprints</code> mounted for its manifest.</p>
+      <p><strong>KB modules / context files</strong> - <code>test-cases.md</code> and the <code>instructions.md</code> under test.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - A case-count cross-check runs before dispatch: case bodies are counted against the total the suite declares and a mismatch is a hard <strong>STOP</strong>. That gate exists because a suite declaring one count while carrying another produces a clean-looking report over an incomplete run - the <strong>SILENT</strong> failure this skill is most exposed to. A run that cannot be reported prints <code>RUN NOT REPORTABLE</code> and writes no report.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Run Test Cases &middot; Custom Skill</div>
   </div>

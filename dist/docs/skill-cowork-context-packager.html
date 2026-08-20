@@ -47,6 +47,15 @@
         <img src="img/skill-cowork-context-packager.jpg" alt="Example packaged Cowork context file" style="display:block;width:100%;max-width:560px;border:1px solid var(--border);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.10);">
         <figcaption style="font-size:9.5pt;color:#555;font-style:italic;margin:7px 0 0;">A finished context file - on-demand loading model, cross-references, and a routing trigger ready for instructions.md.</figcaption>
       </figure>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - <code>knowledge-base-context-builder</code> - required first if your input is KB research module slugs; this skill stops and routes you there rather than synthesising them itself.</p>
+      <p><strong>Connectors / MCP servers</strong> - None.</p>
+      <p><strong>Folder access</strong> - Read access to the target project's <code>instructions.md</code>, and write access to its context-file folder. Note the on-disk folder name often differs from the project's display name.</p>
+      <p><strong>KB modules / context files</strong> - The project's <code>instructions.md</code> - read before proposing the routing-rule edit.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - If <code>instructions.md</code> cannot be found the skill says so and proposes the edit for you to apply by hand - <strong>LOUD</strong>. The <strong>SILENT</strong> failure is a file that is written but never wired in: a Cowork context file only loads when a routing rule points at it, so an unrouted file costs nothing and does nothing.</p>
     </div>
     <div class="foot">School Technology Associates · Cowork Context Packager · Custom Skill</div>
   </div>
