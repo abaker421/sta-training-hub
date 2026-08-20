@@ -42,6 +42,15 @@
       <p>Runs automatically on its weekly schedule; no action required from you.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>(Runs automatically every Sunday at 7:00 AM - no manual trigger)</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - None.</p>
+      <p><strong>Connectors / MCP servers</strong> - None.</p>
+      <p><strong>Folder access</strong> - Read access to the workspace being backed up.</p>
+      <p><strong>KB modules / context files</strong> - None.</p>
+      <p><strong>Repos</strong> - The backup repository. <strong>Write access required.</strong> It pushes a disposable mirror branch and must never target <code>main</code> - a version that pushed to <code>main</code> has diverged or wiped it before.</p>
+      <p><strong>If something is missing</strong> - A credential or network failure is <strong>LOUD</strong>. The <strong>SILENT</strong> and most damaging case is a push to the wrong branch: a run that targets <code>main</code> instead of the mirror branch completes successfully and damages the repository, which is why the branch target is a hard rule rather than a default.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Weekly GitHub Backup &middot; Custom Skill</div>
   </div>

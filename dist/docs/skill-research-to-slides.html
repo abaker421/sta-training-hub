@@ -49,6 +49,15 @@
       <p>You want to study a research topic as slides, or build training material to teach the team from existing KB modules.</p>
       <h2>How to trigger it</h2>
       <div class="trigger"><p>"turn this into slides"</p><p>"make a presentation from my research"</p><p>"convert my modules to a deck"</p></div>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run. Added 2026-08-20.</p>
+      <p><strong>Skills</strong> - <code>knowledge-base-context-builder</code> is not required, but the deck is built from Deep Research KB modules, so those must exist first.</p>
+      <p><strong>Connectors / MCP servers</strong> - <strong>Hugging Face</strong> - used for title, section and context slide imagery <em>when available</em>, with an Unsplash fallback, so the deck still builds without it. <strong>Claude in Chrome</strong> - fallback for fetching image bytes when the sandbox has no network egress, and for the Unsplash path.</p>
+      <p><strong>Folder access</strong> - Read access to the KB modules, write access to the deck output folder.</p>
+      <p><strong>KB modules / context files</strong> - The Deep Research KB module slugs the deck is built from.</p>
+      <p><strong>Repos</strong> - None.</p>
+      <p><strong>If something is missing</strong> - No connector and no browser is a degrade, not a stop - the deck builds with fewer images and says so. <strong>LOUD</strong>. The <strong>SILENT</strong> risk is the images-per-deck cap being hit quietly, producing a deck that looks intentionally sparse rather than truncated.</p>
     </div>
     <div class="foot">School Technology Associates &middot; Research to Slides &middot; Custom Skill</div>
   </div>
