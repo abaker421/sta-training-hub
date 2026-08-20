@@ -482,7 +482,7 @@ window.TRAINING_DATA = {
       sections: [
         { heading: 'Required before first use', note: 'The ground rules for your role. Read these before you use any AI tool for School Tech work - they cover what is allowed, what data must never go in, and how to report a problem when a tool gets something wrong. Non-negotiable.', docs: ['aup', 'restricted-data', 'reporting-errors'] },
         { heading: 'Recommended Week 1', time: 'about 60 min', note: 'Getting started with the AI tools. Learn how to get better results from AI and how to work with the tools we already have. Read these in your first week.', docs: ['quick-ref', 'better-results', 'onboarding-deck', 'ai-advisor', 'opening-the-files', 'ai-basics'] },
-        { heading: 'Go further', accent: '#c2185b', note: 'Optional. Once you have played with the AI tools and want to go deeper, these show you more of what AI can do beyond the basics.', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'what-is-a-brain'] }
+        { heading: 'Go further', accent: '#c2185b', note: 'Optional. Once you have played with the AI tools and want to go deeper, these show you more of what AI can do beyond the basics.', docs: ['ai-onboarding-intake', 'tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'what-is-a-brain'] }
       ]
     },
     {
@@ -1426,6 +1426,16 @@ window.TRAINING_DATA = {
       tags: ['Presentation', 'Onboarding'],
       added: '2026-05-22', updated: '2026-05-22',
       check: 'Which Claude model does the onboarding deck tell staff to use instead of Opus?'
+    },
+    'ai-onboarding-intake': {
+      title: 'AI Onboarding Intake',
+      desc: 'The one form that flows back to us. It tells your assistant how you actually write, so its drafts sound like you instead of a generic School Tech template. Fill it in the browser, or upload the file to Claude and be interviewed through it one question at a time. Partial is fine.',
+      file: 'docs/form-checklist-sta-ai-onboarding-intake.html',
+      type: 'html',
+      priority: 'recommended',
+      tags: ['Onboarding', 'Productivity'],
+      check: 'Why does the form ask for five real sent emails instead of just asking you to describe your own writing style?',
+      added: '2026-08-20', updated: '2026-08-20'
     },
 
     // ===== Planned builds (SOW / in scoping) =====
