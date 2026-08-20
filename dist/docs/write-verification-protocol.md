@@ -18,8 +18,9 @@ This document is the diagnostic record and the operational reference for prevent
 | The Verification Protocol | The save-time discipline - Read after every Write, check the closer, retry once, surface on second failure |
 | Mitigation Strategies | Chunked Edit-append for large files, surgical Edits for revisions, output-budget awareness |
 | Recovery Procedures | What to do when truncation IS detected - reconstruction sources, changelog framing, Adam review |
-| Bash Mount Staleness | Why bash cannot be used for write verification - empirical observation |
+| Bash Mount Staleness | The 2026-05-02 finding, SUPERSEDED 2026-06-07 - staleness is conditional, not absolute |
 | Edit Tool Null-Byte Padding | Why shortening Edits silently corrupt files - 2026-05-21 empirical finding |
+| 2026-06-07 Protocol Upgrade | **Current operative rules** - verification-channel rule, Write-size cap, `verify-write.py`, EOF sentinel |
 | References | Related rules in The Architect, related skills, related documents |
 
 ---
@@ -75,7 +76,7 @@ This hypothesis cannot be proven definitively from the agent's side - the model'
 
 This is the operational discipline that fires after every Write or Edit on a meaningful file. It is encoded as a rule in The Architect's instructions.md v4.17 and reproduced here with rationale.
 
-**Step 1 - Read the last 30-50 lines of the file via the Read tool.** Never use bash for this; bash is stale (see Bash Mount Staleness section). The Read tool returns the current on-disk state.
+**Step 1 - Verify through the channel that wrote the file.** *(Revised 2026-06-07 - see the 2026-06-07 Protocol Upgrade section, which supersedes the original blanket "never use bash" wording below.)* For a bash-written or newly-Written file, `verify-write.py` via bash is authoritative. For a file-tool Edit on a large pre-existing file, read the last 30-50 lines via the Read tool - the bash mount can still serve a stale partial view there. When the two channels disagree, the Read tool wins.
 
 **Step 2 - Check the expected closer for the file's type.** Each file type has a specific structural endpoint:
 - `instructions.md` ends with `*Full version history in [changelog.md](changelog.md).*` or its handoff-routed equivalent (`*Full version history in [handoff.md](handoff.md).*` for projects that keep the changelog inline in handoff.md instead of a dedicated changelog.md file).
@@ -132,6 +133,8 @@ When the verification protocol catches truncation, or when an old truncation is 
 
 ## Bash Mount Staleness
 
+> **SUPERSEDED 2026-06-07.** This section is retained as the original diagnostic record. The blanket prohibition on bash below is no longer the operative rule - staleness was retested on 2026-06-07 and found to be *conditional*, and bash is now the authoritative channel for script-based verification of bash-written and newly-Written files. See the **2026-06-07 Protocol Upgrade** section for the rule in force.
+
 Empirical observation from 2026-05-02: the bash mount under `/sessions/[session-id]/mnt/` provides a stale view of files that have been modified in the current session via the file tools (Write, Edit). The staleness manifests as:
 - `ls -la` shows the pre-edit file size
 - `tail -c N` shows pre-edit content
@@ -143,7 +146,7 @@ This was tested and confirmed during the diagnostic session: an Edit confirmed v
 
 Files that were NOT modified during the session (e.g., previously-fixed training documents) show consistent state via both bash and Read - so bash is reliable as a static reference, just not as a verification mechanism for in-session writes.
 
-**Rule:** for any verification of a Write or Edit performed during the current session, use the Read tool. Bash may be used for static checks (file existence, listing contents of unmodified directories, searching across files that haven't been touched this session) but never to confirm a write's success.
+**Rule as originally written (2026-05-02, no longer operative):** for any verification of a Write or Edit performed during the current session, use the Read tool. Bash may be used for static checks but never to confirm a write's success. **Superseded 2026-06-07** by the verification-channel rule: verify through the channel that wrote the file, and where that channel is bash, `verify-write.py` via bash *is* the authoritative confirmation of a write's success.
 
 ---
 
@@ -211,9 +214,35 @@ The `'wb'` open mode atomically truncates the file at write time. After the writ
 - `project-blueprints/work-personal-assistant/changelog.md` v1.4 row - records the EXAMPLES + NEVER section reconstruction
 - `project-blueprints/sta-security-advisor/handoff.md` v1.3 changelog row - records the Restated hard rules section restoration
 
-**Backups (the missing piece):**
-The 2026-05-02 truncation crisis was unrecoverable specifically because no backups existed. A workspace-level Git repo with daily auto-commit is queued in The Architect's backlog as the durable solution; manual snapshot procedures are the bridge until that lands.
+**Backups (gap closed):**
+The 2026-05-02 truncation crisis was unrecoverable specifically because no backups existed. That gap is closed: the workspace is backed up to a Git repo on a **weekly** schedule, and the backup is shipped rather than queued. Backups are therefore no longer the open item this section originally described - but a weekly cadence means an unverified write can still cost up to a week of work, so the save-time verification discipline above remains the primary defence, not a stopgap.
+
+---
+
+## 2026-06-07 Protocol Upgrade - Prevention Cap + Script Verification
+
+Root-cause diagnosis session (2026-06-07) re-tested the two platform behaviors this protocol was built around. Results:
+
+**1. Bash-mount staleness is CONDITIONAL, not gone.** The 2026-05-02 finding was retested twice on 2026-06-07 with a split result. Fresh: files newly created via the Write tool, files written via bash itself, and small-file Edits - all immediately byte-identical when read via bash, on both mounts. Still stale: file-tool Edits on large pre-existing files - bash served a mid-word PARTIAL view of instructions.md, behavior-patterns.md, and this very document for minutes after each Edit, while the Read tool showed every file complete. Consequence - the **verification channel rule**: verify through the channel that wrote the file. Bash-written or newly-Written file -> `verify-write.py` via bash is authoritative. File-tool Edit on a large existing file -> Read-tool tail check is authoritative. When the two disagree, the Read tool wins. A script WARN/FAIL on a freshly-Edited large file is most likely a stale mount view, not a real truncation - confirm with Read before repairing anything.
+
+**2. Shortening-Edit null-byte padding is STILL LIVE.** A 60-byte test file Edit-shortened on 2026-06-07 kept its 60-byte length with 35 trailing `\x00` bytes. The bug even null-padded the new verification script itself minutes after its creation. Treat every shortening Edit as suspect.
+
+**Protocol changes (enforced in instructions.md rule 19 + behavior-patterns.md as of v6.22):**
+
+- **Write-size cap (new, prevention):** no single Write tool call over ~150 lines / ~8KB on a meaningful file. Larger files are built as a Write stub + chunked Edit-appends. This targets the root cause - output-token clipping on oversized single Writes - rather than detecting it after the fact.
+- **Script-based verification (replaces manual Read-tail checks):** `verify-write.py` at the workspace root. One bash call per task, covering every touched file: `python3 verify-write.py FILE [FILE ...]`. Checks type-correct closer (`</html>`, changelog pointer, `<!-- EOF -->`, code fence, table row), mid-word tail heuristic, and `\x00` presence; The flag set:
+  - `--fix-nulls FILE [...]` strips trailing null runs in place via the sanctioned `r+b` truncate, then re-checks.
+  - `--scan DIR [--fix-nulls]` walks `DIR` recursively and checks every text file, printing only FAIL/WARN plus a summary - clean files stay silent, which is what makes it token-minimal. It skips `_Archived/`, `Backups/`, `.git/`, `node_modules/` and `__pycache__/` so legitimate binary NULs never false-positive. This is the mode the recurring sweep uses.
+  - `--assert-fresh FILE "marker"` exits 0 if the file *as bash currently sees it* contains the marker, and exits 2 with STALE if not. This is the guard on the file-tool-to-bash boundary: it is how you tell a stale mount view apart from real corruption, instead of guessing. Use it before repairing anything a scan flagged on a freshly-Edited file.
+
+  Exit 1 = do not declare done.
+- **EOF sentinel convention (new):** meaningful `.md` files with no natural closer end with `<!-- EOF -->` so the script check is deterministic.
+- **Unattended sweep is detection-only.** The recurring workspace-wide truncation sweep runs as **Check 15 of the Monday health check (System Monitor v1.23), and it is READ-ONLY.** It reports clipped and null-padded files; it never repairs them. There is no unattended `--fix-nulls` pass. Every repair is a deliberate, operator-initiated follow-up on a named file - which is why a Check 15 finding is a work item, not a resolved issue.
+
+The 2026-05-02 sections above are retained as the historical diagnostic record; where they conflict with this section, this section wins.
 
 ---
 
 *This document is the diagnostic record for the Write Verification Protocol. The protocol itself is enforced via The Architect's instructions.md. If you change the protocol in either location, update both for consistency - The Architect's TRAINING DOC DRIFT CHECK should catch divergence at the next per-change scan.*
+
+<!-- EOF -->

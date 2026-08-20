@@ -144,7 +144,7 @@
   <!-- SYSTEM ARCHITECTURE -->
   <div id="arch"></div>
   <div class="section-title">System Architecture</div>
-  <div class="section-intro">Two parallel deployment layers. <strong>Claude.ai Projects</strong> are the staff-facing tools - five are Active (AI Advisor, STA Support Chat, STA Salesforce Cohort, Behind the Bell Assistant, and The Customer) and one is Parked (STA Main Chat). <strong>Cowork workspaces</strong> are the build, ops, and personal layer - primarily Adam's, with one (System Monitor) handling automated health monitoring. The Architect handles all project builds across both deployment types. The shared file system lives in the The Architect workspace folder, auto-backed up to GitHub every 30 min via Obsidian Git.</div>
+  <div class="section-intro">Two parallel deployment layers. <strong>Claude.ai Projects</strong> are the staff-facing tools - <strong>five are Active</strong>: AI Advisor, STA Support Chat, STA Salesforce Cohort, Behind the Bell Assistant, and The Customer. <strong>Cowork workspaces</strong> are the build, ops, and personal layer - primarily Adam's, with one (System Monitor) handling automated health monitoring. The Architect handles all project builds across both deployment types. The shared file system lives in the The Architect workspace folder, backed up to GitHub on a <strong>weekly</strong> schedule.</div>
 
   <svg class="arch-svg" viewBox="0 0 960 420" xmlns="http://www.w3.org/2000/svg">
     <!-- STAFF-FACING ROW -->
@@ -152,7 +152,7 @@
 
     <rect x="0" y="32" width="180" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
     <text x="90" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">AI Advisor</text>
-    <text x="90" y="70" text-anchor="middle" font-size="9" fill="#3a8a1e">Active v1.14</text>
+    <text x="90" y="70" text-anchor="middle" font-size="9" fill="#3a8a1e">Active v1.18</text>
     <text x="90" y="84" text-anchor="middle" font-size="9" fill="#3a8a1e">All staff - explore AI</text>
     <text x="90" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">8 CONTEXT FILES</text>
 
@@ -160,7 +160,7 @@
     <text x="285" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">STA Support Chat</text>
     <text x="285" y="70" text-anchor="middle" font-size="9" fill="#3a8a1e">Active since 5/15</text>
     <text x="285" y="84" text-anchor="middle" font-size="9" fill="#3a8a1e">Support - product diag</text>
-    <text x="285" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">16 CONTEXT FILES</text>
+    <text x="285" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">26 CONTEXT FILES</text>
 
     <rect x="390" y="32" width="180" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
     <text x="480" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">STA Salesforce Cohort</text>
@@ -174,18 +174,18 @@
     <text x="675" y="84" text-anchor="middle" font-size="9" fill="#3a8a1e">Podcast - 3 hosts</text>
     <text x="675" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">8 CONTEXT FILES</text>
 
-    <rect x="780" y="32" width="180" height="74" rx="8" fill="#f4f6f8" stroke="#8a8d8e" stroke-width="2" stroke-dasharray="4,3"/>
-    <text x="870" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">STA Main Chat</text>
-    <text x="870" y="70" text-anchor="middle" font-size="9" fill="#8a8d8e">Parked (context ready)</text>
-    <text x="870" y="84" text-anchor="middle" font-size="9" fill="#8a8d8e">All staff - org base</text>
-    <text x="870" y="98" text-anchor="middle" font-size="8.5" fill="#8a8d8e" font-weight="700">BUILD DEFERRED</text>
+    <rect x="780" y="32" width="180" height="74" rx="8" fill="#edf7e6" stroke="#6bc04b" stroke-width="2"/>
+    <text x="870" y="54" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e2a35">The Customer</text>
+    <text x="870" y="70" text-anchor="middle" font-size="9" fill="#3a8a1e">Active since 6/13</text>
+    <text x="870" y="84" text-anchor="middle" font-size="9" fill="#3a8a1e">Reps - sales practice</text>
+    <text x="870" y="98" text-anchor="middle" font-size="8.5" fill="#3a8a1e" font-weight="700">5 CONTEXT FILES</text>
 
     <!-- COWORK BUILD/OPS ROW -->
     <text x="0" y="138" font-size="11" font-weight="700" fill="#8a8d8e" letter-spacing="1px">COWORK - BUILD, OPS, AND ADMIN (ADAM)</text>
 
     <rect x="0" y="150" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
     <text x="109" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2a35">The Architect</text>
-    <text x="109" y="184" text-anchor="middle" font-size="9.5" fill="#006098">v7.0 - build pipeline</text>
+    <text x="109" y="184" text-anchor="middle" font-size="9.5" fill="#006098">v8.10 - build pipeline</text>
     <text x="109" y="198" text-anchor="middle" font-size="9" fill="#006098">Discovery, blueprint, spec</text>
 
     <rect x="232" y="150" width="218" height="60" rx="8" fill="#e8f2f8" stroke="#006098" stroke-width="2"/>
@@ -233,7 +233,7 @@
   <div class="card-grid">
     <div class="ws-card green">
       <div class="ws-name">AI Advisor</div>
-      <div class="ws-tag green">Active v1.14 (eval 100/100)</div>
+      <div class="ws-tag green">Active v1.18 (eval 100/100)</div>
       <p><strong>For:</strong> all STA staff. The Day 1 tool - explore AI fit, find what's built, frame ideas for the build pipeline. Walks staff through documenting workflows for the central AI knowledge base.</p>
       <p><strong>Does not:</strong> build or design tools. All implementation routes back to IT.</p>
       <div class="ws-meta">
@@ -247,7 +247,7 @@
       <p><strong>For:</strong> Chris Baker, Tyler Baughman, Adam Baker. Product troubleshooting and customer email drafts grounded in the STA Help Center across every product line.</p>
       <p><strong>Hard rule:</strong> NEVER FABRICATE. Source-label taxonomy (Context-confirmed / Training knowledge / Training knowledge - verify carefully / Cannot confirm) on every answer.</p>
       <div class="ws-meta">
-        <strong>24 context files</strong> covering Time Clocks, SchoolTRAK, Tardy Kiosk, Food Service, Visitor Management, ID Badging, Positive Attendance, Transcript Labels, ID Printers, Skyward compatibility, product mechanics, remote access, SQL Server, coverage routing, plus <code>sta-company-profile.md</code>. Coverage now also spans RMA, support operations, the Salesforce Case schema, implementation and migration, remote access and SQL diagnostics, and Skyward routing. <strong>Blueprint:</strong> <code>Project Blueprints/_Claude-Projects/sta-support-chat-proj/</code>
+        <strong>26 context files</strong> covering Time Clocks, SchoolTRAK, Tardy Kiosk, Food Service, Visitor Management, ID Badging, Positive Attendance, Transcript Labels, ID Printers, Skyward compatibility, product mechanics, remote access, SQL Server, coverage routing, plus <code>sta-company-profile.md</code>. Coverage now also spans RMA, support operations, the Salesforce Case schema, implementation and migration, remote access and SQL diagnostics, and Skyward routing. <strong>Blueprint:</strong> <code>Project Blueprints/_Claude-Projects/sta-support-chat-proj/</code>
       </div>
     </div>
 
@@ -261,16 +261,6 @@
       </div>
     </div>
 
-    <div class="ws-card gray">
-      <div class="ws-name">STA Main Chat</div>
-      <div class="ws-tag gray">Parked - build deferred</div>
-      <p><strong>Planned for:</strong> all staff. The base brain for general School Tech questions and org knowledge. Other department-specific brains will extend from it.</p>
-      <p><strong>Status:</strong> <strong>Parked</strong>, not in progress. Context files are pre-built (<code>context-sta-company-proj.md</code>, <code>context-sta-products-detail.md</code>, <code>context-sta-team-ai-proj.md</code>) and <code>instructions.md</code> is still to write, but the build is explicitly deferred rather than underway - there is no active work and no target date.</p>
-      <div class="ws-meta">
-        <strong>Blueprint:</strong> <code>Project Blueprints/_Claude-Projects/sta-main-chat-proj/</code>
-      </div>
-    </div>
-
     <div class="ws-card green">
       <div class="ws-name">Behind the Bell Assistant</div>
       <div class="ws-tag green">Active v1.2 (2026-06-01)</div>
@@ -278,6 +268,16 @@
       <p><strong>Hard rule:</strong> [CONFIRMED] / [UNVERIFIED] sourcing discipline on guest facts. HTML + Word output; it is not a sales pitch.</p>
       <div class="ws-meta">
         <strong>8 context files:</strong> <code>context-podcast-profile.md</code>, <code>context-prep-doc-format.md</code>, <code>context-prep-doc-template.docx</code>, <code>context-script-format.md</code>, <code>context-guest-list.md</code>, <code>context-email-templates.md</code>, <code>context-sta-company-proj.md</code>, <code>context-podcast-best-practices.md</code> &middot; <strong>Blueprint:</strong> <code>Project Blueprints/_Claude-Projects/behind-the-bell-assistant/</code>
+      </div>
+    </div>
+
+    <div class="ws-card green">
+      <div class="ws-name">The Customer</div>
+      <div class="ws-tag green">Active - live to reps since 2026-06-13 (eval 99/100)</div>
+      <p><strong>For:</strong> STA sales reps. Rehearsing real K-12 district conversations - cold pitch, discovery, objection-handling, support-call walk-throughs - against four honest customer personas (IT director, junior tech, business manager, front-office secretary), then stepping out for a GROW debrief and a behavior-only nine-item scorecard.</p>
+      <p><strong>Does not:</strong> produce real customer data - rehearsal and coaching only, never a substitute for talking to real buyers.</p>
+      <div class="ws-meta">
+        <strong>5 context files:</strong> <code>persona-pack-sta.md</code>, <code>district-operations-sta.md</code>, <code>coaching-reference-sta.md</code>, <code>scenario-bank-sta.md</code>, <code>sta-company-profile.md</code> &middot; <strong>Blueprint:</strong> <code>Project Blueprints/the-customer/</code>
       </div>
     </div>
   </div>
@@ -290,7 +290,7 @@
   <div class="card-grid">
     <div class="ws-card blue">
       <div class="ws-name">The Architect</div>
-      <div class="ws-tag blue">Active v7.0 - build pipeline</div>
+      <div class="ws-tag blue">Active v8.10 - build pipeline</div>
       <p><strong>Use for:</strong> building new projects, polishing existing prompts, quick one-off prompts, updating test cases after fixes, all system maintenance work (registry updates, training materials, knowledge-base oversight).</p>
       <p><strong>Five modes:</strong> Full Pipeline &middot; Polish Existing &middot; Quick Prompt &middot; Test Case Update &middot; Advisory (expert Q&amp;A, no pipeline artifacts).</p>
       <div class="ws-meta">
@@ -310,8 +310,8 @@
 
     <div class="ws-card orange">
       <div class="ws-name">System Monitor</div>
-      <div class="ws-tag orange">Active v1.21 - ops + health monitoring</div>
-      <p><strong>Two modes:</strong> Monitor mode posts green/amber/red health report to Slack every Monday 8 AM (14 checks). Navigator mode answers live questions about AI system state.</p>
+      <div class="ws-tag orange">Active v1.23 - ops + health monitoring</div>
+      <p><strong>Two modes:</strong> Monitor mode posts green/amber/red health report to Slack every Monday 8 AM (15 checks). Navigator mode answers live questions about AI system state.</p>
       <p><strong>Don't use for:</strong> building projects or writing prompts - those stay in The Architect.</p>
       <div class="ws-meta">
         <strong>Context files:</strong> <code>context-health-check-rules.md</code>, <code>context-system-reference.md</code>, <code>context-maintenance-sop.md</code> &middot; <strong>Blueprint:</strong> <code>Project Blueprints/system-monitor/</code>
@@ -321,8 +321,8 @@
     <div class="ws-card blue">
       <div class="ws-name">Work Personal Assistant</div>
       <div class="ws-tag blue">Active - Adam's day-to-day</div>
-      <p><strong>Use for:</strong> email rewrites, web lookups, quick research, document creation, anything outside the build system. Connected to Gmail for drafting.</p>
-      <p><strong>Replication template:</strong> the per-user staff Work Assistant deployments in Phase 3 will be replicated from this template.</p>
+      <p><strong>Use for:</strong> email rewrites, web lookups, quick research, document creation, anything outside the build system.</p>
+      <p><strong>Adam-only.</strong> A staff-template rollout is deferred with no date, so this is a single-operator tool rather than a template awaiting replication.</p>
       <div class="ws-meta">
         <strong>Context files:</strong> <code>style-profile.md</code> (shared), <code>contacts.md</code> (shared), <code>work-standing-context.md</code>, <code>context-org-team.md</code>, <code>context-org-identity.md</code>
       </div>
@@ -359,22 +359,15 @@
 
     <div class="ws-card gray">
       <div class="ws-name">Project Tester (Deep)</div>
-      <div class="ws-tag gray">Draft - QA engineering</div>
-      <p><strong>Planned for:</strong> Adam's QA engineer for Architect-built projects - behavioral compliance testing (LLM-as-judge, temperature=0), adversarial red-team (OWASP LLM Top 10), code artifact execution, regression comparison across versions.</p>
+      <div class="ws-tag gray">Deprecated - QA engineering</div>
+      <p><strong>Deprecated.</strong> Retained as a historical entry. The Test Master is a separate active project, not a rename of this one.</p>
+      <p><strong>Was planned for:</strong> Adam's QA engineer for Architect-built projects - behavioral compliance testing (LLM-as-judge, temperature=0), adversarial red-team (OWASP LLM Top 10), code artifact execution, regression comparison across versions.</p>
       <p><strong>Supersedes:</strong> the Run Test Cases skill for deep structured testing; skill remains for quick simulation checks.</p>
       <div class="ws-meta">
         <strong>Context files:</strong> <code>context-behavioral-testing.md</code>, <code>context-adversarial-testing.md</code>, <code>context-qa-engineering.md</code>, <code>context-test-harness.md</code> &middot; <strong>Blueprint:</strong> <code>Project Blueprints/project-tester/</code>
       </div>
     </div>
 
-    <div class="ws-card gray">
-      <div class="ws-name">The Customer</div>
-      <div class="ws-tag gray">Draft - sales-practice role-play (eval 99/100)</div>
-      <p><strong>Use for:</strong> rehearsing real K-12 district conversations - cold pitch, discovery, objection-handling, support-call walk-throughs - against four honest customer personas (IT director, junior tech, business manager, front-office secretary), then stepping out for a GROW debrief and a behavior-only nine-item scorecard. Generic BwB-suite engine with a swappable STA layer; runnable project at <code>Default Projects/The Customer/</code>.</p>
-      <p><strong>Does not:</strong> produce real customer data - rehearsal and coaching only, never a substitute for talking to real buyers. Status flips to Active after a live drill confirms the skill-floor behaviors (run-test-cases passed 12/12 in simulation 2026-06-06).</p>
-      <div class="ws-meta">
-        <strong>Context files:</strong> <code>persona-pack-sta.md</code>, <code>district-operations-sta.md</code>, <code>coaching-reference-sta.md</code>, <code>scenario-bank-sta.md</code>, <code>sta-company-profile.md</code> &middot; <strong>Blueprint:</strong> <code>Project Blueprints/the-customer/</code>
-      </div>
     </div>
   </div>
 
@@ -459,13 +452,13 @@
   </div>
 
   <h3 style="font-size:13px; margin: 18px 0 8px; color: var(--gray); text-transform:uppercase; letter-spacing:0.7px;">Standard platform skills (Anthropic-bundled with Cowork)</h3>
-  <p style="font-size: 12.5px; color: #555; margin-bottom: 12px; line-height: 1.55;">These ship with Cowork by default and are the same in every Anthropic Cowork workspace. Listed for completeness.</p>
+  <p style="font-size: 12.5px; color: #555; margin-bottom: 12px; line-height: 1.55;"><strong>21 platform skills are available in Cowork</strong> - 16 synced to <code>skills/synced/manifest.json</code> and 5 callable without being synced, so counting from the manifest alone undercounts. A representative few are listed here; the full itemised set is in the AI Admin PC inventory. Claude Code exposes a different platform set - <code>schedule</code> and <code>consolidate-memory</code> appear there and are <strong>not</strong> part of the Cowork inventory this document describes.</p>
   <div class="skills-grid">
     <div class="skill-item"><div class="skill-name">docx / xlsx / pptx / pdf</div><div class="skill-desc">Create, read, edit Word docs, spreadsheets, presentations, PDFs. Auto-selected by file type.</div></div>
-    <div class="skill-item"><div class="skill-name">schedule</div><div class="skill-desc">Create scheduled tasks per-project. Cowork scheduled-tasks system.</div></div>
     <div class="skill-item"><div class="skill-name">skill-creator</div><div class="skill-desc">Create, modify, eval, and benchmark new Cowork skills. Description-optimization for triggering accuracy.</div></div>
     <div class="skill-item"><div class="skill-name">setup-cowork</div><div class="skill-desc">Guided Cowork setup flow - role-matched plugin install, MCP connections.</div></div>
-    <div class="skill-item"><div class="skill-name">consolidate-memory</div><div class="skill-desc">Reflective pass over auto-memory files - merge duplicates, fix stale facts, prune the index.</div></div>
+    <div class="skill-item"><div class="skill-name">learn</div><div class="skill-desc">Teaching mode - explanations, quizzes, and learning paths.</div></div>
+    <div class="skill-item"><div class="skill-name">dataviz</div><div class="skill-desc">House method for charts, dashboards, and accessible palettes. Callable but not synced to the manifest.</div></div>
   </div>
 
   <!-- AUTOMATIONS -->
@@ -487,11 +480,11 @@
         <td><strong>System Monitor Weekly Health Check</strong></td>
         <td>Mondays 8:00 AM</td>
         <td>System Monitor</td>
-        <td>14 health checks across Active STA agent projects (Cowork / Claude.ai Project; non-agent web apps excluded). Posts green/amber/red status to Slack. Includes Check 11 (GitHub Backup Security), Check 12 (Backup Coverage parity), Check 13 (Hub Dist Drift), and Check 14 (Brain-Block Presence).</td>
+        <td>15 health checks across Active STA agent projects (Cowork / Claude.ai Project; non-agent web apps excluded). Posts green/amber/red status to Slack. Includes Check 11 (GitHub Backup Security), Check 12 (Backup Coverage parity), Check 13 (Hub Dist Drift), Check 14 (Brain-Block Presence), and Check 15 (Workspace Truncation Sweep - <strong>read-only</strong>, it reports clipped files and never repairs them).</td>
       </tr>
       <tr>
         <td><strong>Knowledge Base Update Checker</strong></td>
-        <td>Mondays 9:09 AM</td>
+        <td>Mondays 9:00 AM</td>
         <td>System Monitor</td>
         <td>Reads Knowledge Base/index.md, flags overdue topics (weekly/monthly/quarterly/annually). Reports in chat + posts a summary to #kb-update-check in Slack.</td>
       </tr>

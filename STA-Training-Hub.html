@@ -415,8 +415,8 @@ window.TRAINING_DATA = {
       sub: 'Everyone reads these first. Day 1 onboarding for the AI program, no matter your role.',
       sections: [
         { heading: 'Required before first use', note: 'The ground rules for your role. Read these before you use any AI tool for School Tech work - they cover what is allowed, what data must never go in, and how to report a problem when a tool gets something wrong. Non-negotiable.', docs: ['aup', 'restricted-data', 'reporting-errors'] },
-        { heading: 'Recommended Week 1', time: 'about 50 min', note: 'Getting started with the AI tools. Learn how to get better results from AI and how to work with the tools we already have. Read these in your first week.', docs: ['quick-ref', 'better-results', 'onboarding-deck', 'ai-advisor', 'open-html', 'open-markdown'] },
-        { heading: 'Go further', accent: '#c2185b', note: 'Optional. Once you have played with the AI tools and want to go deeper, these show you more of what AI can do beyond the basics.', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'ai-basics', 'what-is-a-brain'] }
+        { heading: 'Recommended Week 1', time: 'about 60 min', note: 'Getting started with the AI tools. Learn how to get better results from AI and how to work with the tools we already have. Read these in your first week.', docs: ['quick-ref', 'better-results', 'onboarding-deck', 'ai-advisor', 'opening-the-files', 'ai-basics'] },
+        { heading: 'Go further', accent: '#c2185b', note: 'Optional. Once you have played with the AI tools and want to go deeper, these show you more of what AI can do beyond the basics.', docs: ['tools-reference', 'platforms', 'tub', 'claude-skills', 'creating-your-first-cowork', 'what-is-a-brain'] }
       ]
     },
     {
@@ -500,11 +500,11 @@ window.TRAINING_DATA = {
         { heading: 'Skills - Knowledge & Research', note: 'Skills for building context files and managing the knowledge base.', docs: ['skill-knowledge-base-context-builder', 'skill-cowork-context-packager', 'skill-project-context-packager', 'skill-deep-research-prompt-builder', 'skill-kb-freshness-auditor'] },
         { heading: 'Skills - Safety & Guardrails', note: 'Skills that protect agents from misuse and prompt-override attempts.', docs: ['skill-prompt-override-guard'] },
         { heading: 'Skills - Maintenance & Ops', note: 'Skills that keep the system backed up, synced, and clean.', docs: ['skill-backup-verifier', 'skill-weekly-github-backup', 'skill-session-closeout', 'skill-cowork-snapshot-exporter', 'skill-truncation-checker', 'skill-scheduled-task-builder'] },
-        { heading: 'System reference', note: 'How the AI system is wired together - maps, inventories, and references.', docs: ['system-overview', 'project-tracker-tool', 'ai-admin-pc-installed-inventory', 'project-export-snapshot-audit', 'workspace-skills', 'user-management', 'maintenance-sop'] },
+        { heading: 'System reference', note: 'How the AI system is wired together - maps, inventories, and references.', docs: ['system-overview', 'project-tracker-tool', 'ai-admin-pc-installed-inventory', 'project-export-snapshot-audit', 'workspace-skills', 'user-management', 'maintenance-sop', 'claude-tag-briefing'] },
         { heading: 'Codebase & maintenance', note: 'How the internal hub apps are built and kept running - source code, deploy steps, and the recurring automations.', docs: ['codebase-maintenance-guide', 'scheduled-tasks-reference'] },
         { heading: 'Build pipeline', note: 'The process for taking an agent from idea to production.', docs: ['build-guide', 'architect-case-study'] },
         { heading: 'Planned builds (in scoping)', note: 'Agents scoped but not yet built.', docs: ['google-ai-employee-sow', 'salesforce-integration-sow'] },
-        { heading: 'In Dev', note: 'Work in progress - not yet live.', docs: ['sta-server-proposal', 'sta-server-guided-build-checklist', 'claude-tag-briefing', 'sta-shared-brain'] },
+        { heading: 'In Dev', note: 'Work in progress - not yet live.', docs: ['sta-server-proposal', 'sta-server-guided-build-checklist'] },
         { heading: 'Security checklists', note: 'Security review checklists for Google and Salesforce.', docs: ['google-security', 'sf-security'] },
         { heading: 'Operational procedures', note: 'Standing procedures for running and maintaining the system.', docs: ['drift-check', 'formatting-standards', 'write-verification'] },
         { heading: 'Knowledge base', note: 'The research and reference modules behind the AI system.', docs: ['kb-module-catalog', 'creative-snippet-gallery', 'effects-lab'] }
@@ -529,12 +529,12 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'admin',
       tags: ['Admin', 'Automation'],
-      added: '2026-07-06', updated: '2026-07-06'
+      added: '2026-07-06', updated: '2026-08-19'
     },
     // ===== Go further (staff) =====
     'what-is-a-brain': {
       title: 'What is an AI "Brain"?',
-      desc: 'Plain-language explainer: what an AI "brain" is (the shared STA knowledge an assistant reads), and the plan - support brain now, a company-wide main brain next, department brains on a shared server later.',
+      desc: 'Plain-language explainer: what an AI "brain" is (the shared STA knowledge an assistant reads), and the plan - support brain now, department brains on top of it next, and a company-wide main brain later.',
       file: 'docs/what-is-a-brain.html',
       type: 'html',
       priority: 'optional',
@@ -569,7 +569,6 @@ window.TRAINING_DATA = {
       file: 'docs/skill-code-relay.html',
       type: 'html',
       priority: 'skill',
-      org: true,
       tags: ['Dev'],
       added: '2026-07-06', updated: '2026-07-06'
     },
@@ -600,7 +599,7 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'skill',
       tags: ['Automation'],
-      added: '2026-08-17', updated: '2026-08-17'
+      added: '2026-08-17', updated: '2026-08-19'
     },
     'creating-your-first-cowork': {
       title: 'Creating Your First Cowork Project',
@@ -609,26 +608,26 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'optional',
       tags: ['Guide', 'Intermediate'],
-      added: '2026-06-06', updated: '2026-06-06'
+      added: '2026-06-06', updated: '2026-07-09'
     },
     // ===== AI Admin system inventory =====
     'ai-admin-pc-installed-inventory': {
       title: 'AI Admin PC - Installed Plugins & Skills Inventory',
-      desc: 'Everything installed on the AI Admin PC after the July 2026 cleanup: 5 plugins, 45 non-custom skills, and the live MCP connectors - each listed - plus the full STA tech stack the AI layer plugs into, with per-tool connection status.',
+      desc: 'Everything installed on the AI Admin PC after the July 2026 cleanup: 6 plugins and 39 bundled skills, each listed, plus the full STA tech stack the AI layer plugs into.',
       file: 'docs/ai-admin-pc-installed-inventory.html',
       type: 'html',
       priority: 'admin',
       tags: ['Admin', 'Inventory'],
-      added: '2026-06-06', updated: '2026-06-07'
+      added: '2026-06-06', updated: '2026-08-19'
     },
     'project-export-snapshot-audit': {
       title: 'Project Export-Snapshot Audit',
-      desc: 'Per-project export snapshots for all 20 Active/Draft agents and Projects - context files, skills, KB modules, and install requirements. All export-ready; six gaps found and closed 2026-06-06.',
+      desc: 'Per-project export snapshots for 19 agents and Projects (17 Active + 2 Deprecated) - context files, skills, KB modules, and install requirements. All 19 export-ready; six gaps found and closed 2026-06-06.',
       file: 'docs/project-export-snapshot-audit.html',
       type: 'html',
       priority: 'admin',
       tags: ['Admin', 'Audit'],
-      added: '2026-06-06', updated: '2026-06-06'
+      added: '2026-06-06', updated: '2026-08-19'
     },
     'creative-snippet-gallery': {
       title: 'Creative Snippet Gallery - 48 Live HTML/CSS/JS Effects',
@@ -649,25 +648,15 @@ window.TRAINING_DATA = {
       added: '2026-06-19', updated: '2026-06-19'
     },
     // ===== Reading the files =====
-    'open-html': {
-      title: 'How to Open HTML Files',
-      desc: 'Reports, digests, and checklists come as .html files. Download, double-click (or drag into Chrome), and read it like a web page. Why we say use Google Chrome.',
-      file: 'docs/how-to-open-html-files.html',
+    'opening-the-files': {
+      title: 'Opening the files we send you',
+      desc: 'The two file types our tools produce, in one guide. An .html report opens in your browser - download, double-click, and use Chrome. A .md file is formatted text - open it in Pinion.md for a clean view, or read it raw in any text editor.',
+      file: 'docs/opening-the-files-we-send-you.html',
       type: 'html',
       priority: 'recommended',
       tags: ['How-To', 'Onboarding'],
-      added: '2026-06-07', updated: '2026-06-07',
-      check: 'Which browser does School Tech standardize on for opening our HTML files, and why might another browser not show the full effect?'
-    },
-    'open-markdown': {
-      title: 'How to Open Markdown Files',
-      desc: 'Some output comes as a .md (Markdown) file. Open it in Pinion.md (linked at the bottom of the Help Center) for a clean view, use any Markdown reader you like, or read it raw in a text editor.',
-      file: 'docs/how-to-open-markdown-files.html',
-      type: 'html',
-      priority: 'recommended',
-      tags: ['How-To', 'Onboarding'],
-      added: '2026-06-07', updated: '2026-06-07',
-      check: 'What is the no-install tool the guide recommends for reading a .md file, and where is it linked?'
+      added: '2026-08-19', updated: '2026-08-19',
+      check: 'Which browser does School Tech standardize on for our .html files, and which no-install tool do we recommend for reading a .md file?'
     },
     // ===== Policies =====
     'aup': {
@@ -704,22 +693,22 @@ window.TRAINING_DATA = {
     // ===== Staff core =====
     'ai-basics': {
       title: 'AI Basics & Common Questions',
-      desc: 'New to AI? Eleven plain-language concepts - chat vs search box, context, memory, hallucinations, Project vs Chat vs Cowork, Markdown, Skills - plus the most common questions, with School Tech examples. Optional deeper reading.',
+      desc: 'New to AI? Eleven plain-language concepts - chat vs search box, context, memory, hallucinations, Project vs Chat vs Cowork, Markdown, Skills - plus the most common questions, with School Tech examples. Read this in your first week.',
       file: 'docs/ai-basics.html',
       type: 'html',
       priority: 'recommended',
       tags: ['Reference', 'Go further'],
-      added: '2026-06-12', updated: '2026-06-12'
+      added: '2026-06-12', updated: '2026-08-19'
     },
     'skill-truncation-checker': {
       title: 'Truncation Checker',
-      desc: 'Daily workspace-wide sweep that finds files clipped mid-write (mid-word tails, missing closers, empty files, NUL padding), auto-fixes the safe cases, and reports the rest for manual fixing.',
+      desc: 'On-demand workspace-wide sweep for files clipped mid-write - mid-word tails, missing closers, empty files, NUL padding. No daily task since 2026-08-10; the recurring sweep is Check 15 of the Monday health check and is read-only, so this skill is now the only path that repairs NUL padding.',
       file: 'docs/skill-truncation-checker.html',
       type: 'html',
       priority: 'skill',
       tags: ['Maintenance'],
-      added: '2026-06-08', updated: '2026-06-08',
-      check: 'What does the Truncation Checker fix automatically versus report for manual fixing?'
+      added: '2026-06-08', updated: '2026-08-19',
+      check: 'The recurring Monday sweep only detects. So what has to happen to actually strip NUL padding from a flagged file?'
     },
     'quick-ref': {
       title: 'Quick Reference Card',
@@ -743,17 +732,17 @@ window.TRAINING_DATA = {
     },
     'tools-reference': {
       title: 'Staff AI Tools Reference',
-      desc: 'The full rundown of the four live tools plus what is coming, with a routing table for which to use when.',
+      desc: 'The full rundown of the five live tools plus what is coming, with a routing table for which to use when.',
       file: 'docs/staff-ai-tools-reference.html',
       type: 'html',
       priority: 'recommended',
       tags: ['Reference'],
-      added: '2026-05-21', updated: '2026-06-07',
-      check: 'Which four named AI tools does the reference list as live right now, and which staff members have access to each?'
+      added: '2026-05-21', updated: '2026-08-19',
+      check: 'Which five named AI tools does the reference list as live right now, and which staff members have access to each?'
     },
     'platforms': {
       title: 'Chat vs Project vs Cowork',
-      desc: 'Past the basics? The deep-dive on the three ways to work with AI here - what each is, when to use it, and where each one bites.',
+      desc: 'Past the basics? The deep-dive on the two dials that describe every way of working with AI here - the mode you are in and the container it runs in - what each setting means, when to use it, and where each one bites.',
       file: 'docs/chat-vs-project-vs-cowork.html',
       type: 'html',
       priority: 'recommended',
@@ -791,11 +780,11 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'required',
       tags: ['Tool Brief'],
-      added: '2026-05-21', updated: '2026-05-22',
+      added: '2026-05-21', updated: '2026-08-19',
       check: 'What are the four source labels that STA Support Chat can attach to a substantive answer?'
     },
     'cohort-getting-started': {
-      title: 'School Tech Salesforce Cohort - Getting Started',
+      title: 'STA Salesforce Cohort - Getting Started',
       desc: 'How the shared Salesforce assistant works and when to route heavy Flows back to Adam. Read before your first cohort session.',
       file: 'docs/cohort-getting-started.html',
       type: 'html',
@@ -839,14 +828,14 @@ window.TRAINING_DATA = {
     // ===== Internal agents (Adam-only Cowork tools) =====
     'the-architect-tool': {
       title: 'The Architect',
-      desc: 'The build engine for the whole AI system - takes a project from idea to production-ready output: discovery, blueprint, system prompt, test cases, registry, handoff. Four modes; never ships scaffold.',
+      desc: 'The build engine for the whole AI system - takes a project from idea to production-ready output: discovery, blueprint, system prompt, test cases, registry, handoff. Five modes; never ships scaffold.',
       deployment: 'cowork',
       file: 'docs/the-architect.html',
       type: 'html',
       priority: 'admin',
       tags: ['Tool Brief', 'Admin'],
-      added: '2026-06-07', updated: '2026-06-07',
-      check: 'What are The Architect\'s four modes, and what is its hard rule about placeholder content?'
+      added: '2026-06-07', updated: '2026-08-19',
+      check: 'The Architect has five modes - Advisory plus four pipeline modes. Which mode runs a new project end to end, and what is its hard rule about placeholder content?'
     },
     'project-tracker-tool': {
       title: 'STA Project Tracker',
@@ -866,7 +855,7 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'admin',
       tags: ['Tool Brief', 'Admin'],
-      added: '2026-06-04', updated: '2026-06-04',
+      added: '2026-06-04', updated: '2026-08-19',
       check: 'What five sections does the Today\'s Agenda briefing include, and which four sources does it draw from?'
     },
     'deep-research': {
@@ -889,7 +878,7 @@ window.TRAINING_DATA = {
       priority: 'admin',
       tags: ['Tool Brief', 'Admin'],
       added: '2026-06-04', updated: '2026-06-04',
-      check: 'What two hard rules govern this assistant, and how does it differ from the shared School Tech Salesforce Cohort?'
+      check: 'What two hard rules govern this assistant, and how does it differ from the shared STA Salesforce Cohort?'
     },
     'security-advisor': {
       title: 'STA Security Advisor',
@@ -904,7 +893,7 @@ window.TRAINING_DATA = {
     },
     'help-center-advisor': {
       title: 'Help Center Advisor',
-      desc: 'Structure and content strategy for the STA Salesforce Knowledge help center - eight task types, three audit dimensions, impact-tier ranked recommendations.',
+      desc: 'Structure and content strategy for the STA Salesforce Knowledge help center - nine task types, three audit dimensions, impact-tier ranked recommendations. As of v2.1 it also owns the STA Support Hub PWA and this Training Kit Hub, under a hard prepare-and-hand-off rule: it stages the edit and writes the PR prompt, and never pushes.',
       deployment: 'cowork',
       file: 'docs/help-center-advisor.html',
       type: 'html',
@@ -921,7 +910,7 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'admin',
       tags: ['Tool Brief', 'Admin'],
-      added: '2026-06-04', updated: '2026-06-04',
+      added: '2026-06-04', updated: '2026-08-19',
       check: 'What are the two modes System Monitor runs in, and where does it route build work versus live-bug fixes?'
     },
     'the-customer': {
@@ -936,7 +925,7 @@ window.TRAINING_DATA = {
     },
     'rd-tracker': {
       title: 'Internal R&D Tracker',
-      desc: 'Classifies STA software-development costs and staff time by R&D stage and assembles a CPA-ready package for the federal IRC §41 credit plus MN/WI/AZ state credits. Advisory only - it documents, it does not file.',
+      desc: 'Classifies STA software-development costs and staff time by R&D stage and assembles a CPA-ready package for the federal IRC §41 credit plus MN/WI/AZ state credits. Draft - not yet available. Advisory only - it documents, it does not file.',
       deployment: 'project',
       file: 'docs/internal-rd-tracker.html',
       type: 'html',
@@ -954,11 +943,11 @@ window.TRAINING_DATA = {
     },
     'support-chat-tool': {
       title: 'STA Support Chat',
-      desc: 'Shared Claude.ai Project for the support team - Help-Center-grounded product troubleshooting and customer-email drafts across 16 product context files; never-fabricate hard rule.',
+      desc: 'Shared Claude.ai Project for the support team - Help-Center-grounded product troubleshooting and customer-email drafts across 26 product context files; never-fabricate hard rule.',
       deployment: 'project',
       file: 'docs/sta-support-chat-tool.html',
       type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
-      added: '2026-06-08', updated: '2026-06-08'
+      added: '2026-06-08', updated: '2026-08-19'
     },
     'cohort-tool': {
       title: 'STA Salesforce Cohort',
@@ -973,13 +962,6 @@ window.TRAINING_DATA = {
       desc: 'Shared Claude.ai Project: production assistant for the Behind the Bell podcast - guest research, prep packages, interview questions, scripts, outreach emails; Confirmed/Unverified sourcing.',
       deployment: 'project',
       file: 'docs/behind-the-bell-tool.html',
-      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
-      added: '2026-06-08', updated: '2026-06-08'
-    },
-    'virtuatime-tool': {
-      title: 'VirtuaTime Implementation Assistant',
-      desc: 'Planned Cowork assistant to track VirtuaTime implementation Case state, draft templated emails, and flag payment/count gates. Parked - context pack complete, agent not yet built.',
-      file: 'docs/virtuatime-tool.html',
       type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
     },
@@ -1003,8 +985,8 @@ window.TRAINING_DATA = {
       org: true,
       type: 'html',
       priority: 'skill',
-      tags: ['Content & Output'],
-      added: '2026-06-13', updated: '2026-06-13',
+      tags: ['Reports'],
+      added: '2026-06-13', updated: '2026-08-19',
       check: 'By default, are STA HTML Reports styled for internal or customer-facing use, and what do you have to do to get the accessible customer-facing version?'
     },
     'skill-help-center-report': {
@@ -1077,7 +1059,6 @@ window.TRAINING_DATA = {
       title: 'Cowork Context Packager',
       desc: 'Package content into a production-ready Cowork context file, with the routing trigger and instructions.md edit proposed for you.',
       file: 'docs/skill-cowork-context-packager.html',
-      org: true,
       type: 'html',
       priority: 'skill',
       tags: ['Build Pipeline'],
@@ -1101,8 +1082,9 @@ window.TRAINING_DATA = {
       file: 'docs/skill-research-to-slides.html',
       type: 'html',
       priority: 'skill',
+      org: true,
       tags: ['Presentation'],
-      added: '2026-06-02', updated: '2026-06-02',
+      added: '2026-06-02', updated: '2026-08-19',
       check: 'What style of slide titles does this skill use, and what limit does it apply per slide?'
     },
     'skill-prompt-evaluator': {
@@ -1122,7 +1104,7 @@ window.TRAINING_DATA = {
       org: true,
       type: 'html',
       priority: 'skill',
-      tags: ['Build Pipeline'],
+      tags: ['Accessibility'],
       added: '2026-06-03', updated: '2026-06-03',
       check: 'Why can a clean automated scan never be reported as "WCAG AA conformant," and what should be reported instead?'
     },
@@ -1150,7 +1132,6 @@ window.TRAINING_DATA = {
       title: 'Skill Evaluator',
       desc: 'Score a SKILL.md for description quality, triggering accuracy, and structure before shipping.',
       file: 'docs/skill-skill-evaluator.html',
-      org: true,
       type: 'html',
       priority: 'skill',
       tags: ['QA'],
@@ -1209,23 +1190,23 @@ window.TRAINING_DATA = {
     },
     'skill-kb-freshness-auditor': {
       title: 'KB Freshness Auditor',
-      desc: 'Find stale KB modules by date and priority, and output ready-to-paste refresh prompts.',
+      desc: 'Audits the knowledge base on two axes: freshness (which modules are stale by content age) and reference-value (which modules the system actually depends on versus orphans nothing wires in). Also runs an index-to-lookup parity check. Outputs a prioritized action list and ready-to-paste refresh prompts.',
       file: 'docs/skill-kb-freshness-auditor.html',
       type: 'html',
       priority: 'skill',
       tags: ['Maintenance'],
       added: '2026-06-02', updated: '2026-06-02',
-      check: 'What does this skill calculate staleness from, and what does it output for stale modules?'
+      check: 'This skill audits on two axes - name both, and say what an orphan module is.'
     },
     'skill-backup-verifier': {
       title: 'Backup Verifier',
-      desc: 'Verify everything in _Backups is current and surface stale skill packages as installable .skill files.',
+      desc: 'Verify everything in Backups is current, check the connector set against what is expected and probe each one read-only to confirm it actually works, and diff the two PCs\' install manifests so both machines carry the same custom skills and plugins. Surfaces stale skill packages as installable .skill files.',
       file: 'docs/skill-backup-verifier.html',
       type: 'html',
       priority: 'skill',
       tags: ['Maintenance'],
       added: '2026-06-02', updated: '2026-06-02',
-      check: 'What does this skill surface for any skill package found to be out of date?'
+      check: 'Beyond checking that backups are current, what two other kinds of drift does this skill catch?'
     },
     'skill-weekly-github-backup': {
       title: 'Weekly GitHub Backup',
@@ -1257,7 +1238,7 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'admin',
       tags: ['System Reference', 'Admin'],
-      added: '2026-05-21', updated: '2026-06-01',
+      added: '2026-05-21', updated: '2026-08-19',
       check: 'What are the four source labels every answer can carry?'
     },
     'workspace-skills': {
@@ -1267,7 +1248,7 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'admin',
       tags: ['System Reference', 'Admin'],
-      added: '2026-06-02', updated: '2026-06-02',
+      added: '2026-06-02', updated: '2026-08-19',
       check: 'What two distinct folders does every project have, and what is each one for?'
     },
     'user-management': {
@@ -1277,7 +1258,7 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'admin',
       tags: ['Admin Guide', 'Admin'],
-      added: '2026-05-21', updated: '2026-05-29',
+      added: '2026-05-21', updated: '2026-08-19',
       check: 'Which roles can access Cowork, and which role cannot access it or the pipeline tools at all?'
     },
     'maintenance-sop': {
@@ -1287,7 +1268,7 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'admin',
       tags: ['SOP', 'Admin'],
-      added: '2026-05-21', updated: '2026-05-29',
+      added: '2026-05-21', updated: '2026-08-19',
       check: 'What is the difference between "hard drift" and "soft drift," and which one means you act immediately?'
     },
     'build-guide': {
@@ -1297,7 +1278,7 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'admin',
       tags: ['Build Guide', 'Admin'],
-      added: '2026-05-21', updated: '2026-06-01',
+      added: '2026-05-21', updated: '2026-08-19',
       check: 'How many planned context files make up the shared core brain that every project draws from?'
     },
     'architect-case-study': {
@@ -1307,7 +1288,7 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'admin',
       tags: ['Case Study', 'Admin'],
-      added: '2026-05-21', updated: '2026-06-01',
+      added: '2026-05-21', updated: '2026-08-19',
       check: 'What is the \'timing wall\' between Wave 1 and Wave 2, and why does it exist?'
     },
     'google-security': {
@@ -1337,12 +1318,12 @@ window.TRAINING_DATA = {
       type: 'md',
       priority: 'admin',
       tags: ['Procedure', 'Admin'],
-      added: '2026-05-21', updated: '2026-05-21',
+      added: '2026-05-21', updated: '2026-08-19',
       check: 'Which kinds of changes are exempt from the drift check under the skip exemption?'
     },
     'formatting-standards': {
       title: 'Formatting Standards',
-      desc: 'The house style for HTML and markdown deliverables. Reference it when building new training docs.',
+      desc: 'The house style for HTML, PowerPoint, Word and Excel deliverables. Reference it when building new training docs.',
       file: 'docs/formatting-standards.md',
       type: 'md',
       priority: 'admin',
@@ -1357,7 +1338,7 @@ window.TRAINING_DATA = {
       type: 'md',
       priority: 'admin',
       tags: ['Protocol', 'Admin'],
-      added: '2026-05-21', updated: '2026-05-22',
+      added: '2026-05-21', updated: '2026-08-19',
       check: 'After an Edit where the new_string is shorter than the old_string, what specific byte must you check the file for to detect silent corruption?'
     },
     'kb-module-catalog': {
@@ -1372,11 +1353,11 @@ window.TRAINING_DATA = {
     },
     'onboarding-deck': {
       title: 'AI Tools Getting Started - Slides',
-      desc: 'Two formats, same content: this is the full 12-slide deck for a live 40-minute kickoff walkthrough - the exact same material as the Quick Start Guide next to it, in presenter form. Grab this when you are running a team session.',
+      desc: 'The full 12-slide deck for a live 40-minute kickoff walkthrough, in presenter form. Grab this when you are running a team session rather than reading on your own.',
       file: 'files/ai-tools-getting-started.pdf',
       type: 'pdf',
       priority: 'recommended',
-      tags: ['Presentation', 'Onboarding', 'Two formats'],
+      tags: ['Presentation', 'Onboarding'],
       added: '2026-05-22', updated: '2026-05-22',
       check: 'Which Claude model does the onboarding deck tell staff to use instead of Opus?'
     },
@@ -1389,7 +1370,7 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'wip',
       tags: ['Planned', 'Admin'],
-      added: '2026-06-04', updated: '2026-06-04',
+      added: '2026-06-04', updated: '2026-08-19',
       check: 'In the forward-and-chat design, why is forwarding email to the agent a security win over giving it standing access to the support inbox?'
     },
     'salesforce-integration-sow': {
@@ -1411,34 +1392,25 @@ window.TRAINING_DATA = {
       type: 'html',
       priority: 'wip',
       tags: ['In Dev', 'Admin'],
-      added: '2026-07-10', updated: '2026-07-10'
+      added: '2026-07-10', updated: '2026-08-19'
     },
     'claude-tag-briefing': {
-      title: 'Claude Tag (Claude in Slack) - Adoption Briefing',
-      desc: 'Adopt recommendation for Claude Tag, the shared @Claude teammate in Slack (included in our Team plan). How it works, the confirmed custom-MCP hookup for the company server, four STA uses in pilot order, and the rollout plan before the Aug 3 legacy cutoff.',
+      title: 'Claude Tag - Adoption Briefing',
+      desc: 'Claude Tag launched 2026-08-03 - the shared @Claude teammate in Slack, included in our Team plan. How it works, the custom-MCP hookup for the company server, and the four STA uses in pilot order. Post-launch reference; the legacy app it replaced is retired.',
       file: 'docs/claude-tag-briefing.html',
       type: 'html',
-      priority: 'wip',
-      tags: ['In Dev', 'Admin'],
-      added: '2026-07-09', updated: '2026-07-09'
+      priority: 'admin',
+      tags: ['Reference', 'Admin'],
+      added: '2026-07-09', updated: '2026-08-19'
     },
     'sta-server-proposal': {
       title: 'Company Cloud Server + STA Shared Brain - Proposal',
-      desc: 'Approved 6/19, now building (server targeted end of July). The leadership pitch for a ~$15/mo company cloud server hosting STA shared AI infrastructure - the shared brain every assistant reads from, plus automations. Build contract: the STA Server SOW.',
+      desc: 'Approved 2026-06-19 and now building. The leadership pitch for a ~$15/mo company cloud server hosting STA shared AI infrastructure, plus automations. Also covers the shared knowledge library - its Shared Brain tab is the authoritative scope for the single knowledge layer every assistant reads from. Build contract: the STA Server SOW.',
       file: 'docs/sta-server-proposal.html',
       type: 'html',
       priority: 'wip',
       tags: ['In Dev', 'Admin'],
-      added: '2026-06-08', updated: '2026-06-08'
-    },
-    'sta-shared-brain': {
-      title: 'The Shared Brain - Scope',
-      desc: 'Approved, in build. One update reaches every STA assistant: a single shared knowledge layer agents read from, so a fact changes in one place instead of in every project. Rides the company server (targeted end of July).',
-      file: 'docs/sta-shared-brain-scope.html',
-      type: 'html',
-      priority: 'wip',
-      tags: ['In Dev', 'Admin'],
-      added: '2026-06-08', updated: '2026-06-08'
+      added: '2026-06-08', updated: '2026-08-19'
     },
 
     // ===== Getting-started briefs =====
@@ -1484,7 +1456,7 @@ window.HELPFUL_LINKS = [
     items: [
       { name: 'STA Support Hub', url: 'https://serene-kulfi-7acc0e.netlify.app/', desc: 'Quick lookup for KB articles by product - the single-page app this hub was modeled on.' },
       { name: 'STA Help Center (Salesforce)', url: 'https://schooltechnology.my.site.com/s/', desc: 'Official customer-facing knowledge base.' },
-      { name: 'Pinion.md', url: 'https://buildwithbaker.github.io/pinion-md/', desc: 'Read and edit markdown (.md) files locally in your browser.' }
+      { name: 'Pinion.md', url: 'https://pinion.buildwithbaker.io/', desc: 'Read and edit markdown (.md) files locally in your browser.' }
     ]
   },
   {

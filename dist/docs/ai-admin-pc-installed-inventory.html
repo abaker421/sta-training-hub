@@ -121,13 +121,13 @@
         <div class="big">5</div>
         <div class="lab">Plugins installed</div>
       </div>
-      <div class="txt"><p><strong>Bottom line:</strong> the plugin bench was cut hard in the July 2026 cleanup - from 27 plugins down to <strong>6</strong>. What remains is the set actually used in daily work: <strong>Design, Slack by Salesforce, PDF Viewer, Desktop Commander, Cowork Plugin Management, and Figma</strong> (Figma is now a full plugin rather than a bare connector, and contributes 12 bundled skills of its own - so the bundled total is <strong>39</strong>, not 27). Anthropic's 18 stock skills (the full document pipeline) are untouched, and so are Adam's <strong>38</strong> custom skills - excluded here by design and documented on their own hub cards. Most plugin MCP connectors sit unauthenticated until first use. Nothing needs action - this is a reference inventory.</p></div>
+      <div class="txt"><p><strong>Bottom line:</strong> the plugin bench was cut hard in the July 2026 cleanup - from 27 plugins down to <strong>6</strong>. What remains is the set actually used in daily work: <strong>Design, Slack by Salesforce, PDF Viewer, Desktop Commander, Cowork Plugin Management, and Figma</strong> (Figma is now a full plugin rather than a bare connector, and contributes 12 bundled skills of its own - so the bundled total is <strong>39</strong>, not 27). Anthropic's platform skills (the full document pipeline) are untouched - <strong>21</strong> as of 2026-08-19 - and so are Adam's <strong>37</strong> custom skills - excluded here by design and documented on their own hub cards. Most plugin MCP connectors sit unauthenticated until first use. Nothing needs action - this is a reference inventory.</p></div>
     </section>
 
     <div class="kpis">
       <div class="kpi"><div class="num">6</div><div class="label">Plugins installed</div><div class="delta down">down from 27</div></div>
       <div class="kpi"><div class="num">39</div><div class="label">Plugin-bundled skills</div></div>
-      <div class="kpi"><div class="num">18</div><div class="label">Anthropic stock skills</div></div>
+      <div class="kpi"><div class="num">21</div><div class="label">Platform skills (Cowork)</div></div>
     </div>
     <h2>Six plugins remain after the cleanup</h2>
     <p>Down from 27, and back up by one when Figma graduated from a connector to a full plugin. The removed set was the business-role bench (Small Business, Data, Engineering, Sales, Operations, Product Management, Marketing, Finance, Customer Support), the heavy developer kits (Twilio, Zoom), and the research and utility group (Nimble, Enterprise Search, VPAI, Product Tracking, Brand Voice, Productivity, Airtable, Qodo, Fluent, Postiz). None were load-bearing for STA's day-to-day work; the custom skill suite and the stock document pipeline carry it.</p>
@@ -195,21 +195,23 @@
     </div></details>
 
     <div class="callout"><strong>Live MCP connectors this session:</strong> Gmail (draft-only), Google Calendar, Google Drive, Slack, Figma, Hugging Face, Zoom, Granola, GA4 (ga4-helpcenter, custom), MCP Registry. Box is <strong>not</strong> installed. The Design-plugin connectors (Figma, Asana, Atlassian, Intercom, Linear, Notion) sit unauthenticated until first sign-in.</div>
-    <h2>Anthropic's 18 stock skills cover the document pipeline end to end</h2>
-    <p>Untouched by the cleanup - these ship with Cowork and are always available.</p>
+    <h2>Anthropic's platform skills cover the document pipeline end to end</h2>
+    <p><strong>21 platform skills available in Cowork</strong> - 16 in the synced manifest, 5 callable without being synced (verified 2026-08-19). Untouched by the cleanup; these ship with Cowork and are always available. Claude Code exposes a different platform set - <code>schedule</code> and <code>consolidate-memory</code> appear there and are <strong>not</strong> part of the Cowork inventory this document describes.</p>
+    <div class="callout"><strong>Read this before recounting.</strong> <code>skills/synced/manifest.json</code> holds <strong>16</strong> of these. The other <strong>five</strong> - <code>setup-cowork</code>, <code>cowork-plugin</code>, <code>explain-usage</code>, <code>claude-in-chrome</code>, <code>dataviz</code> - are callable in session but are <strong>not synced to that folder</strong>, so they never appear in the manifest. A recount from the manifest alone lands on 16 and looks like a correction. It is not: the total is <strong>21</strong>. This gap is what made the count wrong in earlier passes.</div>
     <table>
-      <caption>Stock skills by job - documents and visual design dominate</caption>
-      <thead><tr><th scope="col">Group</th><th scope="col" class="num">Count</th><th scope="col">Skills</th></tr></thead>
+      <caption>Cowork platform skills by job - 16 synced to the manifest, 5 callable but unsynced</caption>
+      <thead><tr><th scope="col">Group</th><th scope="col" class="num">Count</th><th scope="col">Skills</th><th scope="col">In manifest</th></tr></thead>
       <tbody>
-        <tr><td>Office documents</td><td class="num">4</td><td>docx, pptx, xlsx, pdf</td></tr>
-        <tr><td>Visual / design</td><td class="num">6</td><td>canvas-design, algorithmic-art, brand-guidelines, theme-factory, web-artifacts-builder, slack-gif-creator</td></tr>
-        <tr><td>Writing</td><td class="num">2</td><td>doc-coauthoring, internal-comms</td></tr>
-        <tr><td>Builders</td><td class="num">2</td><td>skill-creator, mcp-builder</td></tr>
-        <tr><td>Utility</td><td class="num">4</td><td>schedule, learn, setup-cowork, consolidate-memory</td></tr>
+        <tr><td>Office documents</td><td class="num">4</td><td>docx, xlsx, pdf, pptx</td><td>Yes (<code>anthropic</code>)</td></tr>
+        <tr><td>Visual / design</td><td class="num">6</td><td>canvas-design, algorithmic-art, brand-guidelines, theme-factory, web-artifacts-builder, slack-gif-creator</td><td>Yes (<code>anthropic-example</code>)</td></tr>
+        <tr><td>Writing</td><td class="num">2</td><td>doc-coauthoring, internal-comms</td><td>Yes (<code>anthropic-example</code>)</td></tr>
+        <tr><td>Builders</td><td class="num">2</td><td>skill-creator, mcp-builder</td><td>Yes (<code>anthropic-example</code>)</td></tr>
+        <tr><td>Utility</td><td class="num">2</td><td>morning, learn</td><td>Yes (<code>anthropic-example</code>)</td></tr>
+        <tr><td>Setup / session</td><td class="num">5</td><td>setup-cowork, cowork-plugin, explain-usage, claude-in-chrome, dataviz</td><td><strong>No</strong> - callable, not synced</td></tr>
       </tbody>
-      <tfoot><tr><td>Total</td><td class="num">18</td><td></td></tr></tfoot>
+      <tfoot><tr><td>Total</td><td class="num">21</td><td></td><td>16 synced + 5 unsynced</td></tr></tfoot>
     </table>
-    <details class="plug"><summary>All 18 stock skills, full detail</summary><div class="inner">
+    <details class="plug"><summary>All 21 Cowork platform skills, full detail</summary><div class="inner">
       <h4>Office documents (4)</h4>
       <table><caption class="sr-only">Office document skills</caption><tbody>
         <tr><td>docx</td><td>Word documents: reports, memos, TOCs, tracked changes, find-and-replace</td></tr>
@@ -231,15 +233,25 @@
         <tr><td>doc-coauthoring</td><td>Structured co-writing workflow for docs, specs, proposals</td></tr>
         <tr><td>internal-comms</td><td>Status reports, leadership updates, newsletters, incident reports</td></tr>
       </tbody></table>
-      <h4>Builders + utility (6)</h4>
-      <table><caption class="sr-only">Builder and utility skills</caption><tbody>
+      <h4>Builders (2)</h4>
+      <table><caption class="sr-only">Builder skills</caption><tbody>
         <tr><td>skill-creator</td><td>Create, improve, and eval-test skills</td></tr>
         <tr><td>mcp-builder</td><td>Build MCP servers in Python or TypeScript</td></tr>
-        <tr><td>schedule</td><td>Scheduled tasks: on-demand or recurring</td></tr>
-        <tr><td>learn</td><td>Teaching mode: explanations, quizzes, learning paths</td></tr>
-        <tr><td>setup-cowork</td><td>Guided onboarding: plugins, connectors, first skill</td></tr>
-        <tr><td>consolidate-memory</td><td>Merge/prune auto-memory files and fix stale facts</td></tr>
       </tbody></table>
+      <h4>Utility (2)</h4>
+      <table><caption class="sr-only">Utility skills</caption><tbody>
+        <tr><td>morning</td><td>Start-of-day briefing run</td></tr>
+        <tr><td>learn</td><td>Teaching mode: explanations, quizzes, learning paths</td></tr>
+      </tbody></table>
+      <h4>Setup / session (5) - callable, not synced to the manifest</h4>
+      <table><caption class="sr-only">Setup and session skills</caption><tbody>
+        <tr><td>setup-cowork</td><td>Guided onboarding: plugins, first skill</td></tr>
+        <tr><td>cowork-plugin</td><td>Create and customise Cowork plugins</td></tr>
+        <tr><td>explain-usage</td><td>Explains plan usage and limits</td></tr>
+        <tr><td>claude-in-chrome</td><td>Drives the real Chrome profile for browser work</td></tr>
+        <tr><td>dataviz</td><td>House method for charts, dashboards, and palettes</td></tr>
+      </tbody></table>
+      <p style="font-size:12px;color:#666;margin-top:10px;"><code>schedule</code> and <code>consolidate-memory</code> were listed here in error and have been removed - neither is in the synced manifest nor the <strong>Cowork</strong> session skill list. They do appear in a Claude Code session, which exposes a different platform set; that is a different surface, not a missing entry here.</p>
     </div></details>
 
     <p>A <strong>deep-research</strong> harness (fan-out search, adversarial verification, cited reports) is also available as a built-in, outside the stock-skill count.</p>
@@ -269,7 +281,7 @@
         <tr><td rowspan="5">AI &amp; dev infrastructure</td><td>Claude (Anthropic)</td><td>claude.ai Projects (staff tools), Cowork desktop (agents + skills on this PC), Claude Code (repo work, PRs). <span class="st g">The AI layer itself</span></td></tr>
         <tr><td>GitHub</td><td>Repos for the training hub, BwB web apps, and the weekly full-system backup. Protected main; PR-based deploys. <span class="st g">AI-connected</span> (Claude Code + weekly-github-backup)</td></tr>
         <tr><td>Cloudflare Pages (+ D1)</td><td>Hosts the STA Training Hub and the STA Support Hub's Projects tab (D1-backed tracker); deploys from origin/main on PR merge. <span class="st g">AI-maintained</span></td></tr>
-        <tr><td>Netlify</td><td>Hosts the STA Support Hub single-page app (renamed 2026-06-11; repo slug remains <code>sta-help-center-index</code>). <span class="st g">AI-maintained</span></td></tr>
+        <tr><td>Cloudflare Pages</td><td>Hosts the STA Support Hub single-page app (renamed 2026-06-11; repo slug remains <code>sta-help-center-index</code>). <span class="st g">AI-maintained</span></td></tr>
         <tr><td>Google Analytics 4</td><td>Help Center traffic analytics. <span class="st g">AI-connected</span> (ga4-helpcenter connector + help-center-report skill)</td></tr>
         <tr><td rowspan="2">Security</td><td>Bullphish / Webroot / Spanning</td><td>Phishing training, endpoint protection, Salesforce backup. <span class="st w">Monitored</span> via STA Security Advisor (CIS v8.1 evidence tracking)</td></tr>
         <tr><td>Google Admin Console</td><td>Workspace administration, MFA enforcement, security events. <span class="st w">Monitored</span> via STA Security Advisor</td></tr>
@@ -281,7 +293,7 @@
 
     <details>
       <summary>Methodology and data sources</summary>
-      <p>Counts taken from the live Cowork session registry (available-skills list plus connected and deferred MCP server inventory). This is the 2026-07-01 rebuild after a plugin cleanup that cut the bench from 27 plugins to 5, revised 2026-08-17 when Figma was promoted from a connector to a full plugin; the earlier 2026-06-06 version documented the pre-cleanup 27-plugin set. Skill counts are the plugin-bundled skills visible this session (Design 7, Slack 7, Desktop Commander 6, PDF Viewer 5, Cowork Plugin Mgmt 2, Figma 12 = 39) plus Anthropic's 18 stock skills. Most connectors expose only authentication endpoints until first sign-in. Point-in-time snapshot - installing or removing a plugin invalidates the counts.</p>
+      <p>Counts taken from the live Cowork session registry (available-skills list plus connected and deferred MCP server inventory). This is the 2026-07-01 rebuild after a plugin cleanup that cut the bench from 27 plugins to 6, revised 2026-08-17 when Figma was promoted from a connector to a full plugin; the earlier 2026-06-06 version documented the pre-cleanup 27-plugin set. Skill counts are the plugin-bundled skills visible this session (Design 7, Slack 7, Desktop Commander 6, PDF Viewer 5, Cowork Plugin Mgmt 2, Figma 12 = 39) plus the <strong>21 platform skills available in Cowork</strong> (16 in <code>skills/synced/manifest.json</code> + 5 callable but unsynced - count from both, never from the manifest alone). <strong>Scope:</strong> every skill count in this document is the <strong>Cowork</strong> inventory. Claude Code exposes a different platform set, so a recount taken in another surface will not match and is not a correction. Most connectors expose only authentication endpoints until first sign-in. Point-in-time snapshot - installing or removing a plugin invalidates the counts.</p>
     </details>
   </div>
 

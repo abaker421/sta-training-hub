@@ -168,6 +168,32 @@ window.TRAINING_DATA = {
 
 **Redundant-tag dedup.** The card renderer auto-hides any tag that merely duplicates the priority (e.g. a `priority: 'admin'` card no longer shows a second "Admin" tag). List real, informative tags only.
 
+## Definition of Done for Any Doc Edit (added 2026-08-19)
+
+**Editing a doc is not finished until that doc'"'"'s card date moves.** Every entry in
+`window.TRAINING_DATA.docs` carries an `updated:` field. When you change a file in
+`dist/docs/`, set the matching card'"'"'s `updated:` to the edit date in the same pass.
+
+Why this is a written rule: in the 2026-08-17 sweep **43 docs changed and exactly one card
+date moved.** The hub then advertised months-old dates on freshly-corrected documents, which
+is worse than no date at all - a stale date reads as "checked recently, still right" and
+actively suppresses the next review. The drift check cannot catch it either, because the doc
+and the card disagree without either one being internally inconsistent.
+
+So the checklist for any doc edit is:
+
+1. Edit the file in `dist/docs/`.
+2. Bump that doc'"'"'s card `updated:` to today in `STA-Training-Hub.html`.
+3. If the change alters what the card promises, fix `desc` (and `check`) too - a corrected
+   doc behind a wrong description is still wrong to the reader who only reads cards.
+4. `cp "STA-Training-Hub.html" "dist/index.html"` to sync.
+5. Ship via PR (see above). No merged PR = no deploy.
+
+A doc edit that ships without step 2 should be treated as an incomplete change, not a
+completed one.
+
+---
+
 ## Adding a New Doc
 
 1. **Name the file as a URL-safe slug** before adding to dist. Use kebab-case, lowercase, no spaces, no special characters except hyphen and dot. Example: `customer-renewal-workflow.html`, not `Customer Renewal Workflow.html`. **This is mandatory** - Cloudflare Pages drag-and-drop uploads silently fail partway through batches when filenames contain spaces. The 2026-05-21 deploy attempt confirmed this empirically (uploads stopped at 3/4 with spaced filenames; succeeded fully after rename to slugs).
