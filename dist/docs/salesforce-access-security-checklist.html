@@ -212,7 +212,7 @@
       </div>
 
       <div class="callout orange">
-        <strong>The most important difference from Gmail.</strong> Gmail's connector is draft-only by Anthropic policy - Claude cannot send email without human action. Salesforce has no equivalent platform constraint. If you give Claude write access and allow direct execution, it will update records immediately with no review step. You must build the "propose before execute" model into the connector or the instructions - it does not happen automatically.
+        <strong>The most important thing to know: NEITHER connector has a platform gate.</strong> Gmail's <code>send_message</code>, <code>reply</code> and <code>forward</code> execute the moment they are called - there is no draft-only mode and no confirmation prompt (see the Google Access Security Checklist, corrected 2026-08-20). Salesforce is the same. In both cases the only control is a written prohibition in the project's <code>instructions.md</code> that names the tools. Do not calibrate Salesforce risk against a Gmail gate that does not exist. If you give Claude write access and allow direct execution, it will update records immediately with no review step. You must build the "propose before execute" model into the connector or the instructions - it does not happen automatically.
       </div>
     </div>
   </div>
@@ -312,7 +312,7 @@
     </div>
 
     <div class="callout orange">
-      <strong>This is the Salesforce equivalent of Gmail's "draft-only" rule</strong> - except it is not enforced by the platform. You have to build it in. The decision you make here applies to every write operation Claude performs in Salesforce.
+      <strong>This is the Salesforce equivalent of the written send-prohibition on Gmail-connected projects</strong> - and neither one is enforced by the platform. You have to build both in. The decision you make here applies to every write operation Claude performs in Salesforce.
     </div>
 
     <div class="decision-card">
@@ -321,7 +321,7 @@
       <div class="decision-options">
         <div class="opt opt-a">
           <div class="opt-label safer">Option A - Safer: Propose and Confirm</div>
-          Claude drafts the update and shows it to you: "I want to update Case #12345 - set Status to Closed, add this comment. Confirm?" You say yes, then it executes. Analogous to Gmail draft-only. Adds one step but gives you a review gate for every write. Recommended for V1.
+          Claude drafts the update and shows it to you: "I want to update Case #12345 - set Status to Closed, add this comment. Confirm?" You say yes, then it executes. Analogous to the written send-prohibition on Gmail-connected projects. Adds one step but gives you a review gate for every write. Recommended for V1.
         </div>
         <div class="opt opt-b">
           <div class="opt-label riskier">Option B - Riskier: Direct Execute</div>
@@ -694,7 +694,7 @@
         <div class="check-body">
           <div class="check-title">When any staff member leaves: revoke their Connected App authorization immediately</div>
           <div class="check-desc">Offboarding step (add to User Management Guide): Setup &rarr; Connected Apps OAuth Usage &rarr; find the departing user &rarr; Revoke. Also remove them from the "Claude AI Access" Permission Set. Do this the same day as their departure - do not wait for a quarterly audit. An active token for a former employee is a live security exposure.</div>
-          <div class="check-tip">This step is already in the User Management Guide's offboarding checklist - confirm it references the SF Connected App specifically.</div>
+          <div class="check-tip"><strong>This step does not exist yet.</strong> Verified 2026-08-20: the User Management Guide's offboarding procedure has five steps and none of them revokes a Salesforce credential or a Google OAuth grant. The Google Access Security Checklist correctly asks for the step to be ADDED; this page previously said it was already there, which is how the gap survived. Treat it as outstanding.</div>
         </div>
       </div>
     </div>
