@@ -166,7 +166,7 @@
 
   <div class="callout green">
     <strong>What changed in v2.2 (2026-04-29):</strong> Added case study as a standing deliverable. Every project and course gets a case study HTML file after the pipeline is complete. Added to Step 5 (Lock In) and to the hub card index. Case study format and confirmation gate rules documented in Formatting Standards.md.<br><br>
-    <strong>What changed in v2.1 (2026-04-29):</strong> Added Core Brain section covering the foundational context file structure, the 7 planned context-shared files, and the Deep Research production process. <code>sta-company-profile.md</code> seeded as the first core context file. The setup checklist of the day was updated with matching Group 4 action steps.<br><br>
+    <strong>What changed in v2.1 (2026-04-29):</strong> Added Core Brain section covering the foundational context file structure and the Deep Research production process. (The seven-file plan named in that section was superseded - the shared-context layer shipped under different filenames; see the mapping below.) <code>sta-company-profile.md</code> seeded as the first core context file. The setup checklist of the day was updated with matching Group 4 action steps.<br><br>
     <strong>What changed in v2 (2026-04-27):</strong> The Architect (formerly "Project Architect") absorbed the deprecated Prompt Maker on 2026-04-27. The build pipeline is now 5 steps instead of 6. The Architect produces full production-ready instructions, test cases, registry entry, and handoff in a single session. Test cases, registry entry, and handoff are only produced after Adam explicitly confirms instructions.md is final (v3.0 timing rule).
   </div>
 
@@ -213,62 +213,40 @@
     <strong>Do this before building your first real project.</strong> Without the core brain files, every agent you build will either lack company context or contain inconsistent one-off descriptions of STA's products, team, and customers. Work the two steps below in order; there is no separate checklist file to open.
   </div>
 
-  <div class="section-intro" style="margin-top:16px;"><strong>Historical - 2026-04-29 plan, retained for context (noted 2026-08-19).</strong> The seven files below were the <em>planned</em> core-brain set as of 2026-04-29. Several shipped under different names and the planned filenames here do not match the live shared-context set, so do not treat this table as a current inventory or use these filenames when building. The live shared context files are the authority - read them from the registry and from the Projects that carry them. The method still holds: seed one file, then produce the rest by running Deep Research and distilling the output via the <code>knowledge-base-context-builder</code> skill.</div>
+  <div class="section-intro" style="margin-top:16px;"><strong>The shared-context layer is live.</strong> This section used to carry a seven-file &quot;core brain&quot; plan written for a general all-staff chat project that was never built. The plan is gone, but the thing it was planning <em>shipped</em>: there are <strong>39 shared context files</strong> in <code>The Architect/context-files/shared/</code>, and that folder is the authority. Read it before writing any context file, and never build from the old planned filenames - they do not exist.</div>
+
+  <p>Four of the originally planned files shipped under different names. The mapping, so an old reference resolves to the real file:</p>
 
   <table class="file-table">
     <thead>
       <tr>
-        <th>File</th>
-        <th>What It Contains</th>
-        <th>Status</th>
-        <th>Info Needed to Produce It</th>
+        <th>Originally planned as</th>
+        <th>Shipped as</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><code>sta-company-profile.md</code></td>
-        <td>Who STA is, founding history, headquarters, size, revenue, mission, partnerships, contact info, online presence</td>
-        <td><span style="color:#3a8a1e;font-weight:700;">&#10003; Seeded 2026-04-29</span></td>
-        <td>Web research complete. Deep Research will extend with gaps (Skyward partnership date, total district count, competitive landscape).</td>
-      </tr>
-      <tr>
         <td><code>sta-brand-identity.md</code></td>
-        <td>Brand voice and tone, writing style, STA brand colors (Blue #006098 / Green #6bc04b / Gray #8a8d8e), logo usage rules, what to avoid in copy</td>
-        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
-        <td>Brand guidelines doc from Rachel Mathwig (Brand Strategist) or Deep Research on STA's public-facing copy + tone patterns.</td>
+        <td><code>context-sta-brand-colors.md</code></td>
       </tr>
       <tr>
         <td><code>sta-products-catalog.md</code></td>
-        <td>Full product list with descriptions, target buyer per product, Skyward integration details, hardware specs where relevant, pricing model (quote-based), new product launches</td>
-        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
-        <td>k12sta.com/products/ (covered by Deep Research). Supplement with internal product sheets if available.</td>
-      </tr>
-      <tr>
-        <td><code>sta-team-roster.md</code></td>
-        <td>Complete team with name, title, responsibilities, contact email, role in customer workflows (who handles sales, support, orders, renewals)</td>
-        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
-        <td>11 names and titles confirmed from About Us page. Responsibilities need internal input - ask Adam or Dan to review a draft.</td>
+        <td><code>context-sta-products.md</code></td>
       </tr>
       <tr>
         <td><code>sta-customers-icp.md</code></td>
-        <td>Customer segments, named districts by state and product, ideal customer profile (district size, Skyward version, decision maker), common pain points per segment</td>
-        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
-        <td>6 named districts confirmed from public sources. Full customer list and ICP definition needs internal input from Pat (Sales Director).</td>
+        <td><code>context-sta-customers.md</code> + <code>context-sta-k12-market-positioning.md</code></td>
       </tr>
       <tr>
-        <td><code>sta-tech-stack.md</code></td>
-        <td>All systems STA runs on (Skyward integration, Salesforce for support/help center, WordPress/WooCommerce for web store, Mailchimp, Google Analytics, ISCorp for SchoolTRAK hosting), how they connect</td>
-        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
-        <td>Tech stack partially confirmed from website source (WordPress, WooCommerce, Stripe, Salesforce, Mailchimp). Chris Baker (Senior Tech Admin) or Adam Baker (DevOps) can fill gaps.</td>
-      </tr>
-      <tr>
-        <td><code>sta-partnerships.md</code></td>
-        <td>Skyward exclusive partnership (details, history, what it means operationally), WSIPC, eFunds, Region 19, ISCorp, Attendance Works, and any reseller or referral arrangements</td>
-        <td><span style="color:#a06500;font-weight:700;">&#9711; Pending</span></td>
-        <td>Partnerships confirmed from public sources. Partnership terms, history, and operational details need internal input from Dan or Andy Hoerl.</td>
+        <td><code>sta-team-roster.md</code></td>
+        <td>Covered by <code>sta-company-profile.md</code> - no separate roster file</td>
       </tr>
     </tbody>
   </table>
+
+  <p><strong>Two never shipped and have no equivalent:</strong> <code>sta-tech-stack.md</code> and <code>sta-partnerships.md</code>. There is no file to point at. If a build needs either, that content has to be written - do not go looking for it in the shared folder.</p>
+
+  <p>The production method still holds: seed a file, then produce the rest by running Deep Research and distilling the output into structured context files via the <code>knowledge-base-context-builder</code> skill.</p>
 
   <div class="build-step" style="margin-top:20px;">
     <div class="build-step-header">

@@ -67,7 +67,7 @@ Card text lives in `window.TRAINING_DATA` inside `STA-Training-Hub.html` and is 
    Apply to the `.docx` files actually served from `dist\files\`:
 
    - `ai-acceptable-use-policy.docx`
-   - `ai-restricted-data-reference-guide.docx` (see Out of scope - included here for completeness, content exempt)
+   - `ai-restricted-data-reference-guide.docx` - **in scope for mechanical drift, exempt for content.** Scan it; see the rule below.
    - `ai-rollout-plan.docx`
    - `sta-salesforce-org-intake.docx`
 
@@ -90,7 +90,17 @@ Card text lives in `window.TRAINING_DATA` inside `STA-Training-Hub.html` and is 
 
 ## Out of scope
 
-- `ai-restricted-data-reference-guide.docx` - the file is part of the served set and is checked for mechanical drift (versions, names, paths), but its **content** is not subject to drift review.
+**The restricted-data guide is a split case, not an exemption.** Earlier passes read its entry here as "skip this file entirely." That is wrong, and it let mechanical drift accumulate in a document staff are required to read. The rule is:
+
+| | Status | Examples |
+|---|---|---|
+| **Mechanical drift** | **IN SCOPE - scan it** | Tool and agent names, version numbers, links, file paths, references to retired tools, section cross-references, dates |
+| **Content** | **EXEMPT - do not audit** | The policy substance, the data classifications, the decision rules, the worked examples |
+
+So: if the guide names a tool that has been renamed or retired, fix it. If it points at a moved path, fix it. If you disagree with how it classifies a data type, that is not yours to change - raise it with Adam as a policy question, never as a drift fix.
+
+Genuinely out of scope:
+
 - `project-blueprints/` folders - working files, not training materials.
 - `_Evaluations and Assessments/` - historical artifacts.
 
