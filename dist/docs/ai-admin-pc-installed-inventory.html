@@ -110,7 +110,7 @@
   <header>
     <p class="eyebrow">School Technology Associates &middot; AI Admin System Inventory</p>
     <h1>The AI Admin PC now runs 6 plugins and 39 bundled skills after the July 2026 cleanup</h1>
-    <p class="meta">Generated 2026-06-06 &middot; Rebuilt 2026-07-01 after a plugin cleanup &nbsp;&middot;&nbsp; Source: live session registry (skills + MCP servers) + context-org-tech-stack.md &nbsp;&middot;&nbsp; Scope: all installed plugins and stock skills, plus the STA tech stack the AI layer plugs into; Adam's custom skills excluded</p>
+    <p class="meta">Generated 2026-06-06 &middot; Rebuilt 2026-07-01 after a plugin cleanup &nbsp;&middot;&nbsp; Source: live session registry (skills + MCP servers) + context-org-tech-stack.md &nbsp;&middot;&nbsp; Scope: all installed plugins and stock skills, plus the STA tech stack the AI layer plugs into; Adam's custom skills excluded, numbers re-verified 2026-08-20</p>
     <div class="header-strip">INTERNAL &middot; ADMIN REFERENCE</div>
   </header>
 
@@ -118,10 +118,10 @@
 
     <section class="bluf" role="note" aria-label="Bottom line">
       <div class="hero">
-        <div class="big">5</div>
+        <div class="big">6</div>
         <div class="lab">Plugins installed</div>
       </div>
-      <div class="txt"><p><strong>Bottom line:</strong> the plugin bench was cut hard in the July 2026 cleanup - from 27 plugins down to <strong>6</strong>. What remains is the set actually used in daily work: <strong>Design, Slack by Salesforce, PDF Viewer, Desktop Commander, Cowork Plugin Management, and Figma</strong> (Figma is now a full plugin rather than a bare connector, and contributes 12 bundled skills of its own - so the bundled total is <strong>39</strong>, not 27). Anthropic's platform skills (the full document pipeline) are untouched - <strong>21</strong> as of 2026-08-19 - and so are Adam's <strong>37</strong> custom skills - excluded here by design and documented on their own hub cards. Most plugin MCP connectors sit unauthenticated until first use. Nothing needs action - this is a reference inventory.</p></div>
+      <div class="txt"><p><strong>Bottom line:</strong> the plugin bench was cut hard in the July 2026 cleanup - from 27 plugins down to <strong>6</strong>. What remains is the set actually used in daily work: <strong>Design, Slack by Salesforce, PDF Viewer, Desktop Commander, Cowork Plugin Management, and Figma</strong> (Figma is now a full plugin rather than a bare connector, and contributes 12 bundled skills of its own - so the bundled total is <strong>39</strong>, not 27). Anthropic's platform skills (the full document pipeline) are untouched - <strong>21</strong> as of 2026-08-19 - and so are Adam's <strong>38</strong> custom skills - excluded here by design and documented on their own hub cards. Most plugin MCP connectors sit unauthenticated until first use. Nothing needs action - this is a reference inventory.</p></div>
     </section>
 
     <div class="kpis">
@@ -279,8 +279,8 @@
         <tr><td>Granola</td><td>AI meeting notes/transcripts.</td></tr>
         <tr><td rowspan="5">AI &amp; dev infrastructure</td><td>Claude (Anthropic)</td><td>claude.ai Projects (staff tools), Cowork desktop (agents + skills on this PC), Claude Code (repo work, PRs).</td></tr>
         <tr><td>GitHub</td><td>Repos for the training hub, BwB web apps, and the weekly full-system backup. Protected main; PR-based deploys.</td></tr>
-        <tr><td>Cloudflare Pages (+ D1)</td><td>Hosts the STA Training Hub and the STA Support Hub's Projects tab (D1-backed tracker); deploys from origin/main on PR merge.</td></tr>
-        <tr><td>Cloudflare Pages</td><td>Hosts the STA Support Hub single-page app (renamed 2026-06-11; repo slug remains <code>sta-help-center-index</code>).</td></tr>
+        <tr><td>Cloudflare Pages - <code>sta-training-hub</code></td><td>Hosts the STA Training Hub. Static assets only, no database binding; deploys from <code>origin/main</code> on PR merge.</td></tr>
+        <tr><td>Cloudflare Pages - <code>sta-help-center-index</code> (+ D1)</td><td>Hosts the STA Support Hub single-page app <em>and</em> its D1-backed Projects tab (the <code>sta-tracker</code> database is bound in this project, not the Training Hub's). Renamed 2026-06-11; repo slug remains <code>sta-help-center-index</code>.</td></tr>
         <tr><td>Google Analytics 4</td><td>Help Center traffic analytics.</td></tr>
         <tr><td rowspan="2">Security</td><td>Bullphish / Webroot / Spanning</td><td>Phishing training, endpoint protection, Salesforce backup.</td></tr>
         <tr><td>Google Admin Console</td><td>Workspace administration, MFA enforcement, security events.</td></tr>
@@ -288,7 +288,7 @@
     </table>
     <div class="callout"><strong>Source of truth:</strong> the canonical stack doc is <strong>context-files/outputs/context-org-tech-stack.md</strong> in The Architect workspace. When a tool is added or dropped, update that file first, then regenerate this section.</div>
 
-    <div class="callout"><strong>Excluded by design:</strong> the 37 custom-built skills (garage-sale-scanner, prompt-evaluator, sta-html-report, time-clock-error-log-review, training-doc-auditor, and the rest of the pipeline tooling). They are all installed alongside everything above and documented on their own hub cards.</div>
+    <div class="callout"><strong>Excluded by design:</strong> the 38 custom-built skills (garage-sale-scanner, prompt-evaluator, sta-html-report, time-clock-error-log-review, training-doc-auditor, and the rest of the pipeline tooling). They are all installed alongside everything above and documented on their own hub cards.</div>
 
     <details>
       <summary>Methodology and data sources</summary>
