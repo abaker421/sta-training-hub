@@ -114,11 +114,11 @@
 <div class="header">
   <div class="header-inner">
     <h1>Google Access Security Checklist</h1>
-    <div class="sub">Pre-authorization review for connecting Gmail, Google Drive, and Google Calendar to Claude AI tools at School Tech</div>
+    <div class="sub">What the live Gmail and Google Calendar connections can actually do at School Tech, the rules that govern them, and the gate to run if a company Google Drive is ever created</div>
     <div class="header-meta">
       <div class="header-badge">Owner: Adam Baker</div>
-      <div class="header-badge">Covers: Gmail · Google Drive · Google Calendar</div>
-      <div class="header-badge">Last updated: 2026-04-29</div>
+      <div class="header-badge">Covers: Gmail · Google Calendar · Drive (connector removed 2026-08-20)</div>
+      <div class="header-badge">Last updated: 2026-08-20</div>
     </div>
   </div>
   <div class="header-strip">STAFF REFERENCE</div>
@@ -155,6 +155,14 @@
     <strong>Read before connecting anything.</strong> Gmail, Google Drive, and Google Calendar are treasure troves of sensitive data at a company like School Tech. Customer emails may reference student data. Drive likely holds contracts, HR files, and financial docs. Calendar contains information about who you're meeting with and why. Connecting them to AI tools is a decision that deserves deliberate review - not just "install the connector and go."
   </div>
 
+  <div class="callout orange">
+    <strong>Corrected 2026-08-20 after a live access review.</strong> Three things on this page were wrong, and each is fixed in place below rather than quietly deleted.
+    <br><br><strong>1. Sending is live.</strong> This page previously told staff that the Gmail connector creates drafts only and that sending was a hard platform constraint. That was never true.
+    <br><strong>2. Drive is gone.</strong> The Google Drive connector was removed on 2026-08-20. School Tech has no company Google Drive, so every Drive item on this page is a future gate, not a live control.
+    <br><strong>3. Two of the projects named on this page never existed.</strong> The page previously referred throughout to an "Email Assistant" and a "Case Update Assistant". Neither project was ever built. Gmail is connected to the <strong>Work Personal Assistant</strong>, and the post-meeting Calendar-to-Salesforce flow has not been built at all. Names have been corrected in place.
+    <br><strong>4. Nothing here is enforced by the platform.</strong> Every control on this page is either a Google account setting you have to set yourself or a written rule in an assistant project's instruction file. No item below is applied automatically because it is written here.
+  </div>
+
   <!-- ===================== SECTION 1 ===================== -->
   <div class="section" id="s1">
     <div class="section-header">
@@ -185,18 +193,27 @@
             <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>create_draft</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Create a draft reply or new email. Not sent until user clicks Send.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-med">Medium</span> - draft only; user controls final send</td></tr>
             <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;"><code>list_drafts</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;">List existing drafts in the account.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border); background:#fafbfc;"><span class="level lv-low">Low</span></td></tr>
             <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>create_label</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Create a new Gmail label/folder.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-low">Low</span></td></tr>
-            <tr><td style="padding:9px 14px;"><code>list_labels</code></td><td style="padding:9px 14px;">List all labels in the account.</td><td style="padding:9px 14px;"><span class="level lv-low">Low</span></td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>list_labels</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">List all labels in the account.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-low">Low</span></td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);; background:#fafbfc;"><code>send_message</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);; background:#fafbfc;">Send a new email. It leaves the mailbox the moment the tool is called. There is no draft step and no confirmation prompt.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);; background:#fafbfc;"><span class="level lv-critical">Critical</span> - executes immediately, cannot be recalled</td></tr>
+            <tr><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><code>reply</code> / <code>forward</code></td><td style="padding:9px 14px; border-bottom:1px solid var(--border);">Reply to or forward an existing thread. Same immediacy as send_message, and forward carries the entire prior thread to the new recipient.</td><td style="padding:9px 14px; border-bottom:1px solid var(--border);"><span class="level lv-critical">Critical</span> - executes immediately; forward can disclose a whole thread</td></tr>
+            <tr><td style="padding:9px 14px; background:#fafbfc;"><code>trash_message</code> / <code>trash_thread</code></td><td style="padding:9px 14px; background:#fafbfc;">Move a message or an entire thread to Trash.</td><td style="padding:9px 14px; background:#fafbfc;"><span class="level lv-high">High</span> - removes mail from the inbox with no confirmation</td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="callout orange">
-        <strong>No send capability by default.</strong> The Gmail MCP creates drafts only. Anthropic's policy requires explicit user confirmation before any send action. Claude cannot automatically send emails without a human clicking Send in Gmail. This is a hard platform constraint - not just a setting you configured.
+      <div class="callout red">
+        <strong>Correction 2026-08-20: sending is live, and no platform control prevents it.</strong> An earlier version of this page said the Gmail connector creates drafts only, that Anthropic requires explicit confirmation before any send, and that this was a hard platform constraint. All three statements were false, and they were false for the whole time the page was published.
+        <br><br><code>send_message</code>, <code>reply</code>, <code>forward</code>, <code>trash_message</code> and <code>trash_thread</code> execute the moment they are called. The Google Calendar tools <code>create_event</code>, <code>update_event</code> and <code>delete_event</code> behave the same way. None of them shows a confirmation prompt.
+        <br><br><strong>What actually stops an AI-initiated send</strong> is a written rule in each assistant project's instruction file - see <code>work-personal-assistant/instructions.md</code> v4.21, section "NEVER ACT in external systems", which names every one of those tools. Adam's ruling of 2026-08-20 adds a second layer: the Gmail send scope is being revoked at the Google grant itself, so the written rule stops being the only thing in the way.
+        <br><br><strong>Why this matters more than the fix.</strong> A security document that claims a technical control exists where only a behavioural instruction ever did is worse than one that admits the gap, because it stops anyone from looking.
       </div>
     </div>
 
     <div class="check-group">
-      <div class="check-group-title">Google Drive - What Claude Would Be Able To Do (once connected)</div>
+      <div class="check-group-title">Google Drive - What Claude Would Be Able To Do (connector removed 2026-08-20)</div>
+      <div class="callout red">
+        <strong>Not in force.</strong> The Google Drive connector was removed on 2026-08-20 and School Tech has no company Google Drive for it to reach. Nothing in this table describes a live connection. It stays on the page because it is the gate to run if a company Drive is created later.
+      </div>
       <div style="background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:12px;">
         <table style="width:100%; border-collapse:collapse; font-size:12.5px;">
           <thead>
@@ -268,39 +285,39 @@
         </tr>
         <tr>
           <td><strong>Employee HR/payroll</strong><br><span style="font-size:11.5px; color:#666;">Compensation discussions, performance conversations, HR decisions</span></td>
-          <td>Gmail (Tanya, Adam), Drive (HR folder)</td>
+          <td>Gmail (any inbox that receives HR correspondence), Drive (HR folder)</td>
           <td><span class="level lv-critical">Critical</span></td>
-          <td>The AI should never access inboxes or Drive folders containing HR correspondence. Separate HR email from work email where possible. Do not connect Tanya's inbox without explicit HR folder exclusion.</td>
+          <td>The AI should never access inboxes or Drive folders containing HR correspondence. Separate HR email from work email where possible. Do not connect an inbox that carries HR correspondence without an explicit exclusion for it.</td>
         </tr>
         <tr>
           <td><strong>Vendor contracts and agreements</strong><br><span style="font-size:11.5px; color:#666;">Skyward partnership agreements, supplier contracts, NDAs</span></td>
           <td>Drive, Gmail</td>
           <td><span class="level lv-high">High</span></td>
-          <td>Do not include contracts in Drive folders connected to AI. Do not ask AI to summarize or compare contract terms. Legal content is out of scope for the Email Assistant.</td>
+          <td>Do not include contracts in Drive folders connected to AI. Do not ask AI to summarize or compare contract terms. Legal content is out of scope for the Work Personal Assistant.</td>
         </tr>
         <tr>
           <td><strong>Financial data</strong><br><span style="font-size:11.5px; color:#666;">Bank statements, financial reports, payment information</span></td>
-          <td>Gmail (Tanya), Drive (finance folders)</td>
+          <td>Gmail (any inbox that receives finance mail), Drive (finance folders)</td>
           <td><span class="level lv-high">High</span></td>
-          <td>Do not connect Tanya's inbox without review. Finance Drive folders must be excluded from any Drive connector scope. This is CFO/Controller-level data.</td>
+          <td>Do not connect a finance-carrying inbox without review first. Finance Drive folders must be excluded from any Drive connector scope. This is CFO and Controller level data.</td>
         </tr>
         <tr>
           <td><strong>Internal sensitive discussions</strong><br><span style="font-size:11.5px; color:#666;">Staff conflicts, customer complaints about specific staff, legal matters in progress</span></td>
           <td>Gmail (management inboxes)</td>
           <td><span class="level lv-high">High</span></td>
-          <td>Management inboxes need more scrutiny before connecting. Adam's and Tanya's inboxes are higher risk than Tyler's. Start with support@ or task-specific inboxes.</td>
+          <td>Management inboxes need more scrutiny before connecting than support-focused ones. Start with support@ or task-specific inboxes.</td>
         </tr>
         <tr>
           <td><strong>Customer support cases</strong><br><span style="font-size:11.5px; color:#666;">Product issues, implementation questions, general support - no student data</span></td>
           <td>Gmail (support@, adam@)</td>
           <td><span class="level lv-med">Medium</span></td>
-          <td>Generally appropriate for the Email Assistant. Must be paired with the student-data stop instruction. This is the primary use case.</td>
+          <td>Generally appropriate for the Work Personal Assistant. Must be paired with the student-data stop instruction. This is the primary use case.</td>
         </tr>
         <tr>
           <td><strong>Calendar events - customer meetings</strong><br><span style="font-size:11.5px; color:#666;">Zoom calls, onboarding sessions, discovery meetings with districts</span></td>
           <td>Google Calendar</td>
           <td><span class="level lv-med">Medium</span></td>
-          <td>Generally appropriate for the Case Update Assistant use case (post-meeting documentation). Review that event descriptions don't contain student data before connecting.</td>
+          <td>Generally appropriate for post-meeting case documentation, though that flow has not been built as of 2026-08-20. Review that event descriptions do not contain student data before any project is pointed at them.</td>
         </tr>
         <tr>
           <td><strong>Internal meeting notes in calendar</strong><br><span style="font-size:11.5px; color:#666;">1:1s, performance discussions, internal planning with sensitive details in event descriptions</span></td>
@@ -318,7 +335,7 @@
           <td><strong>Routine support correspondence</strong><br><span style="font-size:11.5px; color:#666;">Order confirmations, shipping notices, software update notices - no customer data</span></td>
           <td>Gmail</td>
           <td><span class="level lv-low">Low</span></td>
-          <td>No specific risk. Good for testing the Email Assistant before opening access to customer threads.</td>
+          <td>No specific risk. Good for testing the Work Personal Assistant before opening access to customer threads.</td>
         </tr>
       </tbody>
     </table>
@@ -342,32 +359,35 @@
         <input type="checkbox">
         <div class="check-body">
           <div class="check-title"><span class="badge b-decide">DECIDE</span> Specify exactly which email accounts connect to Claude</div>
-          <div class="check-desc">Options from lowest to highest risk: (a) Adam's work email only - for the Email Assistant he controls. (b) Tyler's work email - lower risk inbox, support-focused. (c) Kelsey's work email - if she gets Cowork and the Email Assistant. (d) Tanya's work email - higher risk; CFO/Controller inbox. (e) Shared support@ inbox - all support emails, any staff member's session could access.
-          <br><br>Recommendation: Start with (a) Adam's or (b) Tyler's only. Do not connect Tanya's until you've assessed her inbox for HR/financial content.</div>
-          <div class="check-note">Decision: _________________________ (write which accounts are approved)</div>
+          <div class="check-desc">Rank candidate inboxes by what they carry, not by who holds them. <strong>Lowest risk:</strong> a task-specific or support-focused inbox held by one person. <strong>Higher risk:</strong> any inbox that receives HR, payroll, finance or legal correspondence - review its actual contents before it is connected at all, and exclude the folders that hold that mail. <strong>Highest risk:</strong> a shared mailbox that several people authenticate under, because every session then reaches all of its mail.
+          <br><br>One caution the 2026-08-20 review turned up: a support address that BCCs into a personal mailbox puts everything it receives inside the connected account's read scope, whether or not anyone intended that. Check where support mail lands before assuming an inbox is low risk.</div>
+          <div class="check-note">Who is connected is not published in the training hub. Record the approved accounts in the private access record instead.</div>
         </div>
       </div>
 
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title"><span class="badge b-decide">DECIDE</span> Confirm Gmail MCP is draft-only - no AI-triggered send</div>
-          <div class="check-desc">Verify that the Gmail MCP connector in Cowork is configured as draft-only. Claude should create the draft and the human clicks Send. This is the default Anthropic behavior but verify it is not overridden in any Cowork project's instructions. Look for any instruction language that says "send the email" - that is not acceptable.</div>
-          <div class="check-tip">Check all project instructions.md files for any "send email" language. If found, remove it.</div>
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Write the no-send rule into every Gmail-connected project</div>
+          <div class="check-desc">There is no draft-only setting to switch on. Whenever Gmail is connected, <code>send_message</code>, <code>reply</code> and <code>forward</code> are exposed and each executes on call. The control has to be a written prohibition in the project's <code>instructions.md</code>, and it has to name the tools - a rule that says "drafts only" is easy to read as a description of the connector rather than an order.</div>
+          <div class="check-tip">Reference wording: <code>work-personal-assistant/instructions.md</code> v4.21, section "NEVER ACT in external systems". Read every Gmail-connected project's instructions for language that authorises sending, and replace it. The durable fix is at the Google grant, not in the prompt: Adam's ruling of 2026-08-20 revokes the send scope there.</div>
         </div>
       </div>
 
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title"><span class="badge b-decide">DECIDE</span> Personal Gmail vs. work Google Workspace - which is the Email Assistant connecting?</div>
-          <div class="check-desc">The Email Assistant should connect to work email (Google Workspace @k12sta.com), not personal Gmail. Personal Gmail may contain unrelated personal data. If you need to connect personal Gmail for any reason, that is a separate authorization step. Default: work email only.</div>
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Personal Gmail vs. work Google Workspace - which is the Work Personal Assistant connecting?</div>
+          <div class="check-desc">The Work Personal Assistant should connect to work email (Google Workspace @k12sta.com), not personal Gmail. Personal Gmail may contain unrelated personal data. If you need to connect personal Gmail for any reason, that is a separate authorization step. Default: work email only.</div>
         </div>
       </div>
     </div>
 
     <div class="check-group">
-      <div class="check-group-title">Which Drive folders are in scope?</div>
+      <div class="check-group-title">Which Drive folders are in scope? (not in force - connector removed 2026-08-20)</div>
+      <div class="callout red">
+        <strong>Nothing to decide yet.</strong> There is no company Google Drive and the connector was removed on 2026-08-20. Leave these two items unanswered; they are the gate to run if a company Drive is created.
+      </div>
 
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
@@ -407,7 +427,7 @@
         <input type="checkbox">
         <div class="check-body">
           <div class="check-title"><span class="badge b-block">REQUIRED</span> Verify credential-detection stop instruction covers error log emails</div>
-          <div class="check-desc">Work Gmail at School Tech may receive system alert emails and error notifications that include API keys, tokens, or credentials in the message body (e.g., Skyward API error logs, system monitoring alerts). These will enter Claude's context when the Email Assistant searches or reads threads.
+          <div class="check-desc">Work Gmail at School Tech may receive system alert emails and error notifications that include API keys, tokens, or credentials in the message body (e.g., Skyward API error logs, system monitoring alerts). These will enter Claude's context when the Work Personal Assistant searches or reads threads.
           <br><br>The credential-detection stop instruction (Section 4) must be in place and tested before connecting work Gmail. Verify it explicitly fires on an email containing a test token before rolling out to any other staff member.</div>
           <div class="check-tip">Test with a synthetic email containing a fake API key string (e.g., "sk-test-12345abc"). Verify the assistant stops and flags rather than reading it aloud or including it in a draft.</div>
         </div>
@@ -418,8 +438,8 @@
         <div class="check-body">
           <div class="check-title"><span class="badge b-decide">DECIDE</span> Assess how Claude handles customer environment data in support emails</div>
           <div class="check-desc">Support emails from school districts may contain district-specific configuration details, system credentials, or implementation information that belongs to the district - not student PII, but sensitive operational data. Claude should not summarize this data beyond the immediate task or retain it across sessions.
-          <br><br>Decision: Add an explicit instruction to the Email Assistant - "Do not summarize, reproduce, or reference specific system credentials, configuration details, or implementation data shared by a customer district. If an email contains this type of data, complete only the immediately requested task (e.g., acknowledging receipt) and do not reference the specific technical details."</div>
-          <div class="check-note">Instruction added to Email Assistant instructions.md: Yes / No / Pending</div>
+          <br><br>Decision: Add an explicit instruction to the Work Personal Assistant - "Do not summarize, reproduce, or reference specific system credentials, configuration details, or implementation data shared by a customer district. If an email contains this type of data, complete only the immediately requested task (e.g., acknowledging receipt) and do not reference the specific technical details."</div>
+          <div class="check-note">Instruction added to Work Personal Assistant instructions.md: Yes / No / Pending</div>
         </div>
       </div>
 
@@ -440,8 +460,9 @@
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title"><span class="badge b-decide">DECIDE</span> Calendar: read-only first, no create/delete until tested</div>
-          <div class="check-desc">The primary Calendar use case (post-meeting case documentation) only needs read access - Claude reads the event to see what the meeting was about, then drafts a case comment. Create and delete capabilities are not needed for V1 and add unnecessary risk. Confirm the Calendar MCP is read-only before connecting.</div>
+          <div class="check-title"><span class="badge b-decide">DECIDE</span> Calendar: no AI-initiated create, update or delete</div>
+          <div class="check-desc">Post-meeting case documentation only needs to read the event - what the meeting was about, who attended - and then draft a case comment. Create, update and delete are not needed, and <code>update_event</code> and <code>delete_event</code> reach other people's calendars as well as your own.
+          <br><br><strong>There is no read-only mode to select.</strong> <code>create_event</code>, <code>update_event</code> and <code>delete_event</code> are exposed whenever Calendar is connected and each executes on call. The restriction has to be written into the instructions of every Calendar-connected project, naming the three tools.</div>
         </div>
       </div>
 
@@ -449,7 +470,7 @@
         <input type="checkbox">
         <div class="check-body">
           <div class="check-title"><span class="badge b-decide">DECIDE</span> Define which calendar events the AI should access</div>
-          <div class="check-desc">The Case Update Assistant only needs to read customer-facing events (Zoom calls, onboarding sessions, district calls). It does not need access to internal 1:1s, HR-related calendar events, or personal events. Instruct the AI to only access events explicitly connected to customer districts or tagged with a specific label (e.g., [CUSTOMER] or [IMPLEMENTATION]).</div>
+          <div class="check-desc">Post-meeting case documentation only needs to read customer-facing events (Zoom calls, onboarding sessions, district calls). It does not need access to internal 1:1s, HR-related calendar events, or personal events. Instruct the AI to only access events explicitly connected to customer districts or tagged with a specific label (e.g., [CUSTOMER] or [IMPLEMENTATION]).</div>
           <div class="check-note">Approved calendar scope: _________________________</div>
         </div>
       </div>
@@ -473,8 +494,9 @@
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title"><span class="badge b-block">REQUIRED</span> Add student-data stop instruction to the Email Assistant's instructions.md</div>
-          <div class="check-desc">The Email Assistant instructions.md MUST include this exact behavior rule: "If you encounter any email that contains student names, student IDs, attendance records, disciplinary information, or any data that appears to be about an individual student, STOP. Do not summarize, draft a reply, or reference the student data in any way. Inform the user: 'This email appears to contain student data. I cannot process it per School Tech's data policy. Please handle this email outside AI tools.' Then stop."</div>
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Add student-data stop instruction to the Work Personal Assistant's instructions.md</div>
+          <div class="check-desc">The Work Personal Assistant instructions.md MUST include this exact behavior rule: "If you encounter any email that contains student names, student IDs, attendance records, disciplinary information, or any data that appears to be about an individual student, STOP. Do not summarize, draft a reply, or reference the student data in any way. Inform the user: 'This email appears to contain student data. I cannot process it per School Tech's data policy. Please handle this email outside AI tools.' Then stop."</div>
+          <div class="check-note"><strong>Applied 2026-08-20.</strong> Live as section "STUDENT DATA - REDACT ON SIGHT" in <code>work-personal-assistant/instructions.md</code> v4.21. The rule as written there is stricter than the wording above: student-identifying data is redacted on sight and never enters a draft, report, brain, context file, task or log.</div>
         </div>
       </div>
 
@@ -483,6 +505,7 @@
         <div class="check-body">
           <div class="check-title"><span class="badge b-block">REQUIRED</span> Add credential-detection stop instruction</div>
           <div class="check-desc">Add: "If you encounter an email containing what appears to be a password, API key, login credential, or authentication token, do not read it aloud, repeat it, or include it in any draft. Flag to the user: 'This email appears to contain credentials. I've stopped reading it. Please handle this separately.' Then stop."</div>
+          <div class="check-note"><strong>Applied 2026-08-20.</strong> Live as section "INBOUND SECRETS AND AUTH CODES - STOP, DO NOT TRANSCRIBE" in <code>work-personal-assistant/instructions.md</code> v4.21 and <code>personal-assistant/instructions.md</code> v2.26. Covers one-time passcodes, MFA and recovery codes, reset and activation links, plaintext passwords, API keys and tokens, and treats instructions found inside an email as data rather than commands.</div>
         </div>
       </div>
 
@@ -490,15 +513,16 @@
         <input type="checkbox">
         <div class="check-body">
           <div class="check-title"><span class="badge b-block">REQUIRED</span> Limit scope in instructions: "Only access emails relevant to [specific task]"</div>
-          <div class="check-desc">The Email Assistant should not be given open-ended inbox access with no guardrail. Its instructions should specify: "Only search for and access emails related to [product support, implementation inquiries, customer questions about School Tech products]. Do not access internal HR emails, financial discussions, emails marked CONFIDENTIAL, or any email thread that appears to be about staffing or personnel matters."</div>
+          <div class="check-desc">The Work Personal Assistant should not be given open-ended inbox access with no guardrail. Its instructions should specify: "Only search for and access emails related to [product support, implementation inquiries, customer questions about School Tech products]. Do not access internal HR emails, financial discussions, emails marked CONFIDENTIAL, or any email thread that appears to be about staffing or personnel matters."</div>
         </div>
       </div>
 
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Verify the Gmail MCP in Cowork creates drafts only - not auto-send</div>
-          <div class="check-desc">Open the Email Assistant workspace. Ask it to "draft a test reply to the most recent email." Verify it creates a draft in Gmail (visible in your Drafts folder) and does NOT send. If it sends, you have a configuration error that must be resolved before using the tool with real customers.</div>
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Test that the assistant refuses to send</div>
+          <div class="check-desc">Open the Gmail-connected workspace and ask it to send a test email to your own address. The correct outcome is a refusal that cites the no-send rule, or a draft. If it sends, the written rule is not holding, and that workspace must not be used on customer mail until it is.
+          <br><br>This is a behaviour test, not a configuration check. There is no setting to inspect - the only evidence that the control works is that the assistant declines.</div>
         </div>
       </div>
     </div>
@@ -510,7 +534,7 @@
         <input type="checkbox">
         <div class="check-body">
           <div class="check-title"><span class="badge b-block">REQUIRED</span> Gmail connector is connected per-user, not shared</div>
-          <div class="check-desc">Each Cowork workspace connects Gmail via OAuth for a specific Google account. If Tyler connects his Gmail to his Cowork Email Assistant workspace, it sees his inbox only. Kelsey's connects to hers. This is correct. What is NOT correct: a shared Cowork workspace where multiple users authenticate under one Gmail account (e.g., support@). That gives every session access to all of support@'s email. Avoid shared inbox connections in V1.</div>
+          <div class="check-desc">Each Cowork workspace connects Gmail via OAuth for one specific Google account, so a workspace reaches only the mailbox of the account that authorised it. That is correct. What is NOT correct: a shared Cowork workspace where several people authenticate under one Gmail account, for example a support address. That gives every session access to all of that mailbox's mail. Avoid shared-inbox connections.</div>
         </div>
       </div>
 
@@ -526,9 +550,9 @@
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Each person who uses the Email Assistant connects their own Gmail - document who is connected</div>
-          <div class="check-desc">Keep a record of which Gmail accounts have been connected to Claude/Cowork. This is your audit baseline. When someone leaves the company, you revoke their connection immediately. When you run a security review, you check this list.</div>
-          <div class="check-note">Connected accounts: Adam Baker (_____________), Tyler Baughman (_____________), Kelsey Eberly (_____________)</div>
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Keep the connected-accounts record - privately, not on this page</div>
+          <div class="check-desc">Keep a record of which Google accounts have been connected to Claude or Cowork, which scopes each grant carries, and the date each was given. That record is the audit baseline: it is what you revoke against when someone leaves, and what you compare against the roster when you run a review.</div>
+          <div class="check-note">Adam's ruling: who is connected is not published in the training hub. The record lives in the private access register, not here.</div>
         </div>
       </div>
     </div>
@@ -540,7 +564,7 @@
         <input type="checkbox">
         <div class="check-body">
           <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Test with a real student-data email - verify the stop instruction fires</div>
-          <div class="check-desc">Find an email in your inbox that contains student-adjacent data (a support case from a district that references a student ID or name). Ask the Email Assistant to "summarize the most recent case from [district]." Verify it stops and displays the data policy message rather than summarizing the student information. If it summarizes student data, the stop instruction is not working - do not roll out until fixed.</div>
+          <div class="check-desc">Find an email in your inbox that contains student-adjacent data (a support case from a district that references a student ID or name). Ask the Work Personal Assistant to "summarize the most recent case from [district]." Verify it stops and displays the data policy message rather than summarizing the student information. If it summarizes student data, the stop instruction is not working - do not roll out until fixed.</div>
         </div>
       </div>
 
@@ -548,7 +572,7 @@
         <input type="checkbox">
         <div class="check-body">
           <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Test the draft creation flow end to end</div>
-          <div class="check-desc">Pick a real (non-sensitive) support email. Ask the Email Assistant to "draft a professional reply to this customer." Review the draft: (1) it exists in Gmail Drafts, (2) it has not been sent, (3) the content is appropriate and does not repeat any sensitive content from the thread, (4) the tone matches School Tech's voice. Only after passing this test should any other staff member use the tool.</div>
+          <div class="check-desc">Pick a real (non-sensitive) support email. Ask the Work Personal Assistant to "draft a professional reply to this customer." Review the draft: (1) it exists in Gmail Drafts, (2) it has not been sent, (3) the content is appropriate and does not repeat any sensitive content from the thread, (4) the tone matches School Tech's voice. Only after passing this test should any other staff member use the tool.</div>
         </div>
       </div>
     </div>
@@ -566,7 +590,7 @@
     </div>
 
     <div class="callout red">
-      <strong>Do not connect Drive broadly.</strong> Drive contains School Tech's most sensitive internal files. A broad connection means Claude can potentially read contracts, financial documents, and HR files. The V1 approach must be folder-scoped and read-only.
+      <strong>Not in force as of 2026-08-20.</strong> The Drive connector was removed and School Tech has no company Google Drive, so no item in this section governs anything today. It stays on the page as the gate to run if a company Drive is created.<br><br>When that happens, the rule is unchanged: do not connect Drive broadly. Drive is where contracts, financial documents and HR files would live, and a broad connection means Claude can read all of them. The first connection must be folder-scoped and read-only.
     </div>
 
     <div class="check-group">
@@ -624,8 +648,9 @@
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> Calendar connection is read-only - no create, no delete in V1</div>
-          <div class="check-desc">The post-meeting Case Update flow only needs to read events (who was in the meeting, what the meeting was about) and then draft a Salesforce case comment. It does not need to create or delete events. Verify the Calendar MCP is read-only before connecting. If the MCP supports create/delete, disable it in V1 and re-enable only if a specific use case requires it.</div>
+          <div class="check-title"><span class="badge b-confirm">CONFIRM</span> The no-create, no-delete rule is written into every Calendar-connected project</div>
+          <div class="check-desc">Post-meeting case documentation only needs to read events - who attended, what the meeting was about - and then draft a Salesforce case comment. It does not need to create, update or delete anything.
+          <br><br>There is no connector setting that disables those tools, and nothing to switch off: <code>create_event</code>, <code>update_event</code> and <code>delete_event</code> are exposed whenever Calendar is connected. Verify the prohibition is written into the instructions of every project that has Calendar connected, and that it names the three tools rather than saying "read-only".</div>
         </div>
       </div>
 
@@ -641,7 +666,7 @@
         <input type="checkbox">
         <div class="check-body">
           <div class="check-title"><span class="badge b-block">REQUIRED</span> Add calendar access instruction scoping to customer events only</div>
-          <div class="check-desc">In the Case Update Assistant instructions.md, include: "When accessing Google Calendar, only look at events that involve external customers or are specifically tagged for follow-up. Do not access internal-only events, 1:1 meetings without an external attendee, or any event whose title or description suggests it is an HR or financial matter."</div>
+          <div class="check-desc">In the instructions.md of any project that has Calendar connected, include: "When accessing Google Calendar, only look at events that involve external customers or are specifically tagged for follow-up. Do not access internal-only events, 1:1 meetings without an external attendee, or any event whose title or description suggests it is an HR or financial matter."</div>
         </div>
       </div>
 
@@ -672,14 +697,14 @@
         <input type="checkbox">
         <div class="check-body">
           <div class="check-title">Each user reads and signs off on the Gmail-connected AI use rules before first use</div>
-          <div class="check-desc">Minimum rules every connected user must understand: (1) Do not use the Email Assistant on emails that contain student names or IDs. (2) Do not use it for HR or compensation conversations. (3) Always review the draft before sending - you are responsible for what gets sent, not the AI. (4) If the AI generates something incorrect or inappropriate, do not send it - report to Adam via the Agent Quality Logger. (5) Do not copy and paste email content into any other AI tool that is not connected to the same data policy.</div>
+          <div class="check-desc">Minimum rules every connected user must understand: (1) Do not use the Work Personal Assistant on emails that contain student names or IDs. (2) Do not use it for HR or compensation conversations. (3) Always review the draft before sending - you are responsible for what gets sent, not the AI. (4) If the AI generates something incorrect or inappropriate, do not send it - report to Adam via the Agent Quality Logger. (5) Do not copy and paste email content into any other AI tool that is not connected to the same data policy.</div>
         </div>
       </div>
 
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title">Adam demonstrates the Email Assistant to each new user before they use it independently</div>
+          <div class="check-title">Adam demonstrates the Work Personal Assistant to each new user before they use it independently</div>
           <div class="check-desc">Do not give people access and assume they'll figure it out. Walk each person through: (1) how to start a session, (2) how to ask for a draft, (3) what to do if the AI stops and flags student data, (4) how to review and edit the draft before sending. One 15-minute walkthrough prevents most misuse.</div>
         </div>
       </div>
@@ -687,8 +712,8 @@
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title">Update the Staff AI Tools Reference with Gmail-connected Email Assistant rules</div>
-          <div class="check-desc">The Staff AI Tools Reference.html must be updated to reflect that the Email Assistant is Gmail-connected - what that means, what it can see, and the specific rules for using it. Staff should not encounter this capability without having read the relevant guidance first.</div>
+          <div class="check-title">Update the Staff AI Tools Reference with Gmail-connected Work Personal Assistant rules</div>
+          <div class="check-desc">The Staff AI Tools Reference.html must be updated to reflect that the Work Personal Assistant is Gmail-connected - what that means, what it can see, and the specific rules for using it. Staff should not encounter this capability without having read the relevant guidance first.</div>
         </div>
       </div>
     </div>
@@ -780,7 +805,7 @@
       <input type="checkbox">
       <div class="check-body">
         <div class="check-title">Contact Adam and use the Agent Quality Logger for any incident</div>
-        <div class="check-desc">Every incident involving Google-connected tools - regardless of severity - goes through the Agent Quality Logger (available in any Cowork workspace: "log this feedback, the Email Assistant read a student data email"). Adam reviews the log weekly and routes Critical items to Project Feedback immediately. The log creates a paper trail and prevents the same incident from recurring.</div>
+        <div class="check-desc">Every incident involving Google-connected tools - regardless of severity - goes through the Agent Quality Logger (available in any Cowork workspace: "log this feedback, the Work Personal Assistant read a student data email"). Adam reviews the log weekly and routes Critical items to Project Feedback immediately. The log creates a paper trail and prevents the same incident from recurring.</div>
       </div>
     </div>
   </div>
@@ -788,7 +813,7 @@
 </div>
 
 <div class="footer">
-  <strong>School Technology Associates</strong> &nbsp;|&nbsp; Google Access Security Checklist &nbsp;|&nbsp; Created 2026-04-28 &nbsp;|&nbsp; Owner: Adam Baker
+  <strong>School Technology Associates</strong> &nbsp;|&nbsp; Google Access Security Checklist &nbsp;|&nbsp; Created 2026-04-28 &nbsp;|&nbsp; Last updated 2026-08-20 &nbsp;|&nbsp; Owner: Adam Baker
 </div>
 
 <script>
