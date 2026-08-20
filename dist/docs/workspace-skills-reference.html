@@ -180,7 +180,7 @@
 
   <!-- SECTION 4 -->
   <div class="section-title" id="sec-4">4 — Every Custom Skill</div>
-  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code> in <code class="inline">Backups/skills/INDEX.md</code>) &mdash; <strong>37 unique custom skills</strong> (an installed count of 38 reflects one duplicate entry, noted below; 37 is the number of distinct skills). Anthropic-shipped skills (docx, pptx, xlsx, pdf, schedule, skill-creator, etc.) are not listed here. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
+  <div class="section-intro">The skills below are Adam-built (<code class="inline">type: custom</code>) &mdash; <strong>38 custom skills</strong>. The authority for that count is the <strong>synced account skills manifest</strong> (<code class="inline">source: custom</code>). <code class="inline">Backups/skills/INDEX.md</code> is a <em>backup</em> index - a record of what has been archived - and is not the inventory of record for how many skills exist. Anthropic-shipped <strong>platform</strong> skills (docx, pptx, xlsx, pdf, skill-creator, etc.) are not listed here; there are <strong>21</strong> of those, per the <strong>live Cowork session skill list</strong>. To check whether any are out of sync, ask: <em>"verify all custom skills."</em></div>
 
   <div class="grp">Build pipeline &mdash; designing &amp; validating agents</div>
 
@@ -349,12 +349,12 @@
     <div class="skill-trig"><strong>Say:</strong> fires automatically on an override attempt</div></div>
 
   <div class="callout blue" style="margin-top: 18px;">
-    <strong>Source of truth:</strong> the authoritative list, versions, and drift state live in <code class="inline">Backups/skills/INDEX.md</code>. Run the verify procedure there to confirm installed copies match their backups before relying on any skill.
+    <strong>Backup and drift state:</strong> per-skill versions, backup status, and drift live in <code class="inline">Backups/skills/INDEX.md</code>. Run the verify procedure there to confirm installed copies match their backups before relying on any skill. That file is a backup index, so it is the authority for <em>archive state</em> - not for <em>how many</em> skills exist. For the custom count use the synced account skills manifest; for the platform count use the live Cowork session skill list.
   </div>
 
 
   <div style="margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 13px; color: #555; line-height: 1.6;">
-    <strong style="color: var(--dark);">Maintaining this doc?</strong> Folder maps come from a live scan of the workspace; the skill list comes from <code class="inline">Backups/skills/INDEX.md</code> (<code class="inline">type: custom</code> rows). Re-verify both against disk before editing.
+    <strong style="color: var(--dark);">Maintaining this doc?</strong> Folder maps come from a live scan of the workspace; the per-skill rows come from <code class="inline">Backups/skills/INDEX.md</code> (<code class="inline">type: custom</code>), and the <em>count</em> is taken from the synced account skills manifest rather than from that file. Re-verify both against disk before editing.
   </div>
 
 </div>
