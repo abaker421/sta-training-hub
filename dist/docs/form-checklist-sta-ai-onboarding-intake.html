@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STA AI Onboarding Intake</title>
+<style>
+  :root{
+    --blue:#006098; --blue-d:#004a78; --blue-l:#0a73b3; --green:#6bc04b; --green-d:#4f9a31;
+    --ink:#1a2332; --muted:#6b7280; --line:#dde1e6; --bg:#eef1f4; --card:#fff; --chip:28px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14.5px;line-height:1.55;padding:24px 16px 48px}
+  .container{max-width:720px;margin:0 auto}
+
+  /* B1 masthead */
+  .masthead{background:linear-gradient(120deg,var(--blue-d) 0%,var(--blue) 60%,var(--blue-l) 100%);border-radius:10px;box-shadow:0 1px 2px rgba(15,23,42,.06);padding:24px 30px 20px;margin-bottom:16px;color:#fff}
+  .masthead .eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--green);margin-bottom:12px}
+  .masthead .eyebrow::before{content:"";width:14px;height:14px;border-radius:3px;background:var(--green)}
+  .masthead h1{font-size:28px;font-weight:700;letter-spacing:-.4px;line-height:1.12;margin-bottom:18px}
+  .masthead .meta{display:flex;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+  .masthead .field{flex:1;min-width:170px}
+  .masthead .field label{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.7);margin-bottom:5px}
+  .masthead .field input{width:100%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;font:inherit;font-size:14px;padding:8px 11px;border-radius:6px}
+  .masthead .field input::placeholder{color:rgba(255,255,255,.55)}
+  .masthead .field input:focus{outline:none;border-color:var(--green);background:rgba(255,255,255,.2)}
+  .progress-row{display:flex;align-items:center;gap:12px}
+  .progress-bar-outer{flex:1;height:9px;background:rgba(255,255,255,.22);border-radius:5px;overflow:hidden}
+  .progress-bar-inner{height:100%;border-radius:5px;width:0%;background:var(--green);transition:width .3s ease}
+  .progress-count{font-size:12.5px;font-weight:600;color:#fff;white-space:nowrap}
+
+  /* read-first */
+  .intro-callout{background:#eaf2f8;border-left:4px solid var(--blue);border-radius:0;padding:14px 18px 12px;margin-bottom:16px}
+  .intro-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--blue);margin-bottom:8px}
+  .intro-callout ul{margin:0;padding-left:18px}
+  .intro-callout li{font-size:13.5px;line-height:1.55;margin-bottom:3px}
+  .intro-callout li:last-child{margin-bottom:0}
+
+  /* sections */
+  .section{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 1px 2px rgba(15,23,42,.06);margin-bottom:12px;overflow:hidden}
+  .section-header{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .section-num{width:var(--chip);height:var(--chip);border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s ease}
+  .section[data-complete] .section-num{background:var(--green)}
+  .section-title{font-size:15px;font-weight:600;flex:1}
+  .section-check{width:20px;height:20px;flex-shrink:0;opacity:0;transition:opacity .2s ease}
+  .section[data-complete] .section-check{opacity:1}
+
+  /* form items (hybrid: checkbox and/or text) */
+  .fitems{list-style:none;padding:6px 18px 12px}
+  .fitem{padding:11px 0;border-bottom:1px solid #f0f2f5}
+  .fitem:last-child{border-bottom:none}
+  .fitem-q{display:flex;align-items:flex-start;gap:10px;margin-bottom:7px}
+  .fitem input.fcheck{display:none}
+  .fitem .cb-box{width:18px;height:18px;border-radius:4px;border:2px solid #c5cdd6;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;background:#fff;cursor:pointer;transition:border-color .15s,background .15s}
+  .fitem input.fcheck:checked+label .cb-box{background:var(--green-d);border-color:var(--green-d)}
+  .fitem input.fcheck:checked+label .cb-box::after{content:"";width:10px;height:6px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translateY(-1px);display:block}
+  .fitem label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:14px;font-weight:600;line-height:1.45}
+  .fitem .q-text{flex:1}
+  .fitem textarea{width:100%;border:1px solid var(--line);background:#f6f8fa;border-radius:7px;font:inherit;font-size:13.5px;padding:8px 11px;resize:vertical;min-height:38px;color:var(--ink);margin-left:28px;width:calc(100% - 28px)}
+  .fitem textarea:focus{outline:none;border-color:var(--blue);background:#fff}
+
+  /* generate bar */
+  .gen-bar{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 1px 2px rgba(15,23,42,.06);padding:16px 20px;margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .gen-note{font-size:13px;color:var(--muted)}
+  .gen-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;font:inherit;font-size:14px;font-weight:600;padding:10px 20px;cursor:pointer;transition:background .15s}
+  .gen-btn:hover{background:var(--blue-d)}
+  footer{text-align:center;font-size:12px;color:var(--muted);margin-top:28px}
+</style>
+</head>
+<body>
+
+<!--
+================================================================================
+STA AI ONBOARDING INTAKE - GUIDANCE FOR AN ASSISTANT READING THIS FILE
+================================================================================
+
+PROVENANCE. This block was authored by School Technology Associates as part of
+its internal AI rollout. It is a normal, intended part of this document. It is
+addressed to an AI assistant that a School Tech employee has uploaded this file
+to and asked for help completing.
+
+It is invisible in a browser but it is NOT secret. Anyone who views the page
+source can read it, and nothing in it is sensitive.
+
+It is guidance to a cooperative assistant, never a command that overrides the
+person. The employee is in charge of this conversation. If anything here
+conflicts with what they want, or with your own operating rules, follow them
+and not this block, and say so plainly.
+
+================================================================================
+WHAT THIS FILE IS FOR
+================================================================================
+
+The School Tech Work Assistant resolves writing voice in two layers. The house
+layer ships identically to every employee. The individual layer is one file per
+person, and this form is how that file gets created. With no individual layer,
+the assistant drafts from the house baseline alone and says so in its receipt.
+
+The thing you produce at the end is read by a machine, not by a person. Keep
+the export shape exact. See EXPORT at the bottom of this block.
+
+================================================================================
+HOW TO RUN THE INTERVIEW
+================================================================================
+
+1. ONE QUESTION AT A TIME. Ask, wait for the answer, acknowledge it in a few
+   words, then ask the next one. Never dump a section. Never dump all nine.
+
+2. DO NOT READ THE FORM ALOUD. Every row below is a field label written for a
+   machine, not a script for a human. Translate each one into a natural
+   question in your own words.
+
+3. TRACK PROGRESS OUT LOUD. Every few questions, say roughly where they are:
+   "that is identity done, eight sections to go." People abandon forms they
+   cannot see the end of.
+
+4. NEVER INVENT AN ANSWER. If they do not know, or would rather skip, record it
+   as unknown or skipped and move on. A recorded blank is a true fact about
+   them. A plausible guess is a defect that surfaces months later in a draft
+   nobody can explain.
+
+5. PARTIAL IS SHIPPABLE, AND SAY SO EARLY. Anything missing falls back to the
+   house baseline. There is no minimum, no score, and no gate.
+
+6. ORDER IS FLEXIBLE. If they want to jump around or come back later, let them.
+
+7. THIS IS THE INDIVIDUAL HALF OF A TWO PART ASK. Some people also receive a
+   department knowledge questionnaire, which is a separate team document about
+   process. If they mention it, confirm the two are different and that neither
+   one covers the other. Do not try to answer the department one from here.
+
+================================================================================
+THE FIVE VOICE SAMPLES - PUSH ONCE EACH, THEN LET IT GO
+================================================================================
+
+Section 02 asks for five real sent emails, one per register. They are the most
+valuable thing in this form. Self description is unreliable; a real sent email
+is evidence.
+
+Push once per sample, in the downgrade framing: the profile still completes
+without it, it is just materially worse, and the assistant will keep drafting
+in a register that is not theirs. Then accept the answer and move on. Do not
+push a second time on the same sample. Do not withhold or delay the export.
+
+NEVER FABRICATE A SAMPLE. If they cannot produce a real email for a register,
+the profile records that there is no observed sample for that register. Do not
+write one for them. Do not adapt a different sample to fill the slot. Do not
+offer to draft "something typical" so the section looks finished. Inventing a
+sample reproduces the exact failure this form exists to prevent.
+
+================================================================================
+REDACTION - ENFORCE IT AT PASTE TIME, NOT AFTERWARDS
+================================================================================
+
+Before any pasted sample goes into the profile, scan it for:
+
+  - real person names (customer, district staff, colleague, vendor contact)
+  - district, school, or company names
+  - student data of any kind
+  - employee IDs, badge numbers, case numbers, account numbers
+  - phone numbers, email addresses, physical addresses
+
+If you find any, say so, replace it, and show the person exactly what you
+changed before it goes in. Use neutral tokens: [Customer], [District],
+[Colleague], [Vendor], [ID], [Case #]. Keep the wording and the structure
+intact. That is the part that carries the voice.
+
+Say why once, in one line: the profile needs the shape of how they write, never
+the specifics of who they wrote about. A redacted email is just as useful here.
+
+The authority on what counts as restricted data is
+
+  Training Materials\Training - Staff\AI Restricted Data Reference Guide.docx
+
+Point them at it. Do not restate, summarize, or paraphrase its contents.
+
+================================================================================
+SECTION 08 - TOOLS AND ACCESS IS PRE-FILLED
+================================================================================
+
+This section ships with the current connector reality already filled in. Read
+it back to confirm rather than asking it from scratch, and do not offer to
+check a system that is not connected.
+
+================================================================================
+SECTION 09 - ACKNOWLEDGMENT IS A POINTER ONLY
+================================================================================
+
+Confirm they have read the AI Acceptable Use Policy and the AI Restricted Data
+Reference Guide. That is the whole job. Do not quiz them on either document, do
+not summarize it, and do not paraphrase policy.
+
+The acknowledgment of record is still their reply to Adam Baker confirming they
+have read both documents, exactly as the welcome email asks. This section does
+not replace that and does not discharge it. If they ask, say so plainly.
+
+================================================================================
+EXPORT - PRODUCE THIS AT THE END
+================================================================================
+
+Output the finished profile as a single fenced markdown block, in EXACTLY the
+shape below. Path A, filling this form in a browser, produces these same bytes
+from its Generate .md button. The two paths have to match.
+
+  # STA AI Onboarding Intake
+  **Completed by:** FULL NAME
+  **Date:** YYYY-MM-DD
+  **Progress:** N / 48 answered
+
+  ## SECTION TITLE, exactly as it appears in this file
+
+  - [x] ROW LABEL, copied character for character from this file
+    - Notes: what they told you
+  - [ ] ROW LABEL they skipped
+
+Rules for the export, all of them load bearing:
+
+  - All 48 rows appear, in file order, including the skipped ones.
+  - Copy each row label EXACTLY as written in this file. The label IS the
+    machine key. A reworded label breaks the parse downstream.
+  - [x] means they answered. [ ] means they did not.
+  - The Completed by and Date lines each end with two trailing spaces. That is
+    deliberate, it is a markdown hard line break, and the browser export does
+    the same thing.
+  - The nine section headings are the nine section titles, in order, each on a
+    "## " line.
+  - A multi line answer sits under "  - Notes: " with its continuation lines
+    indented four spaces.
+  - For a skipped voice sample, the note is exactly this and nothing else:
+        - Notes: no observed sample for this register
+
+Then tell them, in plain words:
+
+  - Save it as   voice-FIRSTNAME-work.md   with their first name lowercased,
+    for example voice-jordan-work.md
+  - It goes in   Project Blueprints\work-personal-assistant\context\
+  - Send it to Adam Baker, who provisions the assistants and owns that folder.
+  - A partial profile is useful and shippable. The assistant falls back to the
+    house baseline for anything they left blank, and it says so in its receipt.
+-->
+
+<div class="container">
+
+  <header class="masthead">
+    <div class="eyebrow">School Tech AI Rollout - Phase 1</div>
+    <h1>STA AI Onboarding Intake</h1>
+    <div class="meta">
+      <div class="field"><label>Completed by</label><input type="text" id="meta-name" data-meta placeholder="Your name"></div>
+      <div class="field"><label>Date</label><input type="text" id="meta-date" data-meta placeholder="YYYY-MM-DD"></div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="progress-bar"></div></div>
+      <span class="progress-count"><span id="done-count">0</span> / <span id="total-count">0</span> answered</span>
+    </div>
+  </header>
+
+  <div class="intro-callout">
+    <div class="intro-label">Read first</div>
+    <ul>
+      <li>Everything School Tech has handed you about AI so far flows one direction, company to you. This is the one that flows back.</li>
+      <li>Your assistant currently drafts in a generic School Tech register, because nothing in the system knows how <em>you</em> write.</li>
+      <li>What you enter here becomes your personal writing profile. It is used only for your drafts, never anyone else's.</li>
+      <li><strong>Two ways to do this.</strong> Fill it in right here, or upload this .html file to Claude and be walked through it one question at a time.</li>
+      <li>Your entries save to this browser as you type. You can close it and come back.</li>
+      <li>When you are done, click <strong>Generate .md</strong> at the bottom and send the downloaded file to Adam.</li>
+      <li><strong>Partial is fine.</strong> Anything you skip falls back to the standard School Tech voice. There is no score and nothing is blocked.</li>
+      <li>Section 02 is the one that matters most, and it is the one people skip. Read the note there before you decide to skip it.</li>
+      <li><span style="color:#b8860b;font-weight:700;">Redact before you paste anything.</span> No real names, districts, ID numbers, case numbers or student data. Structure and wording stay; specifics come out.</li>
+      <li>Budget about 15 minutes if you have your sent mail open in another tab.</li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title">Identity and role</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="fitems">
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q1"><label for="q1"><span class="cb-box"></span><span class="q-text">NAME - your full name as it should appear in drafts and sign-offs</span></label></div>
+        <textarea data-note="q1" placeholder="Exactly as you want it written."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q2"><label for="q2"><span class="cb-box"></span><span class="q-text">PREFERRED NAME - what the assistant should call you in chat</span></label></div>
+        <textarea data-note="q2" placeholder="First name, a nickname, whatever you actually go by."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q3"><label for="q3"><span class="cb-box"></span><span class="q-text">TITLE - your exact job title, worded the way it appears in your email signature</span></label></div>
+        <textarea data-note="q3" placeholder="Copy it from your signature rather than paraphrasing."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q4"><label for="q4"><span class="cb-box"></span><span class="q-text">TEAM - the team or function you sit in</span></label></div>
+        <textarea data-note="q4" placeholder="Support, Orders, Sales, Accounting, Marketing, Renewals, Leadership, or something else."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q5"><label for="q5"><span class="cb-box"></span><span class="q-text">OWNS - what you own day to day, in your own words</span></label></div>
+        <textarea data-note="q5" placeholder="Three to six items is plenty. Plain language, the way you would tell a new hire."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q6"><label for="q6"><span class="cb-box"></span><span class="q-text">WRITES TO MOST - the people or roles you send messages to most often</span></label></div>
+        <textarea data-note="q6" placeholder="Roles are fine and safer than names. District IT admins, payroll staff, our vendors, my team."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q7"><label for="q7"><span class="cb-box"></span><span class="q-text">SIGNATURE BLOCK - paste your current email signature exactly as it sends</span></label></div>
+        <textarea data-note="q7" placeholder="Line breaks and all. The assistant cannot guess this one, and a wrong signature is obvious to whoever gets it."></textarea>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title">Voice samples</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="intro-callout" style="margin:0 18px 4px">
+      <div class="intro-label">This section carries the form</div>
+      <ul>
+        <li>This is the highest-value section here, and it is the one people skip.</li>
+        <li><strong>Self-description does not work.</strong> On 2026-08-19 this exact problem was caught and fixed in the first profile built for this system.</li>
+        <li>The person had described his own work voice as "bare-bones and concise, as few words as possible, no flourish, not apologetic."</li>
+        <li>His actual sent mail from 2022 to 2026 opens <em>"Hi Vlad, hope your year's off to a great start!"</em> and closes <em>"Much appreciated, Vlad!"</em></li>
+        <li>He was wrong about himself, and the assistant shipped colder drafts than he actually writes for months before anyone noticed.</li>
+        <li><strong>Five real emails would have caught it on day one.</strong></li>
+        <li>You can skip these rows and the form still completes. The profile you get is materially worse, and the assistant keeps drafting in a register that is not yours.</li>
+        <li><strong>Redact before you paste.</strong> Swap real names for <code>[Customer]</code>, <code>[District]</code>, <code>[Colleague]</code>, <code>[Vendor]</code>. Strip ID numbers, case numbers, phone numbers and addresses.</li>
+        <li>Leave the wording and the structure exactly as you sent it. The profile needs the <strong>shape</strong> of how you write, never the specifics of who you wrote about.</li>
+        <li>A redacted email is just as useful here. <strong>AI Restricted Data Reference Guide.docx</strong> is the authority on what has to come out.</li>
+      </ul>
+    </div>
+    <ul class="fitems">
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q8"><label for="q8"><span class="cb-box"></span><span class="q-text">REDACTION CONFIRMED - real names, districts, ID numbers and student data are out of everything I pasted in this section</span></label></div>
+        <textarea data-note="q8" placeholder="Note anything you were unsure about and Adam will check it."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q9"><label for="q9"><span class="cb-box"></span><span class="q-text">SAMPLE 1 - CUSTOMER - a real email you sent to a customer or district. Paste it whole, redacted.</span></label></div>
+        <textarea data-note="q9" placeholder="Greeting through sign-off. Do not clean it up or shorten it. The rough version is the useful one."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q10"><label for="q10"><span class="cb-box"></span><span class="q-text">SAMPLE 2 - VENDOR - a real email you sent to a vendor or partner. Paste it whole, redacted.</span></label></div>
+        <textarea data-note="q10" placeholder="Usually a different register from the customer one, which is exactly the point."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q11"><label for="q11"><span class="cb-box"></span><span class="q-text">SAMPLE 3 - COLLEAGUE - a real message you sent to someone inside School Tech. Paste it whole, redacted.</span></label></div>
+        <textarea data-note="q11" placeholder="Slack or Teams is fine. This is usually the most informal one, so leave the informality in."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q12"><label for="q12"><span class="cb-box"></span><span class="q-text">SAMPLE 4 - SHORT REPLY - a real two or three line reply you sent. Paste it whole, redacted.</span></label></div>
+        <textarea data-note="q12" placeholder="Your quick replies are where your habits show most. Do not pad it out."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q13"><label for="q13"><span class="cb-box"></span><span class="q-text">SAMPLE 5 - BAD NEWS OR PUSHBACK - a real email where you delivered bad news, said no, or pushed back. Paste it whole, redacted.</span></label></div>
+        <textarea data-note="q13" placeholder="The hardest register to fake and the one an assistant gets most wrong. If you have no sample, say so here and leave it as a gap."></textarea>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title">Voice mechanics</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="fitems">
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q14"><label for="q14"><span class="cb-box"></span><span class="q-text">GREETING - the exact words you open with</span></label></div>
+        <textarea data-note="q14" placeholder="Not a description. The literal words: Hi Jordan, / Good morning, / Hey, / no greeting at all."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q15"><label for="q15"><span class="cb-box"></span><span class="q-text">WARM OPENING LINE - do you add a friendly one-liner before the ask, or go straight to it</span></label></div>
+        <textarea data-note="q15" placeholder="Check your last five sent emails before answering. Most people guess wrong on this one."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q16"><label for="q16"><span class="cb-box"></span><span class="q-text">SIGN-OFF - the exact words you close with, above your signature block</span></label></div>
+        <textarea data-note="q16" placeholder="Thanks, / Thank you! / Appreciate it, / your name alone."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q17"><label for="q17"><span class="cb-box"></span><span class="q-text">CONTRACTIONS - do you write "we'll" or "we will"</span></label></div>
+        <textarea data-note="q17" placeholder="And does it change when the reader is a customer?"></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q18"><label for="q18"><span class="cb-box"></span><span class="q-text">EXCLAMATION POINTS - never, sparingly, or freely</span></label></div>
+        <textarea data-note="q18" placeholder="Count them in your sent folder rather than guessing."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q19"><label for="q19"><span class="cb-box"></span><span class="q-text">TYPICAL LENGTH - how long your routine email actually is</span></label></div>
+        <textarea data-note="q19" placeholder="Open the last one you sent and count. Two lines? A short paragraph? Half a page?"></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q20"><label for="q20"><span class="cb-box"></span><span class="q-text">SENTENCE SHAPE - short and clipped, or longer and flowing</span></label></div>
+        <textarea data-note="q20" placeholder="Either is fine. Getting it wrong is what makes a draft feel like someone else wrote it."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q21"><label for="q21"><span class="cb-box"></span><span class="q-text">NUMBERED LISTS - do you break technical detail into numbered points, or keep it in prose</span></label></div>
+        <textarea data-note="q21" placeholder="Also: bullets, bold labels, or one solid paragraph."></textarea>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-title">Register map</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="fitems">
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q22"><label for="q22"><span class="cb-box"></span><span class="q-text">REGISTER - CUSTOMER OR DISTRICT - what changes when the reader is a customer</span></label></div>
+        <textarea data-note="q22" placeholder="Warmer? Shorter? More formal? Less jargon? Name the shift."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q23"><label for="q23"><span class="cb-box"></span><span class="q-text">REGISTER - VENDOR OR PARTNER - what changes when you are writing outward to a vendor</span></label></div>
+        <textarea data-note="q23" placeholder="More direct about timelines and holds? More formal? Friendlier because you know them?"></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q24"><label for="q24"><span class="cb-box"></span><span class="q-text">REGISTER - COLLEAGUE - what changes when it is someone inside School Tech</span></label></div>
+        <textarea data-note="q24" placeholder="Most people drop all ceremony here. Say so if you do."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q25"><label for="q25"><span class="cb-box"></span><span class="q-text">REGISTER - LEADERSHIP - what changes when you are writing up rather than across</span></label></div>
+        <textarea data-note="q25" placeholder="Lead with the outcome? More detail or less? What do they actually want from you?"></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q26"><label for="q26"><span class="cb-box"></span><span class="q-text">REGISTER - ESCALATION OR PUSHBACK - what changes when you have to be firm</span></label></div>
+        <textarea data-note="q26" placeholder="Do you get shorter, more formal, more factual? This is the register assistants get most wrong."></textarea>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-title">Recurring work</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="fitems">
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q27"><label for="q27"><span class="cb-box"></span><span class="q-text">RECURRING TASKS - the named tasks you want drafting help with, in your words</span></label></div>
+        <textarea data-note="q27" placeholder="Name them the way you name them, not the way a job description would."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q28"><label for="q28"><span class="cb-box"></span><span class="q-text">FIXED CADENCE - anything you write on a weekly, monthly or quarterly schedule</span></label></div>
+        <textarea data-note="q28" placeholder="Status updates, renewal notices, month-end summaries, standing reports."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q29"><label for="q29"><span class="cb-box"></span><span class="q-text">REPEATED MESSAGE TYPES - the messages you write over and over</span></label></div>
+        <textarea data-note="q29" placeholder="The ones where you basically retype the same thing with different details."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q30"><label for="q30"><span class="cb-box"></span><span class="q-text">HAND OFF FIRST - the one writing task you would hand off today if you could</span></label></div>
+        <textarea data-note="q30" placeholder="Be honest. This is the row that decides what gets built next."></textarea>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-title">Named entities</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="intro-callout" style="margin:0 18px 4px">
+      <div class="intro-label">Why this section exists</div>
+      <ul>
+        <li>Without it the assistant guesses at names, or stops to ask you every time.</li>
+        <li>Names of organizations, products and systems are fine here. <strong>Individual people's names are not.</strong> Use roles instead.</li>
+      </ul>
+    </div>
+    <ul class="fitems">
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q31"><label for="q31"><span class="cb-box"></span><span class="q-text">CUSTOMERS AND DISTRICTS - the accounts you deal with constantly</span></label></div>
+        <textarea data-note="q31" placeholder="Organization names only. No contact names, no case numbers."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q32"><label for="q32"><span class="cb-box"></span><span class="q-text">VENDORS AND PARTNERS - the outside companies you write to</span></label></div>
+        <textarea data-note="q32" placeholder="Company names only."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q33"><label for="q33"><span class="cb-box"></span><span class="q-text">PRODUCTS AND SYSTEMS - what you work in every day</span></label></div>
+        <textarea data-note="q33" placeholder="Products, modules, and the internal systems you live in."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q34"><label for="q34"><span class="cb-box"></span><span class="q-text">INTERNAL SHORTHAND - acronyms, nicknames and abbreviations you use without thinking</span></label></div>
+        <textarea data-note="q34" placeholder="Spell out what each one means. The assistant will otherwise expand them wrong or use them with a customer."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q35"><label for="q35"><span class="cb-box"></span><span class="q-text">SPELLING TRAPS - names an assistant will get wrong. Spell them correctly here.</span></label></div>
+        <textarea data-note="q35" placeholder="Product capitalization, district names that sound like something else, anything autocorrect mangles."></textarea>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <div class="section-title">Anything else we should never send</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <ul class="fitems">
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q36"><label for="q36"><span class="cb-box"></span><span class="q-text">WORDS WE NEVER SEND - words and phrases you will not put your name on</span></label></div>
+        <textarea data-note="q36" placeholder="Corporate filler, overused openers, anything that makes you wince. Be specific."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q37"><label for="q37"><span class="cb-box"></span><span class="q-text">FORMATTING WE NEVER SEND - layout or structure you will not send</span></label></div>
+        <textarea data-note="q37" placeholder="Walls of text, too many bullets, headers in an email, emoji."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q38"><label for="q38"><span class="cb-box"></span><span class="q-text">PAST DRAFT MISSES - anything an AI draft has already gotten wrong about your voice</span></label></div>
+        <textarea data-note="q38" placeholder="If you have used one of these tools before, this row is worth more than the rest of the section."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q39"><label for="q39"><span class="cb-box"></span><span class="q-text">HARD NO - anything else we should never send</span></label></div>
+        <textarea data-note="q39" placeholder="Topics, commitments, promises, tone. Anything that is simply not yours to say."></textarea>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <div class="section-title">Tools and access</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="intro-callout" style="margin:0 18px 4px">
+      <div class="intro-label">Already filled in</div>
+      <ul>
+        <li>The first four rows are the current Phase 1 reality. Read them so you know what your assistant can and cannot reach.</li>
+        <li>This exists so the assistant never offers to go check a system it has no access to.</li>
+        <li>Correct a row if your setup is different.</li>
+      </ul>
+    </div>
+    <ul class="fitems">
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q40"><label for="q40"><span class="cb-box"></span><span class="q-text">GOOGLE CALENDAR</span></label></div>
+        <textarea data-note="q40">CONNECTED. The assistant can read your calendar and create events.</textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q41"><label for="q41"><span class="cb-box"></span><span class="q-text">GMAIL</span></label></div>
+        <textarea data-note="q41">NOT CONNECTED at Phase 1. The assistant cannot read your mail and cannot send anything. It drafts, you paste and send.</textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q42"><label for="q42"><span class="cb-box"></span><span class="q-text">SALESFORCE</span></label></div>
+        <textarea data-note="q42">NOT CONNECTED at Phase 1. The assistant cannot look up a case, an account, or a contact. Paste in whatever it needs to see.</textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q43"><label for="q43"><span class="cb-box"></span><span class="q-text">GOOGLE DRIVE</span></label></div>
+        <textarea data-note="q43">NOT CONNECTED at Phase 1. The assistant cannot open your Drive files. Attach or paste them.</textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q44"><label for="q44"><span class="cb-box"></span><span class="q-text">OTHER CONNECTORS - anything else live in your copy</span></label></div>
+        <textarea data-note="q44" placeholder="Leave blank if you do not know. Adam can confirm it."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q45"><label for="q45"><span class="cb-box"></span><span class="q-text">CANNOT LOOK UP - what does the assistant need told, because it has no way to find out for itself</span></label></div>
+        <textarea data-note="q45" placeholder="Given the four rows above, the facts about your work it will never discover on its own. This is one of the most useful rows in the form."></textarea>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section" data-section>
+    <div class="section-header">
+      <div class="section-num">09</div>
+      <div class="section-title">Acknowledgment</div>
+      <svg class="section-check" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#6bc04b"/><path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="intro-callout" style="margin:0 18px 4px">
+      <div class="intro-label">A pointer, not a test</div>
+      <ul>
+        <li>Two documents govern how you use these tools. Both came with your welcome email.</li>
+        <li>Nothing here quizzes you on them and nothing here restates them.</li>
+        <li><strong>This does not replace your reply to Adam confirming you have read both.</strong> That reply is still the record.</li>
+      </ul>
+    </div>
+    <ul class="fitems">
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q46"><label for="q46"><span class="cb-box"></span><span class="q-text">AUP READ - I have read the AI Acceptable Use Policy</span></label></div>
+        <textarea data-note="q46" placeholder="Optional. Note the date you read it, or anything you want flagged."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q47"><label for="q47"><span class="cb-box"></span><span class="q-text">RESTRICTED DATA GUIDE READ - I have read the AI Restricted Data Reference Guide</span></label></div>
+        <textarea data-note="q47" placeholder="Optional. Same."></textarea>
+      </li>
+      <li class="fitem">
+        <div class="fitem-q"><input type="checkbox" class="fcheck" id="q48"><label for="q48"><span class="cb-box"></span><span class="q-text">OPEN QUESTIONS - anything in either document you want clarified</span></label></div>
+        <textarea data-note="q48" placeholder="Ask here and Adam will answer. A question is more useful than a guess."></textarea>
+      </li>
+    </ul>
+  </div>
+
+  <div class="gen-bar">
+    <span class="gen-note">Download a Markdown record of this form (name, date, every row and your notes), then send the file to Adam.</span>
+    <button type="button" class="gen-btn" id="gen-md">Generate .md</button>
+  </div>
+
+  <footer>Generated by The Architect &bull; html-checklist skill (form mode)</footer>
+</div>
+
+<script>
+  (function () {
+    const checks = [...document.querySelectorAll('input.fcheck')];
+    const notes = [...document.querySelectorAll('textarea[data-note]')];
+    const metaFields = [...document.querySelectorAll('input[data-meta]')];
+    const bar = document.getElementById('progress-bar');
+    const doneEl = document.getElementById('done-count');
+    const totalEl = document.getElementById('total-count');
+    const total = checks.length;
+    totalEl.textContent = total;
+    const titleEl = document.querySelector('h1');
+    const titleKey = (titleEl ? titleEl.textContent : document.title).trim().toLowerCase().replace(/\s+/g, '-');
+    const KEY = 'sta-form:' + titleKey;
+
+    function save() {
+      try {
+        const state = { checks: {}, notes: {}, meta: {} };
+        checks.forEach(c => state.checks[c.id] = c.checked);
+        notes.forEach(n => state.notes[n.dataset.note] = n.value);
+        metaFields.forEach(m => state.meta[m.id] = m.value);
+        localStorage.setItem(KEY, JSON.stringify(state));
+      } catch (e) {}
+    }
+    function load() {
+      try {
+        const raw = localStorage.getItem(KEY); if (!raw) return;
+        const s = JSON.parse(raw);
+        checks.forEach(c => { if (s.checks && s.checks[c.id]) c.checked = true; });
+        notes.forEach(n => { if (s.notes && s.notes[n.dataset.note] != null) n.value = s.notes[n.dataset.note]; });
+        metaFields.forEach(m => { if (s.meta && s.meta[m.id] != null) m.value = s.meta[m.id]; });
+      } catch (e) {}
+    }
+    function update() {
+      const done = checks.filter(c => c.checked).length;
+      doneEl.textContent = done;
+      bar.style.width = total ? (done / total * 100) + '%' : '0%';
+      document.querySelectorAll('.section[data-section]').forEach(sec => {
+        const boxes = [...sec.querySelectorAll('input.fcheck')];
+        const allDone = boxes.length > 0 && boxes.every(c => c.checked);
+        allDone ? sec.setAttribute('data-complete', '') : sec.removeAttribute('data-complete');
+      });
+    }
+    checks.forEach(c => c.addEventListener('change', () => { save(); update(); }));
+    notes.forEach(n => n.addEventListener('input', save));
+    metaFields.forEach(m => m.addEventListener('input', save));
+
+    function buildMarkdown() {
+      const name = (document.getElementById('meta-name').value || '').trim();
+      const date = (document.getElementById('meta-date').value || '').trim();
+      const title = titleEl ? titleEl.textContent.trim() : 'Checklist';
+      let md = '# ' + title + '\n\n';
+      if (name) md += '**Completed by:** ' + name + '  \n';
+      if (date) md += '**Date:** ' + date + '  \n';
+      const done = checks.filter(c => c.checked).length;
+      md += '**Progress:** ' + done + ' / ' + total + ' answered\n\n';
+      document.querySelectorAll('.section[data-section]').forEach(sec => {
+        const secTitle = sec.querySelector('.section-title').textContent.trim();
+        md += '## ' + secTitle + '\n\n';
+        sec.querySelectorAll('.fitem').forEach(item => {
+          const cb = item.querySelector('input.fcheck');
+          const q = item.querySelector('.q-text').textContent.trim();
+          const note = (item.querySelector('textarea').value || '').trim();
+          md += '- [' + (cb.checked ? 'x' : ' ') + '] ' + q + '\n';
+          if (note) md += '  - Notes: ' + note.replace(/\n/g, '\n    ') + '\n';
+        });
+        md += '\n';
+      });
+      return md;
+    }
+    function download() {
+      const md = buildMarkdown();
+      const date = (document.getElementById('meta-date').value || new Date().toISOString().slice(0, 10)).trim();
+      const fname = titleKey + '-' + date.replace(/[^0-9a-z\-]/gi, '') + '.md';
+      try {
+        const blob = new Blob([md], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = fname;
+        document.body.appendChild(a); a.click();
+        document.body.removeChild(a); URL.revokeObjectURL(url);
+      } catch (e) { alert('Could not generate the file in this browser.'); }
+    }
+    document.getElementById('gen-md').addEventListener('click', download);
+
+    load();
+    update();
+  })();
+</script>
+</body>
+</html>
