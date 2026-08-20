@@ -285,7 +285,9 @@
     outline: 2px solid var(--green); outline-offset: 2px;
   }
 
-  @media (max-width: 700px) {
+  /* 900, not 700: at 768 the header row could not fit its seven elements and
+     overflowed, clipping the search box and the PWA install button. */
+  @media (max-width: 900px) {
     .app-header { padding: 12px 16px; height: auto; flex-direction: column; align-items: stretch; gap: 12px; }
     .hdr-logo { align-self: flex-start; }
     .hdr-pills { margin-left: 0; flex-wrap: wrap; }
@@ -1450,6 +1452,7 @@ window.TRAINING_DATA = {
       desc: 'The one form that flows back to us. It tells your assistant how you actually write, so its drafts sound like you instead of a generic School Tech template. Fill it in the browser, or upload the file to Claude and be interviewed through it one question at a time. Partial is fine.',
       file: 'docs/form-checklist-sta-ai-onboarding-intake.html',
       type: 'html',
+      download: true,
       priority: 'recommended',
       tags: ['Onboarding', 'Productivity'],
       check: 'Why does the form ask for five real sent emails instead of just asking you to describe your own writing style?',
@@ -1889,13 +1892,16 @@ function viewViewer(doc) {
   const id = state.viewerDocId;
   const isRead = state.read.has(id);
   const isDocx = doc.type === 'docx';
+  // Opt-in per doc. Only a doc the reader is meant to SAVE (not just read) sets
+  // download: true; every other html doc is unchanged.
+  const canDownload = isDocx || doc.download === true;
   return '<div class="viewer" id="viewer">'
     + '<div class="viewer-bar">'
     + '<button class="viewer-back" type="button" data-action="back">← Back</button>'
     + '<div class="viewer-title">' + esc(doc.title) + '</div>'
     + '<button class="viewer-readtoggle" type="button" data-action="read" data-doc="' + esc(id) + '"'
     + ' aria-pressed="' + isRead + '">' + (isRead ? '✓ Read' : 'Mark as read') + '</button>'
-    + (isDocx ? '<a class="viewer-download" href="' + esc(doc.file) + '" download>⬇ Download</a>' : '')
+    + (canDownload ? '<a class="viewer-download" href="' + esc(doc.file) + '" download>⬇ Download</a>' : '')
     + (doc.file ? '<button class="viewer-open-new" type="button" data-action="open-new" data-file="' + esc(doc.file) + '">Open in new tab ↗</button>' : '')
     + '</div>'
     + '<div class="viewer-body" id="viewer-body"></div>'
@@ -1939,7 +1945,10 @@ function initViewer(doc) {
     return;
   }
   if (doc.type === 'html' || doc.type === 'pdf') {
-    const sandbox = doc.type === 'html' ? ' sandbox="allow-same-origin allow-scripts allow-popups allow-forms"' : '';
+    // allow-downloads is required for any served doc that generates a file for the
+    // reader (the AI Onboarding Intake form's Generate .md). Without it Chrome blocks
+    // the download silently inside a sandboxed frame.
+    const sandbox = doc.type === 'html' ? ' sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-downloads"' : '';
     body.innerHTML = '<iframe class="viewer-frame" src="' + esc(doc.file) + '" title="' + esc(doc.title) + '"' + sandbox + '></iframe>';
     if (doc.type === 'html') {
       const frame = body.querySelector('iframe');
