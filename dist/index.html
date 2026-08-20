@@ -41,10 +41,13 @@
   /* HEADER */
   .app-header { display: flex; align-items: center; gap: 18px; background: var(--dark); color: #fff; padding: 0 28px; height: 64px; flex-shrink: 0; border-bottom: 3px solid var(--blue); }
   .hdr-logo { height: 40px; width: auto; display: block; flex-shrink: 0; }
+  /* Rigid by default. It yields only in the <=1000px media query below, where the
+     search box has already hit its floor - the ellipsis rules on the title and
+     subtitle are what let it shrink cleanly when that happens. */
   .hdr-brand { display: flex; flex-direction: column; flex-shrink: 0; }
   .ftr-mark { height: 22px; width: auto; vertical-align: middle; margin-right: 8px; }
-  .hdr-title { font-size: 14pt; font-weight: 700; color: #e8eaf0; letter-spacing: 0.3px; }
-  .hdr-sub { font-size: 8.5pt; color: rgba(255,255,255,0.55); margin-top: 1px; }
+  .hdr-title { font-size: 14pt; font-weight: 700; color: #e8eaf0; letter-spacing: 0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hdr-sub { font-size: 8.5pt; color: rgba(255,255,255,0.55); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   /* Header pills. One shared class so the two never drift apart; .hdr-quickref and
      .hdr-links carry no styling and exist only as JS hooks. margin-left:auto lives on
      the .hdr-pills wrapper, which is now the first element of the right-hand group. */
@@ -58,6 +61,12 @@
      raising the 900px breakpoint, which would stack the header at 1024 - a common
      laptop width. */
   .search-wrap { max-width: 320px; margin-left: 12px; position: relative; flex-shrink: 1; min-width: 140px; }
+  /* Below 1000px the search box has hit its 140px floor and the row is still short,
+     so the brand block yields too. Scoped to that band deliberately: unscoped, it
+     ellipsized the title at 1024 where the search box alone had it covered. */
+  @media (max-width: 1000px) {
+    .hdr-brand { flex-shrink: 1; min-width: 0; overflow: hidden; }
+  }
   .search-input { width: 100%; padding: 7px 14px 7px 34px; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.1); color: #fff; font-family: inherit; font-size: 9pt; outline: none; transition: border-color .15s, background .15s; }
   .search-input::placeholder { color: rgba(255,255,255,0.45); }
   .search-input:focus { border-color: rgba(107,192,75,0.7); background: rgba(255,255,255,0.15); }
