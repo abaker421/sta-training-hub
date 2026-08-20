@@ -45,8 +45,12 @@
   .ftr-mark { height: 22px; width: auto; vertical-align: middle; margin-right: 8px; }
   .hdr-title { font-size: 14pt; font-weight: 700; color: #e8eaf0; letter-spacing: 0.3px; }
   .hdr-sub { font-size: 8.5pt; color: rgba(255,255,255,0.55); margin-top: 1px; }
-  .hdr-quickref { margin-left: auto; flex-shrink: 0; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; font-family: inherit; font-size: 9pt; font-weight: 600; padding: 7px 14px; border-radius: 20px; cursor: pointer; transition: background .15s, border-color .15s; white-space: nowrap; }
-  .hdr-quickref:hover { background: rgba(107,192,75,0.25); border-color: rgba(107,192,75,0.7); }
+  /* Header pills. One shared class so the two never drift apart; .hdr-quickref and
+     .hdr-links carry no styling and exist only as JS hooks. margin-left:auto lives on
+     the .hdr-pills wrapper, which is now the first element of the right-hand group. */
+  .hdr-pills { margin-left: auto; flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
+  .hdr-pill { flex-shrink: 0; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; font-family: inherit; font-size: 9pt; font-weight: 600; padding: 7px 14px; border-radius: 20px; cursor: pointer; transition: background .15s, border-color .15s; white-space: nowrap; }
+  .hdr-pill:hover { background: rgba(107,192,75,0.25); border-color: rgba(107,192,75,0.7); }
   .hdr-themetoggle { flex-shrink: 0; width: 34px; height: 34px; padding: 0; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); color: #fff; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background .15s, border-color .15s; }
   .hdr-themetoggle:hover { background: rgba(107,192,75,0.25); border-color: rgba(107,192,75,0.7); }
   .hdr-themetoggle svg { width: 17px; height: 17px; display: block; }
@@ -249,8 +253,11 @@
   .btn-primary { background: var(--blue); color: #fff; border: none; border-radius: 6px; padding: 10px 18px; font-size: 10.5pt; font-weight: 700; cursor: pointer; font-family: inherit; }
   .btn-primary:hover { background: var(--blue-dark); }
 
-  /* HELPFUL LINKS - bottom-of-view section */
+  /* HELPFUL LINKS - rendered in the doc viewer from the header pill */
   .links-section { margin-top: 56px; padding-top: 28px; border-top: 2px solid var(--border); }
+  /* In the viewer the separator styling is wrong - it is the whole panel, not a footer. */
+  .links-section--panel { margin-top: 0; padding-top: 0; border-top: none; }
+  .viewer-rendered-inner--wide { max-width: 1200px; }
   .links-title { font-size: 11pt; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
   .links-sub { font-size: 9pt; color: var(--gray); margin-bottom: 20px; }
   .links-groups-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
@@ -273,7 +280,7 @@
   /* FOCUS VISIBILITY */
   .card:focus-visible, .tab:focus-visible, .card-fav:focus-visible, .card-read:focus-visible,
   .viewer-back:focus-visible, .viewer-readtoggle:focus-visible, .viewer-open-new:focus-visible,
-  .hdr-quickref:focus-visible, .hdr-themetoggle:focus-visible, .link-group-item:focus-visible, .btn-primary:focus-visible,
+  .hdr-pill:focus-visible, .hdr-themetoggle:focus-visible, .link-group-item:focus-visible, .btn-primary:focus-visible,
   .search-input:focus-visible {
     outline: 2px solid var(--green); outline-offset: 2px;
   }
@@ -281,7 +288,7 @@
   @media (max-width: 700px) {
     .app-header { padding: 12px 16px; height: auto; flex-direction: column; align-items: stretch; gap: 12px; }
     .hdr-logo { align-self: flex-start; }
-    .hdr-quickref { margin-left: 0; }
+    .hdr-pills { margin-left: 0; flex-wrap: wrap; }
     .search-wrap { max-width: none; margin-left: 0; }
     .content { padding: 20px 16px 60px; }
     .aud-title { font-size: 18pt; }
@@ -416,7 +423,7 @@
 
   /* PRINT */
   @media print {
-    .app-header, .tab-bar, .app-footer, .viewer-bar, .search-wrap, .hdr-quickref,
+    .app-header, .tab-bar, .app-footer, .viewer-bar, .search-wrap, .hdr-pills,
     .links-section, .progress, .screenshots-panel, .card-fav, .card-read,
     .viewer-footer, .noscript-banner { display: none !important; }
     body, .app, .card, .viewer, .viewer-rendered, .viewer-body, .content, .viewer-rendered-inner {
@@ -452,7 +459,10 @@
       <div class="hdr-title">School Tech AI Training Hub</div>
       <div class="hdr-sub">School Technology Associates &middot; Internal</div>
     </div>
-    <button class="hdr-quickref" type="button" data-action="quickref" title="Open the Quick Reference Card">&#128204; Quick Reference</button>
+    <div class="hdr-pills">
+      <button class="hdr-pill hdr-quickref" type="button" data-action="quickref" aria-label="Quick Reference" title="Open the Quick Reference Card">&#128204; Quick Reference</button>
+      <button class="hdr-pill hdr-links" type="button" data-action="links" aria-label="Helpful Links" title="Open Helpful Links">&#128279; Helpful Links</button>
+    </div>
     <button class="hdr-themetoggle" type="button" id="theme-toggle" data-action="theme" aria-label="Switch to dark mode"></button>
     <div class="search-wrap" role="search">
       <span class="search-icon" aria-hidden="true">&#128269;</span>
@@ -1417,6 +1427,14 @@ window.TRAINING_DATA = {
       added: '2026-06-03', updated: '2026-06-07',
       check: 'How many STA-scope topics and how many grouped areas does the catalog list, and what does clicking a topic row reveal?'
     },
+    'helpful-links': {
+      title: 'Helpful Links',
+      desc: 'Claude resources, Anthropic learning materials, and School Tech tools we have built. Opens from the Helpful Links button in the header.',
+      type: 'links',
+      priority: 'optional',
+      tags: ['Reference'],
+      added: '2026-08-20', updated: '2026-08-20'
+    },
     'onboarding-deck': {
       title: 'AI Tools Getting Started - Slides',
       desc: 'The full 12-slide deck for a live 40-minute kickoff walkthrough, in presenter form. Grab this when you are running a team session rather than reading on your own.',
@@ -1808,7 +1826,6 @@ function viewAudience(aud) {
     sec.docs.forEach(id => { const d = DATA.docs[id]; if (d) html += cardHTML(id, d); });
     html += '</div></section>';
   });
-  html += helpfulLinks();
   return html;
 }
 
@@ -1843,13 +1860,13 @@ function viewFavorites() {
     + '<div class="aud-sub">Your starred docs. Click the star again to remove.</div></div><div class="card-grid">';
   state.favorites.forEach(id => { const d = DATA.docs[id]; if (d) html += cardHTML(id, d); });
   html += '</div>';
-  html += helpfulLinks();
   return html;
 }
 
-function helpfulLinks() {
+function helpfulLinks(opts) {
   const groups = LINKS || [];
-  let html = '<div class="links-section"><div class="links-title">Helpful Links</div>'
+  const panel = !!(opts && opts.panel);
+  let html = '<div class="links-section' + (panel ? ' links-section--panel' : '') + '"><div class="links-title">Helpful Links</div>'
     + '<div class="links-sub">Claude resources, Anthropic learning materials, and School Tech tools we have built.</div>'
     + '<div class="links-groups-grid">';
   groups.forEach(g => {
@@ -1879,7 +1896,7 @@ function viewViewer(doc) {
     + '<button class="viewer-readtoggle" type="button" data-action="read" data-doc="' + esc(id) + '"'
     + ' aria-pressed="' + isRead + '">' + (isRead ? '✓ Read' : 'Mark as read') + '</button>'
     + (isDocx ? '<a class="viewer-download" href="' + esc(doc.file) + '" download>⬇ Download</a>' : '')
-    + '<button class="viewer-open-new" type="button" data-action="open-new" data-file="' + esc(doc.file) + '">Open in new tab ↗</button>'
+    + (doc.file ? '<button class="viewer-open-new" type="button" data-action="open-new" data-file="' + esc(doc.file) + '">Open in new tab ↗</button>' : '')
     + '</div>'
     + '<div class="viewer-body" id="viewer-body"></div>'
     + '</div>';
@@ -1912,6 +1929,15 @@ function applyDocAccent(frame, doc) {
 function initViewer(doc) {
   const body = document.getElementById('viewer-body');
   if (!body) return;
+  if (doc.type === 'links') {
+    // Same viewer, same focus trap - only the inline-render branch instead of the
+    // iframe branch. helpfulLinks() output is built with esc() throughout.
+    body.innerHTML = '<div class="viewer-rendered">'
+      + '<div class="viewer-rendered-inner viewer-rendered-inner--wide">'
+      + helpfulLinks({ panel: true }) + '</div></div>';
+    setupViewerFocus();
+    return;
+  }
   if (doc.type === 'html' || doc.type === 'pdf') {
     const sandbox = doc.type === 'html' ? ' sandbox="allow-same-origin allow-scripts allow-popups allow-forms"' : '';
     body.innerHTML = '<iframe class="viewer-frame" src="' + esc(doc.file) + '" title="' + esc(doc.title) + '"' + sandbox + '></iframe>';
@@ -2037,6 +2063,7 @@ document.addEventListener('click', e => {
   else if (a === 'back') closeViewer();
   else if (a === 'open-new') window.open(t.getAttribute('data-file'), '_blank', 'noopener,noreferrer');
   else if (a === 'quickref') openDoc('quick-ref');
+  else if (a === 'links') openDoc('helpful-links');
   else if (a === 'theme') toggleTheme();
 });
 
