@@ -138,7 +138,7 @@
     <tbody>
       <tr>
         <td><span class="role-badge staff">Regular Staff</span></td>
-        <td>claude.ai team Projects only: AI Advisor (live, all staff), STA Support Chat (live, support team), STA Salesforce Cohort (live, SF admins), Behind the Bell Assistant (live, podcast hosts), The Customer (live, sales reps), and any future team-facing tools as they go live. Cannot access Cowork or pipeline tools.</td>
+        <td>claude.ai team Projects only: AI Advisor (live, all staff), STA Support Chat (live, support team), STA Salesforce Cohort (live, SF admins), Behind the Bell Assistant (live, podcast hosts), The Customer (live, sales reps), and any future team-facing tools as they go live. School Tech policy is that this role does not use Cowork or the pipeline tools. <strong>UNTESTED as of 2026-08-20</strong> - nobody has signed in as a Member account and tried the Cowork toggle. Until that test is run, do not treat this as an access control.</td>
         <td>All School Tech staff added to the team plan</td>
       </tr>
       <tr>
@@ -155,7 +155,7 @@
   </table>
 
   <div class="callout blue">
-    <strong>Cowork is admin-only by design.</strong> Regular staff never need Cowork access. The pipeline tools, context document skills, and project management workflows all live in Cowork. Keeping it admin-only is the primary access control for the system.
+    <strong>Cowork access is School Tech policy, not a platform restriction.</strong> Staff who do not need it are not given the workspace URL. Nothing in the Claude console is configured to prevent a Member account from using it, and no such setting is named anywhere in this guide - the grant step below is "share the Cowork workspace URL", which is obscurity rather than access control. <strong>UNTESTED as of 2026-08-20</strong> - nobody has signed in as a Member account and tried the Cowork toggle. Until that test is run, do not treat this as an access control, and do not describe it as one.
   </div>
 
   <!-- ADDING A USER -->
@@ -365,7 +365,7 @@
   </div>
 
   <div class="callout orange" style="margin-top: 16px;">
-    <strong>Data considerations.</strong> Anthropic retains conversation history in the departing user's account per their standard data retention policies - School Tech does not control this. What School Tech does control is what that user can still access after removal (nothing, once removed) and what was entered into the AI tools during their tenure. Conversations with AI tools are covered under the Claude Teams data privacy agreement. If there is a specific concern about regulated data (FERPA, HIPAA, etc.) that was entered, consult your data governance process separately - this offboarding checklist does not replace that.
+    <strong>Data considerations.</strong> Anthropic retains conversation history in the departing user's account per their standard data retention policies - School Tech does not control this. What School Tech controls is claude.ai membership and Cowork access, both of which these five steps end. <strong>They do not end everything.</strong> Verified 2026-08-20: nothing in this procedure revokes a Google OAuth grant made from the person's own Google account, and nothing revokes a Salesforce credential. Both live outside School Tech's control surface - the OAuth grant in the individual's Google account, the Salesforce access in the <code>sf</code> CLI - and both survive removal indefinitely. No step in this guide currently revokes them. School Tech does control what was entered into the AI tools during a person's tenure. Conversations with AI tools are covered under the Claude Teams data privacy agreement. If there is a specific concern about regulated data (FERPA, HIPAA, etc.) that was entered, consult your data governance process separately - this offboarding checklist does not replace that.
   </div>
 
   <!-- TROUBLESHOOTING -->
