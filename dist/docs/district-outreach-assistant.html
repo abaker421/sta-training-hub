@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>District Outreach Assistant</title>
+<style>
+  :root{
+    --sta-blue:#006098; --sta-blue-dark:#004a78;  /* #004a78 is a working accent, not brand */
+    --sta-green:#6bc04b; --sta-green-dark:#4f9a31;
+    --sta-grey:#8a8d8e;
+    --bg:#eef1f4; --card:#ffffff; --border:#dde1e6;
+    --text:#1a2332; --muted:#6b7280;
+    --amber:#b7791f; --amber-bg:#fef6e7;
+    --green-bg:#eef8e9;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;font-size:15px;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px 60px;}
+  header.hero{background:linear-gradient(135deg,var(--sta-blue) 0%,var(--sta-blue-dark) 100%);
+    color:#fff;padding:28px 32px;border-radius:0 0 10px 10px;margin-bottom:22px;}
+  header.hero h1{margin:0 0 4px;font-size:25px;letter-spacing:-.3px;}
+  header.hero .sub{font-size:14px;opacity:.9;}
+  header.hero .meta{margin-top:14px;font-size:12.5px;opacity:.85;display:flex;flex-wrap:wrap;gap:18px;border-top:1px solid rgba(255,255,255,.25);padding-top:12px;}
+  header.hero .meta b{opacity:1;}
+  h2{font-size:18px;margin:30px 0 12px;color:var(--sta-blue-dark);border-left:4px solid var(--sta-green);padding-left:10px;}
+  h3{font-size:15px;margin:0 0 6px;}
+  p{margin:0 0 10px;}
+  .lead{font-size:15.5px;}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:16px 18px;margin-bottom:14px;}
+  .callout{border-left:5px solid var(--sta-green);background:#fff;border-radius:7px;padding:12px 16px;margin:14px 0;}
+  .callout.warn{border-left-color:var(--amber);background:var(--amber-bg);}
+  .callout.win{border-left-color:var(--sta-green-dark);background:var(--green-bg);}
+  table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:13px;}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
+  th{background:#e8edf1;color:var(--sta-blue-dark);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;}
+  td.rowlab{font-weight:700;white-space:nowrap;color:var(--sta-blue-dark);}
+  ul{margin:4px 0 4px;padding-left:20px;}
+  li{margin-bottom:5px;}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .side h4{margin:0 0 8px;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px;}
+  .side.sis h4{color:var(--sta-blue-dark);}
+  .side.erp h4{color:var(--sta-green-dark);}
+  .whatback h3{color:var(--sta-blue-dark);margin-top:2px;}
+  .steps{counter-reset:s;list-style:none;padding-left:0;margin:6px 0 0;}
+  .steps li{counter-increment:s;position:relative;padding-left:38px;margin-bottom:11px;}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;background:var(--sta-grey);color:#fff;border-radius:50%;text-align:center;line-height:26px;font-weight:700;font-size:13px;}
+  .steps li.first{background:var(--green-bg);border:1px solid var(--sta-green);border-radius:8px;padding:14px 16px 14px 46px;margin-bottom:14px;}
+  .steps li.first::before{background:var(--sta-green-dark);left:12px;top:13px;}
+  .steps li.first strong{display:block;font-size:15.5px;margin-bottom:3px;}
+  .muted{color:var(--muted);}
+  footer{font-size:11.5px;color:var(--muted);margin-top:30px;border-top:1px solid var(--border);padding-top:14px;}
+  @media (max-width:760px){ .twocol{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap" style="padding-bottom:0;">
+    <h1>District Outreach Assistant</h1>
+    <div class="sub">On demand research on a district, its people, and its state's rules, before you make the call</div>
+    <div class="meta">
+      <span><b>Status:</b> scoped, not yet built</span>
+      <span><b>For:</b> Sales</span>
+      <span><b>Last updated:</b> 2026-08-19</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <h2>What this is</h2>
+  <p class="lead">A research assistant inside your Work Assistant. You name a district and it finds what is worth knowing before you reach out: who the district is, what is going on with them now, who holds the money, and what that state's funding rules and legal requirements mean for the conversation.</p>
+
+  <h2>Why we are building it</h2>
+  <div class="card">
+    <p>In August a brief was assembled by hand for Alpine School District in Utah. It turned up three things that were not obvious from outside:</p>
+    <ul>
+      <li>Alpine is splitting into three districts in July 2027, and the real buyers had already moved to the new districts.</li>
+      <li>The superintendent was an interim caretaker, so the right ask was an introduction rather than a buying meeting.</li>
+      <li>Utah funds districts on enrolment rather than attendance. That makes the usual "recover your funding through better attendance" argument false in that state, and obvious to any Utah business administrator within a sentence.</li>
+    </ul>
+    <p>None of it was findable in a quick search. All of it changed the approach.</p>
+    <p>This build makes that repeatable, and makes it something you run yourself.</p>
+  </div>
+
+  <h2>How you use it</h2>
+  <p>Talk to it normally inside your Work Assistant. Three ways in:</p>
+  <ul>
+    <li>Name a district: "I'm looking at Granite School District."</li>
+    <li>Name a state: "I'm going after Utah."</li>
+    <li>Hand it a list: upload a spreadsheet or paste one.</li>
+  </ul>
+  <p>Mention a product line if you have one in mind. If you do not, it covers both sides and tells you which side each finding belongs to.</p>
+
+  <h2>What comes back</h2>
+  <div class="card whatback">
+    <h3>The district</h3>
+    <p>Enrolment, schools, budget scale, what SIS and ERP they run and whether they are on Qmlativ yet, any consolidation or split in motion, and recent news worth knowing: board coverage, bond and levy votes, leadership changes, system rollouts.</p>
+  </div>
+  <div class="card whatback">
+    <h3>The people</h3>
+    <p>Everyone findable, with role, which side of the house they sit on, whether they control money or only influence it, and whether to call now or wait, with the reason. Nobody is invented. An unfilled or unpublished seat is reported as one.</p>
+  </div>
+  <div class="card whatback">
+    <h3>The state</h3>
+    <p>How that state funds districts and what that does to the pitch, what the law requires, where the money for a purchase like this comes from and whether any grant exists, purchasing thresholds, and the data privacy paperwork needed before things get serious. Answered separately for ERP and SIS.</p>
+  </div>
+  <div class="card whatback">
+    <h3>The plan</h3>
+    <p>An ordered list of what to do first, tied to the district's own calendar, plus short LinkedIn notes and the introduction ask, drafted from what the research established.</p>
+  </div>
+
+  <h2>Both sides of the house</h2>
+  <div class="twocol">
+    <div class="card side sis">
+      <h4>SIS side</h4>
+      <table>
+        <tr><td class="rowlab">Products</td><td>SchoolTRAK, tardy kiosk, student ID</td></tr>
+        <tr><td class="rowlab">Who decides</td><td>Superintendent, technology director, attendance and front office</td></tr>
+        <tr><td class="rowlab">Where the money is</td><td>Sometimes a state attendance stream, sometimes a mandate with no money attached, sometimes a technology levy</td></tr>
+        <tr><td class="rowlab">Is there a grant</td><td>Rare, and state specific</td></tr>
+        <tr><td class="rowlab">What creates urgency</td><td>Attendance and absenteeism law, reporting accuracy, audit exposure</td></tr>
+      </table>
+    </div>
+    <div class="card side erp">
+      <h4>ERP side</h4>
+      <table>
+        <tr><td class="rowlab">Products</td><td>VirtuaTime, time clocks, employee ID</td></tr>
+        <tr><td class="rowlab">Who decides</td><td>Business administrator, payroll and HR</td></tr>
+        <tr><td class="rowlab">Where the money is</td><td>General fund, every time</td></tr>
+        <tr><td class="rowlab">Is there a grant</td><td>None, in any of the twelve states researched</td></tr>
+        <tr><td class="rowlab">What creates urgency</td><td>Payroll compliance, labour rules, an aging clock fleet</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="callout win">
+    <strong>The most useful thing it can tell you about the ERP side is that there is no grant to look for.</strong> Established for twelve states, and it saves the hunt every time.
+  </div>
+
+  <h2>What it will not do</h2>
+  <ul>
+    <li><strong>New accounts only.</strong> Scoped for districts School Tech has not sold to. It is not designed to draw on Salesforce account history.</li>
+    <li><strong>It will not guess.</strong> If a state has not been researched, it says so on the page rather than filling the gap with something plausible, and hands you a research request to send to Adam. Adam runs the research, and after that every district in that state gets the depth.</li>
+    <li><strong>Its knowledge is a fixed snapshot</strong> until the School Tech AI server is running. Every brief stamps the date its state research was last confirmed, so you can see how current it is.</li>
+    <li><strong>It does not watch for superintendents leaving or arriving.</strong> Separate idea for later.</li>
+  </ul>
+
+  <h2>What has to happen next</h2>
+  <ol class="steps">
+    <li class="first">
+      <strong>Spend time in the AI Training Hub and get hands on.</strong>
+      Read a few Start Here pages, open a Project, try things. No rush, and there is no test. This is the only step waiting on you.
+    </li>
+    <li>When you have a handle on it, reach out to Adam. He will set up a time.</li>
+    <li>In that session, walk Adam through how you actually work an account: what you look up, what you wish you had known earlier, which states and districts are next. This scope was written from the support side and needs correcting by someone who sells.</li>
+    <li>Adam builds your Work Assistant with this bolted on, and packages the knowledge snapshot.</li>
+    <li>You run a district start to finish on your own.</li>
+  </ol>
+  <p class="muted" style="margin-top:14px;">The scope is not locked. If this page missed something you would want, or got something wrong about how the work actually goes, bring it back to Adam and it goes in.</p>
+
+  <footer>
+    <strong>School Technology Associates</strong> &nbsp;|&nbsp; District Outreach Assistant &nbsp;|&nbsp; Scoped, not yet built &nbsp;|&nbsp; Last updated 2026-08-19
+  </footer>
+
+</div>
+
+</body>
+</html>
