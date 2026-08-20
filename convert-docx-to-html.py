@@ -10,12 +10,18 @@ A correction made directly to one of those .html files disappears silently -
 no error, no warning, and the page goes back to saying whatever the .docx
 says. Edit the .docx in dist/files/ and re-run this script instead.
 
-Current generated pairs (input -> output):
+Current generated pairs (input -> output). Verified 2026-08-20 - only these two
+have an HTML output, so only these two can be silently overwritten:
   dist/files/ai-acceptable-use-policy.docx        -> dist/docs/ai-acceptable-use-policy.html
   dist/files/ai-restricted-data-reference-guide.docx
                                                   -> dist/docs/ai-restricted-data-reference-guide.html
-  dist/files/ai-rollout-plan.docx                 -> dist/docs/ai-rollout-plan.html
-  dist/files/sta-salesforce-org-intake.docx       -> dist/docs/sta-salesforce-org-intake.html
+
+The other .docx files in dist/files/ are NOT generated pairs - they have no HTML
+output in dist/docs/. sta-salesforce-org-intake.docx is download-only, linked from
+the hub as files/sta-salesforce-org-intake.docx. ai-rollout-plan.docx has no HTML
+output and no reference in STA-Training-Hub.html at all; it is named only in
+dist/docs/drift-check-procedure.md, so it is unreferenced by the app rather than
+wholly unknown. Left in place pending a decision - do not delete it from here.
 
 Origin: 2026-08-20. A false privacy assurance in the AUP was corrected in the
 generated HTML while the .docx kept the original wording, so the fix was one
