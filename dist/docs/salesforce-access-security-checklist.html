@@ -136,6 +136,7 @@
       <div class="header-badge">Covers: Cases &middot; Accounts &middot; Contacts &middot; Opportunities &middot; Knowledge &middot; Flows &middot; Security</div>
       <div class="header-badge">Last updated: 2026-04-29</div>
       <div class="header-badge" style="background: rgba(244,163,0,0.2); border-color: rgba(244,163,0,0.4);">Status: Pre-connection - no connector built yet</div>
+      <div class="callout red"><strong>The access that actually exists today is not the connector this page governs.</strong> Verified 2026-08-20: Salesforce is reached through the <code>sf</code> CLI, authenticated as profile <strong>STA System Admin</strong> against <strong>production</strong> (<code>isSandbox:false</code>), used daily, with <strong>full write</strong>. That path is not described anywhere on this page and no item below governs it. This page is scoped to a connector that has not been built, so every control on it is a prerequisite for a future build rather than something in force now. Stated here so the gap is visible; nothing has been built to close it.</div>
     </div>
   </div>
   <div class="header-strip">STAFF REFERENCE</div>
@@ -397,7 +398,7 @@
         <div class="check-body">
           <div class="check-title"><span class="badge b-block">REQUIRED</span> Define which Salesforce objects the connector can access - and list them explicitly</div>
           <div class="check-desc">The connector's instructions.md must include an explicit allow-list of objects Claude can query and update. Objects not on the list are out of scope. V1 allow-list recommendation:<br><br>
-          <strong>Read + write (with confirmation):</strong> Case, CaseComment, Knowledge Article (draft only), Task, Contact, Account<br>
+          <strong>Read + write (with confirmation):</strong> Case, CaseComment, Task, Contact, Account<br><strong>Read only, no exception:</strong> Knowledge Article. The permitted workflow is: Claude produces the article HTML in chat, and Adam copy-pastes it into the Knowledge article by hand. There is no direct write to Salesforce Knowledge, draft or otherwise.<br>
           <strong>Read only:</strong> Opportunity, Invoice/Subscription custom objects, Report, Dashboard, Flow (metadata), PermissionSet, Profile<br>
           <strong>Prohibited:</strong> Delete on any object, deploy Flow, modify PermissionSet or Profile</div>
           <div class="check-note">Approved object list recorded: _________________________</div>
@@ -540,8 +541,8 @@
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title"><span class="badge b-block">REQUIRED</span> Knowledge Articles: draft and update drafts only - no direct publishing</div>
-          <div class="check-desc">Instructions must include: "You may create and edit Knowledge Article drafts. You may not publish a Knowledge Article to live - publishing requires human review and must be done manually in Salesforce by the user. When a KA is ready to publish, tell the user: 'This draft is ready. To publish, open it in Salesforce Knowledge and click Publish.'"</div>
+          <div class="check-title"><span class="badge b-block">REQUIRED</span> Knowledge Articles: READ ONLY - no direct write of any kind, including drafts</div>
+          <div class="check-desc">Instructions must include: "You may NOT create, edit or publish a Salesforce Knowledge Article, and that includes drafts. Read Knowledge content freely. To change an article, produce the article HTML in chat and hand it to Adam." The permitted workflow is: Claude produces the article HTML in chat, and Adam copy-pastes it into the Knowledge article by hand. There is no direct write to Salesforce Knowledge, draft or otherwise. This supersedes the earlier draft-write allowance on this page, which conflicted with the standing never-write-to-Salesforce-Knowledge rule. Ruled 2026-08-20: the standing rule wins.</div>
         </div>
       </div>
     </div>
@@ -609,8 +610,8 @@
       <div class="check-item" onclick="toggle(this)">
         <input type="checkbox">
         <div class="check-body">
-          <div class="check-title">Support staff know Claude cannot access Opportunities or financial records with write access</div>
-          <div class="check-desc">Support staff occasionally look up contract status or subscription details for context. They should know: Claude can tell them what's in an Opportunity or Invoice record (read), but cannot update those records. If they need to modify contract terms or financial records, they do that directly in Salesforce.</div>
+          <div class="check-title">Support staff are told not to use Claude for Opportunities or financial records. That is guidance, not a capability limit</div>
+          <div class="check-desc">Support staff occasionally look up contract status or subscription details for context. They should know: Claude is instructed not to update an Opportunity or Invoice record. It is not prevented from doing so: the live <code>sf</code> CLI path runs with full write against production, so this is a written rule and nothing else. If they need to modify contract terms or financial records, they do that directly in Salesforce.</div>
         </div>
       </div>
     </div>
