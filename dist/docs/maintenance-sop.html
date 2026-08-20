@@ -248,7 +248,7 @@
     <div class="step-num">1</div>
     <div class="step-body">
       <div class="step-title">Identify which context files need updating</div>
-      <div class="step-desc">Check <code>context-shared/context-registry.md</code> for a list of all context files, which projects use them, and when they were last updated. The Knowledge Base Update Checker runs weekly and flags files that may be stale.</div>
+      <div class="step-desc">Read the live shared-context folder - <code>C:\Users\Adam\Documents\Claude\Projects\STA Projects\The Architect\context-files\shared\\</code> - for the current set of context files. <strong>The folder is authoritative and there is no maintained index file:</strong> list the folder rather than trusting any registry, because a hand-kept index goes stale the moment a file is added. Each file's own header carries its version and last-updated date. The Knowledge Base Update Checker runs weekly and flags files that may be stale.</div>
     </div>
   </div>
 
@@ -265,7 +265,7 @@
     <div class="step-body">
       <div class="step-title">Re-upload to all affected projects</div>
       <div class="step-desc">For each project listed in the context registry for that file, go to the project settings and replace the old version of the context file with the updated one. Claude.ai and Cowork do not auto-sync context files - you have to do this manually.</div>
-      <div class="step-note">Check <code>context-registry.md</code> for the full list of which projects use which files. Do not miss one - a project with stale context will answer incorrectly even if its instructions are fine.</div>
+      <div class="step-note">To find which projects use a shared file, grep the blueprint folders for its filename - <strong>the shared folder is authoritative and there is no maintained index that maps files to projects.</strong> Do not miss one: a project with stale context will answer incorrectly even if its instructions are fine.</div>
     </div>
   </div>
 
@@ -273,7 +273,7 @@
     <div class="step-num green">4</div>
     <div class="step-body">
       <div class="step-title">Update the registry</div>
-      <div class="step-desc">Update the "Last Updated" date in <code>context-registry.md</code> for the file you changed.</div>
+      <div class="step-desc">Update the "Last Updated" date <strong>in the header of the context file you changed</strong>. There is no separate registry to update - the file is its own record.</div>
     </div>
   </div>
 
