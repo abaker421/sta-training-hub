@@ -56,7 +56,7 @@
 
       <h2>What it does not do</h2>
       <ul>
-        <li>No action in external systems - it does not send email, file tickets, or change anything outside the conversation.</li>
+        <li><strong>Instructed never to act in external systems</strong> - and this is a written rule, not a platform limit. The Work Personal Assistant is the one agent that holds the Gmail grant, so <code>send_message</code>, <code>reply</code>, <code>forward</code>, <code>trash_message</code> and <code>trash_thread</code> are all exposed to it and each executes the moment it is called. The Calendar tools <code>create_event</code>, <code>update_event</code> and <code>delete_event</code> are the same. What stops it is the "NEVER ACT in external systems" section of its own <code>instructions.md</code> (v4.21), which names those tools. Verified 2026-08-20.</li>
         <li>Personal tasks (home, family, creative writing, personal finances) &rarr; Personal Assistant.</li>
         <li>Designing an agent or building a prompt &rarr; The Architect.</li>
         <li>Sustained multi-source research &rarr; Deep Research.</li>

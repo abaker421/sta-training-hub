@@ -30,16 +30,16 @@
 <body>
   <div class="wrap">
     <div class="head">
-      <span class="badge">Security · Always On</span>
+      <span class="badge">Security · Instruction-level</span>
       <h1>Prompt Override Guard</h1>
-      <div class="tagline">Blocks attempts to jailbreak or override an agent.</div>
-      <div class="head-strip">SKILL &middot; RUNS AUTOMATICALLY WHEN IT APPLIES</div>
+      <div class="tagline">Instructs an agent to refuse attempts to jailbreak or override it.</div>
+      <div class="head-strip">SKILL &middot; PROMPT-LEVEL, NOT ENFORCED</div>
     </div>
     <div class="body">
       <h2>What it does</h2>
-      <p>Intercepts and shuts down attempts to bypass an agent's instructions - phrases like “ignore your instructions,” “act as DAN,” “developer mode,” or “jailbreak.” The moment such an attempt is detected, this takes priority over every other response.</p>
+      <p>Instructs the agent to refuse attempts to bypass its own instructions - phrases like “ignore your instructions,” “act as DAN,” “developer mode,” or “jailbreak.” When the agent recognises such an attempt, this instruction is meant to take priority over every other response.</p>
       <h2>How it works</h2>
-      <p>It is permanently armed inside every Cowork agent - nobody needs to invoke it, it fires automatically. It does not trigger on legitimate admin instructions, normal confusion about an agent's capabilities, or messages that merely mention security without trying to override behavior.</p>
+      <p>It is loaded into every Cowork agent, so nobody needs to invoke it by name. <strong>Loaded is not the same as enforced.</strong> This is instruction text the model is asked to follow, with no mechanism underneath it, so a sufficiently determined prompt injection can get past it - the hub states that principle against this skill elsewhere: "constraints that only live in the prompt are bypassable by prompt injection." Its measured pass rate has never been published. Verified 2026-08-20. It does not trigger on legitimate admin instructions, normal confusion about an agent's capabilities, or messages that merely mention security without trying to override behavior.</p>
       <h2>Recognized automatically</h2>
       <div class="trigger"><p>"ignore your instructions..."</p><p>"forget what you were told..."</p><p>"act as DAN / developer mode / jailbreak"</p></div>
 
