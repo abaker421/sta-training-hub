@@ -120,7 +120,7 @@
   .card-skill { border-top: 3px solid var(--accent-vis); --card-accent: #0d7d8c; }
   .card-project { border-top: 3px solid var(--accent-vis); --card-accent: #3f51b5; }
   .card-cowork { border-top: 3px solid var(--accent-vis); --card-accent: #795548; }
-  .section-time { font-size: 8.5pt; font-weight: 600; color: var(--blue); background: #e8f2f8; border-radius: 20px; padding: 2px 10px; margin-left: 10px; vertical-align: middle; }
+  .section-time { --pill-accent: var(--blue); font-size: 8.5pt; font-weight: 600; color: var(--blue); background: #e8f2f8; border-radius: 20px; padding: 2px 10px; margin-left: 10px; vertical-align: middle; }
   .section-accent .card { border-top: 3px solid var(--accent-vis); --card-accent: var(--section-accent); }
   /* Unread + required. The class is recomputed from state.read on every render and
      toggleRead() re-renders, so it clears the moment the card is marked read.
@@ -158,26 +158,26 @@
 
   .card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); }
   .pill { font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
-  .pill-required { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
-  .pill-recommended { background: #edf7e6; color: var(--green-dark); border: 1px solid #b8e0a0; }
-  .pill-optional { background: var(--light); color: var(--gray); border: 1px solid var(--border); }
-  .pill-live { background: #edf7e6; color: var(--green-dark); border: 1px solid #b8e0a0; }
-  .pill-coming { background: #f0eafd; color: #6c3dbf; border: 1px solid #d0b8f0; }
-  .pill-wip { background: #f0eafd; color: #6c3dbf; border: 1px solid #d0b8f0; }
-  .pill-skill { background: #e0f3f5; color: #0a6470; border: 1px solid #b3dfe5; }
-  .pill-admin { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
-  .pill-project { background: #e8eaf6; color: #283593; border: 1px solid #c5cae9; }
-  .pill-cowork { background: #efebe9; color: #4e342e; border: 1px solid #d7ccc8; }
-  .pill-html { background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
-  .pill-docx { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
-  .pill-md { background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
-  .pill-pptx { background: #fdf0ef; color: var(--red); border: 1px solid #f5b8aa; }
-  .pill-org { background: #dff3d3; color: var(--green-dark); border: 1px solid #9fd182; cursor: help; }
+  .pill-required { --pill-accent: var(--blue); background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
+  .pill-recommended { --pill-accent: var(--green-dark); background: #edf7e6; color: var(--green-dark); border: 1px solid #b8e0a0; }
+  .pill-optional { --pill-accent: var(--gray); background: var(--light); color: var(--gray); border: 1px solid var(--border); }
+  .pill-live { --pill-accent: var(--green-dark); background: #edf7e6; color: var(--green-dark); border: 1px solid #b8e0a0; }
+  .pill-coming { --pill-accent: #6c3dbf; background: #f0eafd; color: #6c3dbf; border: 1px solid #d0b8f0; }
+  .pill-wip { --pill-accent: #6c3dbf; background: #f0eafd; color: #6c3dbf; border: 1px solid #d0b8f0; }
+  .pill-skill { --pill-accent: #0a6470; background: #e0f3f5; color: #0a6470; border: 1px solid #b3dfe5; }
+  .pill-admin { --pill-accent: #a06500; background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .pill-project { --pill-accent: #283593; background: #e8eaf6; color: #283593; border: 1px solid #c5cae9; }
+  .pill-cowork { --pill-accent: #4e342e; background: #efebe9; color: #4e342e; border: 1px solid #d7ccc8; }
+  .pill-html { --pill-accent: var(--blue); background: #e8f2f8; color: var(--blue); border: 1px solid #c0d8ea; }
+  .pill-docx { --pill-accent: #a06500; background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .pill-md { --pill-accent: #a06500; background: #fef4e0; color: #a06500; border: 1px solid #f5cf80; }
+  .pill-pptx { --pill-accent: var(--red); background: #fdf0ef; color: var(--red); border: 1px solid #f5b8aa; }
+  .pill-org { --pill-accent: var(--green-dark); background: #dff3d3; color: var(--green-dark); border: 1px solid #9fd182; cursor: help; }
 
   /* FRESHNESS CHIPS */
   .chip { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
   .chip-new { background: var(--blue); color: #fff; border: 1px solid var(--blue); }
-  .chip-updated { background: #fff3da; color: #a06500; border: 1px solid #f5cf80; }
+  .chip-updated { --pill-accent: #a06500; background: #fff3da; color: #a06500; border: 1px solid #f5cf80; }
 
   /* READ TRACKING */
   .req-unread { font-size: 7.5pt; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.4px; }
@@ -327,7 +327,6 @@
   :root[data-theme="dark"] .empty-title { color: #b6bcc4; }
   :root[data-theme="dark"] .empty-sub { color: #7f8893; }
   :root[data-theme="dark"] .section-count { background: #262c35; color: #8a929b; }
-  :root[data-theme="dark"] .pill-optional { background: #262c35; color: #aab1b9; }
   :root[data-theme="dark"] .progress-track { background: #2a313b; }
   :root[data-theme="dark"] .viewer-footer { background: #20262e; }
   :root[data-theme="dark"] .link-group-item:hover { background: #262c35; }
@@ -340,7 +339,22 @@
      (green, orange, gray, teal) clear. Light theme is untouched. */
   :root[data-theme="dark"] .card { box-shadow: 0 1px 2px rgba(0,0,0,.35);
     --accent-vis: color-mix(in srgb, var(--card-accent, var(--blue)) 70%, white); }
-  :root[data-theme="dark"] .card-required-unread { background: color-mix(in srgb, var(--card-accent, var(--blue)) 10%, var(--white)); }
+  /* --accent-vis, not raw --card-accent: at 10% raw, the already-dark accents
+     (cowork brown, project indigo) left no visible tint over #1e232b. */
+  :root[data-theme="dark"] .card-required-unread { background: color-mix(in srgb, var(--accent-vis) 14%, var(--white)); }
+  /* Pills, chips and the section-time badge, on dark. One rule, driven off the
+     --pill-accent each light rule declares, rather than 17 hand-authored overrides.
+     Text mix is 50%, NOT 70%: measured against the 18% tinted background, 70% left six
+     of nine accents under the 4.5:1 text floor (worst 3.25, cowork brown). 50% puts the
+     worst at 5.49. Raising the accent share darkens text on a dark ground, so the fix is
+     more white, not less. .chip-new is excluded - it is a solid accent fill with white
+     text, and tinting it would flatten a deliberate emphasis. */
+  :root[data-theme="dark"] .pill,
+  :root[data-theme="dark"] .chip:not(.chip-new),
+  :root[data-theme="dark"] .section-time {
+    background: color-mix(in srgb, var(--pill-accent, var(--blue)) 18%, var(--white));
+    color: color-mix(in srgb, var(--pill-accent, var(--blue)) 50%, white);
+    border-color: color-mix(in srgb, var(--pill-accent, var(--blue)) 35%, var(--white)); }
   :root[data-theme="dark"] .card:hover { box-shadow: 0 10px 24px -6px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06); }
 
   @media (prefers-color-scheme: dark) {
@@ -375,13 +389,18 @@
     :root:not([data-theme="light"]) .empty-title { color: #b6bcc4; }
     :root:not([data-theme="light"]) .empty-sub { color: #7f8893; }
     :root:not([data-theme="light"]) .section-count { background: #262c35; color: #8a929b; }
-    :root:not([data-theme="light"]) .pill-optional { background: #262c35; color: #aab1b9; }
     :root:not([data-theme="light"]) .progress-track { background: #2a313b; }
     :root:not([data-theme="light"]) .viewer-footer { background: #20262e; }
     :root:not([data-theme="light"]) .link-group-item:hover { background: #262c35; }
     :root:not([data-theme="light"]) .card { box-shadow: 0 1px 2px rgba(0,0,0,.35);
       --accent-vis: color-mix(in srgb, var(--card-accent, var(--blue)) 70%, white); }
-    :root:not([data-theme="light"]) .card-required-unread { background: color-mix(in srgb, var(--card-accent, var(--blue)) 10%, var(--white)); }
+    :root:not([data-theme="light"]) .card-required-unread { background: color-mix(in srgb, var(--accent-vis) 14%, var(--white)); }
+    :root:not([data-theme="light"]) .pill,
+    :root:not([data-theme="light"]) .chip:not(.chip-new),
+    :root:not([data-theme="light"]) .section-time {
+      background: color-mix(in srgb, var(--pill-accent, var(--blue)) 18%, var(--white));
+      color: color-mix(in srgb, var(--pill-accent, var(--blue)) 50%, white);
+      border-color: color-mix(in srgb, var(--pill-accent, var(--blue)) 35%, var(--white)); }
     :root:not([data-theme="light"]) .card:hover { box-shadow: 0 10px 24px -6px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06); }
   }
 
@@ -744,7 +763,7 @@ window.TRAINING_DATA = {
       file: 'docs/ai-basics.html',
       type: 'html',
       priority: 'recommended',
-      tags: ['Reference', 'Go further'],
+      tags: ['Reference'],
       added: '2026-06-12', updated: '2026-08-19'
     },
     'skill-truncation-checker': {
