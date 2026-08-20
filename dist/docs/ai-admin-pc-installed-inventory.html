@@ -194,7 +194,6 @@
       </tbody></table>
     </div></details>
 
-    <div class="callout"><strong>Live MCP connectors this session:</strong> Gmail (draft-only), Google Calendar, Google Drive, Slack, Figma, Hugging Face, Zoom, Granola, GA4 (ga4-helpcenter, custom), MCP Registry. Box is <strong>not</strong> installed. The Design-plugin connectors (Figma, Asana, Atlassian, Intercom, Linear, Notion) sit unauthenticated until first sign-in.</div>
     <h2>Anthropic's platform skills cover the document pipeline end to end</h2>
     <p><strong>21 platform skills available in Cowork</strong> - 16 in the synced manifest, 5 callable without being synced (verified 2026-08-19). Untouched by the cleanup; these ship with Cowork and are always available. Claude Code exposes a different platform set - <code>schedule</code> and <code>consolidate-memory</code> appear there and are <strong>not</strong> part of the Cowork inventory this document describes.</p>
     <div class="callout"><strong>Read this before recounting.</strong> <code>skills/synced/manifest.json</code> holds <strong>16</strong> of these. The other <strong>five</strong> - <code>setup-cowork</code>, <code>cowork-plugin</code>, <code>explain-usage</code>, <code>claude-in-chrome</code>, <code>dataviz</code> - are callable in session but are <strong>not synced to that folder</strong>, so they never appear in the manifest. A recount from the manifest alone lands on 16 and looks like a correction. It is not: the total is <strong>21</strong>. This gap is what made the count wrong in earlier passes.</div>
@@ -256,40 +255,40 @@
 
     <p>A <strong>deep-research</strong> harness (fan-out search, adversarial verification, cited reports) is also available as a built-in, outside the stock-skill count.</p>
     <h2>The full STA tech stack - everything the AI layer plugs into</h2>
-    <p>The company-wide tool inventory the plugins and connectors above integrate with. Source: <strong>context-org-tech-stack.md</strong> (the shared STA tech-stack context file) plus live deployment facts.</p>
+    <p>The company-wide tool inventory the AI layer is designed around. Source: <strong>context-org-tech-stack.md</strong> (the shared STA tech-stack context file).</p>
     <table>
-      <caption>STA tech stack by category, with AI-connection status</caption>
-      <thead><tr><th scope="col">Category</th><th scope="col">Tool</th><th scope="col">What it does / AI status</th></tr></thead>
+      <caption>STA tech stack by category</caption>
+      <thead><tr><th scope="col">Category</th><th scope="col">Tool</th><th scope="col">What it does</th></tr></thead>
       <tbody>
-        <tr><td rowspan="5">Core business</td><td>Salesforce</td><td>Primary CRM + customer ops + full financials. Installed packages: Salesforce CPQ, Accounting Seed Financial Suite, Accounting Seed Orders &amp; Inventory, DBSync QuickBooks Integration, DevOps Center. <span class="st g">AI-connected</span> (plugin; Salesforce Admin Assistant + Cohort live)</td></tr>
-        <tr><td>Google Workspace</td><td>Gmail, Drive, Calendar, Chat - email, file storage, scheduling, internal messaging. <span class="st w">Partial</span>: Gmail MCP connected (draft-only); Calendar used by the rd-time-tracking scheduled task; Drive/Chat not connected (Drive holds sensitive files - treat with care)</td></tr>
-        <tr><td>QuickBooks</td><td>Accounting, synced from Salesforce via DBSync. <span class="st b">Not AI-connected</span></td></tr>
-        <tr><td>Skyward (SMS 2.0 / Qmlativ)</td><td>Customers' SIS/ERP - STA integrates with it, does not run it. <span class="st w">Monitoring only</span> (Skyward Friday Digest automation)</td></tr>
-        <tr><td>ISCorp</td><td>Hosting for SchoolTRAK. <span class="st b">Not AI-connected</span></td></tr>
-        <tr><td rowspan="5">Communication</td><td>Google Chat</td><td>Primary internal messaging. <span class="st b">Not AI-connected</span> (identified future target)</td></tr>
-        <tr><td>Slack</td><td>AI-output channel - adopted for its AI integration ease; System Monitor health reports post here. <span class="st g">AI-connected</span> (MCP)</td></tr>
-        <tr><td>Zoom</td><td>Meetings. <span class="st g">AI-connected</span> via the Zoom connector. The separate Zoom <em>developer plugin</em> was removed in the July 2026 cleanup - that is the plugin, not the connector</td></tr>
-        <tr><td>Salesforce Chatter</td><td>Case-related in-platform messaging. <span class="st g">Via Salesforce</span></td></tr>
-        <tr><td>Intercom / HubSpot</td><td>Customer-facing comms. <span class="st w">Connector only</span>: the HubSpot / Customer Support plugin was removed in the July 2026 cleanup; Intercom remains only as an unauthenticated Design-plugin connector. HubSpot's relationship to Salesforce as system of record was never fully defined - flag in any CRM-adjacent design</td></tr>
-        <tr><td rowspan="5">Content &amp; knowledge</td><td>Salesforce Knowledge (Help Center)</td><td>Customer-facing KB in a strict HTML format. <span class="st g">AI-integrated</span> (Help Center Article skill, Help Center Advisor agent, GA4 help-center reporting)</td></tr>
-        <tr><td>Guru / Notion / Atlassian</td><td>Knowledge management and project tracking. <span class="st w">Connector only</span>: Guru was removed with its plugin in the July 2026 cleanup; Notion and Atlassian remain as unauthenticated Design-plugin connectors</td></tr>
-        <tr><td>WordPress (k12sta.com)</td><td>Public website - podcast, newsletters, blog, user stories. <span class="st w">Content archived to KB</span> (k12sta-web-content-archive)</td></tr>
-        <tr><td>Mailchimp</td><td>B2B email marketing. <span class="st b">Not AI-connected</span> (STA-specific KB module exists)</td></tr>
-        <tr><td>Adobe / Camtasia / Snagit / Dropbox</td><td>Content creation, screen recording, capture; secondary file storage. <span class="st b">Not AI-connected</span></td></tr>
-        <tr><td rowspan="2">Support &amp; remote</td><td>GoToAssist</td><td>Remote access during customer support sessions. <span class="st b">Not AI-connected</span></td></tr>
-        <tr><td>Granola</td><td>AI meeting notes/transcripts. <span class="st g">AI-connected</span> (feeds the rd-time-tracking-weekly task)</td></tr>
-        <tr><td rowspan="5">AI &amp; dev infrastructure</td><td>Claude (Anthropic)</td><td>claude.ai Projects (staff tools), Cowork desktop (agents + skills on this PC), Claude Code (repo work, PRs). <span class="st g">The AI layer itself</span></td></tr>
-        <tr><td>GitHub</td><td>Repos for the training hub, BwB web apps, and the weekly full-system backup. Protected main; PR-based deploys. <span class="st g">AI-connected</span> (Claude Code + weekly-github-backup)</td></tr>
-        <tr><td>Cloudflare Pages (+ D1)</td><td>Hosts the STA Training Hub and the STA Support Hub's Projects tab (D1-backed tracker); deploys from origin/main on PR merge. <span class="st g">AI-maintained</span></td></tr>
-        <tr><td>Cloudflare Pages</td><td>Hosts the STA Support Hub single-page app (renamed 2026-06-11; repo slug remains <code>sta-help-center-index</code>). <span class="st g">AI-maintained</span></td></tr>
-        <tr><td>Google Analytics 4</td><td>Help Center traffic analytics. <span class="st g">AI-connected</span> (ga4-helpcenter connector + help-center-report skill)</td></tr>
-        <tr><td rowspan="2">Security</td><td>Bullphish / Webroot / Spanning</td><td>Phishing training, endpoint protection, Salesforce backup. <span class="st w">Monitored</span> via STA Security Advisor (CIS v8.1 evidence tracking)</td></tr>
-        <tr><td>Google Admin Console</td><td>Workspace administration, MFA enforcement, security events. <span class="st w">Monitored</span> via STA Security Advisor</td></tr>
+        <tr><td rowspan="5">Core business</td><td>Salesforce</td><td>Primary CRM + customer ops + full financials. Installed packages: Salesforce CPQ, Accounting Seed Financial Suite, Accounting Seed Orders &amp; Inventory, DBSync QuickBooks Integration, DevOps Center.</td></tr>
+        <tr><td>Google Workspace</td><td>Gmail, Drive, Calendar, Chat - email, file storage, scheduling, internal messaging. Drive holds sensitive files - treat with care.</td></tr>
+        <tr><td>QuickBooks</td><td>Accounting, synced from Salesforce via DBSync.</td></tr>
+        <tr><td>Skyward (SMS 2.0 / Qmlativ)</td><td>Customers' SIS/ERP - STA integrates with it, does not run it.</td></tr>
+        <tr><td>ISCorp</td><td>Hosting for SchoolTRAK.</td></tr>
+        <tr><td rowspan="5">Communication</td><td>Google Chat</td><td>Primary internal messaging.</td></tr>
+        <tr><td>Slack</td><td>AI-output channel - adopted for its AI integration ease; System Monitor health reports post here.</td></tr>
+        <tr><td>Zoom</td><td>Meetings. The separate Zoom <em>developer plugin</em> was removed in the July 2026 cleanup.</td></tr>
+        <tr><td>Salesforce Chatter</td><td>Case-related in-platform messaging.</td></tr>
+        <tr><td>Intercom / HubSpot</td><td>Customer-facing comms. The HubSpot / Customer Support plugin was removed in the July 2026 cleanup. HubSpot's relationship to Salesforce as system of record was never fully defined - flag in any CRM-adjacent design.</td></tr>
+        <tr><td rowspan="5">Content &amp; knowledge</td><td>Salesforce Knowledge (Help Center)</td><td>Customer-facing KB in a strict HTML format.</td></tr>
+        <tr><td>Guru / Notion / Atlassian</td><td>Knowledge management and project tracking. Guru was removed with its plugin in the July 2026 cleanup.</td></tr>
+        <tr><td>WordPress (k12sta.com)</td><td>Public website - podcast, newsletters, blog, user stories.</td></tr>
+        <tr><td>Mailchimp</td><td>B2B email marketing. An STA-specific KB module exists.</td></tr>
+        <tr><td>Adobe / Camtasia / Snagit / Dropbox</td><td>Content creation, screen recording, capture; secondary file storage.</td></tr>
+        <tr><td rowspan="2">Support &amp; remote</td><td>GoToAssist</td><td>Remote access during customer support sessions.</td></tr>
+        <tr><td>Granola</td><td>AI meeting notes/transcripts.</td></tr>
+        <tr><td rowspan="5">AI &amp; dev infrastructure</td><td>Claude (Anthropic)</td><td>claude.ai Projects (staff tools), Cowork desktop (agents + skills on this PC), Claude Code (repo work, PRs).</td></tr>
+        <tr><td>GitHub</td><td>Repos for the training hub, BwB web apps, and the weekly full-system backup. Protected main; PR-based deploys.</td></tr>
+        <tr><td>Cloudflare Pages (+ D1)</td><td>Hosts the STA Training Hub and the STA Support Hub's Projects tab (D1-backed tracker); deploys from origin/main on PR merge.</td></tr>
+        <tr><td>Cloudflare Pages</td><td>Hosts the STA Support Hub single-page app (renamed 2026-06-11; repo slug remains <code>sta-help-center-index</code>).</td></tr>
+        <tr><td>Google Analytics 4</td><td>Help Center traffic analytics.</td></tr>
+        <tr><td rowspan="2">Security</td><td>Bullphish / Webroot / Spanning</td><td>Phishing training, endpoint protection, Salesforce backup.</td></tr>
+        <tr><td>Google Admin Console</td><td>Workspace administration, MFA enforcement, security events.</td></tr>
       </tbody>
     </table>
-    <div class="callout"><strong>Source of truth:</strong> the canonical stack doc is <strong>context-files/outputs/context-org-tech-stack.md</strong> in The Architect workspace. When a tool is added, dropped, or newly AI-connected, update that file first, then regenerate this section.</div>
+    <div class="callout"><strong>Source of truth:</strong> the canonical stack doc is <strong>context-files/outputs/context-org-tech-stack.md</strong> in The Architect workspace. When a tool is added or dropped, update that file first, then regenerate this section.</div>
 
-    <div class="callout"><strong>Excluded by design:</strong> the 38 custom-built skills (garage-sale-scanner, prompt-evaluator, sta-html-report, time-clock-error-log-review, training-doc-auditor, and the rest of the pipeline tooling). They are all installed alongside everything above and documented on their own hub cards.</div>
+    <div class="callout"><strong>Excluded by design:</strong> the 37 custom-built skills (garage-sale-scanner, prompt-evaluator, sta-html-report, time-clock-error-log-review, training-doc-auditor, and the rest of the pipeline tooling). They are all installed alongside everything above and documented on their own hub cards.</div>
 
     <details>
       <summary>Methodology and data sources</summary>

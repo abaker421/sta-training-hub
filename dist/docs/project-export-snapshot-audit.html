@@ -226,7 +226,7 @@
       <table><caption class="sr-only">House Monitor snapshot</caption><tbody>
         <tr><th scope="row">Version / target</th><td>instructions.md v1.0 (6/6/26 backfill - identity + context routing; sweep workflow stays in listing-scout-daily-prompt.md, 5/17/26) &middot; daily 5pm scheduled task &middot; Active &middot; Personal</td></tr>
         <tr><th scope="row">Context files</th><td>home_criteria (hard limits + scoring rubric); home_report_template (per-property format); photo_red_flags (MLS photo analysis, sourced from home-inspector KB module-09); context-html-report-design (shared master copy)</td></tr>
-        <tr><th scope="row">Skills used</th><td>None - prompts use Gmail, Chrome sweep, web_fetch, JSON dedupe cache</td></tr>
+        <tr><th scope="row">Skills used</th><td>None - the prompts rely on tool calls plus a JSON dedupe cache rather than skills</td></tr>
         <tr><th scope="row">KB modules</th><td>report-design-for-humans-html; wi-mi-home-inspector-licensure-roadmap (module-09)</td></tr>
         <tr><th scope="row">Install needs</th><td>project-launch.md created 2026-06-06: mount House Monitor folder, paste instructions, verify 4 context files + dedupe JSON, connect Gmail MCP + Claude in Chrome, create the listing-scout-daily scheduled task (cron 0 17 * * *, folder field mandatory)</td></tr>
         <tr><th scope="row">Gaps</th><td>Closed 2026-06-06 (instructions.md v1.0 + launch file created). Remains outside the Architect blueprint structure by design; full pipeline pass still optional</td></tr>
