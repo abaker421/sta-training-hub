@@ -13,9 +13,17 @@ sync procedure and @DEPLOY.md for the Cloudflare setup.
 - After any source `.docx` edit, re-run `convert-docx-to-html.py` to rebuild
   `dist/docs/*.html`.
 
-## Branching (main is protected - PR only)
+## Branching (PR only - by discipline, not by enforcement)
 
-`main` is protected: direct pushes are rejected. **Never run `git push origin main`.**
+**Never run `git push origin main`.** Branch, PR, squash-merge.
+
+> **NOTE: nothing at the remote enforces this.** Verified 2026-08-20: this repo reports
+> `protected=false` with no rulesets. It is a **public** repo, so branch protection is
+> available on this GitHub plan and simply is not switched on. (On the private
+> `school-tech-ai-system` repo it is not available at all - the API answers
+> "Upgrade to GitHub Pro or make this repository public to enable this feature.")
+> **The discipline IS the control.** An agent that checks, finds no protection, and
+> concludes the rule was mistaken has misread this note.
 
 1. `git checkout main && git pull origin main` - start from an up-to-date main
 2. `git checkout -b <type>/<slug>` - branch BEFORE staging, so local `main` never diverges

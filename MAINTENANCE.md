@@ -48,7 +48,15 @@ cp "../Training - Staff/Getting Started Guide.html" "dist/docs/Getting Started G
 
 **Cloudflare Pages deploys from the GitHub remote `origin/main`, not from the local filesystem.** Local dist syncs alone do NOT update the hosted hub - the change must reach `main` on GitHub before Cloudflare picks it up. Every sync must be followed by a merged PR, or the hub silently serves stale content even though dist/ on disk is up to date.
 
-**`main` is protected - `git push origin main` is rejected.** The change ships through a pull request. Cloudflare deploys on the merge, not on the push.
+**Never `git push origin main`.** The change ships through a pull request. Cloudflare deploys on the merge, not on the push.
+
+> **NOTE: nothing at the remote enforces this.** Verified 2026-08-20: this repo reports
+> `protected=false` with no rulesets. It is a **public** repo, so branch protection is
+> available on this GitHub plan and simply is not switched on. (On the private
+> `school-tech-ai-system` repo it is not available at all - the API answers
+> "Upgrade to GitHub Pro or make this repository public to enable this feature.")
+> **The discipline IS the control.** An agent that checks, finds no protection, and
+> concludes the rule was mistaken has misread this note.
 
 **The Architect provides a paste-ready prompt at the end of every hub-modifying session** per RESTATED HARD RULES rule 13. Paste it into Claude Code to execute. The prompt template:
 
@@ -80,7 +88,7 @@ Cloudflare Pages auto-deploys within ~60 seconds of the **merge** completing. Co
 
 **No merged PR = no deploy.** Edits to source files alone, or a pushed branch that never merges, will silently fail to reach users. This is the dominant operational failure mode for the hub - the dist sync rule (immediate, within-session) catches the local mirror issue; this ship rule (immediate, before declaring complete) catches the remote deploy issue.
 
-Origin: 2026-05-21, The Architect's RESTATED HARD RULES rule 13 added after Adam observed the push step was being missed at the end of hub-modifying sessions. Revised 2026-07-28 when `main` became protected across all repos - direct pushes no longer work.
+Origin: 2026-05-21, The Architect's RESTATED HARD RULES rule 13 added after Adam observed the push step was being missed at the end of hub-modifying sessions. Revised 2026-07-28 on the belief that `main` had become protected across all repos. **That belief was wrong, or has since lapsed:** measured 2026-08-20, neither repo has any protection or ruleset, and on the private repo the feature is unavailable on this plan, so it could never have applied there. The PR workflow this note describes is still correct - keep it - but it rests on discipline, not on the remote rejecting anything.
 ---
 
 ## Re-converting .docx Files After Source Edits
