@@ -340,6 +340,24 @@
   </div>
 
   <div class="step">
+    <div class="step-num red">2a</div>
+    <div class="step-body">
+      <div class="step-title">Revoke Google third-party app access</div>
+      <div class="step-desc">Signed in as the departing account, go to <code>myaccount.google.com</code> &rarr; Security &rarr; Third-party apps with account access. Remove any Claude, Cowork or Anthropic entry. Do this the same day as removal from the team plan. An OAuth token survives removal from the Claude team plan and is not revoked by it.</div>
+      <div class="step-note">This lives in the individual's own Google account, not in a School Tech admin console, so it cannot be done for them from the outside. If the account is already closed, check Google Workspace Admin &rarr; Security &rarr; API controls &rarr; Manage third-party app access to confirm nothing is left authorised.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num red">2b</div>
+    <div class="step-body">
+      <div class="step-title">Revoke Salesforce access</div>
+      <div class="step-desc">If the departing user held a Salesforce CLI authentication or any connected-app authorisation, revoke it in Setup &rarr; Connected Apps OAuth Usage, and remove them from any Claude-related permission set. Record both revocations, with the date, in the AI Access Register.</div>
+      <div class="step-note">Login history will not tell you a dormant token exists - an unused token generates no login. Connected Apps OAuth Usage is the only screen that enumerates issued tokens, and there is no SOQL object behind it.</div>
+    </div>
+  </div>
+
+  <div class="step">
     <div class="step-num red">3</div>
     <div class="step-body">
       <div class="step-title">Transfer or close out their work (if applicable)</div>
@@ -365,7 +383,7 @@
   </div>
 
   <div class="callout orange" style="margin-top: 16px;">
-    <strong>Data considerations.</strong> Anthropic retains conversation history in the departing user's account per their standard data retention policies - School Tech does not control this. What School Tech controls is claude.ai membership and Cowork access, both of which these five steps end. <strong>They do not end everything.</strong> Verified 2026-08-20: nothing in this procedure revokes a Google OAuth grant made from the person's own Google account, and nothing revokes a Salesforce credential. Both live outside School Tech's control surface - the OAuth grant in the individual's Google account, the Salesforce access in the <code>sf</code> CLI - and both survive removal indefinitely. No step in this guide currently revokes them. School Tech does control what was entered into the AI tools during a person's tenure. Conversations with AI tools are covered under the Claude Teams data privacy agreement. If there is a specific concern about regulated data (FERPA, HIPAA, etc.) that was entered, consult your data governance process separately - this offboarding checklist does not replace that.
+    <strong>Data considerations.</strong> Anthropic retains conversation history in the departing user's account per their standard data retention policies - School Tech does not control this. What School Tech controls is claude.ai membership and Cowork access, both of which steps 1 and 2 end. <strong>They do not end everything on their own.</strong> Verified 2026-08-20: a Google OAuth grant made from the person's own Google account, and a Salesforce CLI or connected-app authorisation, both live outside School Tech's control surface - the grant in the individual's Google account, the Salesforce access in the <code>sf</code> CLI - and both survive removal from the team plan indefinitely. Steps 2a and 2b, added 2026-08-21, are the only parts of this procedure that end them, and neither happens automatically: both are done by hand, one in the departing account's own Google security page and one in Salesforce Setup. School Tech does control what was entered into the AI tools during a person's tenure. Conversations with AI tools are covered under the Claude Teams data privacy agreement. If there is a specific concern about regulated data (FERPA, HIPAA, etc.) that was entered, consult your data governance process separately - this offboarding checklist does not replace that.
   </div>
 
   <!-- TROUBLESHOOTING -->
