@@ -68,12 +68,22 @@ Card text lives in `window.TRAINING_DATA` inside `STA-Training-Hub.html` and is 
 
    - `ai-acceptable-use-policy.docx`
    - `ai-restricted-data-reference-guide.docx` - **in scope for mechanical drift, exempt for content.** Scan it; see the rule below.
-   - `ai-rollout-plan.docx`
    - `sta-salesforce-org-intake.docx`
 
-   Each of these is also pre-converted to a styled HTML copy in `dist\docs\` by
-   `convert-docx-to-html.py`. The HTML copy is what users read, so a `.docx` fix is not
-   shipped until the matching `dist\docs\[slug].html` has been regenerated.
+   `ai-rollout-plan.docx` was **unpublished on 2026-08-20** and is no longer in
+   `dist\files\` at all. It stated in two places that admins cannot read conversation
+   content, and built on that to authorise sensitive HR and financial use - directly
+   contradicting the AI Acceptable Use Policy corrected the same day. It also published a
+   named staff roster with roles. Its source of record is now
+   `Training Materials\Training - Admin\AI Rollout Plan.docx` only. Its content has NOT
+   been corrected; that is a separate pass.
+
+   Only two of the three above are pre-converted to a styled HTML copy in `dist\docs\` by
+   `convert-docx-to-html.py`: `ai-acceptable-use-policy` and
+   `ai-restricted-data-reference-guide`. For those two the HTML copy is what users read, so
+   a `.docx` fix is not shipped until the matching `dist\docs\[slug].html` has been
+   regenerated. `sta-salesforce-org-intake.docx` has no HTML output - it is a download,
+   linked from the hub as `files/sta-salesforce-org-intake.docx`.
 
 4. Categorize findings:
 

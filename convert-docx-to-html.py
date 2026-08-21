@@ -18,10 +18,10 @@ have an HTML output, so only these two can be silently overwritten:
 
 The other .docx files in dist/files/ are NOT generated pairs - they have no HTML
 output in dist/docs/. sta-salesforce-org-intake.docx is download-only, linked from
-the hub as files/sta-salesforce-org-intake.docx. ai-rollout-plan.docx has no HTML
-output and no reference in STA-Training-Hub.html at all; it is named only in
-dist/docs/drift-check-procedure.md, so it is unreferenced by the app rather than
-wholly unknown. Left in place pending a decision - do not delete it from here.
+the hub as files/sta-salesforce-org-intake.docx. ai-rollout-plan.docx is no longer
+in dist/files/ at all - it was unpublished on 2026-08-20 because it contradicted the
+AI Acceptable Use Policy on admin visibility and published a named staff roster. Its
+source of record is Training Materials/Training - Admin/AI Rollout Plan.docx.
 
 Origin: 2026-08-20. A false privacy assurance in the AUP was corrected in the
 generated HTML while the .docx kept the original wording, so the fix was one
