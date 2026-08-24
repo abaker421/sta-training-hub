@@ -32,15 +32,7 @@ cp "STA-Training-Hub.html" "dist/index.html"
 
 (That's the entire sync step. Both files are byte-identical when the app is correctly maintained.)
 
-If you also updated any of the source training docs in `Training Materials/Training - Staff/` or `Training Materials/Training - Admin/`, sync those too:
-
-```bash
-# Single doc example
-cp "../Training - Staff/Getting Started Guide.html" "dist/docs/Getting Started Guide.html"
-
-# Full re-sync
-# (see the deploy guide for the full one-liner)
-```
+**dist/ is the source of truth for served docs.** Edit `dist/docs/<file>.html` directly. There is no source tree to sync from: `Training Materials/Training - Staff/` and `Training - Admin/` hold 31 files against 90 served docs, so most served pages have no source copy and never did. The two EXCEPTIONS are the generated pairs listed in `GENERATED_PAIRS` in `convert-docx-to-html.py` - for those, edit the `.docx` in `dist/files/` and re-run the converter, never the HTML.
 
 ---
 
@@ -275,7 +267,7 @@ Also auto-rendered when the user stars any doc: **Saved** tab with all favorited
 ## What This App Does NOT Do
 
 - **No content rendering** - the app is a launcher. Clicking a card opens the source file (HTML/docx/md) in a new tab. Each doc renders in the browser's native viewer for that type.
-- **No editing** - the app is read-only. To update content, edit the source files in `Training Materials/Training - Staff/` or `Training Materials/Training - Admin/`, then re-sync `dist/docs/` and `dist/files/`.
+- **No editing** - the app is read-only. **dist/ is the source of truth for served docs.** Edit `dist/docs/<file>.html` directly. There is no source tree to sync from: `Training Materials/Training - Staff/` and `Training - Admin/` hold 31 files against 90 served docs, so most served pages have no source copy and never did. The two EXCEPTIONS are the generated pairs listed in `GENERATED_PAIRS` in `convert-docx-to-html.py` - for those, edit the `.docx` in `dist/files/` and re-run the converter, never the HTML.
 - **No analytics** - no tracking, no telemetry. The app loads no framework scripts at startup; the only external requests are the Roboto web font and, loaded lazily on first open of a `.md` or `.docx` doc, the SRI-pinned `marked` / `mammoth` libraries.
 - **No auth** - auth is enforced upstream by Cloudflare Access at the domain level (see `DEPLOY.md`). The app assumes whoever loads it is already authorized to view it.
 
