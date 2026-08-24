@@ -32,3 +32,7 @@ npm-debug.log*
 
 # Local dev helper (not part of the deploy)
 dist/serve.ps1
+
+# Python bytecode from local script runs
+__pycache__/
+*.pyc

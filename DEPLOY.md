@@ -48,7 +48,9 @@ Cloudflare Access free tier covers up to 50 users via the Zero Trust dashboard. 
 
 ### Part 3: Set up Cloudflare Access (the auth gate)
 
-This is the step that locks the site to `@k12sta.com` emails only. Without it, anyone with the URL can read everything.
+> **Status: DONE.** Verified in Cloudflare Zero Trust on 2026-08-24 - application `sta-training-hub - Cloudflare Workers`, policy `sta-training-hub - Production` (Allow, Emails ending in `@k12sta.com`), login via One-time PIN or the `K12sta` Google Workspace IdP. The steps below are retained as the rebuild procedure.
+
+This is the step that locks the site to `@k12sta.com` emails only. Without this step, anyone with the URL could read everything.
 
 1. In the Cloudflare dashboard, go to **Zero Trust** (it's in the left sidebar; if it's your first time there, you'll be prompted to choose a team name - use `school-tech` or similar).
 2. Go to **Settings** → **Authentication** → **Login methods**.
