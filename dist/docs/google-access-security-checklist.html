@@ -202,7 +202,7 @@
 
       <div class="callout red">
         <strong>Gmail and Calendar tools execute the moment they are called.</strong> <code>send_message</code>, <code>reply</code>, <code>forward</code>, <code>trash_message</code> and <code>trash_thread</code> run on call, and the Google Calendar tools <code>create_event</code>, <code>update_event</code> and <code>delete_event</code> behave the same way. None of them shows a confirmation prompt.
-        <br><br><strong>What stops an AI-initiated send</strong> is a written rule in each assistant project's instruction file - see <code>work-personal-assistant/instructions.md</code> v4.21, section "NEVER ACT in external systems", which names every one of those tools. The send scope cannot be revoked at the Google grant: the connector does not expose send and compose as separately revocable permissions, and dropping compose would drop drafting, which is the reason the connector is there.
+        <br><br><strong>What stops an AI-initiated send</strong> is a written rule in each assistant project's instruction file - see <code>work-personal-assistant/instructions.md</code> v4.21, section "NEVER ACT in external systems", which names every one of those tools. The send scope cannot be revoked at the Google grant. Verified 2026-08-20: the connector does not expose send and compose as separately revocable permissions, and dropping compose would drop drafting, which is the reason the connector is there.
         <br><br>That written rule is therefore the only control on AI-initiated sending, not a second layer behind a technical one. It must never be weakened, and a new mail-connected agent has no protection at all until it carries the rule too.
       </div>
     </div>
