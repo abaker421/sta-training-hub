@@ -10,18 +10,18 @@ A correction made directly to one of those .html files disappears silently -
 no error, no warning, and the page goes back to saying whatever the .docx
 says. Edit the .docx in dist/files/ and re-run this script instead.
 
-Current generated pairs (input -> output). Verified 2026-08-20 - only these two
-have an HTML output, so only these two can be silently overwritten:
-  dist/files/ai-acceptable-use-policy.docx        -> dist/docs/ai-acceptable-use-policy.html
-  dist/files/ai-restricted-data-reference-guide.docx
-                                                  -> dist/docs/ai-restricted-data-reference-guide.html
+The generated pairs are defined ONCE, in the GENERATED_PAIRS constant below.
+That constant is the single source of truth: a bare run converts exactly those
+pairs and nothing else. Deliberately NOT restated here - a prose copy of the
+list is exactly what drifts out of sync with the code.
 
-The other .docx files in dist/files/ are NOT generated pairs - they have no HTML
-output in dist/docs/. sta-salesforce-org-intake.docx is download-only, linked from
-the hub as files/sta-salesforce-org-intake.docx. ai-rollout-plan.docx is no longer
-in dist/files/ at all - it was unpublished on 2026-08-20 because it contradicted the
-AI Acceptable Use Policy on admin visibility and published a named staff roster. Its
-source of record is Training Materials/Training - Admin/AI Rollout Plan.docx.
+Any other .docx in dist/files/ is skipped, loudly, with the reason printed, and
+single-file mode refuses it unless --add-new-pair is passed. sta-salesforce-org-intake.docx
+is download-only, linked from the hub as files/sta-salesforce-org-intake.docx, and
+must NOT get an HTML page. ai-rollout-plan.docx is no longer in dist/files/ at all -
+it was unpublished on 2026-08-20 because it contradicted the AI Acceptable Use Policy
+on admin visibility and published a named staff roster. Its source of record is
+Training Materials/Training - Admin/AI Rollout Plan.docx.
 
 Origin: 2026-08-20. A false privacy assurance in the AUP was corrected in the
 generated HTML while the .docx kept the original wording, so the fix was one
@@ -34,12 +34,21 @@ the document's colors, tables, and images (base64-inlined), wrapped in
 STA brand styling for clean in-app rendering.
 
 Requirements:
-  - LibreOffice (headless mode)
+  - LibreOffice (headless mode). The binary is resolved by name, preferring
+    `soffice` and falling back to `libreoffice`, then to the standard install
+    locations. This is not cosmetic: Windows ships soffice.exe / soffice.com and
+    has NO `libreoffice` binary at all, so a hardcoded `libreoffice` cannot run
+    there no matter what is on PATH.
   - Python 3.6+
 
 Usage:
-  python3 convert-docx-to-html.py            # Convert all .docx in dist/files/
-  python3 convert-docx-to-html.py FILE.docx  # Convert a single file
+  python3 convert-docx-to-html.py            # Convert every GENERATED_PAIRS entry
+  python3 convert-docx-to-html.py FILE.docx  # Convert one known pair
+  python3 convert-docx-to-html.py FILE.docx --add-new-pair
+                                             # Convert a .docx that is not yet a
+                                             # known pair. Then add it to
+                                             # GENERATED_PAIRS or a bare run will
+                                             # never refresh it again.
 """
 
 import subprocess
@@ -54,6 +63,67 @@ from pathlib import Path
 HUB_ROOT = Path(__file__).resolve().parent
 SRC_DIR = HUB_ROOT / "dist" / "files"
 DEST_DIR = HUB_ROOT / "dist" / "docs"
+
+# ---------------------------------------------------------------------------
+# THE single source of truth for what this script generates (input -> output).
+# A bare run converts exactly these and nothing else. Anything else in
+# dist/files/ is skipped with a printed reason. Add an entry here - and only
+# here - when a .docx genuinely needs a served HTML page.
+# ---------------------------------------------------------------------------
+GENERATED_PAIRS = {
+    "ai-acceptable-use-policy.docx": "ai-acceptable-use-policy.html",
+    "ai-restricted-data-reference-guide.docx": "ai-restricted-data-reference-guide.html",
+}
+
+# LibreOffice binary names in preference order. Windows has no `libreoffice`.
+SOFFICE_NAMES = ("soffice", "libreoffice")
+
+# Checked only when neither name is on PATH.
+SOFFICE_FALLBACK_PATHS = (
+    r"C:\Program Files\LibreOffice\program\soffice.com",
+    r"C:\Program Files\LibreOffice\program\soffice.exe",
+    r"C:\Program Files (x86)\LibreOffice\program\soffice.com",
+    r"C:\Program Files (x86)\LibreOffice\program\soffice.exe",
+    "/usr/bin/soffice",
+    "/usr/bin/libreoffice",
+    "/usr/local/bin/soffice",
+    "/usr/local/bin/libreoffice",
+    "/snap/bin/libreoffice",
+    "/Applications/LibreOffice.app/Contents/MacOS/soffice",
+)
+
+
+def find_soffice():
+    """Return a runnable LibreOffice binary path, or None. Prefers `soffice`."""
+    for name in SOFFICE_NAMES:
+        found = shutil.which(name)
+        if found:
+            return found
+    for path in SOFFICE_FALLBACK_PATHS:
+        if os.path.isfile(path):
+            return path
+    return None
+
+
+def soffice_not_found_message():
+    """Error text naming every location that was checked."""
+    lines = ["ERROR: no LibreOffice binary found. Checked all of the following.", ""]
+    lines.append("On PATH, by name:")
+    lines += ["    %s" % n for n in SOFFICE_NAMES]
+    lines.append("")
+    lines.append("Then these locations:")
+    lines += ["    %s" % p for p in SOFFICE_FALLBACK_PATHS]
+    lines += [
+        "",
+        "Install LibreOffice, or add its program directory to PATH:",
+        "    Windows:       winget install TheDocumentFoundation.LibreOffice",
+        "                   (installs soffice.exe / soffice.com - there is no",
+        "                    'libreoffice' binary on Windows)",
+        "    Debian/Ubuntu: apt install libreoffice",
+        "    macOS:         brew install --cask libreoffice",
+    ]
+    return "\n".join(lines)
+
 
 # STA brand wrapper - applied to every converted doc
 WRAPPER_CSS = """
@@ -133,8 +203,12 @@ def inline_images(html_content, work_dir):
     return re.sub(r'<img[^>]+>', replace_img, html_content)
 
 
-def convert_one(filename):
-    """Convert a single .docx file to styled HTML. Returns output path or None."""
+def convert_one(filename, soffice, out_name=None):
+    """Convert a single .docx file to styled HTML. Returns output path or None.
+
+    `soffice` is the resolved LibreOffice binary. `out_name` is the destination
+    filename from GENERATED_PAIRS; it falls back to the input stem for a
+    --add-new-pair run."""
     print(f"\n=== {filename} ===")
     src_file = SRC_DIR / filename
     if not src_file.exists():
@@ -146,7 +220,7 @@ def convert_one(filename):
         shutil.copy2(src_file, work_dir / filename)
 
         result = subprocess.run(
-            ['libreoffice', '--headless', '--convert-to', 'html',
+            [soffice, '--headless', '--convert-to', 'html',
              '--outdir', str(work_dir), str(work_dir / filename)],
             capture_output=True, text=True, timeout=60
         )
@@ -155,7 +229,10 @@ def convert_one(filename):
             print(f"  stderr: {result.stderr}")
             return None
 
+        # LibreOffice names its output after the input stem; the published
+        # filename comes from GENERATED_PAIRS and need not match.
         html_basename = filename.replace('.docx', '.html')
+        out_basename = out_name or html_basename
         html_file = work_dir / html_basename
         if not html_file.exists():
             print(f"  FAIL: no HTML produced")
@@ -196,26 +273,49 @@ def convert_one(filename):
 </html>
 """
 
-        out_path = DEST_DIR / html_basename
+        out_path = DEST_DIR / out_basename
         out_path.write_bytes(final.encode('utf-8'))
         print(f"  OK -> {out_path.name} ({len(final):,} bytes)")
         return out_path
 
 
 def main():
-    if not shutil.which('libreoffice'):
-        print("ERROR: libreoffice not found in PATH. Install it or run this in the workspace shell.")
+    soffice = find_soffice()
+    if not soffice:
+        print(soffice_not_found_message())
         sys.exit(1)
+    print(f"LibreOffice: {soffice}")
+
     if not SRC_DIR.exists():
         print(f"ERROR: source folder not found: {SRC_DIR}")
         sys.exit(1)
     DEST_DIR.mkdir(parents=True, exist_ok=True)
 
-    if len(sys.argv) > 1:
+    args = list(sys.argv[1:])
+    add_new_pair = '--add-new-pair' in args
+    if add_new_pair:
+        args.remove('--add-new-pair')
+
+    if args:
         # single-file mode
-        targets = [sys.argv[1]]
+        name = args[0]
+        if name not in GENERATED_PAIRS and not add_new_pair:
+            print(f"\nREFUSED: {name} is not a generated pair.")
+            print("\nGENERATED_PAIRS currently defines:")
+            for src, dest in sorted(GENERATED_PAIRS.items()):
+                print(f"    {src}  ->  {dest}")
+            print(f"\n{name} has no HTML page by design - it is download-only, or new.")
+            print("Publishing one would put an unintended page in dist/docs/.")
+            print("\nIf it genuinely needs a page, re-run with --add-new-pair:")
+            print(f"    python3 convert-docx-to-html.py {name} --add-new-pair")
+            sys.exit(1)
+        targets = [name]
     else:
-        targets = sorted(f.name for f in SRC_DIR.iterdir() if f.suffix.lower() == '.docx')
+        targets = sorted(GENERATED_PAIRS)
+        skipped = sorted(f.name for f in SRC_DIR.iterdir()
+                         if f.suffix.lower() == '.docx' and f.name not in GENERATED_PAIRS)
+        for s in skipped:
+            print(f"SKIP {s} - not in GENERATED_PAIRS, so it has no HTML page by design.")
 
     if not targets:
         print("No .docx files to convert.")
@@ -223,9 +323,13 @@ def main():
 
     results = []
     for f in targets:
-        r = convert_one(f)
+        r = convert_one(f, soffice, GENERATED_PAIRS.get(f))
         if r:
             results.append(r)
+        if add_new_pair and f not in GENERATED_PAIRS and r:
+            print(f"\n  REMINDER: {f} is not in GENERATED_PAIRS.")
+            print(f"            Add \"{f}\": \"{r.name}\" to that constant, or a bare")
+            print("            run will never refresh this page and it will go stale.")
 
     print(f"\n=== Summary ===")
     print(f"Converted: {len(results)}/{len(targets)}")
