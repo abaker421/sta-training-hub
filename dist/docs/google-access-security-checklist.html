@@ -156,11 +156,10 @@
   </div>
 
   <div class="callout orange">
-    <strong>Corrected 2026-08-20 after a live access review.</strong> Three things on this page were wrong, and each is fixed in place below rather than quietly deleted.
-    <br><br><strong>1. Sending is live.</strong> This page previously told staff that the Gmail connector creates drafts only and that sending was a hard platform constraint. That was never true.
-    <br><strong>2. Drive is gone.</strong> The Google Drive connector was removed on 2026-08-20. School Tech has no company Google Drive, so every Drive item on this page is a future gate, not a live control.
-    <br><strong>3. Two of the projects named on this page never existed.</strong> The page previously referred throughout to an "Email Assistant" and a "Case Update Assistant". Neither project was ever built. Gmail is connected to the <strong>Work Personal Assistant</strong>, and the post-meeting Calendar-to-Salesforce flow has not been built at all. Names have been corrected in place.
-    <br><strong>4. Nothing here is enforced by the platform.</strong> Every control on this page is either a Google account setting you have to set yourself or a written rule in an assistant project's instruction file. No item below is applied automatically because it is written here.
+    <strong>Scope of this page.</strong> Every control below is either a Google account setting you have to set yourself or a written rule in an assistant project's instruction file. Nothing here is enforced by the platform, and no item is applied automatically because it is written here.
+    <br><br><strong>Sending is live.</strong> The Gmail connector is not draft-only, and no platform constraint prevents a send. See the send-scope note below.
+    <br><br><strong>Drive is not connected.</strong> The Google Drive connector was removed on 2026-08-20. School Tech has no company Google Drive, so every Drive item below is a future gate rather than a live control.
+    <br><br><strong>Which projects this covers.</strong> Gmail is connected to the <strong>Work Personal Assistant</strong>. There is no "Email Assistant" and no "Case Update Assistant", and the post-meeting Calendar-to-Salesforce flow has not been built.
   </div>
 
   <!-- ===================== SECTION 1 ===================== -->
@@ -202,10 +201,9 @@
       </div>
 
       <div class="callout red">
-        <strong>Correction 2026-08-20: sending is live, and no platform control prevents it.</strong> An earlier version of this page said the Gmail connector creates drafts only, that Anthropic requires explicit confirmation before any send, and that this was a hard platform constraint. All three statements were false, and they were false for the whole time the page was published.
-        <br><br><code>send_message</code>, <code>reply</code>, <code>forward</code>, <code>trash_message</code> and <code>trash_thread</code> execute the moment they are called. The Google Calendar tools <code>create_event</code>, <code>update_event</code> and <code>delete_event</code> behave the same way. None of them shows a confirmation prompt.
-        <br><br><strong>What actually stops an AI-initiated send</strong> is a written rule in each assistant project's instruction file - see <code>work-personal-assistant/instructions.md</code> v4.21, section "NEVER ACT in external systems", which names every one of those tools. The send scope cannot be revoked at the Google grant either. Verified 2026-08-20: the connector does not expose send and compose as separately revocable permissions, and dropping compose would drop drafting, which is the reason the connector is there. Adam ruled the same day that the scope stays and the written rule carries it alone. Treat that rule as the sole control on AI-initiated sending rather than a second layer behind a technical one - it must never be weakened, and a new mail-connected agent has no protection at all until it carries the rule too.
-        <br><br><strong>Why this matters more than the fix.</strong> A security document that claims a technical control exists where only a behavioural instruction ever did is worse than one that admits the gap, because it stops anyone from looking.
+        <strong>Gmail and Calendar tools execute the moment they are called.</strong> <code>send_message</code>, <code>reply</code>, <code>forward</code>, <code>trash_message</code> and <code>trash_thread</code> run on call, and the Google Calendar tools <code>create_event</code>, <code>update_event</code> and <code>delete_event</code> behave the same way. None of them shows a confirmation prompt.
+        <br><br><strong>What stops an AI-initiated send</strong> is a written rule in each assistant project's instruction file - see <code>work-personal-assistant/instructions.md</code> v4.21, section "NEVER ACT in external systems", which names every one of those tools. The send scope cannot be revoked at the Google grant: the connector does not expose send and compose as separately revocable permissions, and dropping compose would drop drafting, which is the reason the connector is there.
+        <br><br>That written rule is therefore the only control on AI-initiated sending, not a second layer behind a technical one. It must never be weakened, and a new mail-connected agent has no protection at all until it carries the rule too.
       </div>
     </div>
 
