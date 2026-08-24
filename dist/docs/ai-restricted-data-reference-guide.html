@@ -47,14 +47,9 @@
   .doc-shell img { max-width: 100%; height: auto; }
   .doc-shell ul, .doc-shell ol { margin: 8px 0 8px 24px; padding-left: 0; }
   .doc-shell li { margin: 4px 0; }
-  /* preserve LibreOffice color attributes on td */
   .doc-shell td[bgcolor] { color: inherit; }
   .doc-shell font[color="#ffffff"] { color: #fff !important; }
-  /* hide LibreOffice page header divs cleanly */
-  .doc-shell div[title="header"], .doc-shell div[title="footer"] {
-    margin: 0;
-    padding: 0;
-  }
+  .doc-shell div[title="header"], .doc-shell div[title="footer"] { margin: 0; padding: 0; }
   @media (max-width: 700px) {
     .doc-shell { margin: 0; padding: 20px 18px; border-radius: 0; box-shadow: none; }
   }
@@ -64,11 +59,11 @@
 /* preserved from source */
 
 		@page { size: 8.5in 11in; margin-left: 1in; margin-right: 1in; margin-top: 0.49in; margin-bottom: 0.49in }
-		p { direction: ltr; margin-bottom: 0.1in; widows: 2; orphans: 2; text-align: left; line-height: 115%; background: transparent }
-		h1 { direction: ltr; margin-top: 0.25in; margin-bottom: 0.1in; widows: 2; color: #004b8d; orphans: 2; text-align: left; background: transparent; page-break-after: avoid }
+		p { direction: ltr; line-height: 115%; text-align: left; orphans: 2; margin-bottom: 0.1in; widows: 2; background: transparent }
+		h1 { orphans: 2; color: #004b8d; text-align: left; widows: 2; margin-top: 0.25in; margin-bottom: 0.1in; direction: ltr; background: transparent; page-break-after: avoid }
 		h1.western { font-family: "Arial", sans-serif; font-weight: bold; font-size: 15pt }
-		h1.cjk { font-weight: bold; font-size: 15pt; font-family: "Arial" }
-		h1.ctl { font-weight: bold; font-family: "Arial"; font-size: 15pt }
+		h1.cjk { font-size: 15pt; font-family: "Arial"; font-weight: bold }
+		h1.ctl { font-family: "Arial"; font-size: 15pt; font-weight: bold }
 		a:link { color: #0563c1; text-decoration: underline }
 	
 </style>
