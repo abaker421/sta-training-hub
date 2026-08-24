@@ -213,7 +213,7 @@
       </div>
 
       <div class="callout orange">
-        <strong>The most important thing to know: NEITHER connector has a platform gate.</strong> Gmail's <code>send_message</code>, <code>reply</code> and <code>forward</code> execute the moment they are called - there is no draft-only mode and no confirmation prompt (see the Google Access Security Checklist, corrected 2026-08-20). Salesforce is the same. In both cases the only control is a written prohibition in the project's <code>instructions.md</code> that names the tools. Do not calibrate Salesforce risk against a Gmail gate that does not exist. If you give Claude write access and allow direct execution, it will update records immediately with no review step. You must build the "propose before execute" model into the connector or the instructions - it does not happen automatically.
+        <strong>The most important thing to know: NEITHER connector has a platform gate.</strong> Gmail's <code>send_message</code>, <code>reply</code> and <code>forward</code> execute the moment they are called - there is no draft-only mode and no confirmation prompt (see the Google Access Security Checklist). Salesforce is the same. In both cases the only control is a written prohibition in the project's <code>instructions.md</code> that names the tools. Do not calibrate Salesforce risk against a Gmail gate that does not exist. If you give Claude write access and allow direct execution, it will update records immediately with no review step. You must build the "propose before execute" model into the connector or the instructions - it does not happen automatically.
       </div>
     </div>
   </div>
@@ -695,7 +695,7 @@
         <div class="check-body">
           <div class="check-title">When any staff member leaves: revoke their Connected App authorization immediately</div>
           <div class="check-desc">Offboarding step (add to User Management Guide): Setup &rarr; Connected Apps OAuth Usage &rarr; find the departing user &rarr; Revoke. Also remove them from the "Claude AI Access" Permission Set. Do this the same day as their departure - do not wait for a quarterly audit. An active token for a former employee is a live security exposure.</div>
-          <div class="check-tip"><strong>This step does not exist yet.</strong> Verified 2026-08-20: the User Management Guide's offboarding procedure has five steps and none of them revokes a Salesforce credential or a Google OAuth grant. The Google Access Security Checklist correctly asks for the step to be ADDED; this page previously said it was already there, which is how the gap survived. Treat it as outstanding.</div>
+          <div class="check-tip"><strong>This is covered in the User Management Guide.</strong> Step 2b revokes Salesforce access (Setup &rarr; Connected Apps OAuth Usage, plus removal from the Claude-related permission set) and step 2a revokes the Google OAuth grant on the departing person's own Google account. Neither is automatic - both are manual, and both must be recorded with the date in the AI Access Register.</div>
         </div>
       </div>
     </div>
