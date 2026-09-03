@@ -16,6 +16,7 @@
   h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; color:#1e2a35; background:linear-gradient(90deg, #1e2a35, var(--doc-accent-dark, var(--doc-accent, #006098))); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
   @supports not (background-clip: text) { h1 { -webkit-text-fill-color:#1e2a35; color:#1e2a35; } }
   @media (forced-colors: active) { h1 { background:none; -webkit-text-fill-color:CanvasText; color:CanvasText; } }
+  @media print { h1 { background:none; -webkit-text-fill-color:#1e2a35; color:#1e2a35; } }
   .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
   .body { padding:28px 32px; }
   h2 { font-size:13pt; color:var(--doc-accent); margin:24px 0 8px; font-weight:700; }
