@@ -50,6 +50,8 @@ Cloudflare Access free tier covers up to 50 users via the Zero Trust dashboard. 
 
 > **Status: DONE.** Verified in Cloudflare Zero Trust on 2026-08-24 - application `sta-training-hub - Cloudflare Workers`, policy `sta-training-hub - Production` (Allow, Emails ending in `@k12sta.com`), login via One-time PIN or the `K12sta` Google Workspace IdP. The steps below are retained as the rebuild procedure.
 
+> **Preview URLs are deliberately DISABLED** (2026-09-03). The Access application above matches the exact production hostname only. A Workers version preview is served at `<version-id-prefix>-sta-training-hub.adamb-1a4.workers.dev` - a different hostname the exact-match application does NOT cover - and every build mints one. An anonymous fetch of a preview URL on 2026-09-03 returned the full hub with no Access login, confirming the gap. ⚠ **Do not re-enable Preview URLs without first creating a second Access application for `*-sta-training-hub.adamb-1a4.workers.dev` carrying the same `@k12sta.com` policy.** The Help Center already runs that pattern - a `*.sta-help-center-index.pages.dev` application beside its production one.
+
 This is the step that locks the site to `@k12sta.com` emails only. Without this step, anyone with the URL could read everything.
 
 1. In the Cloudflare dashboard, go to **Zero Trust** (it's in the left sidebar; if it's your first time there, you'll be prompted to choose a team name - use `school-tech` or similar).
