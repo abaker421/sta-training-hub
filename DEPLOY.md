@@ -50,7 +50,19 @@ Cloudflare Access free tier covers up to 50 users via the Zero Trust dashboard. 
 
 > **Status: DONE.** Verified in Cloudflare Zero Trust on 2026-08-24 - application `sta-training-hub - Cloudflare Workers`, policy `sta-training-hub - Production` (Allow, Emails ending in `@k12sta.com`), login via One-time PIN or the `K12sta` Google Workspace IdP. The steps below are retained as the rebuild procedure.
 
-> **Preview URLs are deliberately DISABLED** (2026-09-03). The Access application above matches the exact production hostname only. A Workers version preview is served at `<version-id-prefix>-sta-training-hub.adamb-1a4.workers.dev` - a different hostname the exact-match application does NOT cover - and every build mints one. An anonymous fetch of a preview URL on 2026-09-03 returned the full hub with no Access login, confirming the gap. ⚠ **Do not re-enable Preview URLs without first creating a second Access application for `*-sta-training-hub.adamb-1a4.workers.dev` carrying the same `@k12sta.com` policy.** The Help Center already runs that pattern - a `*.sta-help-center-index.pages.dev` application beside its production one.
+> **Preview URLs: new ones are disabled (2026-09-03), but a previously minted preview is STILL PUBLICLY READABLE.** The Access application above matches the exact production hostname only. A Workers version preview is served at `<version-id-prefix>-sta-training-hub.adamb-1a4.workers.dev` - a different hostname the exact-match application does NOT cover - and every build minted one.
+>
+> Re-verified 2026-09-03 ~20:25 UTC against `cf1e4909-sta-training-hub.adamb-1a4.workers.dev`:
+> - `/` returned **HTTP 200** with the full ~130 KB hub, unauthenticated.
+> - `/docs/ai-basics` returned **HTTP 200 with `CF-Cache-Status: MISS`** - a fresh origin fetch with no Access challenge, so this is NOT a stale edge-cache entry.
+> - A random path returned the Worker's own **404**, not an Access redirect, confirming Access does not cover this hostname.
+> - The content is pre-PR-#77, so this preview is pinned to an older deployed version.
+>
+> **Turning Preview URLs off stops NEW previews being minted. It does not revoke hostnames already minted.** Cloudflare's Access-for-Workers guide does not state otherwise either way; the behaviour above is measured, not inferred.
+>
+> ⚠ **Two things are needed and neither is done yet.**
+> 1. **Retire the already-minted preview hostnames.** They stay publicly readable until the Worker versions behind them are removed. This is the live exposure.
+> 2. **Before Preview URLs are re-enabled, attach a policy that actually covers previews.** Cloudflare Access supports Worker-level destinations (https://developers.cloudflare.com/workers/configuration/cloudflare-access/, read 2026-09-03): `preview_worker` with a `worker_id` protects one Worker's preview deployments, and `all_preview_workers` covers every Worker's previews account-wide. Prefer these over a hostname wildcard - they survive hostname changes. The hostname-based equivalent is a second Access application for `*-sta-training-hub.adamb-1a4.workers.dev` carrying the same `@k12sta.com` policy, the pattern the Help Center already runs with `*.sta-help-center-index.pages.dev`.
 
 This is the step that locks the site to `@k12sta.com` emails only. Without this step, anyone with the URL could read everything.
 
