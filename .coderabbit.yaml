@@ -9,8 +9,9 @@ reviews:
   auto_review:
     enabled: true
     drafts: false
-  path_filters:
-    - "!dist/**"              # generated mirror - regenerated from source, never review
+  # No path_filters. "!dist/**" was removed 2026-09-03: PR #76 made dist/ the source of
+  # truth for served docs, so excluding it excluded essentially all real content - the
+  # review saw scaffolding and ignored the product. dist/docs/**/*.html is now reviewable.
   path_instructions:
     - path: "STA-Training-Hub.html"
       instructions: >-

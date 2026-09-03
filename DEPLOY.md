@@ -50,6 +50,31 @@ Cloudflare Access free tier covers up to 50 users via the Zero Trust dashboard. 
 
 > **Status: DONE.** Verified in Cloudflare Zero Trust on 2026-08-24 - application `sta-training-hub - Cloudflare Workers`, policy `sta-training-hub - Production` (Allow, Emails ending in `@k12sta.com`), login via One-time PIN or the `K12sta` Google Workspace IdP. The steps below are retained as the rebuild procedure.
 
+> ⚠⚠ **PREVIEW URLs ARE STILL LIVE AND PUBLICLY READABLE. This is an OPEN exposure, not a closed one.** Preview URLs were intended to be turned off on 2026-09-03. Measurement says they are not off: new previews are still being minted on every build, and they serve CURRENT content with no Access challenge.
+>
+> The Access application above matches the exact production hostname only. Workers Builds mints **two** preview hostnames per build, neither covered by it:
+> - a **commit preview**, `<version-id-prefix>-sta-training-hub.adamb-1a4.workers.dev`
+> - a **branch preview**, `<branch-name>-sta-training-hub.adamb-1a4.workers.dev` - ⚠ **derived from the branch name, so it is guessable**, not a random hash.
+>
+> Measured 2026-09-03, read-only cache-busted fetches:
+>
+> | Host | Result |
+> | --- | --- |
+> | `cf1e4909-...` (older version) | `/` **200**, full ~130 KB hub. `/docs/ai-basics` **200, `CF-Cache-Status: MISS`**. A random path returns the Worker's own **404**, not an Access redirect - so Access does not cover this hostname at all. |
+> | `de091491-...` (commit preview, minted ~20:27 UTC **after** the intended disablement) | `/docs/ai-basics` **200, MISS**, and the content includes PR #77's fix - so it serves CURRENT content, not a stale snapshot. |
+> | `fix-hub-final-2026-09-03-...` (branch preview) | `/docs/ai-basics` **200**. Predictable hostname. Unmerged branch content is public. |
+>
+> A `MISS` is the test that matters: it means the response came fresh from the origin Worker with no Access challenge, so this is not an edge-cache artifact.
+>
+> **Do not assume the toggle worked.** Either the Preview URLs setting was not actually applied, or it does not suppress Workers Builds preview deployments. Which one is unresolved. **Verify by measurement, never by the dashboard state alone** - fetch a preview host and check for a 200 with a `MISS`.
+>
+> ⚠ **Three things are needed and none is done.**
+> 1. **Stop new previews being minted.** Confirm by pushing a commit and checking that the Cloudflare deploy comment lists no preview URL.
+> 2. **Retire the already-minted preview hostnames.** They stay readable until the Worker versions behind them are removed.
+> 3. **Attach a policy that actually covers previews, and treat this as the real fix.** Cloudflare Access supports Worker-level destinations (https://developers.cloudflare.com/workers/configuration/cloudflare-access/, read 2026-09-03): `preview_worker` with a `worker_id` protects one Worker's preview deployments, and `all_preview_workers` covers every Worker's previews account-wide. Prefer these over a hostname wildcard - they survive hostname changes and do not depend on a toggle staying off. The hostname-based equivalent is a second Access application for `*-sta-training-hub.adamb-1a4.workers.dev` carrying the same `@k12sta.com` policy, the pattern the Help Center already runs with `*.sta-help-center-index.pages.dev`.
+>
+> Until item 3 is in place, treat every branch pushed to this repo as published.
+
 This is the step that locks the site to `@k12sta.com` emails only. Without this step, anyone with the URL could read everything.
 
 1. In the Cloudflare dashboard, go to **Zero Trust** (it's in the left sidebar; if it's your first time there, you'll be prompted to choose a team name - use `school-tech` or similar).

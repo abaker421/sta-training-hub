@@ -10,9 +10,8 @@
   :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
   body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
   .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-  .head { background:#fff; color:#1e2a35; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #006098); border-radius:10px;  overflow:hidden; }
+  .head { background:#fff; color:#1e2a35; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent, #006098); border-radius:10px; overflow:hidden; }
   .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent,#006098) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#006098) 35%, #fff); color:var(--doc-accent,#006098); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
-
   .head h1 { color:#1e2a35; }
   .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent, #006098); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
   h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
@@ -20,64 +19,134 @@
   .body { padding:28px 32px; }
   h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
   h2:first-child { margin-top:0; }
+  h3 { font-size:11pt; color:#1e2a35; margin:16px 0 4px; font-weight:700; }
   p { margin-bottom:12px; font-size:11pt; }
   ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
   ol { margin:0 0 12px 22px; } ol li { margin-bottom:6px; font-size:11pt; }
   .note { background:#fdeeee; border-left:4px solid var(--red); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
   .note strong { color:var(--red); }
+  .info { background:#e8f2f8; border-left:4px solid var(--blue); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
   .prompts { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:16px 18px; margin-top:8px; }
   .prompts p { margin-bottom:8px; font-style:italic; color:#444; }
   .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+  code { background:#f4f6f8; border:1px solid var(--border); border-radius:3px; padding:1px 5px; font-size:10pt; }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="head">
-      <span class="badge">Live &middot; Admin (Adam only)</span>
-      <h1>Work Personal Assistant</h1>
-      <div class="tagline">Adam's day-to-day School Tech work assistant in Cowork.</div>
-      <div class="head-strip">COWORK &middot; DESKTOP WORKSPACE</div>
-    </div>
-    <div class="body">
-      <h2>What it is</h2>
-      <p>A Cowork assistant that handles Adam's School Tech work tasks and speaks in Adam's own colleague voice. It is the work counterpart to the Personal Assistant - same style baseline, different scope. <strong>It is Adam-only.</strong> A staff-template rollout has been deferred with no date, so this brief describes a single-operator tool, not a template awaiting replication.</p>
+<div class="wrap">
 
-      <h2>What it does</h2>
-      <ul>
-        <li>Rewrites work emails and messages to match Adam's tone, adapting register to the recipient (formal for vendors and leadership, casual for quick internal notes).</li>
-        <li>Drafts internal messages, vendor emails, customer follow-ups, and leadership updates.</li>
-        <li>Answers work questions directly and searches the web when a question needs current information.</li>
-        <li>Summarizes work content - emails, docs, and threads Adam shares.</li>
-        <li>Generates Today's Agenda: a five-section daily briefing - today's meetings, carryover, open projects, pending review, and Wren notes.</li>
-        <li>Runs the Skyward weekly intelligence scan on demand and saves an HTML digest.</li>
-        <li>Handles STA product troubleshooting, walks through Skyward navigation click-paths, and works through remote-access and SQL Server diagnostics (capabilities absorbed from the retired STA Support Expert in v3.0).</li>
-        <li><strong>Support coverage (v3.2).</strong> Extends that support work to <strong>RMA workflows</strong>, <strong>support operations</strong>, the <strong>Salesforce Case schema</strong>, and <strong>implementation and migration</strong> questions.</li>
-      </ul>
-
-      <h2>What it does not do</h2>
-      <ul>
-        <li><strong>Instructed never to act in external systems</strong> - and this is a written rule, not a platform limit. The Work Personal Assistant is the one agent that holds the Gmail grant, so <code>send_message</code>, <code>reply</code>, <code>forward</code>, <code>trash_message</code> and <code>trash_thread</code> are all exposed to it and each executes the moment it is called. The Calendar tools <code>create_event</code>, <code>update_event</code> and <code>delete_event</code> are the same. What stops it is the "NEVER ACT in external systems" section of its own <code>instructions.md</code> (v4.21), which names those tools. Verified 2026-08-20.</li>
-        <li>Personal tasks (home, family, creative writing, personal finances) &rarr; Personal Assistant.</li>
-        <li>Designing an agent or building a prompt &rarr; The Architect.</li>
-        <li>Sustained multi-source research &rarr; Deep Research.</li>
-        <li>Compliance interpretation or regulatory guidance &rarr; a security/compliance professional.</li>
-      </ul>
-
-      <h2>How to access it</h2>
-      <p>Lives in Adam's Cowork workspace as a dedicated project. Cowork-only - there is no claude.ai Project version.</p>
-
-      <div class="note">
-        <strong>The one data rule.</strong> Never paste restricted data - student PII, HR records, financial details, or credentials. When in doubt, leave it out.
-      </div>
-
-      <h2>Try starting with</h2>
-      <div class="prompts">
-        <p>"Rewrite this email to the vendor - keep it firm but cordial."</p>
-        <p>"Give me Today's Agenda."</p>
-        <p>"Summarize this thread and tell me what needs a reply."</p>
-      </div>
-    </div>
-    <div class="foot">School Technology Associates &middot; Work Personal Assistant v3.2 &middot; Adam-only &middot; Tool Brief &middot; Updated 2026-08-19</div>
+  <div class="head">
+    <div class="badge">Live &middot; Admin (Adam only)</div>
+    <h1>Work Personal Assistant</h1>
+    <div class="tagline">Adam's day-to-day School Tech work assistant in Cowork.</div>
+    <div class="head-strip">Cowork &middot; Desktop workspace</div>
   </div>
+
+  <div class="body">
+
+    <h2>What it is</h2>
+    <p>A Cowork assistant that handles Adam's School Tech work and speaks in his own colleague voice. It is the work counterpart to the Personal Assistant &mdash; same style baseline, different scope. It is Adam-only: a staff-template rollout has been deferred with no date, so this brief describes a single-operator tool, not a template awaiting replication.</p>
+    <p>The design intent is stated in its own procedure files: <strong>it is a secretary, not a reporter.</strong> It takes work off the operator's memory, holds it in a structured store, and brings it back at known times. A task the operator has to remember to ask about is a task the system failed on.</p>
+
+    <h2>What it does</h2>
+
+    <h3>Writing and correspondence</h3>
+    <ul>
+      <li>Rewrites work emails and messages to match Adam's tone, adapting register to the recipient &mdash; formal for vendors and leadership, casual for quick internal notes.</li>
+      <li>Drafts internal messages, vendor emails, customer follow-ups, and leadership updates.</li>
+      <li>Runs an always-on AI-tell cleaning pass on anything it writes, so drafts do not read as machine-generated.</li>
+      <li>Answers work questions directly, and searches the web when a question needs current information.</li>
+      <li>Summarizes work content &mdash; emails, docs, and threads Adam shares.</li>
+    </ul>
+
+    <h3>The daily agenda and the two standups</h3>
+    <ul>
+      <li>Produces the daily agenda on schedule or on demand, same layout either way: a <strong>Needs You Today</strong> lead card first and always expanded, an at-a-glance KPI strip second, then collapsed accordion sections for the detail. It triages before it renders, so the top of the page is what actually needs Adam.</li>
+      <li>Runs as a morning standup and an evening standup, each of which reads the task store and reports against it.</li>
+    </ul>
+
+    <h3>Task management</h3>
+    <ul>
+      <li>Holds Adam's work tasks in a single structured store and ingests them from conversation &mdash; "add a task", "put this on my list", "remind me to".</li>
+      <li>Displays them on request as a list, a table, or a chart, and answers scoping questions like "what can I knock out in 30 minutes".</li>
+      <li>Runs a nudge protocol across the two daily standups rather than waiting to be asked, and interrogates stalls &mdash; if an item is not moving, it asks why.</li>
+      <li>Updates and closes on Adam's word. It has explicit boundaries on what does <em>not</em> become a task.</li>
+    </ul>
+
+    <h3>Project tracking and meeting ingestion</h3>
+    <ul>
+      <li>Maintains the STA Project Tracker. <strong>The D1 tracker behind the hub's Projects tab is canonical</strong> for project state &mdash; projects, statuses, stages, open items, stage history, timelines &mdash; read and written only through the <code>sta-tracker</code> MCP tools.</li>
+      <li>Ingests the five recurring dev and support meetings, Granola first with Zoom as fallback, and accepts manually pasted transcripts.</li>
+      <li>Reads before it writes and reconciles on conflict. <strong>If a human changed the same field, it stops and reports rather than overwriting.</strong> Humans edit the same store through the hub tab, so conflicts are expected and never silently resolved.</li>
+      <li>Logs every ingested meeting so a meeting is never processed twice.</li>
+    </ul>
+
+    <h3>After-meeting checklist</h3>
+    <ul>
+      <li>Turns a customer meeting into a five-part wrap-up: the case comment, the Salesforce field list, Adam's own manual steps, the customer email, and what the customer owes back.</li>
+      <li>Works for any customer meeting type &mdash; implementation and migration, sales and discovery, support and escalation.</li>
+      <li><strong>Hand-back only.</strong> It never writes to Salesforce.</li>
+    </ul>
+
+    <h3>Product support</h3>
+    <ul>
+      <li>Handles School Tech product troubleshooting, walks Skyward navigation click-paths, and works through remote-access and SQL Server diagnostics &mdash; capabilities absorbed from the retired STA Support Expert.</li>
+      <li>Extends to RMA workflows, support operations, the Salesforce Case schema, and implementation and migration questions.</li>
+      <li>Runs the Skyward weekly intelligence scan on demand and saves an HTML digest.</li>
+    </ul>
+
+    <h3>Records that build over time</h3>
+    <ul>
+      <li><strong>Annual review prep.</strong> A year-long, append-only capture file organized by nine stable content buckets rather than by any review form's questions, so the year-end self-evaluation is written from a dated, sourced record instead of memory. Capture is silent and immediate.</li>
+      <li><strong>Work brain capture.</strong> New work-context facts &mdash; a new vendor, a process detail, a colleague update &mdash; are written to Adam's Work Brain automatically, without asking.</li>
+      <li><strong>Background logging.</strong> Three always-on silent behaviors: context-file maintenance, per-user enhancement logging, and central usage and feature-request capture. Any wish or friction Adam mentions in passing is captured.</li>
+    </ul>
+
+    <h2>How it grounds an answer</h2>
+    <ul>
+      <li><strong>Knowledge base first.</strong> A hard rule: it searches the KB before answering rather than reasoning from what it already carries.</li>
+      <li><strong>Every claim that can go stale carries a date</strong>, and it uses four truth labels rather than a simple verified/unverified split.</li>
+      <li><strong>It has a stated source precedence</strong> for when two sources disagree, so it resolves conflicts the same way every time instead of picking a winner per session.</li>
+      <li><strong>It writes corrections back to the file that held the wrong answer</strong>, dated. Fixing a fact in chat alone would let the file reproduce the error next session.</li>
+      <li><strong>No scoring without evidence.</strong> A valence gate governs any judgment it makes, and a deficit needs more evidence than a credit.</li>
+    </ul>
+
+    <h2>What it does not do</h2>
+    <ul>
+      <li><strong>Never acts in external systems &mdash; and that is a written rule, not a platform limit.</strong> The Work Personal Assistant is the one agent holding the Gmail grant, so <code>send_message</code>, <code>reply</code>, <code>forward</code>, <code>trash_message</code> and <code>trash_thread</code> are all exposed to it and each executes the moment it is called. The Calendar tools <code>create_event</code>, <code>update_event</code> and <code>delete_event</code> are the same. What stops it is the "NEVER ACT in external systems" section of its own instructions, which names those tools. Verified 2026-08-20.</li>
+      <li><strong>Never transcribes an inbound secret or auth code.</strong> If a one-time code, password, or token appears in something Adam shares, it stops rather than repeating it back.</li>
+      <li><strong>Redacts student data on sight</strong> &mdash; a hard rule, applied without being asked.</li>
+      <li>Never writes to Salesforce. The after-meeting checklist hands back what to do; Adam does it.</li>
+      <li>Personal tasks &mdash; home, family, creative writing, personal finances &rarr; <strong>Personal Assistant</strong>.</li>
+      <li>Designing an agent or building a prompt &rarr; <strong>The Architect</strong>.</li>
+      <li>Sustained multi-source research &rarr; <strong>Deep Research</strong>.</li>
+      <li>Compliance interpretation or regulatory guidance &rarr; a security or compliance professional.</li>
+    </ul>
+
+    <h2>How to access it</h2>
+    <p>It lives in Adam's Cowork workspace as a dedicated project. Cowork-only &mdash; there is no claude.ai Project version.</p>
+
+    <div class="note">
+      <strong>The one data rule.</strong> Never paste restricted data &mdash; student PII, HR records, financial details, or credentials. When in doubt, leave it out. The assistant redacts student data and refuses to transcribe credentials on its own, but that is a backstop, not a reason to paste it.
+    </div>
+
+    <h2>Try starting with</h2>
+    <div class="prompts">
+      <p>"Rewrite this email to the vendor &mdash; keep it firm but cordial."</p>
+      <p>"Give me my agenda."</p>
+      <p>"Add a task: follow up with Canyons on the clock shipment."</p>
+      <p>"What can I knock out in 30 minutes?"</p>
+      <p>"Ingest the dev calls and tell me what changed this week."</p>
+      <p>"Wrap up my meeting with [customer]."</p>
+      <p>"Add this to my annual review prep."</p>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    School Technology Associates &middot; Work Personal Assistant &middot; Adam-only &middot; Tool Brief &middot; Describes instructions v4.22 &middot; Updated 2026-08-24
+  </div>
+
+</div>
 </body>
 </html>
