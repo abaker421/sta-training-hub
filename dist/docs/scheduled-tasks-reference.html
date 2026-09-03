@@ -54,7 +54,7 @@
   <div class="body">
 
     <section class="bluf">
-      <p><strong>What this is:</strong> the catalog of scheduled tasks that keep STA's work products and AI system running - the daily, weekly, monthly and quarterly jobs that fire on their own in Cowork. Sixteen tasks, all Enabled.</p>
+      <p><strong>What this is:</strong> the catalog of scheduled tasks that keep STA's work products and AI system running - the daily, weekly, monthly and quarterly jobs that fire on their own in Cowork. Seventeen tasks, all Enabled.</p>
       <p><strong>Scope:</strong> STA work automations and AI-system maintenance only. Personal and one-time tasks are excluded by design and are not described here.</p>
       <p><strong>Status pills:</strong> <span class="pill on">Enabled</span> runs on schedule; <span class="pill off">Disabled</span> exists but is paused.</p>
     </section>
@@ -67,6 +67,7 @@
         <tr><td><strong>WPA standup morning</strong></td><td class="when">Weekdays 8:00 AM</td><td><strong>The light run.</strong> Reads the state the 16:30 recap wrote, checks only the delta since then, and captures and displays tasks. It does not redo the heavy pass.</td><td><span class="pill on">Enabled</span></td></tr>
         <tr><td><strong>WPA standup evening</strong></td><td class="when">Weekdays 4:30 PM</td><td><strong>The heavy run.</strong> Moved from 16:00 on 2026-08-19 so that it runs <em>after</em> work-brain-auto-tidy and Part G8 can therefore report.</td><td><span class="pill on">Enabled</span></td></tr>
         <tr><td><strong>Work brain auto tidy</strong></td><td class="when">Daily 4:00 PM</td><td>Auto-tidy for the <strong>Work Brain only</strong> (<code>Projects\STA Projects\Work Assistant\Adam-Work-Brain</code>). Not "both brains" - the scope is one brain by design.</td><td><span class="pill on">Enabled</span></td></tr>
+        <tr><td><strong>Daily email summary</strong></td><td class="when">Weekdays 4:40 PM</td><td>Summarises Adam's <strong>work</strong> inbox into <strong>one rolling file per week</strong> - each run splices that day's section onto the top of <code>work-email-week-of-{Monday}.html</code> and refreshes a roll-up of open items spanning the week so far. Monday's window covers Friday, Saturday and Sunday, so no weekend mail is lost even though the task does not run then. Read-only - it posts nothing and never sends mail. <strong>Filename collision:</strong> a separate personal and civic job writes <code>email-summary-week-*.html</code> into the same folder and is out of scope for this reference; never glob that pattern to find this task's output.</td><td><span class="pill on">Enabled</span></td></tr>
       </tbody>
     </table>
 
@@ -97,7 +98,7 @@
     </table>
 
     <h2>How this list was built</h2>
-    <p>This catalog is built from the <strong>Cowork Scheduled Tasks list</strong> - the registration surface itself - and every row above corresponds to a task on that list. The sixteen rows are the complete published set.</p>
+    <p>This catalog is built from the <strong>Cowork Scheduled Tasks list</strong> - the registration surface itself - and every row above corresponds to a task on that list. <strong>Seventeen of the eighteen registered tasks are described above.</strong> The one not described is <code>weekly-work-frustration-checkin</code> (weekdays 8:00 AM, Enabled). It is held back pending a scope call on whether it belongs in this reference - not because it is missing, disabled, or unknown. Counts here are stated against the registration list as exported 2026-08-27; re-check them against the live list before treating this page as complete.</p>
     <p><strong>Why the source matters.</strong> Earlier passes inferred the catalog from task <em>folders</em> on disk. That inference is wrong and it is what produced the previous errors in this document: <strong>a folder is an instruction store, not a registration.</strong> A folder can exist with no task registered against it, and a registered task can run without a folder of its own - so folder-counting both invented rows that never ran and missed rows that did. Rebuild this file from the Scheduled Tasks list, never from a directory listing.</p>
     <p>Personal and one-time tasks are excluded by design. They are out of scope for this reference and are deliberately not enumerated here.</p>
 
