@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports Guru - Tool Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --amber:#b06a00; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#fff; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent,#3f51b5); border-radius:10px;  overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent,#3f51b5) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#3f51b5) 35%, #fff); color:var(--doc-accent,#3f51b5); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+
+  .head h1 { color:#1e2a35; }
+  .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent,#3f51b5); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  ol { margin:0 0 12px 22px; } ol li { margin-bottom:6px; font-size:11pt; }
+  .note { background:#fef7e6; border-left:4px solid #F4A300; border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:#a06500; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Admin &middot; Claude.ai Project &middot; STA</span>
+      <h1>Sports Guru</h1>
+      <div class="tagline">Scores the office competitions and hands you a block to paste into the standings sheet.</div>
+      <div class="head-strip">CLAUDE.AI PROJECT &middot; OPEN FROM THE CHAT TAB</div>
+    </div>
+    <div class="body">
+      <h2>What it is</h2>
+      <p>A shared Claude.ai Project that keeps score for School Tech's office competitions. Ask it for a week and it looks up what actually happened, applies our league rules, and gives you the points for every team &mdash; plus a one-click block you paste straight into the standings spreadsheet.</p>
+      <p>It currently covers the <strong>NFL Team Draft Game</strong>. Basketball and the January walking challenge can be added to the same project when they come around.</p>
+
+      <h2>What it knows</h2>
+      <ul>
+        <li>The full scoring rules, including blowout, close-win and upset bonuses, playoff points and the end-of-season bonuses</li>
+        <li>Which rules were dropped for this season, so nobody re-litigates them mid-year</li>
+        <li>Every participant and the three teams they drafted</li>
+        <li>The exact column order and row layout of the WEEKLY DATA tab, so the paste lands in the right cells</li>
+      </ul>
+
+      <h2>How to use it</h2>
+      <ol>
+        <li>Sign in at claude.ai with your @k12sta.com email and open <strong>Sports Guru</strong> in your Projects list.</li>
+        <li>Ask for the week &mdash; for example, <em>"score week 3."</em></li>
+        <li>Skim the game table it gives you. Does that look like the week that happened?</li>
+        <li>Copy the paste block, click the cell it names, and press Ctrl+V.</li>
+      </ol>
+      <p>Everything downstream &mdash; weekly totals, season totals, the standings &mdash; recalculates on its own.</p>
+
+      <div class="note"><strong>Check this every time:</strong> after you paste, make sure the last column (Chargers) got a number. If the row stops short of it, the paste came up short &mdash; undo and paste again. A short row silently puts points on the wrong people.</div>
+
+      <h2>Where it helps most</h2>
+      <p>The upset bonus. It starts in Week 11 and depends on each team's record <em>entering</em> that week, which is the part that is easy to get wrong by hand. Sports Guru shows the records it used next to every upset it awards, so a bad call is visible instead of buried in the total.</p>
+
+      <div style="background:#f7f8fa; border-left:4px solid var(--doc-accent,#3f51b5); border-radius:0 8px 8px 0; padding:12px 16px; margin:0 0 18px; font-size:13.5px; color:#384450;"><strong>Try this:</strong> "Score week 12 &mdash; and show me the records you used for any upset wins."</div>
+
+      <h2>What it will not do</h2>
+      <ul>
+        <li>It does not edit the spreadsheet. It produces the block; you paste it.</li>
+        <li>It does not guess a result. If it cannot find a game, it says which one and leaves those teams at zero until you confirm.</li>
+        <li>It does not score an unfinished week. It will tell you which games are still outstanding.</li>
+      </ul>
+    </div>
+    <div class="foot">Sports Guru &middot; Claude.ai Project &middot; STA</div>
+  </div>
+</body>
+</html>
