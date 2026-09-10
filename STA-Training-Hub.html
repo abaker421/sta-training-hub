@@ -561,7 +561,7 @@ window.TRAINING_DATA = {
       icon: '\u{1F501}',
       sub: 'For Renewals - Jessie. Renewal-call practice, the AI Advisor, and the everyday skills. New here? Start on the Start Here tab first.',
       sections: [
-        { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'the-customer', 'behind-the-bell-tool'] },
+        { heading: 'Projects', note: 'Purpose-built Claude Projects for your team. Open one and start a conversation - it already has the context it needs.', docs: ['ai-advisor-tool', 'the-customer', 'behind-the-bell-tool', 'sports-guru'] },
         { heading: 'Getting started', note: 'Read this first to get up and running with the Behind the Bell assistant.', docs: ['behind-the-bell'] },
         { heading: 'Skills', note: 'Reusable skills that kick in automatically when they fit the task. New to skills? Start with the red Claude Skills card, then explore the rest.', docs: ['claude-skills', 'skill-html-checklist', 'skill-session-closeout', 'skill-sta-html-report'] }
       ]
@@ -583,7 +583,7 @@ window.TRAINING_DATA = {
       icon: '\u{1F527}',
       sub: 'Full admin kit: system map, user management, maintenance procedures, build pipeline, security and operational standards. Not for general staff distribution.',
       sections: [
-        { heading: 'Internal tools - Claude.ai Projects', note: 'Project-based agents on claude.ai - shared automatically with project members.', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'the-customer'] },
+        { heading: 'Internal tools - Claude.ai Projects', note: 'Project-based agents on claude.ai - shared automatically with project members.', docs: ['ai-advisor-tool', 'support-chat-tool', 'cohort-tool', 'behind-the-bell-tool', 'rd-tracker', 'the-customer', 'sports-guru'] },
         { heading: 'Internal tools - Coworks', note: 'Cowork agents that run on the AI Admin machine with file and tool access.', docs: ['the-architect-tool', 'work-assistant', 'deep-research', 'sf-admin-assistant', 'security-advisor', 'help-center-advisor', 'system-monitor-tool'] },
         // outbound-comms-grounding is Adam-only scope (ruling 2026-08-17) and is deliberately NOT carded here.
         // Registered in the agent registry for completeness only. Do not add a card for it.
@@ -1034,6 +1034,14 @@ window.TRAINING_DATA = {
       file: 'docs/ai-advisor-tool.html',
       type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
       added: '2026-06-08', updated: '2026-06-08'
+    },
+    'sports-guru': {
+      title: 'Sports Guru',
+      desc: 'Shared Claude.ai Project that scores School Tech office competitions. Ask it for a week and it returns every game, the points each team earned under our rules, and a one-click block to paste into the standings sheet. Currently covers the NFL Team Draft Game.',
+      deployment: 'project',
+      file: 'docs/sports-guru.html',
+      type: 'html', priority: 'admin', tags: ['Tool Brief', 'Admin'],
+      added: '2026-09-09', updated: '2026-09-09'
     },
     'support-chat-tool': {
       title: 'STA Support Chat',
