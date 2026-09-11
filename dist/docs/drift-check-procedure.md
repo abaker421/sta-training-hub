@@ -55,14 +55,19 @@ Card text lives in `window.TRAINING_DATA` inside `STA-Training-Hub.html` and is 
 3. For `.docx` files, grep cannot read directly. Extract text first:
 
    ```
-   docx2txt [file] - | grep [pattern]
-   ```
-
-   or:
-
-   ```
    python3 -c "import docx; print('\n'.join([p.text for p in docx.Document('[file]').paragraphs]))" | grep [pattern]
    ```
+
+   **Do NOT use `docx2txt [file] -`.** This procedure prescribed it until 2026-09-11, but the
+   `/usr/bin/docx2txt` build on this machine does not accept the `-` stdout argument: it prints its
+   usage message, writes no content, and **exits 0**. Piped into `grep` that produces no matches and
+   no error, so every `.docx` reads as clean whether it has drifted or not. Measured 2026-09-09 on
+   `AI Rollout Plan.docx`: `docx2txt` returned 130 bytes of usage text and zero matches, while
+   `python-docx` returned 12,034 characters containing 21 matches for the same term.
+
+   **Restore hazard:** any snapshot of this file dated before 2026-09-11 still carries the broken
+   `docx2txt` command. If it is ever restored from one, re-apply the `python-docx` fix above before
+   running a drift check, or every `.docx` will silently pass again.
 
    Apply to the `.docx` files actually served from `dist\files\`:
 
@@ -122,6 +127,6 @@ Mechanism 1 (this procedure) runs on every change. Mechanism 2 invokes the `trai
 
 ---
 
-**Last updated:** 2026-08-19 (scan root repointed to the served `dist\docs\` set + card data; `.docx` apply-to list corrected to the files actually served; card-date bump added as step 6).
+**Last updated:** 2026-09-11 - removed the `.docx` extraction command `docx2txt [file] -`, which writes no content and exits 0 on this machine, so every `.docx` had been reading as clean regardless of its contents. `python-docx` is now the only prescribed command. The vault copy of this procedure was corrected on 2026-09-09; this served copy was missed by that pass and kept prescribing the broken command as its first option. Prior stamp: 2026-08-19 (scan root repointed to the served `dist\docs\` set + card data; `.docx` apply-to list corrected to the files actually served; card-date bump added as step 6).
 
 <!-- EOF -->
