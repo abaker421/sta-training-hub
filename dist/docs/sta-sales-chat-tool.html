@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Chat - Tool Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --amber:#b06a00; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#fff; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent,#3f51b5); border-radius:10px;  overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent,#3f51b5) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#3f51b5) 35%, #fff); color:var(--doc-accent,#3f51b5); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+  .head h1 { color:#1e2a35; }
+  .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent,#3f51b5); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  h3 { font-size:11.5pt; color:#1e2a35; margin:18px 0 6px; font-weight:700; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul,ol { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  table { width:100%; border-collapse:collapse; margin:0 0 16px; font-size:10.5pt; }
+  th,td { border:1px solid var(--border); padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:#f4f6f8; font-weight:700; color:#1e2a35; }
+  code { background:#f4f6f8; border:1px solid var(--border); border-radius:4px; padding:1px 5px; font-size:10pt; }
+  .note { background:#fef7e6; border-left:4px solid #F4A300; border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:#a06500; }
+  .crit { background:#fdf0ee; border-left:4px solid var(--red); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .crit strong { color:#a02a1e; }
+  .try { background:#f7f8fa; border-left:4px solid var(--doc-accent,#3f51b5); border-radius:0 8px 8px 0; padding:12px 16px; margin:0 0 18px; font-size:13.5px; color:#384450; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Admin &middot; Claude.ai Project &middot; STA</span>
+      <h1>Sales Chat</h1>
+      <div class="tagline">The sales assistant: outreach and email help, district and product answers, and power mapping before a meeting.</div>
+      <div class="head-strip">CLAUDE.AI PROJECT &middot; OPEN FROM THE CHAT TAB</div>
+    </div>
+    <div class="body">
+      <h2>What it is</h2>
+      <p>A shared Claude.ai Project built for the sales team. Primary user is Pat; Jessie uses it for renewals; anyone at STA can open it. It carries six context files covering STA's own products and leadership, outreach and objection playbooks, how K-12 districts actually buy, the house writing voice, the power-mapping research method, and the vendor-side map of Skyward staff.</p>
+
+      <h2>What it does</h2>
+      <ul>
+        <li><strong>Email and outreach.</strong> Drafts and sharpens customer messages against the STA house voice, calibrated to who is receiving them.</li>
+        <li><strong>Objection handling.</strong> Answers "they said X, now what" with the play and what is actually going on behind the objection.</li>
+        <li><strong>District and product questions.</strong> Who signs, which fund pays, what a product does, which Skyward platform it needs.</li>
+        <li><strong>Power mapping.</strong> Calls the <code>sales-power-mapping</code> skill to build a pre-meeting or pre-event briefing.</li>
+      </ul>
+
+      <h2>How to access</h2>
+      <p>Sign in at claude.ai with your @k12sta.com email and open <strong>Sales Chat</strong> in your Projects list.</p>
+
+      <h2>What it will not do</h2>
+      <p>It will not invent pricing, contract terms, SLAs, support policy or Skyward compatibility, and it will not assert that a product is compliant with any law. It will not tell you a district already runs something, because it has no access to Salesforce. Those answers come from Andy, Adam or Chris, and the Project says so rather than guessing.</p>
+
+      <div class="crit"><strong>Platform accuracy matters most here.</strong> VirtuaTime is Qmlativ only. Naming the wrong Skyward platform is the most visible error possible in front of this audience, so the Project asks rather than assumes.</div>
+
+      <div class="try"><strong>Try this:</strong> "Draft a short email to a business official at a district whose referendum passed in November, asking what it covers on the operations side. No meeting offer."</div>
+    </div>
+    <div class="foot">Sales Chat &middot; Claude.ai Project &middot; STA</div>
+  </div>
+</body>
+</html>

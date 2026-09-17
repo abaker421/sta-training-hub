@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Chat - Getting Started</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --amber:#b06a00; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#fff; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent,#3f51b5); border-radius:10px;  overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent,#3f51b5) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#3f51b5) 35%, #fff); color:var(--doc-accent,#3f51b5); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+  .head h1 { color:#1e2a35; }
+  .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent,#3f51b5); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  h3 { font-size:11.5pt; color:#1e2a35; margin:18px 0 6px; font-weight:700; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul,ol { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  table { width:100%; border-collapse:collapse; margin:0 0 16px; font-size:10.5pt; }
+  th,td { border:1px solid var(--border); padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:#f4f6f8; font-weight:700; color:#1e2a35; }
+  code { background:#f4f6f8; border:1px solid var(--border); border-radius:4px; padding:1px 5px; font-size:10pt; }
+  .note { background:#fef7e6; border-left:4px solid #F4A300; border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:#a06500; }
+  .crit { background:#fdf0ee; border-left:4px solid var(--red); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .crit strong { color:#a02a1e; }
+  .try { background:#f7f8fa; border-left:4px solid var(--doc-accent,#3f51b5); border-radius:0 8px 8px 0; padding:12px 16px; margin:0 0 18px; font-size:13.5px; color:#384450; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+  :root { --doc-accent:#006098; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">For the Sales Team</span>
+      <h1>Sales Chat - Getting Started</h1>
+      <div class="tagline">What it knows, what only you can tell it, and how to get a real answer out of it.</div>
+      <div class="head-strip">CLAUDE.AI PROJECT &middot; ACTIVE SINCE 2026-09-17</div>
+    </div>
+    <div class="body">
+
+      <h2>Open it</h2>
+      <p>Sign in at claude.ai with your @k12sta.com email. <strong>Sales Chat</strong> is in your Projects list. Start a conversation in it the same way you would any other chat - it already has the context it needs loaded.</p>
+
+      <h2>What it already knows</h2>
+      <table>
+        <tr><th>Area</th><th>What you can ask</th></tr>
+        <tr><td><strong>Our products</strong></td><td>What each one does, which Skyward platform it needs, who in a district owns the problem it solves.</td></tr>
+        <tr><td><strong>Outreach and email</strong></td><td>When districts are actually reachable, what a first email should look like, renewal timing, how to reach someone mid-migration.</td></tr>
+        <tr><td><strong>Objections</strong></td><td>"No budget," "we already have something," "we have to go out to RFP," "the board has to approve," "we tried this before."</td></tr>
+        <tr><td><strong>How districts buy</strong></td><td>Who signs, who can only block, which fund legally pays, what a co-op contract skips, what kills deals.</td></tr>
+        <tr><td><strong>Skyward staff</strong></td><td>Who owns which product area on Skyward's side. Always quoted with the date that data was collected.</td></tr>
+        <tr><td><strong>Our voice</strong></td><td>How School Tech writes. It applies this to every draft without being asked.</td></tr>
+      </table>
+
+      <h2>The four things only you can tell it</h2>
+      <p>Nothing it can research will answer these, and it will ask you for them rather than guess:</p>
+      <ol>
+        <li><strong>Which Skyward platform</strong> the district is on - SMS 2.0 or Qmlativ.</li>
+        <li><strong>What they already run of ours.</strong></li>
+        <li><strong>Any live thread</strong> - an open case, a quote, a renewal. "None open" is a real answer.</li>
+        <li><strong>Anything you must not say</strong> - a lost deal, an unresolved escalation, a person who left. "Nothing flagged" is a real answer.</li>
+      </ol>
+      <div class="note"><strong>Why it leaves these blank instead of guessing.</strong> If you do not supply them, a briefing ships with those fields visibly empty and marked for you to fill. That is on purpose. A guess printed on a page you are holding in front of a customer is worse than a blank.</div>
+
+      <h2>Skills: you have to ask for them by name</h2>
+      <p>Skills are the reusable tools that build finished things - a briefing, a report, an SOW, a checklist. <strong>Inside a Project they do not start on their own.</strong> Name the one you want, or describe the outcome and let it pick.</p>
+      <table>
+        <tr><th>Say this</th><th>You get</th></tr>
+        <tr><td>"Power map [district] for me" or "there's a user group in [state]"</td><td><code>sales-power-mapping</code> builds a briefing you can carry into the room</td></tr>
+        <tr><td>"Write this up as a report"</td><td><code>sta-html-report</code> produces a branded HTML file</td></tr>
+        <tr><td>"Turn this into an SOW"</td><td><code>sow-writer</code></td></tr>
+        <tr><td>"How do we compare to [competitor]"</td><td><code>vendor-evaluation</code></td></tr>
+      </table>
+      <div class="note"><strong>If it ever tells you a skill cannot be run from a Project, that is wrong.</strong> Say so and ask it to call the skill by name. Tell Adam if it keeps happening.</div>
+
+      <h2>Two rules it follows on every draft</h2>
+      <ul>
+        <li><strong>No signature block.</strong> Drafts end at the sign-off line, because Gmail adds your signature automatically. One in the draft arrives twice.</li>
+        <li><strong>No meeting offer unless you ask for one.</strong> It will not add "happy to jump on a call" to anything.</li>
+      </ul>
+
+      <h2>What it will not do</h2>
+      <p>It will not invent pricing, contract terms, SLAs, support policy, or whether a product works with a given Skyward version. It will not tell you a district is an existing customer, because it cannot see Salesforce. When the honest answer is "I don't know," it says so and names who does.</p>
+
+      <h2>Try these first</h2>
+      <div class="try"><strong>1.</strong> "I'm meeting with [district] next week. What should I know before I walk in?"</div>
+      <div class="try"><strong>2.</strong> "A business official told me it's not in this year's budget. What's actually going on and what do I say?"</div>
+      <div class="try"><strong>3.</strong> "Draft a follow-up to a tech director who went quiet after a demo three weeks ago."</div>
+      <div class="try"><strong>4.</strong> "Which fund would a district use to buy time clocks, and why does that matter?"</div>
+
+    </div>
+    <div class="foot">School Technology Associates &middot; Sales Chat &middot; Getting Started</div>
+  </div>
+</body>
+</html>
