@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Power Mapping - Skill Brief</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap');
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --dark:#1A1A2E; --blue:#006098; --blue-dark:#004d7a; --green:#6bc04b; --green-dark:#3a8a1e; --amber:#b06a00; --red:#c0392b; --gray:#8a8d8e; --bg:#f4f6f8; --border:#dde3e8; }
+  body { font-family:'Roboto',Arial,sans-serif; color:#222; background:var(--bg); line-height:1.6; padding:40px 20px; }
+  .wrap { max-width:900px; margin:0 auto; background:#fff; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .head { background:#fff; padding:24px 30px 0; border:1px solid #dde3e8; border-top:6px solid var(--doc-accent,#3f51b5); border-radius:10px;  overflow:hidden; }
+  .head-strip { margin:18px -30px 0; padding:9px 30px; background:color-mix(in srgb, var(--doc-accent,#3f51b5) 12%, #fff); border-top:1px solid color-mix(in srgb, var(--doc-accent,#3f51b5) 35%, #fff); color:var(--doc-accent,#3f51b5); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; }
+  .head h1 { color:#1e2a35; }
+  .badge { display:inline-block; background:#f4f6f8; border:1px solid #dde3e8; color:var(--doc-accent,#3f51b5); font-size:11px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; padding:4px 12px; border-radius:12px; margin-bottom:12px; }
+  h1 { font-size:22pt; font-weight:700; letter-spacing:0.3px; }
+  .tagline { color:#5f6b76; font-size:11pt; margin-top:6px; }
+  .body { padding:28px 32px; }
+  h2 { font-size:13pt; color:var(--blue); margin:24px 0 8px; font-weight:700; }
+  h2:first-child { margin-top:0; }
+  h3 { font-size:11.5pt; color:#1e2a35; margin:18px 0 6px; font-weight:700; }
+  p { margin-bottom:12px; font-size:11pt; }
+  ul,ol { margin:0 0 12px 20px; } li { margin-bottom:6px; font-size:11pt; }
+  table { width:100%; border-collapse:collapse; margin:0 0 16px; font-size:10.5pt; }
+  th,td { border:1px solid var(--border); padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:#f4f6f8; font-weight:700; color:#1e2a35; }
+  code { background:#f4f6f8; border:1px solid var(--border); border-radius:4px; padding:1px 5px; font-size:10pt; }
+  .note { background:#fef7e6; border-left:4px solid #F4A300; border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .note strong { color:#a06500; }
+  .crit { background:#fdf0ee; border-left:4px solid var(--red); border-radius:0 6px 6px 0; padding:14px 18px; margin:20px 0; font-size:10.5pt; }
+  .crit strong { color:#a02a1e; }
+  .try { background:#f7f8fa; border-left:4px solid var(--doc-accent,#3f51b5); border-radius:0 8px 8px 0; padding:12px 16px; margin:0 0 18px; font-size:13.5px; color:#384450; }
+  .trigger { background:#f4f6f8; border:1px solid var(--border); border-radius:8px; padding:14px 18px; margin-top:8px; }
+  .trigger p { margin-bottom:6px; font-style:italic; color:#444; }
+  .foot { padding:18px 32px; border-top:1px solid var(--border); color:var(--gray); font-size:9pt; }
+  :root { --doc-accent:#0a6571; }
+  h2 { color:#0a6470; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">Sales</span>
+      <h1>Sales Power Mapping</h1>
+      <div class="tagline">Turns "I'm meeting with this district" into paper you can actually work from in the room.</div>
+      <div class="head-strip">SKILL &middot; CALL IT BY NAME</div>
+    </div>
+    <div class="body">
+
+      <h2>What it does</h2>
+      <p>A contact list tells you who works there. A power map tells you <strong>who can move a decision</strong>. This skill researches a district or a whole user group from published sources, ranks by buying signal rather than size, sweeps the state law that changes what you are allowed to claim, and builds it into a briefing designed for someone standing up holding paper with a person waiting on them.</p>
+
+      <h2>Two modes</h2>
+      <table>
+        <tr><th>Mode</th><th>Say</th><th>You get</th></tr>
+        <tr><td><strong>One district</strong></td><td>"Prep me for [district]" / "I'm meeting with [district]"</td><td>Three tabs: the verdict and landmines, the named seats with who decides and who only blocks, then state law and what changed there recently.</td></tr>
+        <tr><td><strong>A user group or event</strong></td><td>"There's a Skyward user group in [state]"</td><td>Four tabs: everything true of the whole room stated once, an alphabetical badge-to-page index, one page per district, and a law page organised as "if they say X, you say Y."</td></tr>
+      </table>
+
+      <h2>How to trigger it</h2>
+      <div class="trigger">
+        <p>"power map this district"</p>
+        <p>"prep me for [district]"</p>
+        <p>"who should I talk to at [district]"</p>
+        <p>"there's a user group in [state]"</p>
+        <p>"who's in the room"</p>
+      </div>
+      <div class="note"><strong>Inside a Project you have to name it.</strong> Skills do not start on their own in a Claude.ai Project. Say "use sales power mapping" or describe the outcome and the Project will call it.</div>
+
+      <h2>Why the district pages look the way they do</h2>
+      <p>Every district gets its own page, alphabetical, with the same eight fields in the same position every time. That is deliberate: you find a page by the district on someone's badge in about five seconds, then read by position instead of hunting. Every page carries <strong>a verbatim opening line you can say out loud</strong>, built on a published fact about that district.</p>
+      <p>An earlier version organised the same research by department. It was rebuilt from scratch, because a briefing that scatters one district across four sections cannot be used in front of a customer.</p>
+
+      <h2>The blanks are on purpose</h2>
+      <p>Four fields on every district page ship empty and marked for you to fill: <strong>the Skyward platform, what they already run of ours, any live thread, and anything you must not say.</strong> Those live in Salesforce and in your own head. The skill has no access to either, and it will not guess.</p>
+      <div class="crit"><strong>This rule exists because it was broken once.</strong> A draft carried a relationship column inferred from a source that does not carry that traffic. It was wrong, and it was printed as fact in a document a seller would have carried into a meeting. A guess on a page in front of a customer is worse than a blank.</div>
+
+      <h2>What you should bring</h2>
+      <p>For a user group, a Salesforce view filtered to State = XX, Type = Customer, SIS = Skyward, pasted in. Public sources will not give you a state's Skyward customer list. If you do not have one, the skill falls back to the user group's own published steering committee and says on the front page that it is a working set rather than the full account list.</p>
+
+      <h2>Good to know</h2>
+      <p class="note">It will not tell you a claim is safe when it is not. Anything it could not verify is marked as unverified <strong>in place, next to the claim</strong>, so you know which lines you can repeat to a district and which need a phone call first. "Not found" is a correct answer and it will say so rather than fill the gap.</p>
+
+      <h2>Requirements</h2>
+      <p style="font-size:9.5pt;color:#666;margin:-4px 0 10px;">What this skill needs in order to run.</p>
+      <p><strong>Skills</strong> - <code>sta-html-report</code> for the finished file.</p>
+      <p><strong>Connectors / MCP servers</strong> - None, by design. It uses the public internet plus whatever you give it in the chat.</p>
+      <p><strong>From you</strong> - the four fields above, and a district list for event mode.</p>
+      <p><strong>If something is missing</strong> - a missing district list is <strong>LOUD</strong> and it will tell you. The <strong>SILENT</strong> one is the four blank fields: the briefing still builds and still looks finished, and the blanks are only obvious if you read the front page that lists them.</p>
+
+    </div>
+    <div class="foot">School Technology Associates &middot; Sales Power Mapping &middot; Custom Skill</div>
+  </div>
+</body>
+</html>
